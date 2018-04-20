@@ -10,4 +10,14 @@ Setting up
 	$git init
 	$git remote add origin https://github.com/qileng/T0.git
 	$git pull origin master
-	-- Alternatively, 
+	-- Alternatively, without creating a new directory
+	$git clone https://github.com/qileng/T0.git
+
+-------------------------------------------------
+Branching
+	-- Create a new branch
+	$git branch foo
+	-- Switch to a specific branch
+	$git checkout foo
+	-- Check all of your branches and which one you are currently on
+	$git branch
