@@ -19,3 +19,5 @@ Branching
 	$git branch foo
 	-- Switch to a specific branch
 	$git checkout foo
+	-- Check all of your branches and which one you are currently on
+	$git branch
