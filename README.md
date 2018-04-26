@@ -32,3 +32,11 @@ Branching <br/>
 	pull request.</br>
 	6. Ideally, if there's no conflict, it can then be simply merged by clicking
 	the merge button.
+
+Collaboration <br/>
+	1. If you work with someone else in the same branch, make sure you pull everytime before you start. <br/>
+	2. If you want to pull someone's branch for the first time <br/>
+	`git branch <branch>` </br>
+	`git branch -u origin/<branch>` This links your local branch with the branch in github</br>
+	`git pull`</br>
+	3. Avoid editing the same part of code at the same time. I'm not sure if manually solve conflict is the only way when auto-merge fails. <br/>
