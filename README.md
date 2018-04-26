@@ -10,11 +10,11 @@ Basic Git Workflow <br/>
 
 Setting up <br/>
 	1. Once in your prefered directory </br>
-	`git init`</br>
-	`git remote add origin https://github.com/qileng/T0.git `</br>
-	`git pull origin master`</br>
+	`git init`
+	`git remote add origin https://github.com/qileng/T0.git `
+	`git pull origin master`
 	2. Alternatively, without creating a new directory </br>
-	`git clone https://github.com/qileng/T0.git`</br>
+	`git clone https://github.com/qileng/T0.git`
 
 
 Branching <br/>
@@ -32,3 +32,11 @@ Branching <br/>
 	pull request.</br>
 	6. Ideally, if there's no conflict, it can then be simply merged by clicking
 	the merge button.
+
+Collaboration <br/>
+	1. If you work with someone else in the same branch, make sure you pull everytime before you start. <br/>
+	2. If you want to pull someone's branch for the first time <br/>
+	`git branch <branch> 
+	`git branch -u origin/<branch>` This links your local branch with the branch in github
+	`git pull`
+	3. Avoid editing the same part of code at the same time. I'm not sure if manually solve conflict is the only way when auto-merge fails. <br/>
