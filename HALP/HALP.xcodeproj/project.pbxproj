@@ -51,6 +51,7 @@
 		ED6C2A6A209302660063B4AC /* HALPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HALPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6C2A6E209302660063B4AC /* HALPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HALPUITests.swift; sourceTree = "<group>"; };
 		ED6C2A70209302660063B4AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED6C2A7C2093052E0063B4AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +82,7 @@
 		ED6C2A3E209302640063B4AC = {
 			isa = PBXGroup;
 			children = (
+				ED6C2A7C2093052E0063B4AC /* README.md */,
 				ED6C2A49209302640063B4AC /* HALP */,
 				ED6C2A62209302660063B4AC /* HALPTests */,
 				ED6C2A6D209302660063B4AC /* HALPUITests */,

@@ -11,15 +11,27 @@ Basic Git Workflow <br/>
 Git Integration with Xcode9 <br/>
 1. Choose "Clone an existing project" at startup.<br/>
 2. Follow instructions to enter URL, your github account information, and location. <br/>
-3. Open/Create a file to open the editor (I have no idea why the editor cannot be opened without a file). <br/> 
-4. Hit command+2 or in the toolbar, go to View->Navigators->Show Source Control Navigator. <br/>
+3. Now the project window should display. If not, open HALP.xcodeproj. <br/> 
+4. Hit command+2 or click the second icon in the nav bar in top left.<br/>
 5. Then you can create a new branch by right-clicking master. <br/>
 6. After you're done with editing, hit option+command+C or in the toolbar, go to Source Control->Commit. <br/>
 7. Commit screen is really straight-forward, you have the option to push to a remote branch at the time. It automatically set up everything for you. <br/>
-8. Remember to pull everytime before you start working on something. <br/>
+8. If you see a folder xcuserdata/ in the commit screen, don't select that. It's completely private settings and I added it in git ignore but xcode still shows a checkbox right next to it.
+9. Remember to pull everytime before you start working on something. <br/>
 
 Miscellaneous <br/>
 1. I use tab character for indentation. Although I set tab as 4 spaces in Xcode, a tab character here is still 8 spaces. It works as 4 spaces when I open it in Vim. It does seem like a whitespace in Xcode is only half the width of a whitespace in Vim. So anyway to get around that, in Preference->Text Editing->Indentation, set tab key to "insert tab character" instead of "insert whitespaces". Honestly, I don't like Xcode already. <br/>
+
+Run the App on your device <br/>
+1. Log into shared Apple ID, which we don't have one now.
+2. Click on the project icon from the left column and select that account in signing->team. 
+3. Connect your device.
+4. From the top of project window, use the dropdown list to select your device. It should be right next to the run and stop button.
+5. Hit run.
+6. It may say something like "your iphone is busy, preparing debugger tools". If that happens, follow https://stackoverflow.com/questions/46316373/xcode-9-iphone-is-busy-preparing-debugger-support-for-iphone
+7. After Xcode installs the app, go to Setting->General->Device Management->Some Apple ID and trust it.
+
+
 
 
 
