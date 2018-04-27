@@ -40,3 +40,10 @@ Collaboration <br/>
 	`git branch -u origin/<branch>` This links your local branch with the branch in github</br>
 	`git pull`</br>
 	3. Avoid editing the same part of code at the same time. I'm not sure if manually solve conflict is the only way when auto-merge fails. <br/>
+
+Integration with Xcode9 <br/>
+	1. Choose "Clone an existing project" at startup.<br/>
+	2. Follow instructions to enter URL, your github account information, and location. <br/>
+	3. Open/Create a file to open the editor. (I have no idea why the editor cannot be opened without a file)
+	4. Hit command+2 or in the toolbar, go to View->Navigators->Show Source Control Navigator.
+	5. Then you can create a new branch by right-clicking master.
