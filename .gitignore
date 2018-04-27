@@ -1,0 +1,12 @@
+# Xcode User Data
+xcuserdata/
+
+# OSX temp files
+.DS_store
+.Transhes
+*.swp
+
+# Xcode temp folder
+build/
+DerivedData/
+
