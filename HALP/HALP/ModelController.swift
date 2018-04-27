@@ -20,19 +20,18 @@ import UIKit
 
 class ModelController: NSObject, UIPageViewControllerDataSource {
 
-	var pageData: [String] = []
+	var pageData: [String] = ["clock", "list", "setting"]
 
 
 	override init() {
 	    super.init()
 		// Create the data model.
-		let dateFormatter = DateFormatter()
-		pageData = dateFormatter.monthSymbols
+		
 	}
 
 	func viewControllerAtIndex(_ index: Int, storyboard: UIStoryboard) -> DataViewController? {
 		// Return the data view controller for the given index.
-		if (self.pageData.count == 0) || (index >= self.pageData.count) {
+		if (self.pageData.count == 0) {
 		    return nil
 		}
 
@@ -50,16 +49,23 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
 	// MARK: - Page View Controller Data Source
 
+	// this function automatically controls swiping back
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 	    var index = self.indexOfViewController(viewController as! DataViewController)
-	    if (index == 0) || (index == NSNotFound) {
+	    if  (index == NSNotFound) {
 	        return nil
 	    }
+		
+		// connects first page to third page
+		if index == 0 {
+			index = self.pageData.count
+		}
 	    
 	    index -= 1
 	    return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
 	}
 
+	// this function automatically controls swiping formark
 	func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 	    var index = self.indexOfViewController(viewController as! DataViewController)
 	    if index == NSNotFound {
@@ -67,8 +73,9 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 	    }
 	    
 	    index += 1
+		// connects third page to first page
 	    if index == self.pageData.count {
-	        return nil
+			index = 0
 	    }
 	    return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
 	}
