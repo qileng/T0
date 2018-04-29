@@ -17,7 +17,7 @@ Git Integration with Xcode9 <br/>
 6. After you're done with editing, hit option+command+C or in the toolbar, go to Source Control->Commit. <br/>
 7. Commit screen is really straight-forward, you have the option to push to a remote branch at the time. It automatically set up everything for you. <br/>
 8. If you see a folder xcuserdata/ in the commit screen, don't select that. It's completely private settings and I added it in git ignore but xcode still shows a checkbox right next to it.
-9. Remember to pull everytime before you start working on something. <br/>
+9. Remember to update your working branch before you start working on something. <br/>
 
 Miscellaneous <br/>
 1. I use tab character for indentation. Although I set tab as 4 spaces in Xcode, a tab character here is still 8 spaces. It works as 4 spaces when I open it in Vim. It does seem like a whitespace in Xcode is only half the width of a whitespace in Vim. So anyway to get around that, in Preference->Text Editing->Indentation, set tab key to "insert tab character" instead of "insert whitespaces". Honestly, I don't like Xcode already. <br/>
