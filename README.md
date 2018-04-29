@@ -18,6 +18,8 @@ Git Integration with Xcode9 <br/>
 7. Commit screen is really straight-forward, you have the option to push to a remote branch at the time. It automatically set up everything for you. <br/>
 8. If you see a folder xcuserdata/ in the commit screen, don't select that. It's completely private settings and I added it in git ignore but xcode still shows a checkbox right next to it.
 9. Remember to update your working branch before you start working on something. <br/>
+10. First, hit option+command+X or in the toolbar, go to Source Control->Pull and select origin/master when prompted. This will pull master from github.
+11. Then in Source Control Navigator, right-click local master, and select merge `master` into `<working branch>`.
 
 Miscellaneous <br/>
 1. I use tab character for indentation. Although I set tab as 4 spaces in Xcode, a tab character here is still 8 spaces. It works as 4 spaces when I open it in Vim. It does seem like a whitespace in Xcode is only half the width of a whitespace in Vim. So anyway to get around that, in Preference->Text Editing->Indentation, set tab key to "insert tab character" instead of "insert whitespaces". Honestly, I don't like Xcode already. <br/>
@@ -64,6 +66,8 @@ Branching <br/>
 
 Collaboration <br/>
 1. If you work with someone else in the same branch, make sure you pull everytime before you start. <br/>
+	`git checkout <branch>` Make sure you're in your working branch </br>
+	`git pull origin/master` This will fetch every branch from Github </br>
 2. If you want to pull someone's branch for the first time <br/>
 	`git branch <branch>` </br>
 	`git branch -u origin/<branch>` This links your local branch with the branch in github</br>
