@@ -9,13 +9,15 @@
 /* Begin PBXBuildFile section */
 		ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4A209302650063B4AC /* AppDelegate.swift */; };
 		ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4C209302650063B4AC /* RootViewController.swift */; };
-		ED6C2A4F209302650063B4AC /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4E209302650063B4AC /* DataViewController.swift */; };
 		ED6C2A51209302650063B4AC /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A50209302650063B4AC /* ModelController.swift */; };
 		ED6C2A54209302650063B4AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A52209302650063B4AC /* Main.storyboard */; };
 		ED6C2A56209302660063B4AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A55209302660063B4AC /* Assets.xcassets */; };
 		ED6C2A59209302660063B4AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */; };
 		ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A63209302660063B4AC /* HALPTests.swift */; };
 		ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A6E209302660063B4AC /* HALPUITests.swift */; };
+		EDDEE2492097B3B50078827A /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
+		EDDEE24B2097B77E0078827A /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24A2097B77E0078827A /* ListView.swift */; };
+		EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +41,6 @@
 		ED6C2A47209302640063B4AC /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6C2A4A209302650063B4AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED6C2A4C209302650063B4AC /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		ED6C2A4E209302650063B4AC /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		ED6C2A50209302650063B4AC /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
 		ED6C2A53209302650063B4AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		ED6C2A55209302660063B4AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,6 +53,9 @@
 		ED6C2A6E209302660063B4AC /* HALPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HALPUITests.swift; sourceTree = "<group>"; };
 		ED6C2A70209302660063B4AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED6C2A7C2093052E0063B4AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		EDDEE2482097B3B50078827A /* Clockview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clockview.swift; sourceTree = "<group>"; };
+		EDDEE24A2097B77E0078827A /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		EDDEE24C2097C36D0078827A /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +109,10 @@
 			children = (
 				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
-				ED6C2A4E209302650063B4AC /* DataViewController.swift */,
 				ED6C2A50209302650063B4AC /* ModelController.swift */,
+				EDDEE2482097B3B50078827A /* Clockview.swift */,
+				EDDEE24A2097B77E0078827A /* ListView.swift */,
+				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
 				ED6C2A52209302650063B4AC /* Main.storyboard */,
 				ED6C2A55209302660063B4AC /* Assets.xcassets */,
 				ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */,
@@ -264,10 +270,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
 				ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */,
+				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
-				ED6C2A4F209302650063B4AC /* DataViewController.swift in Sources */,
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
+				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
