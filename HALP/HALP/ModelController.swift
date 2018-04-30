@@ -2,7 +2,7 @@
 //  ModelController.swift
 //  HALP
 //
-//  Created by LengQihao on 4/27/18.
+//  Created by Qihao Leng on 4/27/18.
 //  Copyright © 2018 Team Zero. All rights reserved.
 //
 
@@ -18,7 +18,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 	// declare each page as a constant
 	let clockView: ClockViewController
 	let listView: ListViewController
-	let settingPage: SettingPageController
+	let settingPage: SettingViewController
 	var page: [UIViewController]
 
 
@@ -26,7 +26,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 		// initialize three main pages
 		self.clockView = storyboard.instantiateViewController(withIdentifier: "ClockViewController") as! ClockViewController
 		self.listView = storyboard.instantiateViewController(withIdentifier: "ListViewController") as!ListViewController
-		self.settingPage = storyboard.instantiateViewController(withIdentifier: "SettingPageController") as! SettingPageController
+		self.settingPage = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
 		
 		// initialize page switching array
 		self.page = [clockView, listView, settingPage]
