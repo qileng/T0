@@ -8,9 +8,13 @@
 
 import UIKit
 
-
 class ClockViewController: UIViewController {
 	
+	@IBOutlet weak var ViewLabel: UILabel!
+	
+	var count = 0
+	var viewName = "Clock View"
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	}
@@ -21,6 +25,7 @@ class ClockViewController: UIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		
+		count += 1
+		self.ViewLabel!.text = viewName + " appeared \(count) time" + ((count == 1) ? "" : "s")
 	}
 }

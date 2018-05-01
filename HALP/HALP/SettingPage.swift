@@ -11,6 +11,11 @@ import UIKit
 
 class SettingViewController: UIViewController {
 	
+	@IBOutlet weak var ViewLabel: UILabel!
+	
+	var count = 0
+	var viewName = "Setting Page"
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	}
@@ -21,7 +26,8 @@ class SettingViewController: UIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		
+		count += 1
+		self.ViewLabel!.text = viewName + " appeared \(count) time" + ((count == 1) ? "" : "s")
 	}
 }
 

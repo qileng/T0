@@ -8,10 +8,13 @@
 
 import UIKit
 
-
 class ListViewController: UIViewController {
 	
+	// link this var to the label in StoryBoard
+	@IBOutlet weak var ViewLabel: UILabel!
+	
 	var count = 0
+	var viewName = "List View"
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -22,6 +25,8 @@ class ListViewController: UIViewController {
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)		
+		super.viewWillAppear(animated)
+		count += 1
+		self.ViewLabel!.text = viewName + " appeared \(count) time" + ((count == 1) ? "" : "s")
 	}
 }
