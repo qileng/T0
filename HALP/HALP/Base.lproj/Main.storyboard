@@ -45,6 +45,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="oHt-q7-vbC"/>
                     </view>
+                    <navigationItem key="navigationItem" id="Jic-oN-3Vw"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bx4-xj-6Ii" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -65,6 +66,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yc3-UP-8VL">
+                                <rect key="frame" x="307" y="617" width="52" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log out"/>
+                                <connections>
+                                    <segue destination="hGR-gl-XJl" kind="show" id="2HB-l6-qN9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -93,6 +102,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26m-7G-A6n">
+                                <rect key="frame" x="307" y="617" width="52" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log out"/>
+                                <connections>
+                                    <segue destination="hGR-gl-XJl" kind="show" id="ZMj-1f-jfz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -104,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pLV-aq-SAh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1626" y="-243"/>
+            <point key="canvasLocation" x="1624.8" y="-243.32833583208398"/>
         </scene>
         <!--Setting View Controller-->
         <scene sceneID="ukT-15-gDw">
@@ -143,4 +160,7 @@
             <point key="canvasLocation" x="2406" y="-243"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="2HB-l6-qN9"/>
+    </inferredMetricsTieBreakers>
 </document>
