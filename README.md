@@ -2,6 +2,21 @@ T0
 ------------------------------------------------
 https://guides.github.com/introduction/flow/<br/>
 
+Team Account Info:
+1. Gmail: teamzeroT0@gmail.com </br>
+Password: unX-DQ2-mA4-buZ
+
+2. Apple Account: teamzeroT0@gmail.com </br>
+Password: unX-DQ2-mA4-buZ </br>
+Security Questions: </br>
+Q: What is first film you saw in theatre? </br>
+A: Gary </br>
+Q: What is your dream job? </br>
+A: Gillespie </br>
+Q: In what city did your parents first meet? </br>
+A: Gary Gillespie </br>
+
+
 Basic Git Workflow <br/>
 1. Create new branch </br>
 2. Make changes</br>
