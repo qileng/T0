@@ -2,7 +2,9 @@
 //  AppDelegate.swift
 //  HALP
 //
-//  Created by Qihao Leng Haozhi Flik Huon 4/27/18.
+
+//  Created by Qihao Leng Haozhi Flik Huon Zach Sun 4/27/18.
+
 //  Copyright © 2018 Team Zero. All rights reserved.
 //
 //  Anagha - test for pushing to github <<DELETE THIS>>
