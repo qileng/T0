@@ -11,6 +11,8 @@ import UIKit
 
 class ListViewController: UIViewController {
 	
+	var count = 0
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	}
@@ -20,7 +22,6 @@ class ListViewController: UIViewController {
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		
+		super.viewWillAppear(animated)		
 	}
 }
