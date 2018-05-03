@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED69BC0C209A5FEB00C872C5 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED69BC0B209A5FEB00C872C5 /* UserData.swift */; };
 		ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4A209302650063B4AC /* AppDelegate.swift */; };
 		ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4C209302650063B4AC /* RootViewController.swift */; };
 		ED6C2A51209302650063B4AC /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A50209302650063B4AC /* ModelController.swift */; };
@@ -16,6 +15,8 @@
 		ED6C2A59209302660063B4AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */; };
 		ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A63209302660063B4AC /* HALPTests.swift */; };
 		ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A6E209302660063B4AC /* HALPUITests.swift */; };
+		ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE994209AB14B00F0DB56 /* UserData.swift */; };
+		ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
 		EDDEE2492097B3B50078827A /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
 		EDDEE24B2097B77E0078827A /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24A2097B77E0078827A /* ListView.swift */; };
 		EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
@@ -41,7 +42,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		ED69BC0B209A5FEB00C872C5 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		ED6C2A47209302640063B4AC /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6C2A4A209302650063B4AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED6C2A4C209302650063B4AC /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +57,8 @@
 		ED6C2A6E209302660063B4AC /* HALPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HALPUITests.swift; sourceTree = "<group>"; };
 		ED6C2A70209302660063B4AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED6C2A7C2093052E0063B4AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		ED9FE994209AB14B00F0DB56 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		ED9FE995209AB14B00F0DB56 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		EDDEE2482097B3B50078827A /* Clockview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clockview.swift; sourceTree = "<group>"; };
 		EDDEE24A2097B77E0078827A /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		EDDEE24C2097C36D0078827A /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
@@ -113,7 +115,8 @@
 		ED6C2A49209302640063B4AC /* HALP */ = {
 			isa = PBXGroup;
 			children = (
-				ED69BC0B209A5FEB00C872C5 /* UserData.swift */,
+				ED9FE995209AB14B00F0DB56 /* UserDAO.swift */,
+				ED9FE994209AB14B00F0DB56 /* UserData.swift */,
 				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
 				ED6C2A50209302650063B4AC /* ModelController.swift */,
@@ -282,7 +285,8 @@
 				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
 				ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */,
 				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
-				ED69BC0C209A5FEB00C872C5 /* UserData.swift in Sources */,
+				ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */,
+				ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,

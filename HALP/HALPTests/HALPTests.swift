@@ -10,6 +10,7 @@ import XCTest
 @testable import HALP
 
 class HALPTests: XCTestCase {
+	
     
     override func setUp() {
         super.setUp()
@@ -21,9 +22,13 @@ class HALPTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testWriteToDisk() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+		
+		print("Testing Begins")
+		let testUser = UserData("GUEST", "GUEST", "GUEST@GUEST.com")
+		testUser.DAO?.writeToDisk()
     }
     
     func testPerformanceExample() {
