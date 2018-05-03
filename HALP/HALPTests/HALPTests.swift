@@ -34,7 +34,7 @@ class HALPTests: XCTestCase {
 	
 	func testReadFromDisk() {
 		print("Test 2 Begins")
-		let testUser2 = UserData(true, 0)
+		let testUser2 = UserData(true)
 		print(testUser2.getUsername())
 		print(testUser2.getPassword())
 		print(testUser2.getUserEmail())

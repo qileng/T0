@@ -52,7 +52,7 @@ class UserData {
 	// Alternative Initializer
 	// Used when creating a user and read data from file
 	// Call by "UserDATA(true)"
-	convenience init (_: Bool, _: Int) {
+	convenience init (_: Bool) {
 		let _DAO = UserDAO()
 		let data = _DAO.readFromDisk()
 		self.init(data[0], data[1], data[2], UInt32(Int(data[3])!))
