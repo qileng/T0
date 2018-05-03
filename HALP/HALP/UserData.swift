@@ -20,9 +20,6 @@ class UserData {
 	private let UserEmail: String?
 	private let UserID: UInt32?					// Big enough
 	
-	// A UserDAO object that handles data access
-	var DAO: UserDAO? = nil
-	
 	// Empty Initializer
 	init () {
 		self.Username = nil
@@ -40,7 +37,6 @@ class UserData {
 		self.Guest = (Username == "GUEST") ? true : false
 		self.UserEmail = email
 		self.UserID = (id == 0) ? UserData.generateID() : id
-		self.DAO = UserDAO(self)
 	}
 	
 	// Alternative Initializer
@@ -51,7 +47,6 @@ class UserData {
 		self.Guest = false 	// Guest would never need changing password
 		self.UserEmail = origin.getUserEmail()
 		self.UserID = origin.getUserID()
-		self.DAO = UserDAO(self)
 	}
 	
 	// Alternative Initializer

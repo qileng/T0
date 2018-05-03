@@ -28,9 +28,8 @@ class HALPTests: XCTestCase {
 		
 		print("Test 1 Begins")
 		let testUser1 = UserData("GUEST", "GUEST", "GUEST@GUEST.com")
-		testUser1.DAO?.writeToDisk()
-		
-
+		let testDAO = UserDAO(testUser1)
+		testDAO.writeToDisk()
     }
 	
 	func testReadFromDisk() {
