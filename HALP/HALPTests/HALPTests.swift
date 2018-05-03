@@ -22,7 +22,7 @@ class HALPTests: XCTestCase {
         super.tearDown()
     }
     
-    func testDiskIO() {
+    func testWriteToDisk() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 		
@@ -30,13 +30,17 @@ class HALPTests: XCTestCase {
 		let testUser1 = UserData("GUEST", "GUEST", "GUEST@GUEST.com")
 		testUser1.DAO?.writeToDisk()
 		
+
+    }
+	
+	func testReadFromDisk() {
 		print("Test 2 Begins")
 		let testUser2 = UserData(true, 0)
 		print(testUser2.getUsername())
 		print(testUser2.getPassword())
 		print(testUser2.getUserEmail())
 		print(testUser2.getUserID())
-    }
+	}
 	
     
     func testPerformanceExample() {

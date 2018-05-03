@@ -25,7 +25,7 @@ final class UserDAO: UserData {
 	// The following is the simplest file IO
 	// This is a call that returns "Documents/" in our App path
 	let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-	lazy var file = documentsPath + "userdata.txt"
+	lazy var file = documentsPath + "/userdata.txt"
 	
 	// Handles output
 	func writeToDisk() {
