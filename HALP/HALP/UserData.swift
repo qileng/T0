@@ -14,11 +14,11 @@ import Foundation
 class UserData {
 	
 	// Everything is constant to avoid any potential problem
-	private let Username: String?
-	private let Password: String?
-	private let Guest: Bool?
-	private let UserEmail: String?
-	private let UserID: UInt32?					// Big enough
+	let Username: String?
+	let Password: String?
+	let Guest: Bool?
+	let UserEmail: String?
+	let UserID: UInt32?					// Big enough
 	
 	// Empty Initializer
 	init () {

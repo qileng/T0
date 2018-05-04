@@ -11,6 +11,12 @@ import UIKit
 
 class StartupViewController: UIViewController {
 	
+	@IBAction func SignUp(_ sender: UIButton) {
+		let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+		let nextViewController = storyBoard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+		self.present(nextViewController, animated: true, completion: nil)
+	}
+	
 	// This function handles everything that needs to be set up once for this UI.
 	// This function is called only after the UIViewController is loaded and never again.
 	override func viewDidLoad() {
