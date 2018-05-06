@@ -16,7 +16,6 @@
 		ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
 		ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE994209AB14B00F0DB56 /* UserData.swift */; };
-		ED68175D209BBD1300FEF7D7 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED37C50D209BB1C90038A7D0 /* SignUp.swift */; };
 		ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4A209302650063B4AC /* AppDelegate.swift */; };
 		ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4C209302650063B4AC /* RootViewController.swift */; };
 		ED6C2A51209302650063B4AC /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A50209302650063B4AC /* ModelController.swift */; };
@@ -105,6 +104,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED432362209FAD3E00F11140 /* View Classes */ = {
+			isa = PBXGroup;
+			children = (
+				ED6C2A50209302650063B4AC /* ModelController.swift */,
+				EDDEE2482097B3B50078827A /* Clockview.swift */,
+				EDDEE24E2097C7830078827A /* UI_template.swift */,
+				ED37C50D209BB1C90038A7D0 /* SignUp.swift */,
+				EDDEE2502097CA730078827A /* Startup.swift */,
+				EDDEE24A2097B77E0078827A /* ListView.swift */,
+				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
+				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
+			);
+			name = "View Classes";
+			sourceTree = "<group>";
+		};
+		ED432363209FAD7D00F11140 /* Data Classes */ = {
+			isa = PBXGroup;
+			children = (
+				ED681757209BB94500FEF7D7 /* UserForm.swift */,
+				ED9FE995209AB14B00F0DB56 /* UserDAO.swift */,
+				ED9FE994209AB14B00F0DB56 /* UserData.swift */,
+				ED43235F209E870B00F11140 /* Task.swift */,
+			);
+			path = "Data Classes";
+			sourceTree = "<group>";
+		};
+		ED432364209FADD000F11140 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				ED43235C209E85EA00F11140 /* TaskManager.swift */,
+				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
 		ED6C2A3E209302640063B4AC = {
 			isa = PBXGroup;
 			children = (
@@ -129,20 +163,9 @@
 		ED6C2A49209302640063B4AC /* HALP */ = {
 			isa = PBXGroup;
 			children = (
-				ED681757209BB94500FEF7D7 /* UserForm.swift */,
-				ED9FE995209AB14B00F0DB56 /* UserDAO.swift */,
-				ED9FE994209AB14B00F0DB56 /* UserData.swift */,
-				ED43235C209E85EA00F11140 /* TaskManager.swift */,
-				ED43235F209E870B00F11140 /* Task.swift */,
-				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
-				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
-				ED6C2A50209302650063B4AC /* ModelController.swift */,
-				EDDEE2482097B3B50078827A /* Clockview.swift */,
-				EDDEE24E2097C7830078827A /* UI_template.swift */,
-				ED37C50D209BB1C90038A7D0 /* SignUp.swift */,
-				EDDEE2502097CA730078827A /* Startup.swift */,
-				EDDEE24A2097B77E0078827A /* ListView.swift */,
-				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
+				ED432364209FADD000F11140 /* Core */,
+				ED432363209FAD7D00F11140 /* Data Classes */,
+				ED432362209FAD3E00F11140 /* View Classes */,
 				ED6C2A52209302650063B4AC /* Main.storyboard */,
 				ED6C2A55209302660063B4AC /* Assets.xcassets */,
 				ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */,
@@ -335,7 +358,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */,
-				ED68175D209BBD1300FEF7D7 /* SignUp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

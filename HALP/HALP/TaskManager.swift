@@ -12,7 +12,7 @@ import Foundation
 class TaskManager {
 	
 	// The singleton instance in the app
-	static lazy let sharedTaskManager = TaskManager()
+	static let sharedTaskManager = TaskManager()
 	
 	var userInfo: UserData?
 	var tasks: [Task] = []
