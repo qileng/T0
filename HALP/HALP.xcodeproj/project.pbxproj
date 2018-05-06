@@ -127,7 +127,7 @@
 				ED9FE994209AB14B00F0DB56 /* UserData.swift */,
 				ED43235F209E870B00F11140 /* Task.swift */,
 			);
-			path = "Data Classes";
+			name = "Data Classes";
 			sourceTree = "<group>";
 		};
 		ED432364209FADD000F11140 /* Core */ = {
