@@ -65,5 +65,15 @@ final class UserDAO: UserData {
 		// When error detected
 		return []
 	}
+	
+	// TODO
+	func readFromDatabase() -> [String] {
+		return []
+	}
+	
+	// TODO
+	func writeToDatabase() -> [String] {
+		return []
+	}
 }
 

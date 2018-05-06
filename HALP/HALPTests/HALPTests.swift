@@ -27,7 +27,7 @@ class HALPTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 		
 		print("Test 1 Begins")
-		let testUser1 = UserData("GUEST", "GUEST", "GUEST@GUEST.com")
+		let testUser1 = UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com")
 		let testDAO = UserDAO(testUser1)
 		testDAO.writeToDisk()
     }

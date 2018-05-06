@@ -31,7 +31,8 @@ class UserData {
 	
 	// Initializer
 	// Note that last parameter is optional. It shall be passed in when UserID already exists.
-	init (_ username: String, _ password: String, _ email: String, _ id: UInt32 = 0) {
+	// Username is also optional.
+	init (username: String = "", password: String, email: String, id: UInt32 = 0) {
 		self.Username = username
 		self.Password = password
 		self.Guest = (Username == "GUEST") ? true : false
@@ -55,7 +56,7 @@ class UserData {
 	convenience init (_: Bool) {
 		let _DAO = UserDAO()
 		let data = _DAO.readFromDisk()
-		self.init(data[0], data[1], data[2], UInt32(Int(data[3])!))
+		self.init(username: data[0], password: data[1], email: data[2], id: UInt32(Int(data[3])!))
 	}
 	
 	// Copy Initializer used by UserDAO

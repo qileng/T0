@@ -15,7 +15,7 @@ class SignUpViewController: UIViewController {
 	@IBOutlet weak var username: UITextField!
 	@IBOutlet weak var email: UITextField!
 	@IBAction func submit(_ sender: UIButton) {
-		let form = UserForm(username.text!, password.text!, email.text!)
+		let form = UserForm(username: username.text!, password: password.text!, email: email.text!)
 		if !form.validatePassword() {
 			self.Message!.text = "Illegal password!\nPlease try again"
 			return
@@ -33,13 +33,13 @@ class SignUpViewController: UIViewController {
 		
 		// write new to file
 		// TODO: to database
-		let _DAO = UserDAO(form.getUsername(), form.getPassword(), form.getUserEmail(), form.getUserID())
+		let _DAO = UserDAO(username: form.getUsername(), password: form.getPassword(), email: form.getUserEmail(), id: form.getUserID())
 		_DAO.writeToDisk()
 		
 		self.Message!.text = "Succeeded!"
 		
-		let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-		let nextViewController = storyBoard.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+		let storyBoard = self.storyboard
+		let nextViewController = storyBoard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
 		self.present(nextViewController, animated: true, completion: nil)
 	}
 	
