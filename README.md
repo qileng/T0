@@ -36,9 +36,6 @@ Git Integration with Xcode9 <br/>
 10. First, hit option+command+X or in the toolbar, go to Source Control->Pull and select origin/master when prompted. This will pull master from github.
 11. Then in Source Control Navigator, right-click local master, and select merge `master` into `<working branch>`.
 
-Miscellaneous <br/>
-1. I use tab character for indentation. Although I set tab as 4 spaces in Xcode, a tab character here is still 8 spaces. It works as 4 spaces when I open it in Vim. It does seem like a whitespace in Xcode is only half the width of a whitespace in Vim. So anyway to get around that, in Preference->Text Editing->Indentation, set tab key to "insert tab character" instead of "insert whitespaces". Honestly, I don't like Xcode already. <br/>
-
 Run the App on your device <br/>
 1. Log into shared Apple ID, which we don't have one now.
 2. Click on the project icon from the left column and select that account in signing->team. 
@@ -47,6 +44,12 @@ Run the App on your device <br/>
 5. Hit run.
 6. It may say something like "your iphone is busy, preparing debugger tools". If that happens, follow https://stackoverflow.com/questions/46316373/xcode-9-iphone-is-busy-preparing-debugger-support-for-iphone
 7. After Xcode installs the app, go to Setting->General->Device Management->Some Apple ID and trust it.
+
+Useful functionality on Github.com:
+1. In the Issues tab, you can find a list of current issues. If you decide to work on one, please assign the issue to yourself by clicking on that issue and edit the assignees on the right. After that, you can go to project tab and move the corresponding issue into "In progress" tab so that others know you're currently working on it.
+2. When you submit a new pull request, besides describing what you did, you can also add "resolve #xx" in comments. By doing this, your pull request will automatically be linked with issue #xx. The linked issue will be automatically solved when your pull request be merged.
+3. You can check out the overview of our project in the project tab. You can find all issues we currently have and their status here. 
+4. You can add new issues at any time. Try to be specific and try to label your issues. You can also add "help wanted" label to your issue if you need any help.
 
 
 
