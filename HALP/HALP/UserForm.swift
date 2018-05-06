@@ -75,4 +75,14 @@ class UserForm: UserData {
 		
 		return true
 	}
+	
+	func onlineValidateNewUser() ->  Bool {
+		// TODO: Validate new user with database, i.e. check for duplicate userID
+		return true
+	}
+	
+	func onlineValidateExistingUser() -> Bool {
+		// TODO: Validate existing user with database, i.e. check login credentials
+		return true
+	}
 }

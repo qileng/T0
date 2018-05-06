@@ -38,6 +38,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
+                                    <action selector="Login:" destination="hGR-gl-XJl" eventType="touchUpInside" id="uQ9-pQ-Duc"/>
                                     <segue destination="703-4V-yAM" kind="show" id="t5i-GK-bMM"/>
                                 </connections>
                             </button>
@@ -53,7 +54,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="oHt-q7-vbC"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Jic-oN-3Vw"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bx4-xj-6Ii" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
