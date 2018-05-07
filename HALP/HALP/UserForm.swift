@@ -8,13 +8,23 @@
 
 import Foundation
 
+// This class is used in User Interface layer.
+// This class handles all user input.
+// This class has its properties, Initializers, and Getters inherited from UserData.
+
 class UserForm: UserData {
 	
+	// The following implementation is based on these basic assumptions:
+	// 		- Username can only contain numbers and letters
+	//		- Password can only contain numbers, letters, and a limited number of special characters.
+	//		- Email is in the format of "xx@xx.xx"
+	// TODO: Improvements needed.
+	
+	// Constants represents legal characters.
 	static let NUMBERS = CharacterSet(charactersIn: "0123456789")
 	static let LETTERS_LOWER = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz")
 	static let LETTERS_UPPER = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	static let SPECIAL = CharacterSet(charactersIn: "!@#$%^./")
-	
 	static let LEGALPW = NUMBERS.union(LETTERS_LOWER.union(LETTERS_UPPER.union(SPECIAL)))
 	static let LEGALUN = NUMBERS.union(LETTERS_LOWER.union(LETTERS_UPPER))
 	
@@ -45,6 +55,11 @@ class UserForm: UserData {
 			return false
 		}
 		
+		// Check reserved usernames, i.e. "GUEST"
+		if self.getUsername() == "GUEST" {
+			return false
+		}
+		
 		// Validate username for illegal character
 		var isLegal = true
 		self.getUsername().forEach { char in
@@ -64,10 +79,13 @@ class UserForm: UserData {
 		
 		let substrings = email.split(separator: "@", maxSplits: 2, omittingEmptySubsequences: true)
 		
+		// Should be separated into "xxx" and "xxx.xxx".
 		if substrings.count != 2 {
 			return false
 		}
 		
+		// Examine "xxx.xxx"
+		// "." must exist AND must not be the first character AND must not be the last character.
 		let suffix = String(substrings[1])
 		if !suffix.contains(".") || suffix.hasSuffix(".") || suffix.hasPrefix(".") {
 			return false

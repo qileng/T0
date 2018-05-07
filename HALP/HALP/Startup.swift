@@ -40,7 +40,7 @@ class StartupViewController: UIViewController {
 		
 		
 		// Set up task manager
-		TaskManager.sharedTaskManager.setUp(new: user)
+		// TaskManager.sharedTaskManager.setUp(new: user, setting: )
 		
 		// Bring up rootViewController
 		self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)

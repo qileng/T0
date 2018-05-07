@@ -15,6 +15,7 @@ class TaskManager {
 	static let sharedTaskManager = TaskManager()
 	
 	var userInfo: UserData?
+	var setting: Setting?
 	var tasks: [Task] = []
 	
 	// Initializer
@@ -22,10 +23,23 @@ class TaskManager {
 	}
 	
 	// Setup the taskManager
-	func setUp(new user: UserData) {
+	func setUp(new user: UserData, setting: Setting) {
 		self.userInfo = user
+		self.setting = setting
 		self.tasks.removeAll()
 		self.loadTasks()
+	}
+	
+	// Update user information
+	func updateUser(new user: UserData) {
+		self.userInfo = user
+		// TODO: After user information is changed, use UserDAO to store data.
+	}
+	
+	// Update user setting
+	func updateSetting(new setting: Setting) {
+		self.setting = setting
+		// TODO: After user setting is changed, use SettingDAO to store data.
 	}
 	
 	// Refresh priority of all tasks

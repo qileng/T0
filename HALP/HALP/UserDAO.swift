@@ -10,19 +10,22 @@
 // TODO: Add more imports here to perform IO with database
 import Foundation
 
+// Runtime Errors
+enum IOError: Error {
+	case runtimeError(String)
+}
+
 let SEPERATOR = " "
+
+// This class is used in Data Management layer.
+// This class handles all file/databse IO involving user information.
+// This class has its properties, Initializers, and Getters inherited from UserData.
 
 final class UserDAO: UserData {
 
+	// The following imlementation is the simplest file IO serving as a verification of functionality. No encoding, no protection, no privacy whatsoever.
+	// TODO: Improvements needed.
 	
-	// All initializers are inherited from UserData
-	
-	// Getters are not necessary
-	
-	// This class should handle IO
-	// TODO: Database IO
-	
-	// The following is the simplest file IO
 	// This is a call that returns "Documents/" in our App path
 	let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 	lazy var file = documentsPath + "/userdata.txt"
@@ -41,8 +44,6 @@ final class UserDAO: UserData {
 		catch {
 			 print("Write failed\n")
 		}
-		
-
 	}
 	
 	// Handles input
@@ -62,7 +63,6 @@ final class UserDAO: UserData {
 			print("Read failed\n")
 		}
 		
-		// When error detected
 		return []
 	}
 	
@@ -72,8 +72,7 @@ final class UserDAO: UserData {
 	}
 	
 	// TODO
-	func writeToDatabase() -> [String] {
-		return []
+	func writeToDatabase() {
 	}
 }
 

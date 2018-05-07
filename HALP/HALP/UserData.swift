@@ -8,19 +8,21 @@
 
 import Foundation
 
-/* This class is the basic implementation of User.
-*/
+// This class is the basic runtime instance containing necessary user information.
+// This class is also the parent class of UserDAO and UserForm.
+// This class is in Business Logic Layer.
 
 class UserData {
 	
-	// Everything is constant to avoid any potential problem
-	let Username: String?
-	let Password: String?
-	let Guest: Bool?
-	let UserEmail: String?
-	let UserID: UInt32?					// Big enough
+	// Everything is constant to avoid any potential inconsistency problem.
+	private let Username: String?
+	private let Password: String?
+	private let Guest: Bool?
+	private let UserEmail: String?
+	// Primary Key
+	let UserID: UInt32?				
 	
-	// Empty Initializer
+	// Empty Initializer.
 	init () {
 		self.Username = nil
 		self.Password = nil
@@ -29,9 +31,21 @@ class UserData {
 		self.UserID = nil
 	}
 	
-	// Initializer
-	// Note that last parameter is optional. It shall be passed in when UserID already exists.
-	// Username is also optional.
+	// Main Initializer
+	// Note:
+	//		- username is optional.
+	//		- id is also optional.
+	//		- A user with username "GUEST" will be identified as a Guest user.
+	//
+	// Usage:
+	// 		- When user login, the caller shall call UserForm(password:email) since user only user
+	//		password and email to login. UserForm(password:email) is inherited from this initializer.
+	// 		In such case self.Username is never used and self.UserID is never used either.
+	//		- When user sign up, the caller shall call UserForm(username:password:email) since user
+	//		will provide these three fields except userID. UserForm(username:password:email) is
+	//		inherited from this initializer. In such case an id shall be generated.
+	//		- Otherwise, the caller shall call UserData(username:password:email:id). E.g. The
+	//		convenience initializer of this class calls this initializer with all parameters.
 	init (username: String = "", password: String, email: String, id: UInt32 = 0) {
 		self.Username = username
 		self.Password = password
@@ -41,7 +55,7 @@ class UserData {
 	}
 	
 	// Alternative Initializer
-	// Used in case of changing password
+	// Used in case of changing password. Functionality not planned.
 	init (_ origin: UserData, _ password:String) {
 		self.Username = origin.getUsername()
 		self.Password = password
@@ -51,15 +65,18 @@ class UserData {
 	}
 	
 	// Alternative Initializer
-	// Used when creating a user and read data from file
-	// Call by "UserDATA(true)"
-	convenience init (_: Bool) {
-		let _DAO = UserDAO()
-		let data = _DAO.readFromDisk()
+	// Used when the caller want to create a UserData straight from disk or database.
+	// Usage: The caller shall call UserData(true) when reading from disk, or UserData(false) when
+	// 	reading from database.
+	// TODO: Maybe we should update local data with database data and always load from disk? Need to know more about database communication.
+	convenience init (_ disk: Bool) {
+		let DAO = UserDAO()
+		let	data = (disk) ? DAO.readFromDisk() : DAO.readFromDatabase()
 		self.init(username: data[0], password: data[1], email: data[2], id: UInt32(Int(data[3])!))
 	}
 	
-	// Copy Initializer used by UserDAO
+	// Alternative Initializer (Copy Initializer)
+	// Used when the caller needs a UserDAO to write data.
 	init (_ origin: UserData) {
 		self.Username = origin.getUsername()
 		self.Password = origin.getUsername()
