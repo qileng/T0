@@ -41,7 +41,7 @@ class Setting {
 	// Alternative initializer. Same fashion as the convenience initializer in UserData.
 	convenience init(_ disk: Bool) {
 		let DAO = SettingDAO()
-		let	data = (disk) ? DAO.readFromDisk() : DAO.readFromDatabase()
+		let data = (disk) ? DAO.readFromDisk() : DAO.readFromDatabase()
 		self.init(setting: UInt32(data[0])!, user: UInt32(data[1])!, notification: Bool(data[2])!, suggestion: Bool(data[3])!)
 	}
 	
