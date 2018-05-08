@@ -32,5 +32,29 @@ class HALPTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+    class class1 {
+        private var p:Int;
+        var l:Int;
+        init() {
+            self.p = 10;
+            self.l = 20;
+        }
+        func getP ()->(Int) {
+            return self.p;
+        }
+        
+    }
+    class class2:class1 {
+        override init() {
+            super.init();
+        }
+        func getParent() ->Int{
+            return super.getP();
+        }
+    }
+    func testTask () {
+        let c1:class2 = class2();
+        print("    \(c1.getParent())")
+    }
     
 }
