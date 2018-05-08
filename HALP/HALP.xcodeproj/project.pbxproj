@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A8F2A54120A03C2C00326F65 /* TaskCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F2A53D20A03C2B00326F65 /* TaskCapsule.swift */; };
-		A8F2A54220A03C2C00326F65 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F2A53E20A03C2B00326F65 /* Category.swift */; };
-		A8F2A54320A03C2C00326F65 /* DateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F2A53F20A03C2C00326F65 /* DateInfo.swift */; };
-		A8F2A54420A03C2C00326F65 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8F2A54020A03C2C00326F65 /* Task.swift */; };
 		ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4A209302650063B4AC /* AppDelegate.swift */; };
 		ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4C209302650063B4AC /* RootViewController.swift */; };
 		ED6C2A51209302650063B4AC /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A50209302650063B4AC /* ModelController.swift */; };
@@ -44,10 +40,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A8F2A53D20A03C2B00326F65 /* TaskCapsule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCapsule.swift; sourceTree = "<group>"; };
-		A8F2A53E20A03C2B00326F65 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
-		A8F2A53F20A03C2C00326F65 /* DateInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateInfo.swift; sourceTree = "<group>"; };
-		A8F2A54020A03C2C00326F65 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		ED6C2A47209302640063B4AC /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6C2A4A209302650063B4AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED6C2A4C209302650063B4AC /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -128,13 +120,9 @@
 				EDDEE24A2097B77E0078827A /* ListView.swift */,
 				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
 				ED6C2A52209302650063B4AC /* Main.storyboard */,
-				A8F2A53E20A03C2B00326F65 /* Category.swift */,
-				A8F2A53F20A03C2C00326F65 /* DateInfo.swift */,
-				A8F2A54020A03C2C00326F65 /* Task.swift */,
-				A8F2A53D20A03C2B00326F65 /* TaskCapsule.swift */,
+				ED6C2A55209302660063B4AC /* Assets.xcassets */,
 				ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */,
 				ED6C2A5A209302660063B4AC /* Info.plist */,
-				ED6C2A55209302660063B4AC /* Assets.xcassets */,
 			);
 			path = HALP;
 			sourceTree = "<group>";
@@ -289,17 +277,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
-				A8F2A54220A03C2C00326F65 /* Category.swift in Sources */,
 				ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */,
 				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
-				A8F2A54420A03C2C00326F65 /* Task.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
-				A8F2A54320A03C2C00326F65 /* DateInfo.swift in Sources */,
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
 				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,
-				A8F2A54120A03C2C00326F65 /* TaskCapsule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
