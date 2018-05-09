@@ -37,6 +37,7 @@ class StartupViewController: UIViewController {
         //Authenticate user information (email + password)
         let DAO = UserDAO()
         let authFlag = DAO.userAuthentication(email: self.Email!.text!, password: self.Password!.text!)
+        
         if(authFlag != "-1") {
             let userInfo = DAO.fetchUserInfoFromLocalDB(userId: authFlag)
             //Todo: initialize user data
