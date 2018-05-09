@@ -38,12 +38,13 @@ class HALPTests: XCTestCase {
 		print(testUser2.getUsername())
 		print(testUser2.getPassword())
 		print(testUser2.getUserEmail())
-		print(testUser2.getUserID())
+		print(String(testUser2.getUserID(), radix: 16))
 	}
 	
 	func testSettingDAO() {
 		print("Testing SettingDAO write.\n")
-		let testSettingDAO = SettingDAO(setting: 123451, user: 12312, notification: false, suggestion: true)
+		let testUser = UserData(true)
+		let testSettingDAO = SettingDAO(user: testUser.getUserID(), notification: false, suggestion: false, fontSize: 15, defaultView: .list)
 		testSettingDAO.writeToDisk()
 		print("Testing SettingDAO read.\n")
 		let testSetting = Setting(true)
@@ -51,6 +52,8 @@ class HALPTests: XCTestCase {
 		print(testSetting.getUserID())
 		print(testSetting.isNotificationOn())
 		print(testSetting.isSuggestionOn())
+		print(testSetting.getFontSize())
+		print(testSetting.getDefaultView().rawValue)
 	}
 	
     
