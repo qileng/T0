@@ -41,7 +41,6 @@ class StartupViewController: UIViewController {
         if (authFlag != "-1") {
 			do {
             userInfo = try DAO.fetchUserInfoFromLocalDB(userId: authFlag)
-			
             //Todo: initialize user data
            // let user_id = userInfo[0]
            // let userAuthSuccess = UserData(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: 0)
