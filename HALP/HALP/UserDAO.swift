@@ -90,9 +90,9 @@ final class UserDAO: UserData {
     
     //Fetch user data from the local database, use userId as key
     //Return user info in an array, empty array if query fails
-    func fetchUserInfoFromLocalDB(userId: String = "" ) -> [String] {
+    func fetchUserInfoFromLocalDB(userId: String = "" ) throws -> [String] {
         if( userId == "" ) {
-            return []
+            throw RuntimeError.InternalError("fetch() called with key!")
         }
         
         let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
@@ -100,8 +100,7 @@ final class UserDAO: UserData {
         
         //Establish database connection
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
-            print("fail to establish database connection")
-            return []
+			throw RuntimeError.DBError("Local DB does not exist!")
         }
         //SQL command for fecting a row from database base on id
         let selectQueryString = "SELECT * FROM UserData WHERE user_id=" + userId

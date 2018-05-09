@@ -41,8 +41,12 @@ class HALPTests: XCTestCase {
 			print(testUser2.getPassword())
 			print(testUser2.getUserEmail())
 			print(String(testUser2.getUserID(), radix: 16))
+		} catch RuntimeError.DBError(let errorMessage){
+			print(errorMessage)
+		} catch RuntimeError.InternalError(let errorMessage) {
+			print(errorMessage)
 		} catch {
-			print("Authentification failed!")
+			print("Unexpected error!")
 		}
 
 		// testing non-existing user

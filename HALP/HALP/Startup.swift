@@ -37,8 +37,11 @@ class StartupViewController: UIViewController {
         //Authenticate user information (email + password)
         let DAO = UserDAO()
         let authFlag = DAO.userAuthentication(email: self.Email!.text!, password: self.Password!.text!)
-        if(authFlag != "-1") {
-            let userInfo = DAO.fetchUserInfoFromLocalDB(userId: authFlag)
+		let userInfo: [String]
+        if (authFlag != "-1") {
+			do {
+            userInfo = try DAO.fetchUserInfoFromLocalDB(userId: authFlag)
+			
             //Todo: initialize user data
            // let user_id = userInfo[0]
            // let userAuthSuccess = UserData(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: 0)
@@ -48,9 +51,16 @@ class StartupViewController: UIViewController {
             
             // Bring up rootViewController
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+			} catch RuntimeError.DBError(let errorMessage) {
+				print(errorMessage)			// consider put the message on UI
+			} catch RuntimeError.InternalError(let errorMessage) {
+				print(errorMessage)			// consider put the message on UI
+			} catch {
+				print("Unexpected Error!")  // consider put the message on UI
+			}
         }
         else {
-            print("Authentication fails")
+            print("Authentication fails")   // Put this message on UI
         }
 		
 	}

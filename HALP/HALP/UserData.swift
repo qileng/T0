@@ -10,8 +10,9 @@ import Foundation
 
 
 // Runtime Errors
-enum IOError: Error {
-	case runtimeError(String)
+enum RuntimeError: Error {
+	case DBError(String)
+	case InternalError(String)
 }
 
 
@@ -79,11 +80,12 @@ class UserData {
 	convenience init (_ disk: Bool, email e: String, password p: String) throws {
 		let DAO = UserDAO()
 		let authFlag = DAO.userAuthentication(email: e, password: p)
+		let userInfo: [String]
 		if (authFlag != "-1") {
-			let userInfo = DAO.fetchUserInfoFromLocalDB(userId: authFlag)
+			userInfo = try DAO.fetchUserInfoFromLocalDB(userId: authFlag)
 			self.init(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: UInt64(userInfo[0])!)
 		} else {
-			throw IOError.runtimeError("Authentication failed!")
+			throw RuntimeError.DBError("Authentication failed!")
 		}
 	}
  
