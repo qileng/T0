@@ -95,8 +95,8 @@ final class UserDAO: UserData {
     
     //Fetch user data from the local database, use userId as key
     //Return user info in an array, empty array if query fails
-    func fetchUserInfoFromLocalDB(userId: UInt64 = 0 ) -> [String] {
-        if( userId == 0 ) {
+    func fetchUserInfoFromLocalDB(userId: String = "" ) -> [String] {
+        if( userId == "" ) {
             return []
         }
         
@@ -109,13 +109,13 @@ final class UserDAO: UserData {
             return []
         }
         //SQL command for fecting a row from database base on id
-        let idString = String(userId)
-        let selectQueryString = "SELECT * FROM UserData WHERE user_id=" + idString
+        let selectQueryString = "SELECT * FROM UserData WHERE user_id=" + userId
         
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
         
         var queryResult = [String]()
+        
         //Traverse through the specific row
         while sqlite3_step(stmt) == SQLITE_ROW {
             let id = String(cString: sqlite3_column_text(stmt, 0))
@@ -132,6 +132,32 @@ final class UserDAO: UserData {
         return queryResult
     }
     
+    //login authentication function, taking username and password as input
+    //Return corresponding user_id if success, "-1" otherwise
+    func userAuthentication(email: String, password: String ) -> String {
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        var dbpointer: OpaquePointer?
+        
+        //Establish database connection
+        if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+            print("fail to establish database connection")
+            return "-1"
+        }
+        
+        let emailString = email.split(separator: "@")
+
+        //SQL command for fecting a row from database base on id
+        let selectQueryString = "SELECT user_id FROM UserData WHERE password=" + password + " AND " + "email LIKE " + "\'%"+emailString[0]+"%\'"
+        print(selectQueryString)
+        var stmt: OpaquePointer?
+        sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
+        //Query the specific usermane + password combination
+        if sqlite3_step(stmt) == SQLITE_ROW {
+            let id = String(cString: sqlite3_column_text(stmt, 0))
+            return id
+        }
+        return "-1"
+    }
     
     
 	/*

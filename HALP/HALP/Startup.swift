@@ -22,29 +22,37 @@ class StartupViewController: UIViewController {
 	}
 	
 	@IBAction func Login(_ sender: UIButton) {
+        
+        /*
 		let form = UserForm(password: self.Password!.text!, email: self.Email!.text!)
 		// TODO: perform login validation
 		if !form.onlineValidateExistingUser() {
 			return
 		}
+         */
 		
 		// TODO: update local data with database data
 		
 		// load the user using local data
-		let user = UserData(true)
+        //Authenticate user information (email + password)
+        let DAO = UserDAO()
+        let authFlag = DAO.userAuthentication(email: self.Email!.text!, password: self.Password!.text!)
+        if(authFlag != "-1") {
+            let userInfo = DAO.fetchUserInfoFromLocalDB(userId: authFlag)
+            //Todo: initialize user data
+           // let user_id = userInfo[0]
+           // let userAuthSuccess = UserData(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: 0)
+            
+            // Set up task manager
+            // TaskManager.sharedTaskManager.setUp(new: user, setting: )
+            
+            // Bring up rootViewController
+            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+        }
+        else {
+            print("Authentication fails")
+        }
 		
-		// For testing propuse: print user info in shell
-		print("Username is: " + user.getUsername())
-		print("\nPassword is: " + user.getPassword())
-		print("\nEmail is: " + user.getUserEmail())
-		print("\nUserID is: " + String(user.getUserID()))
-		
-		
-		// Set up task manager
-		// TaskManager.sharedTaskManager.setUp(new: user, setting: )
-		
-		// Bring up rootViewController
-		self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
 	}
 	// This function handles everything that needs to be set up once for this UI.
 	// This function is called only after the UIViewController is loaded and never again.
@@ -66,6 +74,7 @@ class StartupViewController: UIViewController {
             //SettingData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+            print(dbPath)
         }
         else {
             print("fail to open database")
