@@ -17,7 +17,7 @@ final class SettingDAO: Setting {
 			// read from file
 			let data = try String(contentsOfFile: file, encoding: .utf8)
 			// split string
-			let fields = data.split(separator: SEPERATOR[SEPERATOR.startIndex], maxSplits: 3, omittingEmptySubsequences: true)
+			let fields = data.split(separator: SEPERATOR[SEPERATOR.startIndex], maxSplits: 5, omittingEmptySubsequences: true)
 			var fieldString: [String] = []
 			for field in fields {
 				fieldString.append(String(field))
@@ -36,7 +36,9 @@ final class SettingDAO: Setting {
 			let data = String(self.getSettingID()) + SEPERATOR +
 				String(self.getUserID()) + SEPERATOR +
 				String(self.isNotificationOn()) + SEPERATOR +
-				String(self.isSuggestionOn())
+				String(self.isSuggestionOn()) + SEPERATOR +
+				String(self.getFontSize()) + SEPERATOR	+
+				self.getDefaultView().rawValue
 			// write to file
 			try data.write(toFile: file, atomically: true, encoding: .utf8)
 		}

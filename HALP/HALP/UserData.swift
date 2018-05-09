@@ -20,7 +20,7 @@ class UserData {
 	private let Guest: Bool?
 	private let UserEmail: String?
 	// Primary Key
-	let UserID: UInt32?				
+	let UserID: UInt64?
 	
 	// Empty Initializer.
 	init () {
@@ -46,12 +46,12 @@ class UserData {
 	//		inherited from this initializer. In such case an id shall be generated.
 	//		- Otherwise, the caller shall call UserData(username:password:email:id). E.g. The
 	//		convenience initializer of this class calls this initializer with all parameters.
-	init (username: String = "", password: String, email: String, id: UInt32 = 0) {
+	init (username: String = "", password: String, email: String, id: UInt64 = 0) {
 		self.Username = username
 		self.Password = password
 		self.Guest = (Username == "GUEST") ? true : false
 		self.UserEmail = email
-		self.UserID = (id == 0) ? UserData.generateID() : id
+		self.UserID = (id == 0) ? IDGenerator.generateID(name: username, type: .user) : id
 	}
 	
 	// Alternative Initializer
@@ -72,7 +72,7 @@ class UserData {
 	convenience init (_ disk: Bool) {
 		let DAO = UserDAO()
 		let data = (disk) ? DAO.readFromDisk() : DAO.readFromDatabase()
-		self.init(username: data[0], password: data[1], email: data[2], id: UInt32(Int(data[3])!))
+		self.init(username: data[0], password: data[1], email: data[2], id: UInt64(Int(data[3])!))
 	}
 	
 	// Alternative Initializer (Copy Initializer)
@@ -102,13 +102,8 @@ class UserData {
 		return self.UserEmail!
 	}
 	
-	func getUserID() -> UInt32 {
+	func getUserID() -> UInt64 {
 		return self.UserID!
 	}
 	
-	// Generator for ID
-	static func generateID() -> UInt32 {
-		// TODO
-		return 0
-	}
 }

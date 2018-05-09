@@ -18,6 +18,8 @@
 		ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */; };
 		ED5B5A6E20A105D300E3C5F8 /* SettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */; };
 		ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */; };
+		ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
+		ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
 		ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
@@ -63,6 +65,7 @@
 		ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDAO.swift; sourceTree = "<group>"; };
 		ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingForm.swift; sourceTree = "<group>"; };
+		ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDGenerator.swift; sourceTree = "<group>"; };
 		ED681757209BB94500FEF7D7 /* UserForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForm.swift; sourceTree = "<group>"; };
 		ED6C2A47209302640063B4AC /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6C2A4A209302650063B4AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +150,7 @@
 			children = (
 				ED43235C209E85EA00F11140 /* TaskManager.swift */,
 				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
+				ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -341,6 +345,7 @@
 				ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */,
 				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
 				ED5B5A6E20A105D300E3C5F8 /* SettingForm.swift in Sources */,
+				ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5A6820A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */,
 				ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */,
@@ -361,6 +366,7 @@
 			files = (
 				ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */,
 				ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */,
+				ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
