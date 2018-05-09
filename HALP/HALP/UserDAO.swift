@@ -9,6 +9,7 @@
 
 // TODO: Add more imports here to perform IO with database
 import Foundation
+import SQLite3
 
 // Runtime Errors
 enum IOError: Error {
@@ -27,25 +28,113 @@ final class UserDAO: UserData {
 	// TODO: Improvements needed.
 	
 	// This is a call that returns "Documents/" in our App path
-	let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-	lazy var file = documentsPath + "/userdata.txt"
-	
-	// Handles output
-	func writeToDisk() {
-		do {
-			// combine all data fields
-			let data = self.getUsername() + SEPERATOR +
-					   self.getPassword() + SEPERATOR +
-					   self.getUserEmail() + SEPERATOR +
-					   String(self.getUserID())
-			// write to file
-			try data.write(toFile: file, atomically: true, encoding: .utf8)
-		}
-		catch {
-			 print("Write failed\n")
-		}
+    // Initialize path for local database (Built-in SQLite)
+    /*
+     let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+    lazy var file = documentsPath + "/userdata.txt"
+    // Handles output
+    func writeToDisk() {
+        do {
+            // combine all data fields
+            let data = self.getUsername() + SEPERATOR +
+                self.getPassword() + SEPERATOR +
+                self.getUserEmail() + SEPERATOR +
+                String(self.getUserID())
+            // write to file
+            try data.write(toFile: file, atomically: true, encoding: .utf8)
+        }
+        catch {
+            print("Write failed\n")
+        }
+    }
+ */
+    
+    //PLEASE ENCODE ALL DATA IN UTF-8 OR YOU WILL GET GARBLED DATABASE ENTRIES!!!
+	// Save new user data to the local database
+    //Return true for success, false otherwise
+	func saveUserInfoToLocalDB() -> Bool{
+            let userId = self.getUserID()
+            let username = self.getUsername() as NSString
+            let password = self.getPassword() as NSString
+            let email = self.getUserEmail() as NSString
+            //Placeholder for last_update
+            let last_update = "" as NSString
+        
+            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+            var dbpointer: OpaquePointer?
+        
+            //Establish database connection
+            if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+                print("fail to establish database connection")
+                return false
+            }
+        
+            //SQL command for inserting new row into database
+            let insertQueryString = "INSERT INTO UserData (user_id, user_name, password, email, last_update) VALUES (?, ?, ?, ?, ?)"
+        
+            //statement for binding values into insert statement
+            var stmt: OpaquePointer?
+            sqlite3_prepare(dbpointer, insertQueryString, -1, &stmt, nil)
+            //Store as string for now, uint64 cannot be cast into int64
+            sqlite3_bind_text(stmt, 1, String(userId), -1, nil)
+            sqlite3_bind_text(stmt, 2, username.utf8String, -1, nil)
+            sqlite3_bind_text(stmt, 3, password.utf8String, -1, nil)
+            sqlite3_bind_text(stmt, 4, email.utf8String, -1, nil)
+            sqlite3_bind_text(stmt, 5, last_update.utf8String, -1, nil)
+        
+            //The operation returns SQLITE_DONE, which is an int success
+            //See SQLite result codes for detail
+            if sqlite3_step(stmt) == SQLITE_DONE {
+                return true
+            } else {
+                let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
+                print(errmsg)
+                return false
+            }
 	}
-	
+    
+    //Fetch user data from the local database, use userId as key
+    //Return user info in an array, empty array if query fails
+    func fetchUserInfoFromLocalDB(userId: UInt64 = 0 ) -> [String] {
+        if( userId == 0 ) {
+            return []
+        }
+        
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        var dbpointer: OpaquePointer?
+        
+        //Establish database connection
+        if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+            print("fail to establish database connection")
+            return []
+        }
+        //SQL command for fecting a row from database base on id
+        let idString = String(userId)
+        let selectQueryString = "SELECT * FROM UserData WHERE user_id=" + idString
+        
+        var stmt: OpaquePointer?
+        sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
+        
+        var queryResult = [String]()
+        //Traverse through the specific row
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let id = String(cString: sqlite3_column_text(stmt, 0))
+            let username = String(cString: sqlite3_column_text(stmt, 1))
+            let password = String(cString: sqlite3_column_text(stmt, 2))
+            let email = String(cString: sqlite3_column_text(stmt, 3))
+            let last_update = String(cString: sqlite3_column_text(stmt, 4))
+            queryResult.append(id)
+            queryResult.append(username)
+            queryResult.append(password)
+            queryResult.append(email)
+            queryResult.append(last_update)
+        }
+        return queryResult
+    }
+    
+    
+    
+	/*
 	// Handles input
 	func readFromDisk() -> [String] {
 		do {
@@ -65,6 +154,7 @@ final class UserDAO: UserData {
 		
 		return []
 	}
+ */
 	
 	// TODO
 	func readFromDatabase() -> [String] {

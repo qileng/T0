@@ -69,11 +69,15 @@ class UserData {
 	// Usage: The caller shall call UserData(true) when reading from disk, or UserData(false) when
 	// 	reading from database.
 	// TODO: Maybe we should update local data with database data and always load from disk? Need to know more about database communication.
-	convenience init (_ disk: Bool) {
+    
+    convenience init (_ disk: Bool) {
 		let DAO = UserDAO()
-		let data = (disk) ? DAO.readFromDisk() : DAO.readFromDatabase()
-		self.init(username: data[0], password: data[1], email: data[2], id: UInt64(Int(data[3])!))
+		let data = DAO.readFromDatabase()
+		self.init(username: data[1], password: data[2], email: data[3], id: UInt64(Int(data[0])!))
 	}
+ 
+    
+    
 	
 	// Alternative Initializer (Copy Initializer)
 	// Used when the caller needs a UserDAO to write data.

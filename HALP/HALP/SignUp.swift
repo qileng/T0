@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class SignUpViewController: UIViewController {
 	
 	@IBOutlet weak var Message: UILabel!
@@ -34,9 +35,13 @@ class SignUpViewController: UIViewController {
 		// write new to file
 		// TODO: to database
 		let _DAO = UserDAO(username: form.getUsername(), password: form.getPassword(), email: form.getUserEmail(), id: form.getUserID())
-		_DAO.writeToDisk()
-		
-		self.Message!.text = "Succeeded!"
+        
+        if(!_DAO.saveUserInfoToLocalDB()) {
+            self.Message!.text = "Fatal Error :("
+        }
+        else {
+            self.Message!.text = "Succeeded!"
+        }
 		
 		let storyBoard = self.storyboard
 		let nextViewController = storyBoard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController

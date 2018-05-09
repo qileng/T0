@@ -6,6 +6,7 @@
 //  Copyright © 2018 Team Zero. All rights reserved.
 //
 
+import SQLite3
 import UIKit
 
 
@@ -49,6 +50,26 @@ class StartupViewController: UIViewController {
 	// This function is called only after the UIViewController is loaded and never again.
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        
+        //Initialize local database
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let dbPath = documentsPath + "/appData.sqlite"
+        var dbpointer: OpaquePointer? = nil
+        
+        if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
+            //UserData table
+            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
+                "(user_id TEXT PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update TEXT)", nil, nil, nil)
+            //TaskData table not yet implemented
+            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
+                "(task_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+            //SettingData table not yet implemented
+            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
+                "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+        }
+        else {
+            print("fail to open database")
+        }
 	}
 	
 	// This function I haven't figure out any significant usage yet. 		--Qihao
