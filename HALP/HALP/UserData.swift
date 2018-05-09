@@ -8,6 +8,13 @@
 
 import Foundation
 
+
+// Runtime Errors
+enum IOError: Error {
+	case runtimeError(String)
+}
+
+
 // This class is the basic runtime instance containing necessary user information.
 // This class is also the parent class of UserDAO and UserForm.
 // This class is in Business Logic Layer.
@@ -69,13 +76,16 @@ class UserData {
 	// Usage: The caller shall call UserData(true) when reading from disk, or UserData(false) when
 	// 	reading from database.
 	// TODO: Maybe we should update local data with database data and always load from disk? Need to know more about database communication.
-   /*
-    convenience init (_ disk: Bool) {
+	convenience init (_ disk: Bool, email e: String, password p: String) throws {
 		let DAO = UserDAO()
-		let data = DAO.readFromDatabase()
-		self.init(username: data[1], password: data[2], email: data[3], id: UInt64(Int(data[0])!))
+		let authFlag = DAO.userAuthentication(email: e, password: p)
+		if (authFlag != "-1") {
+			let userInfo = DAO.fetchUserInfoFromLocalDB(userId: authFlag)
+			self.init(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: UInt64(userInfo[0])!)
+		} else {
+			throw IOError.runtimeError("Authentication failed!")
+		}
 	}
- */
  
     
     
