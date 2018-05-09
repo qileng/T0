@@ -18,35 +18,12 @@ let SEPERATOR = " "
 // This class has its properties, Initializers, and Getters inherited from UserData.
 
 final class UserDAO: UserData {
-
-	// The following imlementation is the simplest file IO serving as a verification of functionality. No encoding, no protection, no privacy whatsoever.
-	// TODO: Improvements needed.
-	
 	// This is a call that returns "Documents/" in our App path
     // Initialize path for local database (Built-in SQLite)
-    /*
-     let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-    lazy var file = documentsPath + "/userdata.txt"
-    // Handles output
-    func writeToDisk() {
-        do {
-            // combine all data fields
-            let data = self.getUsername() + SEPERATOR +
-                self.getPassword() + SEPERATOR +
-                self.getUserEmail() + SEPERATOR +
-                String(self.getUserID())
-            // write to file
-            try data.write(toFile: file, atomically: true, encoding: .utf8)
-        }
-        catch {
-            print("Write failed\n")
-        }
-    }
- */
-    
-    //PLEASE ENCODE ALL DATA IN UTF-8 OR YOU WILL GET GARBLED DATABASE ENTRIES!!!
+
+    // PLEASE ENCODE ALL DATA IN UTF-8 OR YOU WILL GET GARBLED DATABASE ENTRIES!!!
 	// Save new user data to the local database
-    //Return true for success, false otherwise
+    // Return true for success, false otherwise
 	func saveUserInfoToLocalDB() -> Bool{
             let userId = self.getUserID()
             let username = self.getUsername() as NSString
@@ -88,8 +65,10 @@ final class UserDAO: UserData {
             }
 	}
     
-    //Fetch user data from the local database, use userId as key
-    //Return user info in an array, empty array if query fails
+    // Fetch user data from the local database, use userId as key.
+    // Return user info in an array, empty array if query fails.
+	// To avoid returning empty array and cause potential runtime error, this function instead throws
+	// an error from RuntimeError Enumerator.
     func fetchUserInfoFromLocalDB(userId: String = "" ) throws -> [String] {
         if( userId == "" ) {
             throw RuntimeError.InternalError("fetch() called without key!")
@@ -126,8 +105,8 @@ final class UserDAO: UserData {
         return queryResult
     }
     
-    //login authentication function, taking username and password as input
-    //Return corresponding user_id if success, "-1" otherwise
+    // login authentication function, taking username and password as input
+    // Return corresponding user_id if success, "-1" otherwise
     func userAuthentication(email: String, password: String ) -> String {
         let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
         var dbpointer: OpaquePointer?
@@ -152,29 +131,6 @@ final class UserDAO: UserData {
         }
         return "-1"
     }
-    
-    
-	/*
-	// Handles input
-	func readFromDisk() -> [String] {
-		do {
-			// read from file
-			let data = try String(contentsOfFile: file, encoding: .utf8)
-			// split string
-			let fields = data.split(separator: SEPERATOR[SEPERATOR.startIndex], maxSplits: 3, omittingEmptySubsequences: true)
-			var fieldString: [String] = []
-			for field in fields {
-				fieldString.append(String(field))
-			}
-			return fieldString
-		}
-		catch {
-			print("Read failed\n")
-		}
-		
-		return []
-	}
- */
 	
 	// TODO
 	func readFromDatabase() -> [String] {

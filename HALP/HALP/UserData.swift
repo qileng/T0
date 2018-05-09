@@ -74,9 +74,10 @@ class UserData {
 	
 	// Alternative Initializer
 	// Used when the caller want to create a UserData straight from disk or database.
-	// Usage: The caller shall call UserData(true) when reading from disk, or UserData(false) when
-	// 	reading from database.
-	// TODO: Maybe we should update local data with database data and always load from disk? Need to know more about database communication.
+	// Usage: The caller shall call UserData(Bool, email:password).
+	// Passing true will read from disk, passing false will read from Azure.
+	// TODO: Azure part.
+	// Note: This initializer throws, you have to handle to error.
 	convenience init (_ disk: Bool, email e: String, password p: String) throws {
 		let DAO = UserDAO()
 		let authFlag = DAO.userAuthentication(email: e, password: p)
