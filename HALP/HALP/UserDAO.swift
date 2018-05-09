@@ -140,17 +140,15 @@ final class UserDAO: UserData {
         }
         let emailString = email.split(separator: "@")
         if emailString.count != 2 {
-            print("Illegal email")
             return "-1"
         }
     
         //SQL command for fecting a row from database base on id
-        var selectQueryString = "SELECT user_id, email FROM UserData WHERE password=" + password + " AND " +
+        var selectQueryString = "SELECT user_id, email FROM UserData WHERE password=\'" + password + "\' AND " +
             "email LIKE " + "\'%" + emailString[0] + "%\'"
         
         selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
         
-        print(selectQueryString)
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
         //Query the specific usermane + password combination
@@ -160,13 +158,10 @@ final class UserDAO: UserData {
             
             if(email == email_verify) {
                 return id
-                
             }
             return "-1"
         }
             return "-1"
-
-
     }
     
     

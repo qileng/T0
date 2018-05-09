@@ -34,16 +34,18 @@ class StartupViewController: UIViewController {
 		// TODO: update local data with database data
 		
 		// load the user using local data
-        //Authenticate user information (email + password)
+        // Authenticate user information (email + password)
         let DAO = UserDAO()
         let authFlag = DAO.userAuthentication(email: self.Email!.text!, password: self.Password!.text!)
         
         if(authFlag != "-1") {
             let userInfo = DAO.fetchUserInfoFromLocalDB(userId: authFlag)
-            //Todo: initialize user data
-           // let user_id = userInfo[0]
-           // let userAuthSuccess = UserData(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: 0)
             
+            // Initialize logged in user data
+            let user_id = UInt64(userInfo[0])
+            let userAuthSuccess = UserData(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: user_id!)
+    
+            // Todo
             // Set up task manager
             // TaskManager.sharedTaskManager.setUp(new: user, setting: )
             
@@ -51,6 +53,7 @@ class StartupViewController: UIViewController {
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
         }
         else {
+            //Todo: display error message on screen
             print("Authentication fails")
         }
 		
@@ -75,7 +78,6 @@ class StartupViewController: UIViewController {
             //SettingData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
-            print(dbPath)
         }
         else {
             print("fail to open database")
