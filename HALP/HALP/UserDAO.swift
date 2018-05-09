@@ -11,11 +11,6 @@
 import Foundation
 import SQLite3
 
-// Runtime Errors
-enum IOError: Error {
-	case runtimeError(String)
-}
-
 let SEPERATOR = " "
 
 // This class is used in Data Management layer.
