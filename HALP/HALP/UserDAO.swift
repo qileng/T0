@@ -92,7 +92,7 @@ final class UserDAO: UserData {
     //Return user info in an array, empty array if query fails
     func fetchUserInfoFromLocalDB(userId: String = "" ) throws -> [String] {
         if( userId == "" ) {
-            throw RuntimeError.InternalError("fetch() called with key!")
+            throw RuntimeError.InternalError("fetch() called without key!")
         }
         
         let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
