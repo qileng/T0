@@ -16,6 +16,11 @@ enum Category: Double {
 	case Relationship = 0.75
 }
 
+enum Weight: Double {
+	case Category = 0.3
+	case Time = 0.7
+}
+
 class Task {
 	// Properties. Associated with user input.
 	private var title: String
@@ -110,5 +115,29 @@ class Task {
 				throw RuntimeError.InternalError("Unexpected key in dictionary detected!")
 			}
 		}
+	}
+	
+	// Fixed task has a priority of 2.
+	// Past task has a priority of 3.
+	// Regular task has a priority in (0,1).
+	func calculatePriority() {
+		// Filter fixed tasks.
+		if self.schedule != 0 {
+			self.taskPriority = 2
+			return
+		}
+		// Get current time.
+		let current = Int(Date().timeIntervalSince1970)
+		// Filter past due tasks.
+		if current > self.deadline {
+			self.taskPriority = 3
+			return
+		}
+		// Calculate priority.
+		// p = summation on i (weight_i * standarized_value_i)
+		let timeRemaining = self.deadline - current
+		let standarized_timeRemaining = Double(self.duration) / Double(timeRemaining)
+		self.taskPriority = Weight.Category.rawValue * self.category.rawValue +
+							Weight.Time.rawValue * standarized_timeRemaining
 	}
 }
