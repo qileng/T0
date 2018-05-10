@@ -99,8 +99,9 @@ class UserForm: UserData {
 		return true
 	}
 	
-	func onlineValidateExistingUser() -> Bool {
+	func onlineValidateExistingUser() throws -> UserData {
 		// TODO: Validate existing user with database, i.e. check login credentials
-		return true
+		let user = try UserData(false, email: self.getUserEmail(), password: self.getPassword())
+		return user
 	}
 }

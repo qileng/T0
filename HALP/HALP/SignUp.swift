@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class SignUpViewController: UIViewController {
 	
 	@IBOutlet weak var Message: UILabel!
@@ -31,18 +32,26 @@ class SignUpViewController: UIViewController {
 			return
 		}
 		
-		// write new to file
-		// TODO: to database
+		// write to local database
 		let _DAO = UserDAO(username: form.getUsername(), password: form.getPassword(), email: form.getUserEmail(), id: form.getUserID())
-		_DAO.writeToDisk()
-		
-		self.Message!.text = "Succeeded!"
-		
-		let storyBoard = self.storyboard
-		let nextViewController = storyBoard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
-		self.present(nextViewController, animated: true, completion: nil)
+        
+        if(!_DAO.saveUserInfoToLocalDB()) {
+            self.Message!.text = "Unexpected Error :("
+        }
+        else {
+            self.Message!.text = "Succeeded!"
+            let storyBoard = self.storyboard
+            let nextViewController = storyBoard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+            self.present(nextViewController, animated: true, completion: nil)
+        }
 	}
 	
+    @IBAction func Cancel(_ sender: Any) {
+        let storyBoard = self.storyboard
+        let nextViewController = storyBoard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+        self.present(nextViewController, animated: true, completion: nil)
+    }
+    
 	// This function handles everything that needs to be set up once for this UI.
 	// This function is called only after the UIViewController is loaded and never again.
 	override func viewDidLoad() {

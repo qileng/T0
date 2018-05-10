@@ -22,25 +22,45 @@ class HALPTests: XCTestCase {
         super.tearDown()
     }
     
-    func testWriteToDisk() {
+    func testSaveUserInfoToLocalDB() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 		
 		print("Testing UserDAO write.\n")
 		let testUser1 = UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com")
 		let testDAO = UserDAO(testUser1)
-		testDAO.writeToDisk()
+		testDAO.saveUserInfoToLocalDB()
     }
 	
-	func testReadFromDisk() {
+	func testFetchUserInfoFromLocalDB() {
 		print("Testing UserDAO read.\n")
-		let testUser2 = UserData(true)
-		print(testUser2.getUsername())
-		print(testUser2.getPassword())
-		print(testUser2.getUserEmail())
-		print(String(testUser2.getUserID(), radix: 16))
+		// test exiting user
+		do {
+			let testUser2 = try UserData(true, email: "GUEST@GUEST.com", password: "GUEST")
+			print(testUser2.getUsername())
+			print(testUser2.getPassword())
+			print(testUser2.getUserEmail())
+			print(String(testUser2.getUserID(), radix: 16))
+		} catch RuntimeError.DBError(let errorMessage){
+			print(errorMessage)
+		} catch RuntimeError.InternalError(let errorMessage) {
+			print(errorMessage)
+		} catch {
+			print("Unexpected error!")
+		}
+
+		// testing non-existing user
+		do {
+			let testUser3 = try UserData(true, email: "GUEST1@GUEST1.com", password: "GUEST")
+			print(testUser3.getUsername())
+			print(testUser3.getPassword())
+			print(testUser3.getUserEmail())
+			print(String(testUser3.getUserID(), radix: 16))
+		} catch {
+			print("Authentification failed!")
+		}
 	}
-	
+	/*
 	func testSettingDAO() {
 		print("Testing SettingDAO write.\n")
 		let testUser = UserData(true)
@@ -55,6 +75,7 @@ class HALPTests: XCTestCase {
 		print(testSetting.getFontSize())
 		print(testSetting.getDefaultView().rawValue)
 	}
+*/
 	
     
     func testPerformanceExample() {

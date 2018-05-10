@@ -8,6 +8,14 @@
 
 import Foundation
 
+
+// Runtime Errors
+enum RuntimeError: Error {
+	case DBError(String)
+	case InternalError(String)
+}
+
+
 // This class is the basic runtime instance containing necessary user information.
 // This class is also the parent class of UserDAO and UserForm.
 // This class is in Business Logic Layer.
@@ -66,14 +74,24 @@ class UserData {
 	
 	// Alternative Initializer
 	// Used when the caller want to create a UserData straight from disk or database.
-	// Usage: The caller shall call UserData(true) when reading from disk, or UserData(false) when
-	// 	reading from database.
-	// TODO: Maybe we should update local data with database data and always load from disk? Need to know more about database communication.
-	convenience init (_ disk: Bool) {
+	// Usage: The caller shall call UserData(Bool, email:password).
+	// Passing true will read from disk, passing false will read from Azure.
+	// TODO: Azure part.
+	// Note: This initializer throws, you have to handle to error.
+	convenience init (_ disk: Bool, email e: String, password p: String) throws {
 		let DAO = UserDAO()
-		let data = (disk) ? DAO.readFromDisk() : DAO.readFromDatabase()
-		self.init(username: data[0], password: data[1], email: data[2], id: UInt64(Int(data[3])!))
+		let authFlag = DAO.userAuthentication(email: e, password: p)
+		let userInfo: [String]
+		if (authFlag != "-1") {
+			userInfo = try DAO.fetchUserInfoFromLocalDB(userId: authFlag)
+			self.init(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: UInt64(userInfo[0])!)
+		} else {
+			throw RuntimeError.DBError("Authentication failed!")
+		}
 	}
+ 
+    
+    
 	
 	// Alternative Initializer (Copy Initializer)
 	// Used when the caller needs a UserDAO to write data.
