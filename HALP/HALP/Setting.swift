@@ -20,10 +20,10 @@ enum View: String{
 class Setting {
 	
 	// Primary key for this object in database
-	private let settingID: UInt64?
+	private let settingID: Int64?
 	
 	// Foreign key for this object in database
-	private let userID: UInt64
+	private let userID: Int64
 	
 	// Setting fields.
 	// TODO: come up with more personal settings
@@ -37,7 +37,7 @@ class Setting {
 	
 	// Main Initializer.
 	// Everything is option except userID. Setting should not be created without a user.
-	init(setting sid: UInt64 = 0, user uid: UInt64, notification n: Bool = true, suggestion s: Bool = true, fontSize f: Int = 12, defaultView v: View = .clock) {
+	init(setting sid: Int64 = 0, user uid: Int64, notification n: Bool = true, suggestion s: Bool = true, fontSize f: Int = 12, defaultView v: View = .clock) {
 		self.userID = uid
 		self.settingID = (sid == 0) ? IDGenerator.generateID(name: String(uid), type: .setting) : sid
 		self.notificationOn = n
@@ -56,7 +56,7 @@ class Setting {
 	convenience init(_ disk: Bool) {
 		let DAO = SettingDAO()
 		let data = (disk) ? DAO.readFromDisk() : DAO.readFromDatabase()
-		self.init(setting: UInt64(data[0])!, user: UInt64(data[1])!, notification: Bool(data[2])!, suggestion: Bool(data[3])!, fontSize: Int(data[4])!, defaultView: View(rawValue: data[5])!)
+		self.init(setting: Int64(data[0])!, user: Int64(data[1])!, notification: Bool(data[2])!, suggestion: Bool(data[3])!, fontSize: Int(data[4])!, defaultView: View(rawValue: data[5])!)
 	}
 	
 	// Copy initializer.
@@ -78,11 +78,11 @@ class Setting {
 		return self.suggestionOn
 	}
 	
-	func getSettingID() -> (UInt64) {
+	func getSettingID() -> (Int64) {
 		return self.settingID!
 	}
 	
-	func getUserID() -> (UInt64) {
+	func getUserID() -> (Int64) {
 		return self.userID
 	}
 	

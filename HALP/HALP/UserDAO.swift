@@ -47,7 +47,7 @@ final class UserDAO: UserData {
             var stmt: OpaquePointer?
             sqlite3_prepare(dbpointer, insertQueryString, -1, &stmt, nil)
             //Store as string for now, uint64 cannot be cast into int64
-            sqlite3_bind_text(stmt, 1, String(userId), -1, nil)
+            sqlite3_bind_int64(stmt, 1, userId)
             sqlite3_bind_text(stmt, 2, username.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 3, password.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 4, email.utf8String, -1, nil)
@@ -68,8 +68,8 @@ final class UserDAO: UserData {
     // Return user info in an array, empty array if query fails.
 	// To avoid returning empty array and cause potential runtime error, this function instead throws
 	// an error from RuntimeError Enumerator.
-    func fetchUserInfoFromLocalDB(userId: String = "" ) throws -> [String] {
-        if( userId == "" ) {
+    func fetchUserInfoFromLocalDB(userId: Int64 = -1 ) throws -> [Any] {
+        if( userId == -1 ) {
             throw RuntimeError.InternalError("fetch() called without key!")
         }
         
@@ -81,20 +81,20 @@ final class UserDAO: UserData {
 			throw RuntimeError.DBError("Local DB does not exist!")
         }
         //SQL command for fecting a row from database base on id
-        let selectQueryString = "SELECT * FROM UserData WHERE user_id=" + userId
+        let selectQueryString = "SELECT * FROM UserData WHERE user_id=" + String(userId)
         
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
         
-        var queryResult = [String]()
+        var queryResult = [Any]()
         
         //Traverse through the specific row
         while sqlite3_step(stmt) == SQLITE_ROW {
-            let id = String(cString: sqlite3_column_text(stmt, 0))
+            let id = sqlite3_column_int64(stmt, 0)
             let username = String(cString: sqlite3_column_text(stmt, 1))
             let password = String(cString: sqlite3_column_text(stmt, 2))
             let email = String(cString: sqlite3_column_text(stmt, 3))
-            let last_update = String(cString: sqlite3_column_text(stmt, 4))
+            let last_update = sqlite3_column_int(stmt, 4)
             queryResult.append(id)
             queryResult.append(username)
             queryResult.append(password)
@@ -106,39 +106,75 @@ final class UserDAO: UserData {
     
     // login authentication function, taking username and password as input
     // Return corresponding user_id if success, "-1" otherwise
-    func userAuthentication(email: String, password: String ) -> String {
+    func userAuthentication(email: String, password: String ) -> Int64 {
         let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
         var dbpointer: OpaquePointer?
         
         //Establish database connection
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
             print("fail to establish database connection")
-            return "-1"
+            return -1
         }
         let emailString = email.split(separator: "@")
         if emailString.count != 2 {
-            return "-1"
+            return -1
         }
     
         //SQL command for fecting a row from database base on id
         var selectQueryString = "SELECT user_id, email FROM UserData WHERE password=\'" + password + "\' AND " +
             "email LIKE " + "\'%" + emailString[0] + "%\'"
-        
         selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
-        
+
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
         //Query the specific usermane + password combination
         if sqlite3_step(stmt) == SQLITE_ROW {
-            let id = String(cString: sqlite3_column_text(stmt, 0))
+            let id = sqlite3_column_int64(stmt, 0)
             let email_verify = String(cString: sqlite3_column_text(stmt, 1))
             
             if(email == email_verify) {
                 return id
             }
-            return "-1"
+            return -1
         }
-            return "-1"
+            return -1
+    }
+    
+    
+    //Email address should be unique
+    //This function query the database to maksure that user do not signup with duplicated email
+    //Take two parameters: the input email and boolean flag for querying online or local database
+    //Return true if the input email is valid(no duplicate), false otherwise
+    func validateUserEmailOnline(email: String, onlineDB: Bool) -> Bool {
+        if(onlineDB) {
+            // TODO
+            return true
+        }
+        else {
+            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+            var dbpointer: OpaquePointer?
+            
+            //Establish database connection
+            if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+                print("fail to establish database connection")
+                return false
+            }
+            let emailString = email.split(separator: "@")
+            if emailString.count != 2 {
+                return false
+            }
+            
+            //SQL command for fecting a row from database base on id
+            var selectQueryString = "SELECT user_id, email FROM UserData WHERE email LIKE " + "\'%" + emailString[0] + "%\'"
+            selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
+            
+            var stmt: OpaquePointer?
+            sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
+            if sqlite3_step(stmt) == SQLITE_ROW {
+                return false
+            }
+            return true
+        }
     }
 	
 	// TODO

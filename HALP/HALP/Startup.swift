@@ -69,7 +69,7 @@ class StartupViewController: UIViewController {
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             //UserData table
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
-                "(user_id TEXT PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
+                "(user_id INTEGER PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
             //Initialize guest account
             sqlite3_exec(dbpointer, "INSERT INTO UserData (user_id, user_name, password, email, last_update) " +
                 "VALUES (0, 'Guest', 123, 'guest@guest.com', 0)"
@@ -80,6 +80,7 @@ class StartupViewController: UIViewController {
             //SettingData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+            print(dbPath)
         }
         else {
             print("fail to open database")
