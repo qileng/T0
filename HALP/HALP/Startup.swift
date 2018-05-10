@@ -19,6 +19,7 @@ class StartupViewController: UIViewController {
 		let storyBoard = self.storyboard
 		let nextViewController = storyBoard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
 		self.present(nextViewController, animated: true, completion: nil)
+    
 	}
 	
 	@IBAction func Login(_ sender: UIButton) {
@@ -39,11 +40,19 @@ class StartupViewController: UIViewController {
 			// Bring up rootViewController
 			self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
 		} catch RuntimeError.DBError(let errorMessage) {
-			print(errorMessage)			// consider put the message on UI
+            let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            
 		} catch RuntimeError.InternalError(let errorMessage) {
-			print(errorMessage)			// consider put the message on UI
+            let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            
 		} catch {
-			print("Unexpected Error!")  // consider put the message on UI
+            let alert = UIAlertController(title: "Oops!", message: "Unexpected Error!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
 		}
 	}
 	
@@ -60,7 +69,11 @@ class StartupViewController: UIViewController {
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             //UserData table
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
-                "(user_id TEXT PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update TEXT)", nil, nil, nil)
+                "(user_id TEXT PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
+            //Initialize guest account
+            sqlite3_exec(dbpointer, "INSERT INTO UserData (user_id, user_name, password, email, last_update) " +
+                "VALUES (0, 'Guest', 123, 'guest@guest.com', 0)"
+                ,nil , nil, nil)
             //TaskData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
                 "(task_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)

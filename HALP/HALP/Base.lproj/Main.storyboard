@@ -226,13 +226,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Message" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V0O-l5-Qm2">
-                                <rect key="frame" x="80" y="93" width="216" height="83"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Letters and numbers only" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYJ-7g-XQe">
                                 <rect key="frame" x="80" y="239" width="216" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -253,7 +246,6 @@
                         <viewLayoutGuide key="safeArea" id="093-ha-low"/>
                     </view>
                     <connections>
-                        <outlet property="Message" destination="V0O-l5-Qm2" id="tHT-e5-q9Z"/>
                         <outlet property="email" destination="rZc-Oa-C6n" id="DE4-UK-75r"/>
                         <outlet property="password" destination="GCy-lP-JMQ" id="IjN-RE-VIZ"/>
                         <outlet property="username" destination="Meu-YA-ZcH" id="cEw-pz-vCL"/>

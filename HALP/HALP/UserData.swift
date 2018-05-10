@@ -86,7 +86,7 @@ class UserData {
 			userInfo = try DAO.fetchUserInfoFromLocalDB(userId: authFlag)
 			self.init(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: UInt64(userInfo[0])!)
 		} else {
-			throw RuntimeError.DBError("Authentication failed!")
+			throw RuntimeError.DBError("This email password combination does not exist!")
 		}
 	}
  

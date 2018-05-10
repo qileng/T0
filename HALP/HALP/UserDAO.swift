@@ -29,8 +29,7 @@ final class UserDAO: UserData {
             let username = self.getUsername() as NSString
             let password = self.getPassword() as NSString
             let email = self.getUserEmail() as NSString
-            //Placeholder for last_update
-            let last_update = "" as NSString
+            let last_update = Date().timeIntervalSince1970
         
             let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
             var dbpointer: OpaquePointer?
@@ -52,7 +51,7 @@ final class UserDAO: UserData {
             sqlite3_bind_text(stmt, 2, username.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 3, password.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 4, email.utf8String, -1, nil)
-            sqlite3_bind_text(stmt, 5, last_update.utf8String, -1, nil)
+            sqlite3_bind_int(stmt, 5, Int32(last_update))
         
             //The operation returns SQLITE_DONE, which is an int success
             //See SQLite result codes for detail
