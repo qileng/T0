@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A86F51FC20A4FC2400628AD1 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F51FB20A4FC2300628AD1 /* Task.swift */; };
+		A86F51FE20A4FC2B00628AD1 /* TaskCapsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F51FD20A4FC2B00628AD1 /* TaskCapsule.swift */; };
+		A86F520020A4FC3600628AD1 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F51FF20A4FC3600628AD1 /* TaskManager.swift */; };
+		A86F520220A4FC3E00628AD1 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86F520120A4FC3E00628AD1 /* Category.swift */; };
 		ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED37C50D209BB1C90038A7D0 /* SignUp.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
@@ -59,6 +63,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A86F51FB20A4FC2300628AD1 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		A86F51FD20A4FC2B00628AD1 /* TaskCapsule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCapsule.swift; sourceTree = "<group>"; };
+		A86F51FF20A4FC3600628AD1 /* TaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
+		A86F520120A4FC3E00628AD1 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		ED37C50D209BB1C90038A7D0 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		ED43235F209E870B00F11140 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -116,6 +124,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A86F51FA20A4FBC900628AD1 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				A86F520120A4FC3E00628AD1 /* Category.swift */,
+				A86F51FF20A4FC3600628AD1 /* TaskManager.swift */,
+				A86F51FD20A4FC2B00628AD1 /* TaskCapsule.swift */,
+				A86F51FB20A4FC2300628AD1 /* Task.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
 		ED432362209FAD3E00F11140 /* View Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +198,7 @@
 		ED6C2A49209302640063B4AC /* HALP */ = {
 			isa = PBXGroup;
 			children = (
+				A86F51FA20A4FBC900628AD1 /* Task */,
 				ED432364209FADD000F11140 /* Core */,
 				ED432363209FAD7D00F11140 /* Data Classes */,
 				ED432362209FAD3E00F11140 /* View Classes */,
@@ -346,17 +366,21 @@
 				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
 				ED5B5A6E20A105D300E3C5F8 /* SettingForm.swift in Sources */,
 				ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
+				A86F51FC20A4FC2400628AD1 /* Task.swift in Sources */,
 				ED5B5A6820A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */,
 				ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */,
 				ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */,
+				A86F520020A4FC3600628AD1 /* TaskManager.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
+				A86F51FE20A4FC2B00628AD1 /* TaskCapsule.swift in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
 				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,
+				A86F520220A4FC3E00628AD1 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
