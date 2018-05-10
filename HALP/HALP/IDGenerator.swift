@@ -59,6 +59,10 @@ struct IDGenerator {
 	// Simple hash of 16-digit Strings. Note that hash has an upper bound of 0x40d0.
 	static func simpleStringHash(_ s: String) -> UInt32 {
 		var hash: UInt32 = 0
+		if s.isEmpty {
+			// Adds some protection. Happens during authentication, in which ID is not used.
+			return 0xffff
+		}
 		let temp = s as NSString
 		for index in 0...(s.count-1) {
 			// iterate over the String

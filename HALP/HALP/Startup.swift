@@ -22,49 +22,31 @@ class StartupViewController: UIViewController {
 	}
 	
 	@IBAction func Login(_ sender: UIButton) {
-        
-        /*
+		
+		// UserForm collects input.
 		let form = UserForm(password: self.Password!.text!, email: self.Email!.text!)
-		// TODO: perform login validation
-		if !form.onlineValidateExistingUser() {
-			return
+		// Validate with DB using via UserData.
+		// TODO: Currently, actual online authentication is not implemented. So authentication is in
+		// SQLite as a template. To enable authentication from Azure, implement
+		// UserData.init(Bool:email:password).
+		let user: UserData
+		do {
+			user = try form.onlineValidateExistingUser()
+			// TODO: retrieve settting using userID
+			// Set up task manager
+			// TaskManager.sharedTaskManager.setUp(new: user, setting: )
+            
+			// Bring up rootViewController
+			self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+		} catch RuntimeError.DBError(let errorMessage) {
+			print(errorMessage)			// consider put the message on UI
+		} catch RuntimeError.InternalError(let errorMessage) {
+			print(errorMessage)			// consider put the message on UI
+		} catch {
+			print("Unexpected Error!")  // consider put the message on UI
 		}
-         */
-		
-		// TODO: update local data with database data
-		
-		// load the user using local data
-        // Authenticate user information (email + password)
-        let DAO = UserDAO()
-        let authFlag = DAO.userAuthentication(email: self.Email!.text!, password: self.Password!.text!
-        
-        if(authFlag != "-1") {
-            let userInfo = DAO.fetchUserInfoFromLocalDB(userId: authFlag)
-            
-            // Initialize logged in user data
-            let user_id = UInt64(userInfo[0])
-            let userAuthSuccess = UserData(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: user_id!)
-    
-            // Todo
-            // Set up task manager
-            // TaskManager.sharedTaskManager.setUp(new: user, setting: )
-            
-            // Bring up rootViewController
-            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-			} catch RuntimeError.DBError(let errorMessage) {
-				print(errorMessage)			// consider put the message on UI
-			} catch RuntimeError.InternalError(let errorMessage) {
-				print(errorMessage)			// consider put the message on UI
-			} catch {
-				print("Unexpected Error!")  // consider put the message on UI
-			}
-        }
-        else {
-            //Todo: display error message on screen
-            print("Authentication fails")
-        }
-		
 	}
+	
 	// This function handles everything that needs to be set up once for this UI.
 	// This function is called only after the UIViewController is loaded and never again.
 	override func viewDidLoad() {
