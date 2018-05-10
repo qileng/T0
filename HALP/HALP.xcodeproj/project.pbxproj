@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED37C50D209BB1C90038A7D0 /* SignUp.swift */; };
+		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
+		ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
+		ED432360209E870B00F11140 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235F209E870B00F11140 /* Task.swift */; };
+		ED432361209E870B00F11140 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235F209E870B00F11140 /* Task.swift */; };
+		ED5B5A6820A0EA9600E3C5F8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */; };
+		ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */; };
+		ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */; };
+		ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */; };
+		ED5B5A6E20A105D300E3C5F8 /* SettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */; };
+		ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */; };
+		ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
+		ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
+		ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
+		ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
+		ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
+		ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE994209AB14B00F0DB56 /* UserData.swift */; };
 		ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4A209302650063B4AC /* AppDelegate.swift */; };
 		ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4C209302650063B4AC /* RootViewController.swift */; };
 		ED6C2A51209302650063B4AC /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A50209302650063B4AC /* ModelController.swift */; };
@@ -15,6 +32,8 @@
 		ED6C2A59209302660063B4AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */; };
 		ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A63209302660063B4AC /* HALPTests.swift */; };
 		ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A6E209302660063B4AC /* HALPUITests.swift */; };
+		ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE994209AB14B00F0DB56 /* UserData.swift */; };
+		ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
 		EDDEE2492097B3B50078827A /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
 		EDDEE24B2097B77E0078827A /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24A2097B77E0078827A /* ListView.swift */; };
 		EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
@@ -40,6 +59,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ED37C50D209BB1C90038A7D0 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
+		ED43235F209E870B00F11140 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDAO.swift; sourceTree = "<group>"; };
+		ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingForm.swift; sourceTree = "<group>"; };
+		ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDGenerator.swift; sourceTree = "<group>"; };
+		ED681757209BB94500FEF7D7 /* UserForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForm.swift; sourceTree = "<group>"; };
 		ED6C2A47209302640063B4AC /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6C2A4A209302650063B4AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED6C2A4C209302650063B4AC /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +82,8 @@
 		ED6C2A6E209302660063B4AC /* HALPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HALPUITests.swift; sourceTree = "<group>"; };
 		ED6C2A70209302660063B4AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED6C2A7C2093052E0063B4AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		ED9FE994209AB14B00F0DB56 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		ED9FE995209AB14B00F0DB56 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		EDDEE2482097B3B50078827A /* Clockview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clockview.swift; sourceTree = "<group>"; };
 		EDDEE24A2097B77E0078827A /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		EDDEE24C2097C36D0078827A /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
@@ -87,6 +116,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED432362209FAD3E00F11140 /* View Classes */ = {
+			isa = PBXGroup;
+			children = (
+				ED6C2A50209302650063B4AC /* ModelController.swift */,
+				EDDEE2482097B3B50078827A /* Clockview.swift */,
+				EDDEE24E2097C7830078827A /* UI_template.swift */,
+				ED37C50D209BB1C90038A7D0 /* SignUp.swift */,
+				EDDEE2502097CA730078827A /* Startup.swift */,
+				EDDEE24A2097B77E0078827A /* ListView.swift */,
+				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
+				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
+			);
+			name = "View Classes";
+			sourceTree = "<group>";
+		};
+		ED432363209FAD7D00F11140 /* Data Classes */ = {
+			isa = PBXGroup;
+			children = (
+				ED681757209BB94500FEF7D7 /* UserForm.swift */,
+				ED9FE995209AB14B00F0DB56 /* UserDAO.swift */,
+				ED9FE994209AB14B00F0DB56 /* UserData.swift */,
+				ED43235F209E870B00F11140 /* Task.swift */,
+				ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */,
+				ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */,
+				ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */,
+			);
+			name = "Data Classes";
+			sourceTree = "<group>";
+		};
+		ED432364209FADD000F11140 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				ED43235C209E85EA00F11140 /* TaskManager.swift */,
+				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
+				ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
 		ED6C2A3E209302640063B4AC = {
 			isa = PBXGroup;
 			children = (
@@ -111,14 +179,9 @@
 		ED6C2A49209302640063B4AC /* HALP */ = {
 			isa = PBXGroup;
 			children = (
-				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
-				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
-				ED6C2A50209302650063B4AC /* ModelController.swift */,
-				EDDEE2482097B3B50078827A /* Clockview.swift */,
-				EDDEE24E2097C7830078827A /* UI_template.swift */,
-				EDDEE2502097CA730078827A /* Startup.swift */,
-				EDDEE24A2097B77E0078827A /* ListView.swift */,
-				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
+				ED432364209FADD000F11140 /* Core */,
+				ED432363209FAD7D00F11140 /* Data Classes */,
+				ED432362209FAD3E00F11140 /* View Classes */,
 				ED6C2A52209302650063B4AC /* Main.storyboard */,
 				ED6C2A55209302660063B4AC /* Assets.xcassets */,
 				ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */,
@@ -276,13 +339,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */,
 				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
 				ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */,
+				ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */,
 				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
+				ED5B5A6E20A105D300E3C5F8 /* SettingForm.swift in Sources */,
+				ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
+				ED5B5A6820A0EA9600E3C5F8 /* Setting.swift in Sources */,
+				ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */,
+				ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */,
+				ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
+				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
+				ED432360209E870B00F11140 /* Task.swift in Sources */,
 				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,7 +364,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */,
+				ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */,
+				ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
+				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
+				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
+				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
+				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
+				ED432361209E870B00F11140 /* Task.swift in Sources */,
 				ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */,
+				ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +539,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 764FPJ3WFK;
 				INFOPLIST_FILE = HALP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -474,6 +557,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 764FPJ3WFK;
 				INFOPLIST_FILE = HALP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
