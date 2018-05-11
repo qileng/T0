@@ -143,4 +143,10 @@ class Task {
 		self.taskPriority = Weight.Category.rawValue * self.category.rawValue +
 							Weight.Time.rawValue * standarized_timeRemaining
 	}
+	
+	// Comparison function overloads operator <=
+	static func <= (left: Task, right: Task) -> (Bool) {
+		// TODO:
+		return true
+	}
 }
