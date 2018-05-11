@@ -46,7 +46,6 @@ final class UserDAO: UserData {
             //statement for binding values into insert statement
             var stmt: OpaquePointer?
             sqlite3_prepare(dbpointer, insertQueryString, -1, &stmt, nil)
-            //Store as string for now, uint64 cannot be cast into int64
             sqlite3_bind_int64(stmt, 1, userId)
             sqlite3_bind_text(stmt, 2, username.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 3, password.utf8String, -1, nil)

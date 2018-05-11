@@ -93,13 +93,16 @@ class StartupViewController: UIViewController {
             //Initialize guest account
             sqlite3_exec(dbpointer, "INSERT INTO UserData (user_id, user_name, password, email, last_update) " +
                 "VALUES (0, 'Guest', 123, 'guest@guest.com', 0)", nil , nil, nil)
-            //TaskData table not yet implemented
+            
+            //TaskData table
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
-                "(task_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+                "(task_id INTEGER PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
+                "category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
+                "task_priority REAL, schedule_start INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
+            
             //SettingData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
-            print(dbPath)
         }
         else {
             print("fail to open database")

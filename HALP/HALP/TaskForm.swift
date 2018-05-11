@@ -5,7 +5,7 @@
 //  Created by Qinlong on 5/7/18.
 //  Copyright © 2018 Team Zero. All rights reserved.
 //
-
+/*
 import UIKit
 
 // Renamed from TaskCapsule to match design pattern of user and setting.
@@ -108,3 +108,4 @@ final class TaskForm: Task {
 	*/
 	
 }
+*/
