@@ -20,6 +20,8 @@
 		ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */; };
 		ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
 		ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
+		ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */; };
+		ED5B5A7520A511C400E3C5F8 /* TaskForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */; };
 		ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
@@ -66,6 +68,7 @@
 		ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDAO.swift; sourceTree = "<group>"; };
 		ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingForm.swift; sourceTree = "<group>"; };
 		ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDGenerator.swift; sourceTree = "<group>"; };
+		ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskForm.swift; sourceTree = "<group>"; };
 		ED681757209BB94500FEF7D7 /* UserForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForm.swift; sourceTree = "<group>"; };
 		ED6C2A47209302640063B4AC /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6C2A4A209302650063B4AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 				ED9FE995209AB14B00F0DB56 /* UserDAO.swift */,
 				ED9FE994209AB14B00F0DB56 /* UserData.swift */,
 				ED43235F209E870B00F11140 /* Task.swift */,
+				ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */,
 				ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */,
 				ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */,
 				ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */,
@@ -356,6 +360,7 @@
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
+				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
 				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,6 +378,7 @@
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED432361209E870B00F11140 /* Task.swift in Sources */,
 				ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */,
+				ED5B5A7520A511C400E3C5F8 /* TaskForm.swift in Sources */,
 				ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

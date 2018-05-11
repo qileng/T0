@@ -8,7 +8,8 @@
 
 import Foundation
 
-// This class handles main functionality. Only one instacne of TaskManager should exist in runtime. 
+// This class handles main functionality. Only one instacne of TaskManager should exist in runtime.
+// For implementation: follow Design use cases.
 class TaskManager {
 	
 	// The singleton instance in the app
