@@ -28,7 +28,7 @@ class UserData {
 	private let Guest: Bool?
 	private let UserEmail: String?
 	// Primary Key
-	let UserID: UInt64?
+	let UserID: Int64?
 	
 	// Empty Initializer.
 	init () {
@@ -54,7 +54,7 @@ class UserData {
 	//		inherited from this initializer. In such case an id shall be generated.
 	//		- Otherwise, the caller shall call UserData(username:password:email:id). E.g. The
 	//		convenience initializer of this class calls this initializer with all parameters.
-	init (username: String = "", password: String, email: String, id: UInt64 = 0) {
+	init (username: String = "", password: String, email: String, id: Int64 = 0) {
 		self.Username = username
 		self.Password = password
 		self.Guest = (Username == "GUEST") ? true : false
@@ -81,12 +81,12 @@ class UserData {
 	convenience init (_ disk: Bool, email e: String, password p: String) throws {
 		let DAO = UserDAO()
 		let authFlag = DAO.userAuthentication(email: e, password: p)
-		let userInfo: [String]
-		if (authFlag != "-1") {
+		let userInfo: [Any]
+		if (authFlag != -1) {
 			userInfo = try DAO.fetchUserInfoFromLocalDB(userId: authFlag)
-			self.init(username: userInfo[1], password: userInfo[2], email: userInfo[3], id: UInt64(userInfo[0])!)
+            self.init(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
 		} else {
-			throw RuntimeError.DBError("Authentication failed!")
+			throw RuntimeError.DBError("This email password combination does not exist!")
 		}
 	}
  
@@ -120,7 +120,7 @@ class UserData {
 		return self.UserEmail!
 	}
 	
-	func getUserID() -> UInt64 {
+	func getUserID() -> Int64 {
 		return self.UserID!
 	}
 	

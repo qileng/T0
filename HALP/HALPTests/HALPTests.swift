@@ -60,6 +60,28 @@ class HALPTests: XCTestCase {
 			print("Authentification failed!")
 		}
 	}
+    
+    func testValidateUserEmail () {
+        print("Testing validateUserEmail.\n")
+        
+        //Add a user to database
+        let testUser = UserData(username: "test", password: "test", email: "test@test.com")
+        let testDAO = UserDAO(testUser)
+        testDAO.saveUserInfoToLocalDB()
+        
+        //Testing duplicate email
+        let UserWithDuplicateEmail = UserData(username: "randomuser", password: "12345", email: "test@test.com")
+        let DAO = UserDAO(UserWithDuplicateEmail)
+        let result = DAO.validateUserEmailOnline(email: DAO.getUserEmail(), onlineDB: false)
+        XCTAssertEqual(false, result)
+        
+        //Testing valid email
+        let validUser = UserData(username: "randomuser", password: "12345", email: "test@est.com")
+        let DAO1 = UserDAO(validUser)
+        let result1 = DAO.validateUserEmailOnline(email: DAO1.getUserEmail(), onlineDB: false)
+        XCTAssertEqual(true, result1)
+    }
+    
 	/*
 	func testSettingDAO() {
 		print("Testing SettingDAO write.\n")

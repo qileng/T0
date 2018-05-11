@@ -40,12 +40,12 @@ enum IDType: Int {
 //		within the same second and their main identifier collides in terms of hash.
 
 struct IDGenerator {
-	static func generateID(name s: String, type t: IDType) -> (UInt64) {
+	static func generateID(name s: String, type t: IDType) -> (Int64) {
 		// Get current timestamp. UInt32.max represents a time somewhere in year 2106.
 		let current = Date()
 		let timestamp = (UInt32)(current.timeIntervalSince1970)
 		let prefix = IDGenerator.simpleStringHash(s)
-		let ID = (UInt64(prefix) << 36) + (UInt64(t.rawValue) << 32) + UInt64(timestamp)
+		let ID = (Int64(prefix) << 36) + (Int64(t.rawValue) << 32) + Int64(timestamp)
 	
 		// Debug output
 		print("Prefix is: 0x" + String(prefix, radix:16))
