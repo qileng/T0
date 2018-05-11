@@ -41,6 +41,7 @@ class Task {
 	private var taskPriority: Double		// System scheduled start time.
 	private var scheduled_start: Int		// Unix epoch timestamp.
 	private let taskID: Int64				// ID
+    private let userID: Int64               // Associated user
 	
     
     //Empty initializer
@@ -56,12 +57,13 @@ class Task {
         self.duration = 0
         self.scheduled_start = 0
         self.taskID = 0
+        self.userID = 0
     }
     
 	// Initializer based on property stored in dictioanry.
 	// Everything optional. Pass emtpy dictionary if necessary.
 	init(StringType s: Dictionary<String,String>, Category c: Category = Category.Study_Work,
-		 TimestampType t: Dictionary<String,Int>, Priority p: Double = 0, ID tid: Int64 = 0) {
+         TimestampType t: Dictionary<String,Int>, Priority p: Double = 0, ID tid: Int64 = 0, ID uid: Int64 = 0) {
 		self.title = s["title"]!
 		self.taskDescription = s["taskDescription"]!
 		self.category = c
@@ -73,6 +75,7 @@ class Task {
 		self.taskPriority = p
 		self.scheduled_start = t["sheduled_start"]!
 		self.taskID = (tid == 0) ? IDGenerator.generateID(name: title, type: IDType.task) : tid
+        self.userID = uid
 	}
 	
 	// Intialize based on property provided by caller.
@@ -81,7 +84,7 @@ class Task {
 	init(Title title: String = "", Description taskD: String = "", Category category: Category,
 		 Alarm alarm: Int = 0, Deadline deadline: Int = 0, SoftDeadline softDeadline: Int = 0,
 		 Schedule schedule: Int = 0, Duration duration: Int = 0, Priority taskP: Double = 0,
-		 Schedule_start scheduled_start: Int = 0, ID tid: Int64 = 0) {
+		 Schedule_start scheduled_start: Int = 0, ID tid: Int64 = 0, ID uid: Int64 = 0) {
 		self.title = title
 		self.taskDescription = taskD
 		self.taskPriority = taskP
@@ -93,6 +96,7 @@ class Task {
 		self.duration = duration
 		self.scheduled_start = scheduled_start
 		self.taskID = tid
+        self.userID = uid
 	}
     
     // Copy initializer
@@ -108,6 +112,7 @@ class Task {
         self.duration = origin.getDuration()
         self.scheduled_start = origin.getScheduleStart()
         self.taskID = origin.getTaskId()
+        self.userID = origin.getUserId()
     }
 	// Getter.
 	// Return all fields in one dictioanry
@@ -179,6 +184,10 @@ class Task {
     //Getters
     func getTaskId() -> Int64 {
         return self.taskID
+    }
+    
+    func getUserId() -> Int64 {
+        return self.userID
     }
     
     func getTitle() -> String{
