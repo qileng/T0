@@ -21,8 +21,11 @@ enum Weight: Double {
 	case Time = 0.7
 }
 
+// TODO: Add more initializer if necessary.
+// TODO: Add a comparion function that returns a Bool. True if task1.priority <= task2.priority.
+// TODO: Update getter so it returns id as well.
 class Task {
-	// Properties. Associated with user input.
+	// The following properties all come from user input.
 	private var title: String
 	private var taskDescription: String
 	private var category: Category
@@ -33,8 +36,8 @@ class Task {
 	private var schedule: Int				// A fixed start time.
 	private var duration: Int
 	
-	// Internal properties.
-	private var taskPriority: Double
+	// Internal properties, not from user input.
+	private var taskPriority: Double		// System scheduled start time.
 	private var scheduled_start: Int		// Unix epoch timestamp.
 	private let taskID: Int64				// ID
 	
