@@ -40,18 +40,25 @@ class SignUpViewController: UIViewController {
 		
 		// write to local database
 		let _DAO = UserDAO(username: form.getUsername(), password: form.getPassword(), email: form.getUserEmail(), id: form.getUserID())
-        
-        if(!_DAO.saveUserInfoToLocalDB()) {
-            let alert = UIAlertController(title: "Unexpected Error :(", message: "Cannnot establish database connection", preferredStyle: .alert)
+        // check databse for duplicate email address
+        if(!_DAO.validateUserEmailOnline(email: form.getUserEmail(), onlineDB: false)) {
+            let alert = UIAlertController(title: "Email already taken!", message: "Please try again", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
         else {
-            let alert = UIAlertController(title: "Success!", message: "You can now sign in with your account", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) -> Void in
-                self.present((self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController"))!, animated: true, completion: nil)
-            }))
-            self.present(alert, animated: true)
+            if(!_DAO.saveUserInfoToLocalDB()) {
+                let alert = UIAlertController(title: "Unexpected Error :(", message: "Cannnot establish database connection", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                self.present(alert, animated: true)
+            }
+            else {
+                let alert = UIAlertController(title: "Success!", message: "You can now sign in with your account", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) -> Void in
+                    self.present((self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController"))!, animated: true, completion: nil)
+                }))
+                self.present(alert, animated: true)
+            }
         }
 	}
 	

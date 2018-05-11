@@ -22,7 +22,27 @@ class StartupViewController: UIViewController {
     
 	}
 	
-	@IBAction func Login(_ sender: UIButton) {
+    @IBAction func GuestLogin(_ sender: Any) {
+        //Dummy password and email for guest account
+        let guestForm = UserForm(password: "123", email: "guest@guest.com")
+        
+        let guest: UserData
+        do {
+            guest = try guestForm.onlineValidateExistingUser()
+            // TODO: retrieve guest setting
+            // Set up task manager
+            
+            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+        } catch {
+            //There should not be any authentication error with guest login
+            //All error should be directed here
+            let alert = UIAlertController(title: "Oops!", message: "Unexpected Error!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
+    }
+    
+    @IBAction func Login(_ sender: UIButton) {
 		
 		// UserForm collects input.
 		let form = UserForm(password: self.Password!.text!, email: self.Email!.text!)
@@ -72,8 +92,7 @@ class StartupViewController: UIViewController {
                 "(user_id INTEGER PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
             //Initialize guest account
             sqlite3_exec(dbpointer, "INSERT INTO UserData (user_id, user_name, password, email, last_update) " +
-                "VALUES (0, 'Guest', 123, 'guest@guest.com', 0)"
-                ,nil , nil, nil)
+                "VALUES (0, 'Guest', 123, 'guest@guest.com', 0)", nil , nil, nil)
             //TaskData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
                 "(task_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)

@@ -56,10 +56,12 @@ final class UserDAO: UserData {
             //The operation returns SQLITE_DONE, which is an int success
             //See SQLite result codes for detail
             if sqlite3_step(stmt) == SQLITE_DONE {
+                sqlite3_close(dbpointer)
                 return true
             } else {
                 let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
                 print(errmsg)
+                print(sqlite3_close(dbpointer))
                 return false
             }
 	}
@@ -101,6 +103,8 @@ final class UserDAO: UserData {
             queryResult.append(email)
             queryResult.append(last_update)
         }
+        sqlite3_finalize(stmt)
+        sqlite3_close(dbpointer)
         return queryResult
     }
     
@@ -117,6 +121,7 @@ final class UserDAO: UserData {
         }
         let emailString = email.split(separator: "@")
         if emailString.count != 2 {
+            sqlite3_close(dbpointer)
             return -1
         }
     
@@ -133,10 +138,16 @@ final class UserDAO: UserData {
             let email_verify = String(cString: sqlite3_column_text(stmt, 1))
             
             if(email == email_verify) {
+                sqlite3_finalize(stmt)
+                sqlite3_close(dbpointer)
                 return id
             }
+            sqlite3_finalize(stmt)
+            sqlite3_close(dbpointer)
             return -1
         }
+            sqlite3_finalize(stmt)
+            sqlite3_close(dbpointer)
             return -1
     }
     
@@ -165,14 +176,24 @@ final class UserDAO: UserData {
             }
             
             //SQL command for fecting a row from database base on id
-            var selectQueryString = "SELECT user_id, email FROM UserData WHERE email LIKE " + "\'%" + emailString[0] + "%\'"
+            var selectQueryString = "SELECT email FROM UserData WHERE email LIKE " + "\'%" + emailString[0] + "%\'"
             selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
             
             var stmt: OpaquePointer?
             sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
-            if sqlite3_step(stmt) == SQLITE_ROW {
-                return false
+            //Check if the email address exists
+            while sqlite3_step(stmt) == SQLITE_ROW {
+                let email_verify = String(cString: sqlite3_column_text(stmt, 0))
+                
+                if(email == email_verify) {
+                    //Finialize statement to prevent database from locking
+                    sqlite3_finalize(stmt)
+                    sqlite3_close(dbpointer)
+                    return false
+                }
             }
+            sqlite3_finalize(stmt)
+            sqlite3_close(dbpointer)
             return true
         }
     }
