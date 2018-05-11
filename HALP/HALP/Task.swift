@@ -179,8 +179,7 @@ class Task {
 		self.taskPriority = Weight.Category.rawValue * self.category.rawValue +
 							Weight.Time.rawValue * standarized_timeRemaining
 	}
-    
-    
+  
     //Getters
     func getTaskId() -> Int64 {
         return self.taskID
@@ -229,5 +228,10 @@ class Task {
     func getScheduleStart() -> Int {
         return self.scheduled_start
     }
-    
+	
+	// Comparison function overloads operator <=
+	static func <= (left: Task, right: Task) -> (Bool) {
+		// TODO:
+		return true
+	}
 }
