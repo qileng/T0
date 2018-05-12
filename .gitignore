@@ -1,5 +1,5 @@
 # Xcode User Data
-xcuserdata/
+HALP/HALP.xcodeproj/xcuserdata/
 
 # OSX temp files
 .DS_store
@@ -7,6 +7,7 @@ xcuserdata/
 *.swp
 
 # Xcode temp folder
-build/
-DerivedData/
+HALP/HALP.xcodeproj/build/
+HALP/HALP.xcodeproj/DerivedData/
+
 
