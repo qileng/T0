@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
+		4185636720A5621900AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
 		ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED37C50D209BB1C90038A7D0 /* SignUp.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
@@ -61,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4185631720A545BB00AA7493 /* TaskDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDAO.swift; sourceTree = "<group>"; };
 		ED37C50D209BB1C90038A7D0 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		ED43235F209E870B00F11140 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
@@ -141,6 +144,7 @@
 				ED9FE995209AB14B00F0DB56 /* UserDAO.swift */,
 				ED9FE994209AB14B00F0DB56 /* UserData.swift */,
 				ED43235F209E870B00F11140 /* Task.swift */,
+				4185631720A545BB00AA7493 /* TaskDAO.swift */,
 				ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */,
 				ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */,
 				ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */,
@@ -358,6 +362,7 @@
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
+				4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
 				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
@@ -376,6 +381,7 @@
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
+				4185636720A5621900AA7493 /* TaskDAO.swift in Sources */,
 				ED432361209E870B00F11140 /* Task.swift in Sources */,
 				ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */,
 				ED5B5A7520A511C400E3C5F8 /* TaskForm.swift in Sources */,
