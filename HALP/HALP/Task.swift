@@ -63,7 +63,7 @@ class Task {
 	// Initializer based on property stored in dictioanry.
 	// Everything optional. Pass emtpy dictionary if necessary.
 	init(StringType s: Dictionary<String,String>, Category c: Category = Category.Study_Work,
-         TimestampType t: Dictionary<String,Int>, Priority p: Double = 0, ID tid: Int64 = 0, ID uid: Int64 = 0) {
+         TimestampType t: Dictionary<String,Int>, Priority p: Double = 0, TaskID tid: Int64 = 0, UserID uid: Int64) {
 		self.title = s["title"]!
 		self.taskDescription = s["taskDescription"]!
 		self.category = c
@@ -79,12 +79,12 @@ class Task {
 	}
 	
 	// Intialize based on property provided by caller.
-	// All optional based on usage.
+	// All optional based on usage. Except userid, task should not exist without a user.
 	// init() initialize everything to default value.
-	init(Title title: String = "", Description taskD: String = "", Category category: Category,
+	init(Title title: String = "", Description taskD: String = "", Category category: Category = Category.Study_Work,
 		 Alarm alarm: Int = 0, Deadline deadline: Int = 0, SoftDeadline softDeadline: Int = 0,
 		 Schedule schedule: Int = 0, Duration duration: Int = 0, Priority taskP: Double = 0,
-		 Schedule_start scheduled_start: Int = 0, ID tid: Int64 = 0, ID uid: Int64 = 0) {
+		 Schedule_start scheduled_start: Int = 0, TaskID tid: Int64 = 0, UserID uid: Int64) {
 		self.title = title
 		self.taskDescription = taskD
 		self.taskPriority = taskP
@@ -232,6 +232,6 @@ class Task {
 	// Comparison function overloads operator <=
 	static func <= (left: Task, right: Task) -> (Bool) {
 		// TODO:
-		return true
+		return left.getPriority() <= right.getPriority()
 	}
 }
