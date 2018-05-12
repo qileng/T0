@@ -1,8 +1,4 @@
 # safelist
-branches:
-  only:
-  - master
-  - TESTING
   
 language: swift
 xcode_project: HALP/HALP.xcodeproj # path to your xcodeproj folder
