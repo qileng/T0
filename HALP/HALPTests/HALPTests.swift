@@ -85,11 +85,11 @@ class HALPTests: XCTestCase {
     func testSaveTaskInfoToLocalDB() {
         
         print("Testing saveTaskInfoToLocalDB.\n")
-         let task1 = Task(Title: "Test1", Description: "blahblah", Category: Category.Relationship, Alarm: 852, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, ID: 0000)
-        let task2 = Task(Title: "Test2", Description: "blahblah", Category: Category.Relationship, Alarm: 00, Deadline: 1234, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, ID: 7777)
-        let task3 = Task(Title: "Test3", Description: "blahblah", Category: Category.Relationship, Alarm: 22, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, ID: 1234)
-        let task4 = Task(Title: "Test4", Description: "blahblah", Category: Category.Relationship, Alarm: 8512, Deadline: 0, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, ID: 4321)
-        let task5 = Task(Title: "Test5", Description: "blahblah", Category: Category.Relationship, Alarm: 8522, Deadline: 4, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, ID: 2048)
+		let task1 = Task(Title: "Test1", Description: "blahblah", Category: Category.Relationship, Alarm: 852, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 0000, UserID: 123456)
+		let task2 = Task(Title: "Test2", Description: "blahblah", Category: Category.Relationship, Alarm: 00, Deadline: 1234, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, TaskID: 7777, UserID: 123456)
+		let task3 = Task(Title: "Test3", Description: "blahblah", Category: Category.Relationship, Alarm: 22, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, TaskID: 1234, UserID: 123456)
+		let task4 = Task(Title: "Test4", Description: "blahblah", Category: Category.Relationship, Alarm: 8512, Deadline: 0, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 4321, UserID: 7890)
+		let task5 = Task(Title: "Test5", Description: "blahblah", Category: Category.Relationship, Alarm: 8522, Deadline: 4, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 2048, UserID: 78122)
          
          let taskDAO1 = TaskDAO(task1)
          let taskDAO2 = TaskDAO(task2)
@@ -171,6 +171,18 @@ class HALPTests: XCTestCase {
         XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 4321), true)
         XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 2048), true)
     }
+	
+	func testTaskComparison() {
+		print("Testing Task Comparison.")
+		
+		let task1 = Task(Priority: 3, UserID: 1)
+		let task2 = Task(Priority: 2, UserID: 2)
+		let task3 = Task(Priority: 0.5, UserID: 3)
+		
+		XCTAssertEqual(task1 <= task2, false)
+		XCTAssertEqual(task2 <= task3, false)
+		XCTAssertEqual(task3 <= task1, true)
+	}
     
     
     
