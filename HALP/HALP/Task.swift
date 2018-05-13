@@ -40,11 +40,12 @@ class Task {
 	// Internal properties, not from user input.
 	private var taskPriority: Double		// System scheduled start time.
 	private var scheduled_start: Int		// Unix epoch timestamp.
+    private var notification: Bool          // Whether the notification is on for this task
 	private let taskID: Int64				// ID
     private let userID: Int64               // Associated user
 	
     
-    //Empty initializer
+    // Empty initializer
     init() {
         self.title = ""
         self.taskDescription = ""
@@ -56,6 +57,7 @@ class Task {
         self.schedule = 0
         self.duration = 0
         self.scheduled_start = 0
+        self.notification = false
         self.taskID = 0
         self.userID = 0
     }
@@ -63,7 +65,7 @@ class Task {
 	// Initializer based on property stored in dictioanry.
 	// Everything optional. Pass emtpy dictionary if necessary.
 	init(StringType s: Dictionary<String,String>, Category c: Category = Category.Study_Work,
-         TimestampType t: Dictionary<String,Int>, Priority p: Double = 0, TaskID tid: Int64 = 0, UserID uid: Int64) {
+         TimestampType t: Dictionary<String,Int>, Priority p: Double = 0, Notification n: Bool = false, TaskID tid: Int64 = 0, UserID uid: Int64) {
 		self.title = s["title"]!
 		self.taskDescription = s["taskDescription"]!
 		self.category = c
@@ -74,6 +76,7 @@ class Task {
 		self.duration = t["duration"]!
 		self.taskPriority = p
 		self.scheduled_start = t["sheduled_start"]!
+        self.notification = n
 		self.taskID = (tid == 0) ? IDGenerator.generateID(name: title, type: IDType.task) : tid
         self.userID = uid
 	}
@@ -84,7 +87,7 @@ class Task {
 	init(Title title: String = "", Description taskD: String = "", Category category: Category = Category.Study_Work,
 		 Alarm alarm: Int = 0, Deadline deadline: Int = 0, SoftDeadline softDeadline: Int = 0,
 		 Schedule schedule: Int = 0, Duration duration: Int = 0, Priority taskP: Double = 0,
-		 Schedule_start scheduled_start: Int = 0, TaskID tid: Int64 = 0, UserID uid: Int64) {
+		 Schedule_start scheduled_start: Int = 0, Notification notification: Bool = false, TaskID tid: Int64 = 0, UserID uid: Int64) {
 		self.title = title
 		self.taskDescription = taskD
 		self.taskPriority = taskP
@@ -95,6 +98,7 @@ class Task {
 		self.schedule = schedule
 		self.duration = duration
 		self.scheduled_start = scheduled_start
+        self.notification = notification
 		self.taskID = tid
         self.userID = uid
 	}
@@ -111,6 +115,7 @@ class Task {
         self.schedule = origin.getSchedule()
         self.duration = origin.getDuration()
         self.scheduled_start = origin.getScheduleStart()
+        self.notification = origin.getNotification()
         self.taskID = origin.getTaskId()
         self.userID = origin.getUserId()
     }
@@ -158,6 +163,7 @@ class Task {
 			}
 		}
 	}
+
 	// Getter.
 	// Return all fields in one dictioanry
 	func propertyGetter()->(Dictionary<String, Any>){
@@ -273,6 +279,55 @@ class Task {
         return self.scheduled_start
     }
 	
+    func getNotification() -> Bool {
+        return self.notification
+    }
+    
+    // Setters
+    func setTitle(_ newTitle: String) {
+        self.title = newTitle
+    }
+    
+    func setDescription(_ newDesc: String) {
+        self.taskDescription = newDesc
+    }
+    func setCategory(_ newCategory: Category) {
+        self.category = newCategory
+    }
+    
+    func setAlarm(_ newAlarm: Int) {
+        self.alarm = newAlarm
+    }
+    
+    func setDeadline(_ newDeadline: Int) {
+        self.deadline = newDeadline
+    }
+    
+    func setSoftDeadline(_ newSoftDeadline: Int) {
+        self.softDeadline = newSoftDeadline
+    }
+    
+    func setSchedule(_ newSchedule: Int) {
+        self.schedule = newSchedule
+    }
+    
+    func setDuration(_ newDuration: Int) {
+        self.duration = newDuration
+    }
+    
+    func setPriority(_ newPriority: Double) {
+        self.taskPriority = newPriority
+    }
+    
+    func setScheduleStart(_ newScheduleStart: Int) {
+        self.scheduled_start = newScheduleStart
+    }
+    
+    func toggleNotification() {
+        self.notification = !self.notification
+    }
+    
+    
 	// Comparison function overloads operator <=
 	static func <= (left: Task, right: Task) -> (Bool) {
 		return left.getPriority() <= right.getPriority()
