@@ -85,8 +85,8 @@ class HALPTests: XCTestCase {
     func testSaveTaskInfoToLocalDB() {
         
         print("Testing saveTaskInfoToLocalDB.\n")
-		let task1 = Task(Title: "Test1", Description: "blahblah", Category: Category.Relationship, Alarm: 852, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 0000, UserID: 123456)
-		let task2 = Task(Title: "Test2", Description: "blahblah", Category: Category.Relationship, Alarm: 00, Deadline: 1234, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, TaskID: 7777, UserID: 123456)
+        let task1 = Task(Title: "Test1", Description: "blahblah", Category: Category.Relationship, Alarm: 852, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, Notification: true, TaskID: 0000, UserID: 123456)
+        let task2 = Task(Title: "Test2", Description: "blahblah", Category: Category.Relationship, Alarm: 00, Deadline: 1234, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, Notification: false, TaskID: 7777, UserID: 123456)
 		let task3 = Task(Title: "Test3", Description: "blahblah", Category: Category.Relationship, Alarm: 22, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, TaskID: 1234, UserID: 123456)
 		let task4 = Task(Title: "Test4", Description: "blahblah", Category: Category.Relationship, Alarm: 8512, Deadline: 0, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 4321, UserID: 7890)
 		let task5 = Task(Title: "Test5", Description: "blahblah", Category: Category.Relationship, Alarm: 8522, Deadline: 4, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 2048, UserID: 78122)
@@ -98,15 +98,15 @@ class HALPTests: XCTestCase {
          let taskDAO5 = TaskDAO(task5)
         
         //Duplicate insertion not allowed
-        XCTAssertEqual(taskDAO1.saveTaskInfoToLocalDB(userId: 123456), true)
-        XCTAssertEqual(taskDAO1.saveTaskInfoToLocalDB(userId: 123456), false)
+        XCTAssertEqual(taskDAO1.saveTaskInfoToLocalDB(), true)
+        XCTAssertEqual(taskDAO1.saveTaskInfoToLocalDB(), false)
         
         // Have to delete all the tasks if you want to re-run this test
         // or else the methond will try to insert duplicat tasks which will fail
-        XCTAssertEqual(taskDAO2.saveTaskInfoToLocalDB(userId: 123456), true)
-        XCTAssertEqual(taskDAO3.saveTaskInfoToLocalDB(userId: 123456), true)
-        XCTAssertEqual(taskDAO4.saveTaskInfoToLocalDB(userId: 7890), true)
-        XCTAssertEqual(taskDAO5.saveTaskInfoToLocalDB(userId: 78122), true)
+        XCTAssertEqual(taskDAO2.saveTaskInfoToLocalDB(), true)
+        XCTAssertEqual(taskDAO3.saveTaskInfoToLocalDB(), true)
+        XCTAssertEqual(taskDAO4.saveTaskInfoToLocalDB(), true)
+        XCTAssertEqual(taskDAO5.saveTaskInfoToLocalDB(), true)
     }
     
     func testFetchTaskInfoFromLocalDB() {
@@ -147,15 +147,15 @@ class HALPTests: XCTestCase {
         let testDAO = TaskDAO()
         
         //Testing update all entries
-        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 0000, taskTitle: "update1", taskDesc: "success1", category: 1, alarm: 0, deadline: 1, softDeadline: 2, schedule: 5, duration: 123, taskPriority: 0.5, scheduleStart: 9), true)
+        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 0000, taskTitle: "update1", taskDesc: "success1", category: 1, alarm: 0, deadline: 1, softDeadline: 2, schedule: 5, duration: 123, taskPriority: 0.5, scheduleStart: 9, notification: false), true)
         
         //Testing not updating any thing
         XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 1234), true)
         
         //Testing updating some entries
-        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 2048, taskTitle: "update2", taskDesc: "success2", category: 0.25, duration: 314159), true)
-        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 4321, taskTitle: "update3", category: 0.25, duration: 314159), true)
-        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 7777, taskDesc: "success3", category: 0.25, alarm: 2018, duration: 314159), true)
+        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 2048, taskTitle: "update2", taskDesc: "success2", category: 0.25, duration: 314159, notification: true), true)
+        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 4321, taskTitle: "update3", category: 0.25, duration: 314159, notification: true), true)
+        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 7777, taskDesc: "success3", category: 0.25, alarm: 2018, duration: 314159, notification: true), true)
     
 
     }
