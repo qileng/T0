@@ -59,7 +59,7 @@ class UserData {
 		self.Password = password
 		self.Guest = (Username == "GUEST") ? true : false
 		self.UserEmail = email
-		self.UserID = (id == 0) ? IDGenerator.generateID(name: username, type: .user) : id
+		self.UserID = (id == 0 && username != "GUEST") ? IDGenerator.generateID(name: username, type: .user) : id
 	}
 	
 	// Alternative Initializer

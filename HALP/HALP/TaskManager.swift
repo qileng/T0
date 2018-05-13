@@ -21,6 +21,7 @@ class TaskManager {
 	
 	// Initializer
 	private init () {
+		tasks.removeAll()
 	}
 	
 	// Setup the taskManager
@@ -28,7 +29,13 @@ class TaskManager {
 		self.userInfo = user
 		self.setting = setting
 		self.tasks.removeAll()
-		self.loadTasks()
+		do {
+			try self.loadTasks()
+		} catch RuntimeError.DBError(let errorMessage) {
+			print(errorMessage)
+		} catch {
+			print("Unexpected Error!")
+		}
 	}
 	
 	// Update user information
@@ -49,8 +56,20 @@ class TaskManager {
 	}
 	
 	// Load tasks from disk
-	func loadTasks() {
-		//TODO
+	func loadTasks() throws {
+		// Step 1: get user ID.
+		let foreign_key = self.userInfo?.getUserID()
+		// Step 2: query database with foreign key to get a list of primary key
+		let DAO = TaskDAO(UserID: foreign_key!)
+		let primary_key = try DAO.fetchTaskIdListFromLocalDB(userId: DAO.getUserId())
+		// Step 3: retrieve Tasks
+		// For now, just read all.
+		// TODO: Maintain a min-heap.
+		// TODO: Filter fixed time task which happens not whithin 24 hours.
+		// TODO: Filter past due tasks.
+		for taskID in primary_key {
+			try tasks.append(Task(true, TaskID: taskID, UserID: foreign_key!))
+		}
 	}
 	
 	// Remove task
@@ -78,6 +97,11 @@ class TaskManager {
 	func reschedule(_ task: Task) {
 		//TODO: remove old task from array, update it, call refresh, add it to array, call sort
 	}
+	
+	// Clear sharedInstance
+	func clear() {
+		tasks.removeAll()
+	}
 }
 
 // Quick sort extension for [Task]
@@ -99,11 +123,10 @@ extension Array where Element: Task {
 		while true {
 			repeat {
 				i = i + 1
-			// Should be strictly less than. But highly unlikely two Tasks will equal.
-			} while self[i] <= p
+			} while self[i] > p
 			repeat {
 				j = j - 1
-			} while !(self[j] <= p)
+			} while self[j] < p
 			
 			if i < j {
 				let temp = self[i]

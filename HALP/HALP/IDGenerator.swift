@@ -48,10 +48,12 @@ struct IDGenerator {
 		let ID = (Int64(prefix) << 36) + (Int64(t.rawValue) << 32) + Int64(timestamp)
 	
 		// Debug output
+		/*
 		print("Prefix is: 0x" + String(prefix, radix:16))
 		print("Type is: 0x" + String(t.rawValue, radix:16))
 		print("Timestamp is: 0x" + String(timestamp, radix:16))
 		print("ID is: 0x" + String(ID, radix:16))
+		*/
 		
 		return ID
 	}

@@ -24,7 +24,7 @@ class StartupViewController: UIViewController {
 	
     @IBAction func GuestLogin(_ sender: Any) {
         //Dummy password and email for guest account
-        let guestForm = UserForm(password: "123", email: "guest@guest.com")
+        let guestForm = UserForm(password: "GUEST", email: "GUEST@GUEST.com")
         
         let guest: UserData
         do {
@@ -81,28 +81,29 @@ class StartupViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
         
-        //Initialize local database
+        // Initialize local database
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbPath = documentsPath + "/appData.sqlite"
         var dbpointer: OpaquePointer? = nil
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
-            //UserData table
+            // UserData table
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
                 "(user_id INTEGER PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
-            //Initialize guest account
+            // Initialize guest account
             sqlite3_exec(dbpointer, "INSERT INTO UserData (user_id, user_name, password, email, last_update) " +
-                "VALUES (0, 'Guest', 123, 'guest@guest.com', 0)", nil , nil, nil)
+                "VALUES (0, 'GUEST', 'GUEST', 'GUEST@GUEST.com', 0)", nil , nil, nil)
             
-            //TaskData table
+            // TaskData table
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
                 "(task_id INTEGER PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
                 "category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
-                "task_priority REAL, schedule_start INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
+                "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
             
-            //SettingData table not yet implemented
+            // SettingData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+			sqlite3_close(dbpointer)
         }
         else {
             print("fail to open database")
