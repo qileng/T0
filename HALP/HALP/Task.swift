@@ -114,6 +114,50 @@ class Task {
         self.taskID = origin.getTaskId()
         self.userID = origin.getUserId()
     }
+	
+	// Alternative Initalier.
+	// Create a new Task object by primary key and foreign key.
+	// Load from database.
+	convenience init(_: Bool, TaskID tid: Int64, UserID uid: Int64) throws {
+		let DAO = TaskDAO(UserID: uid)
+		let dict: Dictionary<String, Any>
+		dict = try DAO.fetchTaskInfoFromLocalDB(taskId: tid)
+		try self.init(dict)
+	}
+	
+	// Alternative Initializer
+	init(_ dict: Dictionary<String, Any>) throws {
+		for (key,value) in dict {
+			switch key {
+			case "title":
+				self.title = value as! String
+			case "taskDescription":
+				self.taskDescription = value as! String
+			case "taskPriority":
+				self.taskPriority = value as! Double
+			case "alarm":
+				self.alarm = value as! Int
+			case "deadline":
+				self.deadline = value as! Int
+			case "schedule":
+				self.schedule = value as! Int
+			case "duration":
+				self.duration = value as! Int
+			case "category":
+				self.category = value as! Category
+			case "softDeadline":
+				self.softDeadline = value as! Int
+			case "scheduled_start":
+				self.scheduled_start = value as! Int
+			case "userID":
+				self.userID = value as! Int64
+			case "taskID":
+				self.taskID = value as! Int64
+			default:
+				throw RuntimeError.InternalError("Unexpected key in dictionary detected!")
+			}
+		}
+	}
 	// Getter.
 	// Return all fields in one dictioanry
 	func propertyGetter()->(Dictionary<String, Any>){
@@ -231,7 +275,6 @@ class Task {
 	
 	// Comparison function overloads operator <=
 	static func <= (left: Task, right: Task) -> (Bool) {
-		// TODO:
 		return left.getPriority() <= right.getPriority()
 	}
 }
