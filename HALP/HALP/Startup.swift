@@ -24,7 +24,7 @@ class StartupViewController: UIViewController {
 	
     @IBAction func GuestLogin(_ sender: Any) {
         //Dummy password and email for guest account
-        let guestForm = UserForm(password: "123", email: "guest@guest.com")
+        let guestForm = UserForm(password: "GUEST", email: "GUEST@GUEST.com")
         
         let guest: UserData
         do {
@@ -92,7 +92,7 @@ class StartupViewController: UIViewController {
                 "(user_id INTEGER PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
             // Initialize guest account
             sqlite3_exec(dbpointer, "INSERT INTO UserData (user_id, user_name, password, email, last_update) " +
-                "VALUES (0, 'Guest', 123, 'guest@guest.com', 0)", nil , nil, nil)
+                "VALUES (0, 'GUEST', 'GUEST', 'GUEST@GUEST.com', 0)", nil , nil, nil)
             
             // TaskData table
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +

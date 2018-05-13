@@ -21,6 +21,7 @@ class TaskManager {
 	
 	// Initializer
 	private init () {
+		tasks.removeAll()
 	}
 	
 	// Setup the taskManager
@@ -95,6 +96,11 @@ class TaskManager {
 	// Reschedule a task
 	func reschedule(_ task: Task) {
 		//TODO: remove old task from array, update it, call refresh, add it to array, call sort
+	}
+	
+	// Clear sharedInstance
+	func clear() {
+		tasks.removeAll()
 	}
 }
 

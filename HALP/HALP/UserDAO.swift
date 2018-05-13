@@ -60,7 +60,7 @@ final class UserDAO: UserData {
             } else {
                 let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
                 print(errmsg)
-                print(sqlite3_close(dbpointer))
+                sqlite3_close(dbpointer)
                 return false
             }
 	}

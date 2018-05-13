@@ -8,25 +8,53 @@
 
 import XCTest
 @testable import HALP
+import SQLite3
 
 class HALPTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+		// Initialize local database
+		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+		let dbPath = documentsPath + "/testAppData.sqlite"
+		var dbpointer: OpaquePointer? = nil
+		
+		if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
+			// UserData table
+			sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
+				"(user_id INTEGER PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
+			// Initialize guest account
+			sqlite3_exec(dbpointer, "INSERT INTO UserData (user_id, user_name, password, email, last_update) " +
+				"VALUES (0, 'GUEST', 'GUEST', 'GUEST@GUEST.com', 0)", nil , nil, nil)
+			
+			// TaskData table
+			sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
+				"(task_id INTEGER PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
+				"category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
+				"task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
+			
+			// SettingData table not yet implemented
+			sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
+				"(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+			sqlite3_close(dbpointer)
+		}
+		else {
+			print("fail to open database")
+		}
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
+		super.tearDown()
+	}
     
-    func testSaveUserInfoToLocalDB() {
+    func testa_SaveUserInfoToLocalDB() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 		
 		print("Testing UserDAO write.\n")
-		let testUser1 = UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com")
+		let testUser1 = UserData(username: "randomuser", password: "something", email: "gary@gillespie.com")
 		let testDAO = UserDAO(testUser1)
         XCTAssertEqual(testDAO.saveUserInfoToLocalDB(), true)
 		
@@ -36,7 +64,7 @@ class HALPTests: XCTestCase {
 		print("Testing UserDAO read.\n")
 		// test exiting user
 		do {
-			let testUser2 = try UserData(true, email: "GUEST@GUEST.com", password: "GUEST")
+			let testUser2 = try UserData(true, email: "gary@gillespie.com", password: "something")
 			print(testUser2.getUsername())
 			print(testUser2.getPassword())
 			print(testUser2.getUserEmail())
@@ -82,7 +110,7 @@ class HALPTests: XCTestCase {
         XCTAssertEqual(true, result1)
     }
     
-    func testSaveTaskInfoToLocalDB() {
+    func testa_SaveTaskInfoToLocalDB() {
         
         print("Testing saveTaskInfoToLocalDB.\n")
         let task1 = Task(Title: "Test1", Description: "blahblah", Category: Category.Relationship, Alarm: 852, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, Notification: true, TaskID: 0000, UserID: 123456)
@@ -114,9 +142,9 @@ class HALPTests: XCTestCase {
         
         let testDAO = TaskDAO()
         do {
-           let array = try testDAO.fetchTaskInfoFromLocalDB(taskId: 1234)
-            for values in array {
-                print(values)
+           let dict = try testDAO.fetchTaskInfoFromLocalDB(taskId: 1234)
+            for (key,values) in dict {
+				print(key + " : " ,values)
                 print("\n")
             }
         }
@@ -160,7 +188,7 @@ class HALPTests: XCTestCase {
 
     }
     
-    func testDeleteTaskFromLocalDB() {
+    func testz_DeleteTaskFromLocalDB() {
         
         print("Testing deleteTaskFromLocalDB.\n")
         
@@ -183,7 +211,46 @@ class HALPTests: XCTestCase {
 		XCTAssertEqual(task2 <= task3, false)
 		XCTAssertEqual(task3 <= task1, true)
 	}
-    
+	
+	func testTaskManagerLoad() {
+		print("Testing TaskManager Load.")
+		
+		let testUser: UserData
+		do {
+			testUser = try UserData(true, email: "GUEST@GUEST.com", password: "GUEST")
+		} catch RuntimeError.DBError(let errorMessage) {
+			print(errorMessage)
+			return
+		} catch {
+			print("Unexpected Error")
+			return
+		}
+		
+		var tasks: [Task] = []
+		tasks.append(Task(Title: "Task1", Priority: 3, UserID: 0))
+		tasks.append(Task(Title: "Task2", Priority: 2, UserID: 0))
+		tasks.append(Task(Title: "Task3", Priority: 1, UserID: 0))
+		tasks.append(Task(Title: "Task4", Priority: 0.5, UserID: 0))
+		tasks.append(Task(Title: "Task5", Priority: 0.24, UserID: 0))
+		tasks.append(Task(Title: "Task6", Priority: 0.34, UserID: 0))
+		tasks.append(Task(Title: "Task7", Priority: 0.32, UserID: 0))
+		tasks.append(Task(Title: "Task8", Priority: 0.44, UserID: 0))
+		
+		for task in tasks {
+			let DAO = TaskDAO(task)
+			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
+		}
+		print("Total of ", TaskManager.sharedTaskManager.tasks.count, " tasks!")
+
+		TaskManager.sharedTaskManager.setUp(new: testUser, setting: Setting())
+		print("Total of ", TaskManager.sharedTaskManager.tasks.count, " tasks!")
+		
+		for task in TaskManager.sharedTaskManager.tasks {
+			print(task.getTitle())
+			print(task.getTaskId())
+		}
+		TaskManager.sharedTaskManager.clear()
+	}
     
     
 	/*
@@ -210,5 +277,16 @@ class HALPTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-    
+	
+	override class func tearDown() {
+		super.tearDown()
+		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+		let dbPath = documentsPath + "/testAppData.sqlite"
+
+		do {
+			try FileManager.default.removeItem(atPath: dbPath)
+		} catch {
+			print("Unable to remove DB!")
+		}
+	}
 }
