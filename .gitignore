@@ -10,4 +10,7 @@ HALP/HALP.xcodeproj/xcuserdata/
 HALP/HALP.xcodeproj/build/
 HALP/HALP.xcodeproj/DerivedData/
 
+# Idea IDE
+HALP/.idea/
+
 

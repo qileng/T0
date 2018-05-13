@@ -290,11 +290,11 @@ class HALPTests: XCTestCase {
 		super.tearDown()
 		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 		let dbPath = documentsPath + "/appData.sqlite"
-
-		do {
-			try FileManager.default.removeItem(atPath: dbPath)
-		} catch {
-			print("Unable to remove DB!")
-		}
+        var dbpointer: OpaquePointer? = nil
+        sqlite3_open(dbPath, &dbpointer)
+        sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
+        sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
+        sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
+        sqlite3_close(dbpointer)
 	}
 }
