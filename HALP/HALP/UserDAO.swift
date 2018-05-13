@@ -37,6 +37,7 @@ final class UserDAO: UserData {
             //Establish database connection
             if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
                 print("fail to establish database connection")
+				sqlite3_close(dbpointer)
                 return false
             }
         
@@ -79,6 +80,7 @@ final class UserDAO: UserData {
         
         //Establish database connection
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+			sqlite3_close(dbpointer)
 			throw RuntimeError.DBError("Local DB does not exist!")
         }
         //SQL command for fecting a row from database base on id
@@ -116,6 +118,7 @@ final class UserDAO: UserData {
         //Establish database connection
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
             print("fail to establish database connection")
+			sqlite3_close(dbpointer)
             return -1
         }
         let emailString = email.split(separator: "@")
@@ -167,10 +170,12 @@ final class UserDAO: UserData {
             //Establish database connection
             if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
                 print("fail to establish database connection")
+				sqlite3_close(dbpointer)
                 return false
             }
             let emailString = email.split(separator: "@")
             if emailString.count != 2 {
+				sqlite3_close(dbpointer)
                 return false
             }
             

@@ -17,7 +17,7 @@ class HALPTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 		// Initialize local database
 		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-		let dbPath = documentsPath + "/testAppData.sqlite"
+		let dbPath = documentsPath + "/appData.sqlite"
 		var dbpointer: OpaquePointer? = nil
 		
 		if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
@@ -281,7 +281,7 @@ class HALPTests: XCTestCase {
 	override class func tearDown() {
 		super.tearDown()
 		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-		let dbPath = documentsPath + "/testAppData.sqlite"
+		let dbPath = documentsPath + "/appData.sqlite"
 
 		do {
 			try FileManager.default.removeItem(atPath: dbPath)

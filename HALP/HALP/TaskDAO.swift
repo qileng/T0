@@ -22,6 +22,7 @@ final class TaskDAO: Task {
         
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
             print("fail to establish databse connection")
+			sqlite3_close(dbpointer)
             return false
         }
         
@@ -175,6 +176,7 @@ final class TaskDAO: Task {
         
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
             print("fail to establish databse connection")
+			sqlite3_close(dbpointer)
             return false
         }
         
@@ -273,6 +275,7 @@ final class TaskDAO: Task {
         var stmt: OpaquePointer?
         if sqlite3_prepare(dbpointer, updateQueryString, -1, &stmt, nil) != SQLITE_OK {
             print("cannot prepare statements")
+			sqlite3_close(dbpointer)
             return false
         }
         
@@ -320,6 +323,7 @@ final class TaskDAO: Task {
         
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
             print("fail to establish databse connection")
+			sqlite3_close(dbpointer)
             return false
         }
         
@@ -333,7 +337,7 @@ final class TaskDAO: Task {
         else {
             let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
             print(errmsg)
-            sqlite3_close(dbpointer)
+            print(sqlite3_close(dbpointer))
             return false
         }
     }
