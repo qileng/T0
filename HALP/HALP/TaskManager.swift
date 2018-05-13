@@ -123,11 +123,10 @@ extension Array where Element: Task {
 		while true {
 			repeat {
 				i = i + 1
-			// Should be strictly less than. But highly unlikely two Tasks will equal.
-			} while self[i] <= p
+			} while self[i] > p
 			repeat {
 				j = j - 1
-			} while !(self[j] <= p)
+			} while self[j] < p
 			
 			if i < j {
 				let temp = self[i]

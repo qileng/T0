@@ -311,8 +311,12 @@ class Task {
     }
     
     
-	// Comparison function overloads operator <=
-	static func <= (left: Task, right: Task) -> (Bool) {
-		return left.getPriority() <= right.getPriority()
+	// Comparison function overloads operator >
+	static func > (left: Task, right: Task) -> (Bool) {
+		return left.getPriority() > right.getPriority()
+	}
+	
+	static func < (left: Task, right: Task) -> (Bool) {
+		return left.getPriority() < right.getPriority()
 	}
 }

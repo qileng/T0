@@ -207,9 +207,9 @@ class HALPTests: XCTestCase {
 		let task2 = Task(Priority: 2, UserID: 2)
 		let task3 = Task(Priority: 0.5, UserID: 3)
 		
-		XCTAssertEqual(task1 <= task2, false)
-		XCTAssertEqual(task2 <= task3, false)
-		XCTAssertEqual(task3 <= task1, true)
+		XCTAssertEqual(task1 < task2, false)
+		XCTAssertEqual(task2 < task3, false)
+		XCTAssertEqual(task3 < task1, true)
 	}
 	
 	func testTaskManagerLoad() {
@@ -229,7 +229,7 @@ class HALPTests: XCTestCase {
 		var tasks: [Task] = []
 		tasks.append(Task(Title: "Task1", Priority: 3, UserID: 0))
 		tasks.append(Task(Title: "Task2", Priority: 2, UserID: 0))
-		tasks.append(Task(Title: "Task3", Priority: 1, UserID: 0))
+		tasks.append(Task(Title: "Task3", Priority: 2, UserID: 0))
 		tasks.append(Task(Title: "Task4", Priority: 0.5, UserID: 0))
 		tasks.append(Task(Title: "Task5", Priority: 0.24, UserID: 0))
 		tasks.append(Task(Title: "Task6", Priority: 0.34, UserID: 0))
@@ -249,7 +249,15 @@ class HALPTests: XCTestCase {
 			print(task.getTitle())
 			print(task.getTaskId())
 		}
-		TaskManager.sharedTaskManager.clear()
+	}
+	
+	func testTaskManagerSort() {
+		print("Testing TaskManager Sort.")
+		TaskManager.sharedTaskManager.sortTasks()
+		for task in TaskManager.sharedTaskManager.tasks {
+			print(task.getTitle())
+			print(task.getPriority())
+		}
 	}
     
     
