@@ -29,5 +29,10 @@ class SettingViewController: UIViewController {
 		count += 1
 		self.ViewLabel!.text = viewName + " appeared \(count) time" + ((count == 1) ? "" : "s")
 	}
+    @IBAction func Logout(_ sender: Any) {
+        let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+        let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+        self.present(loginSignUpNC, animated: true, completion: nil)
+    }
 }
 

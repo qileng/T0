@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
 		4185636720A5621900AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
-		ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED37C50D209BB1C90038A7D0 /* SignUp.swift */; };
+		8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
+		8379928620A93787005784AE /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED432360209E870B00F11140 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235F209E870B00F11140 /* Task.swift */; };
@@ -64,7 +65,8 @@
 
 /* Begin PBXFileReference section */
 		4185631720A545BB00AA7493 /* TaskDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDAO.swift; sourceTree = "<group>"; };
-		ED37C50D209BB1C90038A7D0 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		8379928320A7B797005784AE /* AutolayoutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutExtension.swift; sourceTree = "<group>"; };
+		8379928520A93787005784AE /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		ED43235F209E870B00F11140 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -122,13 +124,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8379928220A7B73E005784AE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8379928320A7B797005784AE /* AutolayoutExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		ED432362209FAD3E00F11140 /* View Classes */ = {
 			isa = PBXGroup;
 			children = (
 				ED6C2A50209302650063B4AC /* ModelController.swift */,
 				EDDEE2482097B3B50078827A /* Clockview.swift */,
 				EDDEE24E2097C7830078827A /* UI_template.swift */,
-				ED37C50D209BB1C90038A7D0 /* SignUp.swift */,
+				8379928520A93787005784AE /* SignUp.swift */,
 				EDDEE2502097CA730078827A /* Startup.swift */,
 				EDDEE24A2097B77E0078827A /* ListView.swift */,
 				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
@@ -187,6 +197,7 @@
 		ED6C2A49209302640063B4AC /* HALP */ = {
 			isa = PBXGroup;
 			children = (
+				8379928220A7B73E005784AE /* Extensions */,
 				ED432364209FADD000F11140 /* Core */,
 				ED432363209FAD7D00F11140 /* Data Classes */,
 				ED432362209FAD3E00F11140 /* View Classes */,
@@ -349,13 +360,14 @@
 			files = (
 				ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */,
 				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
+				8379928620A93787005784AE /* SignUp.swift in Sources */,
 				ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */,
+				8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */,
 				ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */,
 				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
 				ED5B5A6E20A105D300E3C5F8 /* SettingForm.swift in Sources */,
 				ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5A6820A0EA9600E3C5F8 /* Setting.swift in Sources */,
-				ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */,
 				ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */,
 				ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,
