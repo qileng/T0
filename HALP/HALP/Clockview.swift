@@ -28,4 +28,9 @@ class ClockViewController: UIViewController {
 		count += 1
 		self.ViewLabel!.text = viewName + " appeared \(count) time" + ((count == 1) ? "" : "s")
 	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+
+	}
 }

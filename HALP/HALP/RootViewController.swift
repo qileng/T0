@@ -84,6 +84,10 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 		return .mid
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		TaskManager.sharedTaskManager.promptNextAlert(self)
+	}
 
 }
 

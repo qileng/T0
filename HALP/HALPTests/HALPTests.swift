@@ -228,8 +228,8 @@ class HALPTests: XCTestCase {
 		
 		var tasks: [Task] = []
 		tasks.append(Task(Title: "Task1", Priority: 3, UserID: 0))
-		tasks.append(Task(Title: "Task2", Priority: 2, UserID: 0))
-		tasks.append(Task(Title: "Task3", Priority: 2, UserID: 0))
+		tasks.append(Task(Title: "Task2", Schedule: 120, Priority: 2, UserID: 0))
+		tasks.append(Task(Title: "Task3", Schedule: 130, Priority: 2, UserID: 0))
 		tasks.append(Task(Title: "Task4", Priority: 0.5, UserID: 0))
 		tasks.append(Task(Title: "Task5", Priority: 0.24, UserID: 0))
 		tasks.append(Task(Title: "Task6", Priority: 0.34, UserID: 0))
@@ -291,10 +291,12 @@ class HALPTests: XCTestCase {
 		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 		let dbPath = documentsPath + "/appData.sqlite"
         var dbpointer: OpaquePointer? = nil
+		/*
         sqlite3_open(dbPath, &dbpointer)
         sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
         sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
         sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
         sqlite3_close(dbpointer)
+		*/
 	}
 }
