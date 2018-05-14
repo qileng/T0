@@ -16,7 +16,10 @@ class ListViewController: UIViewController {
 	var count = 0
 	var viewName = "List View"
 	
-	override func viewDidLoad() {
+    @IBAction func AddTask(_ sender: Any) {
+        self.present((self.storyboard?.instantiateViewController(withIdentifier: "TaskEditViewController"))!, animated: true, completion: nil)
+    }
+    override func viewDidLoad() {
 		super.viewDidLoad()
 	}
 	
