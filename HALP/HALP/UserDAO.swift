@@ -13,6 +13,9 @@ import SQLite3
 
 let SEPERATOR = " "
 
+var db = "/appData.sqlite"					// Global variable indicates which database to use.
+
+
 // This class is used in Data Management layer.
 // This class handles all file/databse IO involving user information.
 // This class has its properties, Initializers, and Getters inherited from UserData.
@@ -31,7 +34,7 @@ final class UserDAO: UserData {
             let email = self.getUserEmail() as NSString
             let last_update = Date().timeIntervalSince1970
         
-            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
             var dbpointer: OpaquePointer?
         
             //Establish database connection
@@ -75,7 +78,7 @@ final class UserDAO: UserData {
             throw RuntimeError.InternalError("fetch() called without key!")
         }
         
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
         
         //Establish database connection
@@ -112,7 +115,7 @@ final class UserDAO: UserData {
     // login authentication function, taking username and password as input
     // Return corresponding user_id if success, "-1" otherwise
     func userAuthentication(email: String, password: String ) -> Int64 {
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
         
         //Establish database connection
@@ -164,7 +167,7 @@ final class UserDAO: UserData {
             return true
         }
         else {
-            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
             var dbpointer: OpaquePointer?
             
             //Establish database connection
