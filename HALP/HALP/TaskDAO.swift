@@ -17,7 +17,7 @@ final class TaskDAO: Task {
     // Return true for success, false otherwise
     func saveTaskInfoToLocalDB() -> Bool {
         // Default local database path
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
         
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
@@ -80,7 +80,7 @@ final class TaskDAO: Task {
     // Read a single task
     func fetchTaskInfoFromLocalDB(taskId: Int64) throws -> Dictionary<String, Any> {
         // Default local database path
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
         
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
@@ -137,7 +137,7 @@ final class TaskDAO: Task {
     // Read a list of taskId associated with a user
     func fetchTaskIdListFromLocalDB(userId: Int64) throws -> [Int64] {
         // Default local database path
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
         
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
@@ -171,7 +171,7 @@ final class TaskDAO: Task {
                                  alarm: Int? = nil, deadline: Int? = nil, softDeadline: Int? = nil, schedule: Int? = nil,
                                  duration: Int? = nil, taskPriority: Double? = nil, scheduleStart: Int? = nil, notification: Bool? = nil) -> Bool {
         // Default local database path
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
         
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
@@ -318,7 +318,7 @@ final class TaskDAO: Task {
     // Return true for success false otherwise
     func deleteTaskFromLocalDB(taskId: Int64) -> Bool {
         //Default local database path
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
         
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
