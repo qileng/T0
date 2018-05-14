@@ -59,6 +59,33 @@ class TaskManager {
 		// TODO: After user setting is changed, use SettingDAO to store data.
 	}
 	
+	// Add Task
+	func addTask(_ form: TaskForm) {
+		let newTask = Task(form as Task)
+		newTask.calculatePriority()
+		print("Adding new task with title: ", newTask.getTitle())
+		print("With deadline: ", newTask.getDeadline())
+		self.refresh()
+		self.sortTasks()
+		if newTask < tasks.last! {
+			// TODO: save new task to db
+			// TODO: also filter fixed tasks too late in the future.
+			print("Proceed to save added task!")
+			return
+		}
+		let oldTask = tasks.popLast()
+		// TODO: save old task to db
+		print("Proceed to update old task with lowest priority!")
+		tasks.append(newTask)
+		self.schedule()
+	}
+	
+	// Schedule all tasks
+	func schedule() {
+		// TODO:
+		// Follow DUC#15 exactly.
+	}
+	
 	// Refresh priority of all tasks
 	func refresh() {
 		//TODO

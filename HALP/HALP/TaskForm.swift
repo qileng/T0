@@ -19,8 +19,8 @@ final class TaskForm: Task {
 		 Schedule schedule: Date? = nil, Duration duration: Int32 = 0,
 		 UserID uid: Int64) {
 		let ddl_stamp = Int32((deadline?.timeIntervalSince1970)!)
-		let sddl_stamp = Int32((softDeadline?.timeIntervalSince1970)!)
-		let fixed_stamp = Int32((schedule?.timeIntervalSince1970)!)
+		let sddl_stamp = (softDeadline == nil) ? 0 : Int32((softDeadline?.timeIntervalSince1970)!)
+		let fixed_stamp = (schedule == nil) ? 0 : Int32((schedule?.timeIntervalSince1970)!)
 		let alarm_stamp = -alarm	
 		super.init(Title: title, Description: taskD, Category: category, Alarm: alarm_stamp, Deadline: ddl_stamp, SoftDeadline: sddl_stamp, Schedule: fixed_stamp, Duration: duration, UserID: uid)
 	}
