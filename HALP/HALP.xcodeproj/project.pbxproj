@@ -81,6 +81,11 @@
 		EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
 		EDDEE24F2097C7830078827A /* UI_template.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24E2097C7830078827A /* UI_template.swift */; };
 		EDDEE2512097CA730078827A /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2502097CA730078827A /* Startup.swift */; };
+		EDFA48C620AB7ECF00150BE6 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFA48C520AB7ECF00150BE6 /* MicrosoftAzureMobile.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		EDFA48C720AB7ECF00150BE6 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFA48C520AB7ECF00150BE6 /* MicrosoftAzureMobile.framework */; };
+		EDFA48C820AB7ECF00150BE6 /* MicrosoftAzureMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFA48C520AB7ECF00150BE6 /* MicrosoftAzureMobile.framework */; };
+		EDFA48CC20AB809400150BE6 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFA48CB20AB809400150BE6 /* WebKit.framework */; };
+		EDFA48CE20AB809900150BE6 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDFA48CD20AB809900150BE6 /* SafariServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +141,10 @@
 		EDDEE24C2097C36D0078827A /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
 		EDDEE24E2097C7830078827A /* UI_template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI_template.swift; sourceTree = "<group>"; };
 		EDDEE2502097CA730078827A /* Startup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Startup.swift; sourceTree = "<group>"; };
+		EDFA48C520AB7ECF00150BE6 /* MicrosoftAzureMobile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftAzureMobile.framework; sourceTree = SOURCE_ROOT; };
+		EDFA48C920AB7EF700150BE6 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		EDFA48CB20AB809400150BE6 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		EDFA48CD20AB809900150BE6 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +152,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDFA48CE20AB809900150BE6 /* SafariServices.framework in Frameworks */,
+				EDFA48CC20AB809400150BE6 /* WebKit.framework in Frameworks */,
+				EDFA48C620AB7ECF00150BE6 /* MicrosoftAzureMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDFA48C720AB7ECF00150BE6 /* MicrosoftAzureMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDFA48C820AB7ECF00150BE6 /* MicrosoftAzureMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +224,7 @@
 				ED43235C209E85EA00F11140 /* TaskManager.swift */,
 				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
 				ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */,
+				EDFA48C920AB7EF700150BE6 /* Header.h */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -218,10 +233,12 @@
 			isa = PBXGroup;
 			children = (
 				ED6C2A7C2093052E0063B4AC /* README.md */,
+				EDFA48C520AB7ECF00150BE6 /* MicrosoftAzureMobile.framework */,
 				ED6C2A49209302640063B4AC /* HALP */,
 				ED6C2A62209302660063B4AC /* HALPTests */,
 				ED6C2A6D209302660063B4AC /* HALPUITests */,
 				ED6C2A48209302640063B4AC /* Products */,
+				EDFA48CA20AB809400150BE6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -266,6 +283,15 @@
 				ED6C2A70209302660063B4AC /* Info.plist */,
 			);
 			path = HALPUITests;
+			sourceTree = "<group>";
+		};
+		EDFA48CA20AB809400150BE6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDFA48CD20AB809900150BE6 /* SafariServices.framework */,
+				EDFA48CB20AB809400150BE6 /* WebKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -642,6 +668,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 764FPJ3WFK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HALP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -649,6 +679,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = T0.HALP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = HALP/Header.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -660,6 +691,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 764FPJ3WFK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HALP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -667,6 +702,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = T0.HALP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = HALP/Header.h;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -679,6 +715,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 764FPJ3WFK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HALPTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -700,6 +740,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 764FPJ3WFK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HALPTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -719,6 +763,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HALPUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -738,6 +786,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = HALPUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
