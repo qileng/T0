@@ -279,6 +279,24 @@ class HALPTests: XCTestCase {
 	}
 */
 	
+	func testAddTask() {
+		let inputTask = TaskForm(Title: "Input task1", Description: "User input task", Category: .Relationship, Alarm: 1800, Deadline: Date(timeIntervalSinceNow: 3600), SoftDeadline: Date(timeIntervalSinceNow: 1800), Schedule: nil, Duration: 3600, UserID: 0)
+		let writeDAO = TaskDAO(inputTask)
+		XCTAssertEqual(writeDAO.saveTaskInfoToLocalDB(), true)
+		
+		let readDAO = TaskDAO()
+		do {
+			let dict = try readDAO.fetchTaskInfoFromLocalDB(taskId: inputTask.getTaskId())
+			for (key,values) in dict {
+				print(key + " : " ,values)
+				print("\n")
+			}
+		}
+		catch {
+			print("error")
+		}
+	}
+	
     
     func testPerformanceExample() {
         // This is an example of a performance test case.

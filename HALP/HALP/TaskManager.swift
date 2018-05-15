@@ -59,6 +59,33 @@ class TaskManager {
 		// TODO: After user setting is changed, use SettingDAO to store data.
 	}
 	
+	// Add Task
+	func addTask(_ form: TaskForm) {
+		let newTask = Task(form as Task)
+		newTask.calculatePriority()
+		print("Adding new task with title: ", newTask.getTitle())
+		print("With deadline: ", Date(timeIntervalSince1970: TimeInterval(newTask.getDeadline())).description(with: .current))
+		self.refresh()
+		self.sortTasks()
+		if newTask < tasks.last! {
+			// TODO: save new task to db
+			// TODO: also filter fixed tasks too late in the future.
+			print("Proceed to save added task!")
+			return
+		}
+		let oldTask = tasks.popLast()
+		// TODO: save old task to db
+		print("Proceed to update old task with lowest priority!")
+		tasks.append(newTask)
+		self.schedule()
+	}
+	
+	// Schedule all tasks
+	func schedule() {
+		// TODO:
+		// Follow DUC#15 exactly.
+	}
+	
 	// Refresh priority of all tasks
 	func refresh() {
 		//TODO
@@ -168,40 +195,5 @@ class TaskManager {
 		tasks.removeAll()
 		alerts.removeAll()
 		pastTasks.removeAll()
-	}
-}
-
-// Quick sort extension for [Task]
-extension Array where Element: Task {
-	mutating func quickSort(_ head: Int, _ tail: Int) {
-		if (head >= tail) {
-			return
-		}
-		
-		let pivot = self.partition(head, tail)
-		self.quickSort(head, pivot)
-		self.quickSort(pivot+1, tail)
-	}
-	
-	mutating func partition(_ head: Int, _ tail: Int) -> (Int) {
-		let p: Task = self[head]
-		var i = head - 1
-		var j = tail + 1
-		while true {
-			repeat {
-				i = i + 1
-			} while self[i] > p
-			repeat {
-				j = j - 1
-			} while self[j] < p
-			
-			if i < j {
-				let temp = self[i]
-				self[i] = self[j]
-				self[j] = temp
-			} else {
-				return j
-			}
-		}
 	}
 }
