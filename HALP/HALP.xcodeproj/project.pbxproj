@@ -29,6 +29,39 @@
 		ED5B5A8E20AA6AE000E3C5F8 /* QuickSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */; };
 		ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */; };
 		ED5B5A9020AA6AE000E3C5F8 /* QuickSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */; };
+		ED5B5A9220AA701A00E3C5F8 /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
+		ED5B5A9320AA701B00E3C5F8 /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
+		ED5B5A9420AA701D00E3C5F8 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
+		ED5B5A9520AA701F00E3C5F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4A209302650063B4AC /* AppDelegate.swift */; };
+		ED5B5A9620AA701F00E3C5F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4A209302650063B4AC /* AppDelegate.swift */; };
+		ED5B5A9720AA702200E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
+		ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A50209302650063B4AC /* ModelController.swift */; };
+		ED5B5AA720AA703800E3C5F8 /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
+		ED5B5AA820AA703800E3C5F8 /* UI_template.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24E2097C7830078827A /* UI_template.swift */; };
+		ED5B5AA920AA703800E3C5F8 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
+		ED5B5AAA20AA703800E3C5F8 /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2502097CA730078827A /* Startup.swift */; };
+		ED5B5AAB20AA703800E3C5F8 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24A2097B77E0078827A /* ListView.swift */; };
+		ED5B5AAC20AA703800E3C5F8 /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
+		ED5B5AAD20AA703800E3C5F8 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4C209302650063B4AC /* RootViewController.swift */; };
+		ED5B5AAE20AA703800E3C5F8 /* TaskEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4114350120AA399C00D3436D /* TaskEdit.swift */; };
+		ED5B5AAF20AA703800E3C5F8 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A50209302650063B4AC /* ModelController.swift */; };
+		ED5B5AB020AA703800E3C5F8 /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
+		ED5B5AB120AA703800E3C5F8 /* UI_template.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24E2097C7830078827A /* UI_template.swift */; };
+		ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
+		ED5B5AB320AA703800E3C5F8 /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2502097CA730078827A /* Startup.swift */; };
+		ED5B5AB420AA703800E3C5F8 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24A2097B77E0078827A /* ListView.swift */; };
+		ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
+		ED5B5AB620AA703800E3C5F8 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4C209302650063B4AC /* RootViewController.swift */; };
+		ED5B5AB720AA703800E3C5F8 /* TaskEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4114350120AA399C00D3436D /* TaskEdit.swift */; };
+		ED5B5AB920AA712A00E3C5F8 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
+		ED5B5ABA20AA712A00E3C5F8 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
+		ED5B5ABB20AA712A00E3C5F8 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE994209AB14B00F0DB56 /* UserData.swift */; };
+		ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235F209E870B00F11140 /* Task.swift */; };
+		ED5B5ABD20AA712A00E3C5F8 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
+		ED5B5ABE20AA712A00E3C5F8 /* TaskForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */; };
+		ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */; };
+		ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */; };
+		ED5B5AC120AA712A00E3C5F8 /* SettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */; };
 		ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
@@ -399,16 +432,27 @@
 				ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */,
 				ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */,
 				ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
+				ED5B5A9520AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
+				ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */,
 				ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
+				ED5B5AAE20AA703800E3C5F8 /* TaskEdit.swift in Sources */,
 				4185636720A5621900AA7493 /* TaskDAO.swift in Sources */,
+				ED5B5AA820AA703800E3C5F8 /* UI_template.swift in Sources */,
+				ED5B5AAD20AA703800E3C5F8 /* RootViewController.swift in Sources */,
 				ED432361209E870B00F11140 /* Task.swift in Sources */,
+				ED5B5A9220AA701A00E3C5F8 /* AutolayoutExtension.swift in Sources */,
 				ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */,
 				ED5B5A7520A511C400E3C5F8 /* TaskForm.swift in Sources */,
+				ED5B5AA920AA703800E3C5F8 /* SignUp.swift in Sources */,
+				ED5B5AAB20AA703800E3C5F8 /* ListView.swift in Sources */,
+				ED5B5AA720AA703800E3C5F8 /* Clockview.swift in Sources */,
+				ED5B5AAC20AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */,
+				ED5B5AAA20AA703800E3C5F8 /* Startup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,8 +460,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED5B5A9620AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
+				ED5B5AB020AA703800E3C5F8 /* Clockview.swift in Sources */,
+				ED5B5A9320AA701B00E3C5F8 /* AutolayoutExtension.swift in Sources */,
+				ED5B5A9720AA702200E3C5F8 /* IDGenerator.swift in Sources */,
+				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,
+				ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */,
+				ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */,
+				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
+				ED5B5AB120AA703800E3C5F8 /* UI_template.swift in Sources */,
+				ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */,
+				ED5B5AAF20AA703800E3C5F8 /* ModelController.swift in Sources */,
 				ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */,
+				ED5B5AB420AA703800E3C5F8 /* ListView.swift in Sources */,
+				ED5B5AB720AA703800E3C5F8 /* TaskEdit.swift in Sources */,
+				ED5B5AC120AA712A00E3C5F8 /* SettingForm.swift in Sources */,
+				ED5B5AB620AA703800E3C5F8 /* RootViewController.swift in Sources */,
+				ED5B5ABB20AA712A00E3C5F8 /* UserData.swift in Sources */,
+				ED5B5ABE20AA712A00E3C5F8 /* TaskForm.swift in Sources */,
+				ED5B5AB920AA712A00E3C5F8 /* UserForm.swift in Sources */,
+				ED5B5ABD20AA712A00E3C5F8 /* TaskDAO.swift in Sources */,
+				ED5B5A9420AA701D00E3C5F8 /* TaskManager.swift in Sources */,
+				ED5B5AB320AA703800E3C5F8 /* Startup.swift in Sources */,
 				ED5B5A9020AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
+				ED5B5ABA20AA712A00E3C5F8 /* UserDAO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
