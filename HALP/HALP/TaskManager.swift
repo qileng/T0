@@ -16,9 +16,9 @@ class TaskManager {
 	// The singleton instance in the app
 	static let sharedTaskManager = TaskManager()
 	
-	var userInfo: UserData?
-	var setting: Setting?
-	var tasks: [Task] = []
+	private var userInfo: UserData?
+	private var setting: Setting?
+	private var tasks: [Task] = []
 	// The current viewController when calling any function in TaskManager that needs to handle
 	// UI stuff.
 	var viewController: UIViewController? = nil
@@ -195,5 +195,18 @@ class TaskManager {
 		tasks.removeAll()
 		alerts.removeAll()
 		pastTasks.removeAll()
+	}
+	
+	// Getters
+	func getUser() -> UserData {
+		return self.userInfo!
+	}
+	
+	func getSetting() -> Setting {
+		return self.setting!
+	}
+	
+	func getTasks() -> [Task] {
+		return self.tasks
 	}
 }
