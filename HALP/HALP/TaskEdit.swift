@@ -24,7 +24,8 @@ class TaskEditViewController: UIViewController {
     }
     
     @IBAction func Confirm(_ sender: Any) {
-        
+		let form = TaskForm(Title: taskTitle.text!, Deadline: date, UserID: 0)
+        TaskManager.sharedTaskManager.addTask(form)
         self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
     }
     
