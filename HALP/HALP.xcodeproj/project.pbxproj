@@ -10,6 +10,9 @@
 		4114350220AA399C00D3436D /* TaskEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4114350120AA399C00D3436D /* TaskEdit.swift */; };
 		4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
 		4185636720A5621900AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
+		4A6BD493F0475AF0C647F177 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
+		4A6BDDAAC3A2E42D6FF9BFD7 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
+		4A6BDE028DF44FFAA0230AA4 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
 		8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
 		8379928620A93787005784AE /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
@@ -112,6 +115,7 @@
 /* Begin PBXFileReference section */
 		4114350120AA399C00D3436D /* TaskEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEdit.swift; sourceTree = "<group>"; };
 		4185631720A545BB00AA7493 /* TaskDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDAO.swift; sourceTree = "<group>"; };
+		4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
 		8379928320A7B797005784AE /* AutolayoutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutExtension.swift; sourceTree = "<group>"; };
 		8379928520A93787005784AE /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -181,6 +185,7 @@
 				ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */,
 				8379928320A7B797005784AE /* AutolayoutExtension.swift */,
 				ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */,
+				4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
 				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
 				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,
+				4A6BDE028DF44FFAA0230AA4 /* ButtonExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +480,7 @@
 				ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */,
 				ED5B5AAA20AA703800E3C5F8 /* Startup.swift in Sources */,
 				ED5B5AC820AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
+				4A6BD493F0475AF0C647F177 /* ButtonExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +515,7 @@
 				ED5B5A9020AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				ED5B5ABA20AA712A00E3C5F8 /* UserDAO.swift in Sources */,
 				ED5B5AC920AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
+				4A6BDDAAC3A2E42D6FF9BFD7 /* ButtonExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

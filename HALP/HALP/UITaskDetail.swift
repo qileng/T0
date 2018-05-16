@@ -29,7 +29,17 @@ class UITaskDetail: UIView {
 		self.backgroundColor = TaskManager.sharedTaskManager.getTheme().padding
 		self.layer.cornerRadius = 20
 		self.clipsToBounds = true
-		
+		self.setUp()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		super.init(coder: aDecoder)
+	}
+	
+	@objc func onCogTap(_ sender: UIButton) {
+	}
+	
+	func setUp() {
 		// Creating subviews
 		let title = UILabel(frame: self.frame)
 		title.textAlignment = .center
@@ -40,14 +50,14 @@ class UITaskDetail: UIView {
 		
 		let cateImg: UIImageView
 		switch self.task!.getCategory() {
-			case Category.Study_Work:
-				cateImg = UIImageView(image: UIImage(named: "study"))
-			case .Entertainment:
-				cateImg = UIImageView(image: UIImage(named: "entertainment"))
-			case .Chore:
-				cateImg = UIImageView(image: UIImage(named: "chore"))
-			case .Relationship:
-				cateImg = UIImageView(image: UIImage(named: "relationship"))
+		case Category.Study_Work:
+			cateImg = UIImageView(image: UIImage(named: "study"))
+		case .Entertainment:
+			cateImg = UIImageView(image: UIImage(named: "entertainment"))
+		case .Chore:
+			cateImg = UIImageView(image: UIImage(named: "chore"))
+		case .Relationship:
+			cateImg = UIImageView(image: UIImage(named: "relationship"))
 		}
 		let cate = UIView(frame: self.frame)
 		cate.addSubview(cateImg)
@@ -88,7 +98,9 @@ class UITaskDetail: UIView {
 		
 		let setting = UIButton()
 		setting.setImage(UIImage(named: "Cog"), for: .normal)
+		setting.imageView!.transform = CGAffineTransform(rotationAngle: .pi / 2.0)
 		setting.addTarget(self, action: #selector(self.onCogTap), for: .touchUpInside)
+		setting.addTarget(setting, action: #selector(setting.rotate), for: .touchUpInside)
 		
 		// Adding subviews.
 		self.addSubview(title)
@@ -109,13 +121,6 @@ class UITaskDetail: UIView {
 		scheduled.anchor(top: duration.bottomAnchor, left: nil, right: nil, bottom: nil, topConstant: padding, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: self.frame.width, height: self.frame.height*0.15-padding, centerX: self.centerXAnchor, centerY: nil)
 		deadline.anchor(top: scheduled.bottomAnchor, left: nil, right: nil, bottom: nil, topConstant: padding, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: self.frame.width, height: self.frame.height*0.15-padding/2, centerX: self.centerXAnchor, centerY: nil)
 		setting.anchor(top: self.topAnchor, left: self.leftAnchor, right: nil, bottom: nil, topConstant: 2.68, leftConstant: 2.68, rightConstant: 0, bottomConstant: 0, width: 20, height: 20, centerX: nil, centerY: nil)
+		setting.imageView!.anchor(top: setting.topAnchor, left: setting.leftAnchor, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: 20, height: 20, centerX: nil, centerY: nil)
 	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-	
-	@objc func onCogTap(_ sender: UIButton) {
-		print("proceed to edit task!")
-	}	
 }

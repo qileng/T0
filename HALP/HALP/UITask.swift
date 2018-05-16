@@ -21,7 +21,6 @@ class UITask: UIView {
 		self.title = UILabel(frame: frame)
 		super.init(frame: frame)
 		self.setUp()
-
 	}
 	
 	// No use. Compiler requirement.
