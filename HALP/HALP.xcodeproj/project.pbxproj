@@ -62,6 +62,15 @@
 		ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */; };
 		ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */; };
 		ED5B5AC120AA712A00E3C5F8 /* SettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */; };
+		ED5B5AC320AA754400E3C5F8 /* UITask.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC220AA754400E3C5F8 /* UITask.swift */; };
+		ED5B5AC420AA754400E3C5F8 /* UITask.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC220AA754400E3C5F8 /* UITask.swift */; };
+		ED5B5AC520AA754400E3C5F8 /* UITask.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC220AA754400E3C5F8 /* UITask.swift */; };
+		ED5B5AC720AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
+		ED5B5AC820AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
+		ED5B5AC920AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
+		ED5B5ACB20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
+		ED5B5ACC20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
+		ED5B5ACD20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
 		ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
@@ -113,6 +122,9 @@
 		ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDGenerator.swift; sourceTree = "<group>"; };
 		ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskForm.swift; sourceTree = "<group>"; };
 		ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSort.swift; sourceTree = "<group>"; };
+		ED5B5AC220AA754400E3C5F8 /* UITask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITask.swift; sourceTree = "<group>"; };
+		ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITaskDetail.swift; sourceTree = "<group>"; };
 		ED681757209BB94500FEF7D7 /* UserForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForm.swift; sourceTree = "<group>"; };
 		ED6C2A47209302640063B4AC /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6C2A4A209302650063B4AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +180,7 @@
 			children = (
 				ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */,
 				8379928320A7B797005784AE /* AutolayoutExtension.swift */,
+				ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -184,6 +197,8 @@
 				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
 				4114350120AA399C00D3436D /* TaskEdit.swift */,
+				ED5B5AC220AA754400E3C5F8 /* UITask.swift */,
+				ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */,
 			);
 			name = "View Classes";
 			sourceTree = "<group>";
@@ -403,6 +418,7 @@
 				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
 				8379928620A93787005784AE /* SignUp.swift in Sources */,
 				ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */,
+				ED5B5AC720AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
 				8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */,
 				ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */,
 				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
@@ -411,10 +427,12 @@
 				ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5A6820A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */,
+				ED5B5ACB20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */,
 				ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */,
 				ED5B5A8E20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
+				ED5B5AC320AA754400E3C5F8 /* UITask.swift in Sources */,
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
 				4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */,
@@ -431,6 +449,7 @@
 			files = (
 				ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */,
 				ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */,
+				ED5B5ACC20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */,
 				ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5A9520AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
@@ -439,6 +458,7 @@
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
+				ED5B5AC420AA754400E3C5F8 /* UITask.swift in Sources */,
 				ED5B5AAE20AA703800E3C5F8 /* TaskEdit.swift in Sources */,
 				4185636720A5621900AA7493 /* TaskDAO.swift in Sources */,
 				ED5B5AA820AA703800E3C5F8 /* UI_template.swift in Sources */,
@@ -453,6 +473,7 @@
 				ED5B5AAC20AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */,
 				ED5B5AAA20AA703800E3C5F8 /* Startup.swift in Sources */,
+				ED5B5AC820AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +483,7 @@
 			files = (
 				ED5B5A9620AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
 				ED5B5AB020AA703800E3C5F8 /* Clockview.swift in Sources */,
+				ED5B5ACD20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */,
 				ED5B5A9320AA701B00E3C5F8 /* AutolayoutExtension.swift in Sources */,
 				ED5B5A9720AA702200E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,
@@ -470,6 +492,7 @@
 				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
 				ED5B5AB120AA703800E3C5F8 /* UI_template.swift in Sources */,
 				ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */,
+				ED5B5AC520AA754400E3C5F8 /* UITask.swift in Sources */,
 				ED5B5AAF20AA703800E3C5F8 /* ModelController.swift in Sources */,
 				ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */,
 				ED5B5AB420AA703800E3C5F8 /* ListView.swift in Sources */,
@@ -484,6 +507,7 @@
 				ED5B5AB320AA703800E3C5F8 /* Startup.swift in Sources */,
 				ED5B5A9020AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				ED5B5ABA20AA712A00E3C5F8 /* UserDAO.swift in Sources */,
+				ED5B5AC920AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,9 +16,10 @@ class TaskManager {
 	// The singleton instance in the app
 	static let sharedTaskManager = TaskManager()
 	
-	var userInfo: UserData?
-	var setting: Setting?
-	var tasks: [Task] = []
+	private var userInfo: UserData?
+	private var setting: Setting?
+	private var tasks: [Task] = []
+	private var theme: ColorTheme = ColorTheme.regular
 	// The current viewController when calling any function in TaskManager that needs to handle
 	// UI stuff.
 	var viewController: UIViewController? = nil
@@ -37,6 +38,12 @@ class TaskManager {
 		self.userInfo = user
 		self.setting = setting
 		self.viewController = vc
+		switch self.setting?.getTheme() {
+		case 1:
+			self.theme = ColorTheme.dark
+		default:
+			self.theme = ColorTheme.regular
+		}
 		self.clear()
 		do {
 			try self.loadTasks()
@@ -195,5 +202,22 @@ class TaskManager {
 		tasks.removeAll()
 		alerts.removeAll()
 		pastTasks.removeAll()
+	}
+	
+	// Getters
+	func getUser() -> UserData {
+		return self.userInfo!
+	}
+	
+	func getSetting() -> Setting {
+		return self.setting!
+	}
+	
+	func getTasks() -> [Task] {
+		return self.tasks
+	}
+	
+	func getTheme() -> ColorTheme {
+		return self.theme
 	}
 }

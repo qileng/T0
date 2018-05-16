@@ -155,7 +155,7 @@ class Task {
 								  "alarm":self.alarm, "deadline":self.softDeadline,
 								  "softDeadline":self.softDeadline,"schedule":self.schedule,
 								  "duration":self.duration, "scheduled_start":self.scheduled_start,
-								  "taskID":self.taskID]
+								  "taskID":self.taskID, "userID":self.userID]
 		return dict
 	}
 	

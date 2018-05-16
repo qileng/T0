@@ -241,12 +241,12 @@ class HALPTests: XCTestCase {
 			let DAO = TaskDAO(task)
 			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
 		}
-		print("Total of ", TaskManager.sharedTaskManager.tasks.count, " tasks!")
+		print("Total of ", TaskManager.sharedTaskManager.getTasks().count, " tasks!")
 
 		TaskManager.sharedTaskManager.setUp(new: testUser, setting: Setting())
-		print("Total of ", TaskManager.sharedTaskManager.tasks.count, " tasks!")
+		print("Total of ", TaskManager.sharedTaskManager.getTasks().count, " tasks!")
 		
-		for task in TaskManager.sharedTaskManager.tasks {
+		for task in TaskManager.sharedTaskManager.getTasks() {
 			print(task.getTitle())
 			print(task.getTaskId())
 		}
@@ -255,7 +255,7 @@ class HALPTests: XCTestCase {
 	func testTaskManagerSort() {
 		print("Testing TaskManager Sort.")
 		TaskManager.sharedTaskManager.sortTasks()
-		for task in TaskManager.sharedTaskManager.tasks {
+		for task in TaskManager.sharedTaskManager.getTasks() {
 			print(task.getTitle())
 			print(task.getPriority())
 		}
