@@ -26,7 +26,7 @@ class UITaskDetail: UIView {
 		self.task = t.task
 		super.init(frame: frame)
 		self.frame = frame
-		self.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+		self.backgroundColor = TaskManager.sharedTaskManager.getTheme().padding
 		self.layer.cornerRadius = 20
 		self.clipsToBounds = true
 		

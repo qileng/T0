@@ -30,16 +30,20 @@ class ColorTheme {
 	var task: UIColor
 	var taskBackground: UIColor
 	var background: UIColor
+	var padding: UIColor
 	
-	init(text: Int, task: Int, taskBackground: Int, background: Int) {
+	init(text: Int, task: Int, taskBackground: Int, background: Int, padding: Int) {
 		self.text = UIColor(hex: text)
 		self.taskBackground = UIColor(hex: taskBackground)
 		self.background = UIColor(hex: background)
 		self.task = UIColor(hex: task)
+		self.padding = UIColor(hex: padding)
 	}
 	
-	static let regular = ColorTheme(text: 0x0, task: 0x00b0ff, taskBackground: 0xf8de7e, background: 0xffffffff)
-	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffffff, background: 0x0)
+	static let regular = ColorTheme(text: 0x0, task: 0x00b0ff, taskBackground: 0xf8de7e, background: 0xffffff, padding: 0x0)
+	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffff, background: 0x0, padding: 0x0)
+	
+	//TODO: Add more themes
 }
 
 enum Theme: Int {
