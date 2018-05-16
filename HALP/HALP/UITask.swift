@@ -11,21 +11,30 @@ import UIKit
 import CoreGraphics
 
 class UITask: UIView {
+	
 	var title: UILabel?
 	var task: Task?
+	
+	// Initializer
 	init(frame: CGRect, task t: Task) {
-		self.title = UILabel(frame: frame)
-		self.title?.textAlignment = .center
-		self.title?.textColor = UIColor(hex: 0xffffff)
 		self.task = t
-		self.title?.text = self.task?.getTitle()
+		self.title = UILabel(frame: frame)
 		super.init(frame: frame)
-		self.frame = frame
-		self.addSubview(title!)
+		self.setUp()
+
 	}
 	
+	// No use. Compiler requirement.
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
-
+	
+	// Setting up the label.
+	func setUp() {
+		self.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
+		self.title?.text = self.task?.getTitle()
+		self.title?.textAlignment = .center
+		self.title?.textColor = TaskManager.sharedTaskManager.getTheme().text
+		self.addSubview(title!)
+	}
 }

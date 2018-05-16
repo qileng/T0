@@ -45,7 +45,7 @@ class ListViewController: UIViewController, UIGestureRecognizerDelegate {
 		var lastSubview: UITask? = nil
 		for task in tasks {
 			let subview = UITask(frame: frame, task: task)
-			subview.backgroundColor = UIColor(hex: 0x176a90)
+			subview.backgroundColor = TaskManager.sharedTaskManager.getTheme().task
 			self.view.addSubview(subview)
 			if lastSubview == nil {
 				subview.anchor(top: self.view.topAnchor, left: nil, right: nil, bottom: nil, topConstant: 40, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: taskViewWidth, height: taskViewHeight, centerX: self.view.centerXAnchor, centerY: nil)
@@ -63,7 +63,7 @@ class ListViewController: UIViewController, UIGestureRecognizerDelegate {
 				continue
 			}
 			let location = sender.location(in: subview)
-			if subview.point(inside: location, with: nil) {
+			if subview.point(inside: location, with: nil) && !detailDisplay {
 				print((subview as! UITask).task?.getTitle(), "tapped!")
 				cancel = false
 				self.transparentizeAllTasks()

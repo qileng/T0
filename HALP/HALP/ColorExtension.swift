@@ -23,3 +23,27 @@ extension UIColor {
 		self.init(red: CGred, green: CGgreen, blue: CGblue, alpha: CGFloat(1.0))
 	}
 }
+
+
+class ColorTheme {
+	var text: UIColor
+	var task: UIColor
+	var taskBackground: UIColor
+	var background: UIColor
+	
+	init(text: Int, task: Int, taskBackground: Int, background: Int) {
+		self.text = UIColor(hex: text)
+		self.taskBackground = UIColor(hex: taskBackground)
+		self.background = UIColor(hex: background)
+		self.task = UIColor(hex: task)
+	}
+	
+	static let regular = ColorTheme(text: 0x0, task: 0x00b0ff, taskBackground: 0xf8de7e, background: 0xffffffff)
+	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffffff, background: 0x0)
+}
+
+enum Theme: Int {
+	case regular = 0
+	case dark = 1
+}
+

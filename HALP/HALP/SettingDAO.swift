@@ -29,23 +29,7 @@ final class SettingDAO: Setting {
 		}
 		return []
 	}
-	
-	func writeToDisk() {
-		do {
-			// combine all data fields
-			let data = String(self.getSettingID()) + SEPERATOR +
-				String(self.getUserID()) + SEPERATOR +
-				String(self.isNotificationOn()) + SEPERATOR +
-				String(self.isSuggestionOn()) + SEPERATOR +
-				String(self.getFontSize()) + SEPERATOR	+
-				self.getDefaultView().rawValue
-			// write to file
-			try data.write(toFile: file, atomically: true, encoding: .utf8)
-		}
-		catch {
-			print("Write failed\n")
-		}
-	}
+
 	
 	func readFromDatabase() -> [String] {
 		return []
