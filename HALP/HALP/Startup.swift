@@ -349,6 +349,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         // Initialize local database
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbPath = documentsPath + "/appData.sqlite"
+		print(dbPath)
         var dbpointer: OpaquePointer? = nil
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
