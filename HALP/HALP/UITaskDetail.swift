@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-
+// A modified UILabel that leaves some padding on left&right between boundary and texts.
 class UIPaddedLabel: UILabel {
 	override func drawText(in rect: CGRect) {
 		let insets = UIEdgeInsets(top: 0.0, left: 7.0, bottom: 0.0, right: 7.0)
@@ -17,29 +17,41 @@ class UIPaddedLabel: UILabel {
 	}
 }
 
-
+// This view class is not self-contained. It's necessary for the view controller to pass in the
+// desired frame position and a original UITask as data container&animation start point.
+// It automatically performs an animation that involves a easeOut frame-changing animation the
+// frame of UITask into the destination frame and change of alpha from 0 to 1.
 class UITaskDetail: UIView {
 	
 	var task: Task?
-	
+	var originFrame: CGRect?
+
 	init(frame: CGRect, task t: UITask) {
 		self.task = t.task
-		super.init(frame: frame)
-		self.frame = frame
-		self.backgroundColor = TaskManager.sharedTaskManager.getTheme().padding
+		originFrame = frame
+		super.init(frame: t.frame)
+		//self.backgroundColor = TaskManager.sharedTaskManager.getTheme().padding
 		self.layer.cornerRadius = 20
 		self.clipsToBounds = true
 		self.setUp()
 	}
 	
+	// Compiler Requirement.
 	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 	}
 	
+	// Event handler to task editing when cog is clicked
 	@objc func onCogTap(_ sender: UIButton) {
+		// Create an animation for Task Editing page.
+		// Cog rotating animation stops in 0.5 sec, so Task Editing page should not take over until .5 sec.
 	}
 	
+	// Called inside initializer. Create and anchor each view components one by one.
 	func setUp() {
+		self.alpha = 0
+		let animator = UIViewPropertyAnimator(duration: 0.1, curve: .easeOut, animations: self.pop)
+		animator.startAnimation()
 		// Creating subviews
 		let title = UILabel(frame: self.frame)
 		title.textAlignment = .center
@@ -65,7 +77,7 @@ class UITaskDetail: UIView {
 		
 		let description = UIPaddedLabel(frame: self.frame)
 		description.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
-		description.text = "Suppose to be full description of the task, which is not hard coded into database yet. Just trying to fill the frame to test UILabel's attributes blahblahblahblah more more more more good enough!"
+		description.text = self.task!.getDescription()
 		description.textColor = TaskManager.sharedTaskManager.getTheme().text
 		description.numberOfLines = 0
 		description.font = UIFont(name: "MarkerFelt-Thin", size: UIFont.systemFontSize)
@@ -74,7 +86,8 @@ class UITaskDetail: UIView {
 		
 		let duration = UIPaddedLabel(frame: self.frame)
 		duration.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
-		duration.text = "Duration: 2 hours (sample)"
+		duration.text = String(self.task!.getDuration() / 60) + " Hours "
+		duration.text! += String(self.task!.getDuration() % 60) + " Minutes"
 		duration.textColor = TaskManager.sharedTaskManager.getTheme().text
 		duration.drawText(in: duration.frame)
 		duration.textAlignment = .left
@@ -82,15 +95,16 @@ class UITaskDetail: UIView {
 		
 		let scheduled = UIPaddedLabel(frame: self.frame)
 		scheduled.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
-		scheduled.text = "HALP suggests you start in: blahblahblah"
+		scheduled.text = "Halp suggests: Begin before " + Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart())).description(with: .current)
 		scheduled.textColor = TaskManager.sharedTaskManager.getTheme().text
 		scheduled.drawText(in: scheduled.frame)
 		scheduled.textAlignment = .left
 		scheduled.font = UIFont(name: "Noteworthy-Bold", size: UIFont.systemFontSize)
+		scheduled.numberOfLines = 0
 		
 		let deadline = UIPaddedLabel(frame: self.frame)
 		deadline.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
-		deadline.text = "Remaining time: xxxx / Due on: xx:xx xx/xx"
+		deadline.text = "Due on: " + Date(timeIntervalSince1970: TimeInterval(self.task!.getDeadline())).description(with: .current)
 		deadline.textColor = TaskManager.sharedTaskManager.getTheme().text
 		deadline.drawText(in: deadline.frame)
 		deadline.textAlignment = .left
@@ -122,5 +136,11 @@ class UITaskDetail: UIView {
 		deadline.anchor(top: scheduled.bottomAnchor, left: nil, right: nil, bottom: nil, topConstant: padding, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: self.frame.width, height: self.frame.height*0.15-padding/2, centerX: self.centerXAnchor, centerY: nil)
 		setting.anchor(top: self.topAnchor, left: self.leftAnchor, right: nil, bottom: nil, topConstant: 2.68, leftConstant: 2.68, rightConstant: 0, bottomConstant: 0, width: 20, height: 20, centerX: nil, centerY: nil)
 		setting.imageView!.anchor(top: setting.topAnchor, left: setting.leftAnchor, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: 20, height: 20, centerX: nil, centerY: nil)
+	}
+	
+	func pop() {
+		// Poping animation
+		self.frame = self.originFrame!
+		self.alpha = 1
 	}
 }

@@ -40,7 +40,7 @@ class ColorTheme {
 		self.padding = UIColor(hex: padding)
 	}
 	
-	static let regular = ColorTheme(text: 0x0, task: 0x00b0ff, taskBackground: 0xf8de7e, background: 0xffffff, padding: 0x0)
+	static let regular = ColorTheme(text: 0x0, task: 0x00b0ff, taskBackground: 0xf8de7e, background: 0xffffff, padding: 0xffffff)
 	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffff, background: 0x0, padding: 0x0)
 	
 	//TODO: Add more themes
