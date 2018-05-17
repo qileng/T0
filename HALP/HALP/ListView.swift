@@ -26,6 +26,7 @@ class ListViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func AddTask(_ sender: Any) {
         self.present((self.storyboard?.instantiateViewController(withIdentifier: "TaskEditViewController"))!, animated: true, completion: nil)
     }
+	
     override func viewDidLoad() {
 		super.viewDidLoad()
 		self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onTap)))
@@ -68,32 +69,28 @@ class ListViewController: UIViewController, UIGestureRecognizerDelegate {
 	}	
 	
 	@objc func onTap(_ sender: UITapGestureRecognizer) {
-		var cancel: Bool = true
 		for subview in self.view.subviews {
-			if !(type(of: subview) == UITask.self || type(of: subview) == UITaskDetail.self) {
-				continue
-			}
-			let location = sender.location(in: subview)
-			if subview.point(inside: location, with: nil) && !detailDisplay {
-				print((subview as! UITask).task?.getTitle(), "tapped!")
-				cancel = false
-				self.transparentizeAllTasks()
-				subview.isHidden = true
-				let subframe = CGRect(x: self.view.frame.width*0.1,y: self.view.frame.height*0.2,width: self.view.frame.width*0.8,height: self.view.frame.height*0.6)
-				let detailView = UITaskDetail(frame: subframe, task: subview as! UITask)
-				self.view.addSubview(detailView)
-				detailDisplay = true
+			if type(of: subview) == UITask.self && !detailDisplay {
+				let location = sender.location(in: subview)
+				if subview.point(inside: location, with: nil) {
+					print((subview as! UITask).task?.getTitle(), "tapped!")
+					self.transparentizeAllTasks()
+					subview.isHidden = true
+					let subframe = CGRect(x: self.view.frame.width*0.1,y: self.view.frame.height*0.2,width: self.view.frame.width*0.8,height: self.view.frame.height*0.6)
+					let detailView = UITaskDetail(frame: subframe, task: subview as! UITask)
+					self.view.addSubview(detailView)
+					detailDisplay = true
+				}
 			}
 			
-			if subview.point(inside: location, with: nil) && detailDisplay {
-				cancel = false
+			if type(of: subview) == UITaskDetail.self && detailDisplay {
+				let location = sender.location(in: subview)
+				if !subview.point(inside: location, with: nil) {
+					self.view.subviews.last?.removeFromSuperview()
+					self.deTransparentizeAllTasks()
+					detailDisplay = false
+				}
 			}
-		}
-		
-		if detailDisplay && cancel {
-			self.view.subviews.last?.removeFromSuperview()
-			self.deTransparentizeAllTasks()
-			detailDisplay = false
 		}
 	}
 	

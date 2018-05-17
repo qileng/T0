@@ -351,6 +351,11 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         let dbPath = documentsPath + "/appData.sqlite"
 		print(dbPath)
         var dbpointer: OpaquePointer? = nil
+		sqlite3_open(dbPath, &dbpointer)
+		sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
+		sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
+		sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
+		sqlite3_close(dbpointer)
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             // UserData table
@@ -374,6 +379,26 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         else {
             print("fail to open database")
         }
+
+		
+		// Testing data
+		var tasks: [Task] = []
+		let current = Int32(Date().timeIntervalSince1970)
+		tasks.append(Task(Title: "Task1", Description: "Testing Task 1", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 3600, UserID: 0))
+		tasks.append(Task(Title: "Task2", Description: "Testing Task 2", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 7200, UserID: 0))
+		tasks.append(Task(Title: "Task3", Description: "Testing Task 3", Category: .Entertainment,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 10800, UserID: 0))
+		tasks.append(Task(Title: "Task4", Description: "Testing Task 4", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 14400, UserID: 0))
+		tasks.append(Task(Title: "Task5", Description: "Testing Task 5", Category: .Relationship,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 18000, UserID: 0))
+		tasks.append(Task(Title: "Task6", Description: "Testing Task 6", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 21600, UserID: 0))
+		tasks.append(Task(Title: "Task7", Description: "Testing Task 7", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 25200, UserID: 0))
+		tasks.append(Task(Title: "Task8", Description: "Testing Task 8", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 28800, UserID: 0))
+		
+		for task in tasks {
+			let DAO = TaskDAO(task)
+			if DAO.saveTaskInfoToLocalDB() {
+				print("Saving ", task.getTitle(), " failed!")
+			}
+		}
     }
     
     // This function I haven't figure out any significant usage yet.         --Qihao

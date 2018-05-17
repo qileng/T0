@@ -108,6 +108,7 @@ class UITaskDetail: UIView {
 		deadline.textColor = TaskManager.sharedTaskManager.getTheme().text
 		deadline.drawText(in: deadline.frame)
 		deadline.textAlignment = .left
+		deadline.numberOfLines = 0
 		deadline.font = UIFont(name: "AmericanTypewriter", size: UIFont.systemFontSize)
 		
 		let setting = UIButton()

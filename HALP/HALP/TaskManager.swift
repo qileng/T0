@@ -103,7 +103,9 @@ class TaskManager {
 	
 	// Refresh priority of all tasks
 	func refresh() {
-		//TODO
+		for task in tasks {
+			task.calculatePriority()
+		}
 	}
 	
 	// Load tasks from disk
@@ -137,6 +139,10 @@ class TaskManager {
 			}
 			tasks.append(loadedTask)
 		}
+		self.refresh()
+		self.sortTasks(by: .priority)
+		self.schedule()
+		self.sortTasks(by: .time)
 	}
 
 	
