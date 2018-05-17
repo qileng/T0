@@ -72,8 +72,7 @@ class TaskManager {
 		newTask.calculatePriority()
 		print("Adding new task with title: ", newTask.getTitle())
 		print("With deadline: ", Date(timeIntervalSince1970: TimeInterval(newTask.getDeadline())).description(with: .current))
-		self.refresh()
-		self.sortTasks()
+		/*
 		if newTask < tasks.last! {
 			// TODO: save new task to db
 			// TODO: also filter fixed tasks too late in the future.
@@ -83,8 +82,17 @@ class TaskManager {
 		let oldTask = tasks.popLast()
 		// TODO: save old task to db
 		print("Proceed to update old task with lowest priority!")
+		*/
 		tasks.append(newTask)
+		// Save task to DB
+		let DAO = TaskDAO(newTask)
+		if !DAO.saveTaskInfoToLocalDB() {
+			print("Saving failed!")
+		}
+		self.refresh()
+		self.sortTasks(by: .priority)
 		self.schedule()
+		self.sortTasks(by: .time)
 	}
 	
 	// Schedule all tasks
@@ -148,9 +156,9 @@ class TaskManager {
 	}
 	
 	// Sort tasks by priority
-	func sortTasks() {
+	func sortTasks(by t: SortingType) {
 		//TODO: write tests. I wrote this based on memory.
-		tasks.quickSort(0, tasks.count-1)
+		tasks.quickSort(0, tasks.count-1, by: t)
 	}
 	
 	// Callback function used in UIViewController.present(::completion:)
