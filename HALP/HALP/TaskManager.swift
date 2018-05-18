@@ -139,7 +139,7 @@ class TaskManager {
 			//if the task in question has been found
 			if entry.getTaskId() == taskID {
 				//delete the task
-				entry = nil;
+				entry = nil
 				//since the ID should be unique, we can break
 				break
 			}
@@ -150,7 +150,7 @@ class TaskManager {
 	
 	// Update task
 	func updateTask() {
-		//TODO:Yuneng Jiang and add TODO at bottom or database
+		//TODO
 	}
 	
 	// Sort tasks by priority
