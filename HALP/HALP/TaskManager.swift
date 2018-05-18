@@ -22,11 +22,12 @@ class TaskManager {
 	private var theme: ColorTheme = ColorTheme.regular
 	// The current viewController when calling any function in TaskManager that needs to handle
 	// UI stuff.
-	var viewController: UIViewController? = nil
+	private var viewController: UIViewController? = nil
 	// A collection of alerts. Working as a queue.
-	var alerts: [UIAlertController] = []
+	private var alerts: [UIAlertController] = []
 	// A collection of past tasks. Working as a queue so matches alerts.
-	var pastTasks: [Task] = []
+	private var pastTasks: [Task] = []
+	private var timespan: (Int32, Int32) = (0,0)
 	
 	// Initializer
 	private init () {
@@ -218,6 +219,30 @@ class TaskManager {
 		pastTasks.removeAll()
 	}
 	
+	// Calculate next avaible timespan.
+	func calculateTimeSpan() {
+		// First determine day.
+		let days = Int(self.setting!.getAvailableDays())
+		// Determine what day is today.
+		let calendar = Calendar.current
+		let current = (self.timespan.0 == 0) ? Date() : Date(timeIntervalSince1970: TimeInterval(timespan.0 + 24*60*60))
+		var startOfDay = calendar.startOfDay(for: current)
+		var dayInWeek = calendar.component(.weekday, from: current)
+		var mask = 0b1 << (dayInWeek - 1)
+		// Retrieve the first available day
+		while ((days & mask) >> (dayInWeek - 1)) != 1 {
+			// go to next day
+			startOfDay += 24*60*60
+			// shift mask left in a cycle
+			mask = (mask == 0b1000000) ? 0b1 : mask << 1
+			dayInWeek = (dayInWeek == 7) ? 1 : dayInWeek + 1
+		}
+		// start = 12a.m. of first available day + the start hour converted into seconds
+		let startTime = Int32(startOfDay.timeIntervalSince1970) + self.setting!.getStartTime() * 60 * 60
+		let endTime = Int32(startOfDay.timeIntervalSince1970) + self.setting!.getEndTime() * 60 * 60
+		self.timespan = (startTime, endTime)
+	}
+	
 	// Getters
 	func getUser() -> UserData {
 		return self.userInfo!
@@ -233,5 +258,9 @@ class TaskManager {
 	
 	func getTheme() -> ColorTheme {
 		return self.theme
+	}
+	
+	func getTimespan() -> (Int32, Int32) {
+		return self.timespan
 	}
 }

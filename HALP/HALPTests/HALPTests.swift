@@ -305,19 +305,24 @@ class HALPTests: XCTestCase {
 		}
 	}
 	
-    
+	func testCalculateTimeSpan() {
+		print("Testing Calculate time span!")
+		let testSetting = Setting(availableDays: Int32(0b0111110), startTime: Int32(18), endTime: Int32(22), user: 0)
+		TaskManager.sharedTaskManager.setUp(new: UserData(username: "Test", password: "blah", email: "blah"), setting: testSetting)
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		print("First available is ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().0)).description(with:.current), " to ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().1)).description(with:.current))
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		print("Next available is ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().0)).description(with:.current), " to ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().1)).description(with:.current))
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		print("Next available is ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().0)).description(with:.current), " to ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().1)).description(with:.current))
+	}
+	
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
         }
     }
-	
-	func testCalendar() {
-		let cal = Calendar.current
-		let current = Date()
-		print(cal.startOfDay(for: current).description(with: .current))
-	}
 	
 	override class func tearDown() {
 		super.tearDown()
