@@ -31,19 +31,26 @@ class Setting {
 	//	Add it as a optional paramter in the main initializer with a default value. Then add a getter
 	//	and a setter.
 	private var notificationOn: Bool = true
-	private var suggestionOn: Bool = true
-	private var fontSize: Int = 12
 	private var defaultView: View = .clock
+	private var theme: Int64 = 0
+	// By default available 7 days a week. Format: SatFriThuWedTuesMonSun
+	private var availableDays: Int32 = 0b1111111
+	private var startTime: Int32 = 8						// default start time 8am
+	private var endTime: Int32 = 24							// default end time 12am
 	
 	// Main Initializer.
 	// Everything is option except userID. Setting should not be created without a user.
-	init(setting sid: Int64 = 0, user uid: Int64, notification n: Bool = true, suggestion s: Bool = true, fontSize f: Int = 12, defaultView v: View = .clock) {
+	init(setting sid: Int64 = 0, notification n: Bool = true, theme t: Int64 = 0,
+		 defaultView v: View = .clock, availableDays d: Int32 = 0b1111111, startTime s: Int32 = 8,
+		 endTime e: Int32 = 24, user uid: Int64) {
 		self.userID = uid
 		self.settingID = (sid == 0) ? IDGenerator.generateID(name: String(uid), type: .setting) : sid
 		self.notificationOn = n
-		self.suggestionOn = s
-		self.fontSize = f
+		self.theme = t
 		self.defaultView = v
+		self.startTime = s
+		self.availableDays = d
+		self.endTime = e
 	}
 	
 	// Empty Initializer
@@ -54,9 +61,8 @@ class Setting {
 	
 	// Alternative initializer. Same fashion as the convenience initializer in UserData.
 	convenience init(_ disk: Bool) {
-		let DAO = SettingDAO()
-		let data = (disk) ? DAO.readFromDisk() : DAO.readFromDatabase()
-		self.init(setting: Int64(data[0])!, user: Int64(data[1])!, notification: Bool(data[2])!, suggestion: Bool(data[3])!, fontSize: Int(data[4])!, defaultView: View(rawValue: data[5])!)
+		// TODO
+		self.init()
 	}
 	
 	// Copy initializer.
@@ -64,20 +70,15 @@ class Setting {
 		self.userID = origin.getUserID()
 		self.settingID = origin.getSettingID()
 		self.notificationOn = origin.isNotificationOn()
-		self.suggestionOn = origin.isSuggestionOn()
 		self.defaultView = origin.getDefaultView()
-		self.fontSize = origin.getFontSize()
+		self.theme = origin.getTheme()
 	}
 	
 	// Getters
 	func isNotificationOn() -> (Bool) {
 		return self.notificationOn
 	}
-	
-	func isSuggestionOn() -> (Bool) {
-		return self.suggestionOn
-	}
-	
+
 	func getSettingID() -> (Int64) {
 		return self.settingID!
 	}
@@ -86,28 +87,48 @@ class Setting {
 		return self.userID
 	}
 	
-	func getFontSize() -> (Int) {
-		return self.fontSize
-	}
-	
 	func getDefaultView() -> (View) {
 		return self.defaultView
+	}
+	
+	func getTheme() -> Int64 {
+		return self.theme
+	}
+	
+	func getAvailableDays() -> Int32 {
+		return self.availableDays
+	}
+	
+	func getStartTime() -> Int32 {
+		return self.startTime
+	}
+	
+	func getEndTime() -> Int32 {
+		return self.endTime
 	}
 	
 	// Setters
 	func toggleNotification() {
 		self.notificationOn = !self.notificationOn
 	}
-	
-	func toggleSuggestion() {
-		self.suggestionOn = !self.suggestionOn
-	}
-	
-	func setFontSize(_ size: Int) {
-		self.fontSize = size
-	}
-	
+
 	func setDefaultView(_ v: View) {
 		self.defaultView = v
+	}
+	
+	func setTheme(_ t: Int64) {
+		self.theme = t
+	}
+	
+	func setAvailableDays(_ d: Int32) {
+		self.availableDays = d
+	}
+	
+	func setStartTime(_ t: Int32) {
+		self.startTime = t
+	}
+	
+	func setEndTime(_ t: Int32) {
+		self.endTime = t
 	}
 }

@@ -155,7 +155,7 @@ class Task {
 								  "alarm":self.alarm, "deadline":self.softDeadline,
 								  "softDeadline":self.softDeadline,"schedule":self.schedule,
 								  "duration":self.duration, "scheduled_start":self.scheduled_start,
-								  "taskID":self.taskID]
+								  "taskID":self.taskID, "userID":self.userID]
 		return dict
 	}
 	
@@ -318,5 +318,13 @@ class Task {
 	
 	static func < (left: Task, right: Task) -> (Bool) {
 		return left.getPriority() < right.getPriority()
+	}
+	
+	static func >> (left: Task, right: Task) -> (Bool) {
+		return left.getScheduleStart() > right.getScheduleStart()
+	}
+	
+	static func << (left: Task, right: Task) -> (Bool) {
+		return left.getScheduleStart() < right.getScheduleStart()
 	}
 }

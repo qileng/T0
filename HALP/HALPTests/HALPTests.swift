@@ -19,6 +19,7 @@ class HALPTests: XCTestCase {
 		// Initialize local database
 		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 		let dbPath = documentsPath + db
+		print(dbPath)
 		var dbpointer: OpaquePointer? = nil
 		
 		if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
@@ -228,36 +229,43 @@ class HALPTests: XCTestCase {
 		}
 		
 		var tasks: [Task] = []
-		tasks.append(Task(Title: "Task1", Priority: 3, UserID: 0))
-		tasks.append(Task(Title: "Task2", Schedule: 120, Priority: 2, UserID: 0))
-		tasks.append(Task(Title: "Task3", Schedule: 130, Priority: 2, UserID: 0))
-		tasks.append(Task(Title: "Task4", Priority: 0.5, UserID: 0))
-		tasks.append(Task(Title: "Task5", Priority: 0.24, UserID: 0))
-		tasks.append(Task(Title: "Task6", Priority: 0.34, UserID: 0))
-		tasks.append(Task(Title: "Task7", Priority: 0.32, UserID: 0))
-		tasks.append(Task(Title: "Task8", Priority: 0.44, UserID: 0))
+		let current = Int32(Date().timeIntervalSince1970)
+		tasks.append(Task(Title: "Task1", Priority: 3, Schedule_start: current + 60,UserID: 0))
+		tasks.append(Task(Title: "Task2", Schedule: current + 120, Priority: 2, UserID: 0))
+		tasks.append(Task(Title: "Task3", Schedule: current + 180, Priority: 2, UserID: 0))
+		tasks.append(Task(Title: "Task4", Priority: 0.5, Schedule_start: current + 240, UserID: 0))
+		tasks.append(Task(Title: "Task5", Priority: 0.24, Schedule_start: current + 300, UserID: 0))
+		tasks.append(Task(Title: "Task6", Priority: 0.34, Schedule_start: current + 360, UserID: 0))
+		tasks.append(Task(Title: "Task7", Priority: 0.32, Schedule_start: current + 480, UserID: 0))
+		tasks.append(Task(Title: "Task8", Priority: 0.44, Schedule_start: current + 420, UserID: 0))
 		
 		for task in tasks {
 			let DAO = TaskDAO(task)
 			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
 		}
-		print("Total of ", TaskManager.sharedTaskManager.tasks.count, " tasks!")
+		print("Total of ", TaskManager.sharedTaskManager.getTasks().count, " tasks!")
 
 		TaskManager.sharedTaskManager.setUp(new: testUser, setting: Setting())
-		print("Total of ", TaskManager.sharedTaskManager.tasks.count, " tasks!")
+		print("Total of ", TaskManager.sharedTaskManager.getTasks().count, " tasks!")
 		
-		for task in TaskManager.sharedTaskManager.tasks {
+		for task in TaskManager.sharedTaskManager.getTasks() {
 			print(task.getTitle())
 			print(task.getTaskId())
 		}
 	}
 	
 	func testTaskManagerSort() {
-		print("Testing TaskManager Sort.")
-		TaskManager.sharedTaskManager.sortTasks()
-		for task in TaskManager.sharedTaskManager.tasks {
+		print("Testing TaskManager Sort by pririty.")
+		TaskManager.sharedTaskManager.sortTasks(by: .priority)
+		for task in TaskManager.sharedTaskManager.getTasks() {
 			print(task.getTitle())
 			print(task.getPriority())
+		}
+		print("Tesing TaskManager Sort by time.")
+		TaskManager.sharedTaskManager.sortTasks(by: .time)
+		for task in TaskManager.sharedTaskManager.getTasks() {
+			print(task.getTitle())
+			print(Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart())).description(with: .current))
 		}
 	}
     
@@ -279,7 +287,7 @@ class HALPTests: XCTestCase {
 	}
 */
 	
-	func testAddTask() {
+	func testz_AddTask() {
 		let inputTask = TaskForm(Title: "Input task1", Description: "User input task", Category: .Relationship, Alarm: 1800, Deadline: Date(timeIntervalSinceNow: 3600), SoftDeadline: Date(timeIntervalSinceNow: 1800), Schedule: nil, Duration: 3600, UserID: 0)
 		let writeDAO = TaskDAO(inputTask)
 		XCTAssertEqual(writeDAO.saveTaskInfoToLocalDB(), true)
@@ -297,7 +305,18 @@ class HALPTests: XCTestCase {
 		}
 	}
 	
-    
+	func testCalculateTimeSpan() {
+		print("Testing Calculate time span!")
+		let testSetting = Setting(availableDays: Int32(0b0111110), startTime: Int32(18), endTime: Int32(22), user: 0)
+		TaskManager.sharedTaskManager.setUp(new: UserData(username: "Test", password: "blah", email: "blah"), setting: testSetting)
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		print("First available is ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().0)).description(with:.current), " to ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().1)).description(with:.current))
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		print("Next available is ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().0)).description(with:.current), " to ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().1)).description(with:.current))
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		print("Next available is ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().0)).description(with:.current), " to ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().1)).description(with:.current))
+	}
+	
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {

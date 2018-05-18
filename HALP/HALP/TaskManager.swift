@@ -16,16 +16,18 @@ class TaskManager {
 	// The singleton instance in the app
 	static let sharedTaskManager = TaskManager()
 	
-	var userInfo: UserData?
-	var setting: Setting?
-	var tasks: [Task] = []
+	private var userInfo: UserData?
+	private var setting: Setting?
+	private var tasks: [Task] = []
+	private var theme: ColorTheme = ColorTheme.regular
 	// The current viewController when calling any function in TaskManager that needs to handle
 	// UI stuff.
-	var viewController: UIViewController? = nil
+	private var viewController: UIViewController? = nil
 	// A collection of alerts. Working as a queue.
-	var alerts: [UIAlertController] = []
+	private var alerts: [UIAlertController] = []
 	// A collection of past tasks. Working as a queue so matches alerts.
-	var pastTasks: [Task] = []
+	private var pastTasks: [Task] = []
+	private var timespan: (Int32, Int32) = (0,0)
 	
 	// Initializer
 	private init () {
@@ -37,6 +39,12 @@ class TaskManager {
 		self.userInfo = user
 		self.setting = setting
 		self.viewController = vc
+		switch self.setting?.getTheme() {
+		case 1:
+			self.theme = ColorTheme.dark
+		default:
+			self.theme = ColorTheme.regular
+		}
 		self.clear()
 		do {
 			try self.loadTasks()
@@ -65,8 +73,7 @@ class TaskManager {
 		newTask.calculatePriority()
 		print("Adding new task with title: ", newTask.getTitle())
 		print("With deadline: ", Date(timeIntervalSince1970: TimeInterval(newTask.getDeadline())).description(with: .current))
-		self.refresh()
-		self.sortTasks()
+		/*
 		if newTask < tasks.last! {
 			// TODO: save new task to db
 			// TODO: also filter fixed tasks too late in the future.
@@ -76,8 +83,17 @@ class TaskManager {
 		let oldTask = tasks.popLast()
 		// TODO: save old task to db
 		print("Proceed to update old task with lowest priority!")
+		*/
 		tasks.append(newTask)
+		// Save task to DB
+		let DAO = TaskDAO(newTask)
+		if !DAO.saveTaskInfoToLocalDB() {
+			print("Saving failed!")
+		}
+		self.refresh()
+		self.sortTasks(by: .priority)
 		self.schedule()
+		self.sortTasks(by: .time)
 	}
 	
 	// Schedule all tasks
@@ -88,7 +104,9 @@ class TaskManager {
 	
 	// Refresh priority of all tasks
 	func refresh() {
-		//TODO
+		for task in tasks {
+			task.calculatePriority()
+		}
 	}
 	
 	// Load tasks from disk
@@ -122,6 +140,10 @@ class TaskManager {
 			}
 			tasks.append(loadedTask)
 		}
+		self.refresh()
+		self.sortTasks(by: .priority)
+		self.schedule()
+		self.sortTasks(by: .time)
 	}
 
 	
@@ -141,9 +163,9 @@ class TaskManager {
 	}
 	
 	// Sort tasks by priority
-	func sortTasks() {
+	func sortTasks(by t: SortingType) {
 		//TODO: write tests. I wrote this based on memory.
-		tasks.quickSort(0, tasks.count-1)
+		tasks.quickSort(0, tasks.count-1, by: t)
 	}
 	
 	// Callback function used in UIViewController.present(::completion:)
@@ -195,5 +217,50 @@ class TaskManager {
 		tasks.removeAll()
 		alerts.removeAll()
 		pastTasks.removeAll()
+	}
+	
+	// Calculate next avaible timespan.
+	func calculateTimeSpan() {
+		// First determine day.
+		let days = Int(self.setting!.getAvailableDays())
+		// Determine what day is today.
+		let calendar = Calendar.current
+		let current = (self.timespan.0 == 0) ? Date() : Date(timeIntervalSince1970: TimeInterval(timespan.0 + 24*60*60))
+		var startOfDay = calendar.startOfDay(for: current)
+		var dayInWeek = calendar.component(.weekday, from: current)
+		var mask = 0b1 << (dayInWeek - 1)
+		// Retrieve the first available day
+		while ((days & mask) >> (dayInWeek - 1)) != 1 {
+			// go to next day
+			startOfDay += 24*60*60
+			// shift mask left in a cycle
+			mask = (mask == 0b1000000) ? 0b1 : mask << 1
+			dayInWeek = (dayInWeek == 7) ? 1 : dayInWeek + 1
+		}
+		// start = 12a.m. of first available day + the start hour converted into seconds
+		let startTime = Int32(startOfDay.timeIntervalSince1970) + self.setting!.getStartTime() * 60 * 60
+		let endTime = Int32(startOfDay.timeIntervalSince1970) + self.setting!.getEndTime() * 60 * 60
+		self.timespan = (startTime, endTime)
+	}
+	
+	// Getters
+	func getUser() -> UserData {
+		return self.userInfo!
+	}
+	
+	func getSetting() -> Setting {
+		return self.setting!
+	}
+	
+	func getTasks() -> [Task] {
+		return self.tasks
+	}
+	
+	func getTheme() -> ColorTheme {
+		return self.theme
+	}
+	
+	func getTimespan() -> (Int32, Int32) {
+		return self.timespan
 	}
 }

@@ -231,27 +231,6 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     
     // UI actions
     // Todo: comment
-    @objc func onDrage(_ sender:UIPanGestureRecognizer) {
-        let percentThreshold:CGFloat = 0.3
-        let translation = sender.translation(in: view)
-        
-        let newY = ensureRange(value: view.frame.minY + translation.y, minimum: 0, maximum: view.frame.maxY)
-        let progress = progressAlongAxis(newY, view.bounds.height)
-        
-        view.frame.origin.y = newY //Move view to new position
-        
-        if sender.state == .ended {
-            let velocity = sender.velocity(in: view)
-            if velocity.y >= 300 || progress > percentThreshold {
-                self.dismiss(animated: true) //Perform dismiss
-            } else {
-                UIView.animate(withDuration: 0.2, animations: {
-                    self.view.frame.origin.y = 0 // Revert animation
-                })
-            }
-        }
-        sender.setTranslation(.zero, in: view)
-    }
     
     func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
         let movementOnAxis = pointOnAxis / axisLength
@@ -338,7 +317,6 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         super.viewDidLoad()
         
         // view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector( ) ))
-        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(onDrage)))
         
         self.navigationController?.isNavigationBarHidden = true
         setUpSubViewsLayout()
@@ -349,7 +327,13 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         // Initialize local database
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbPath = documentsPath + "/appData.sqlite"
+		print(dbPath)
         var dbpointer: OpaquePointer? = nil
+		sqlite3_open(dbPath, &dbpointer)
+		sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
+		sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
+		sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
+		sqlite3_close(dbpointer)
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             // UserData table
@@ -373,6 +357,26 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         else {
             print("fail to open database")
         }
+
+		
+		// Testing data
+		var tasks: [Task] = []
+		let current = Int32(Date().timeIntervalSince1970)
+		tasks.append(Task(Title: "Task6", Description: "Testing Task 6", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 14400, UserID: 0))
+		tasks.append(Task(Title: "Task2", Description: "Testing Task 2", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 7200, UserID: 0))
+		tasks.append(Task(Title: "Task5", Description: "Testing Task 5", Category: .Entertainment,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 10800, UserID: 0))
+		tasks.append(Task(Title: "Task4", Description: "Testing Task 4", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 3600, UserID: 0))
+		tasks.append(Task(Title: "Task1", Description: "Testing Task 1", Category: .Relationship,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 18000, UserID: 0))
+		tasks.append(Task(Title: "Task8", Description: "Testing Task 8", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 21600, UserID: 0))
+		tasks.append(Task(Title: "Task7", Description: "Testing Task 7", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 25200, UserID: 0))
+		tasks.append(Task(Title: "Task3", Description: "Testing Task 3", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 28800, UserID: 0))
+		
+		for task in tasks {
+			let DAO = TaskDAO(task)
+			if !DAO.saveTaskInfoToLocalDB() {
+				print("Saving ", task.getTitle(), " failed!")
+			}
+		}
     }
     
     // This function I haven't figure out any significant usage yet.         --Qihao
