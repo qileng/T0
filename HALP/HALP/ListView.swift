@@ -24,7 +24,7 @@ class ListViewController: UIViewController, UIGestureRecognizerDelegate {
 	let bottomMargin: CGFloat = 30.0						// Bottom margin
 	
     @IBAction func AddTask(_ sender: Any) {
-        self.present((self.storyboard?.instantiateViewController(withIdentifier: "TaskEditViewController"))!, animated: true, completion: nil)
+        self.present((self.storyboard?.instantiateViewController(withIdentifier: "TaskEdit"))!, animated: true, completion: nil)
     }
 	
     override func viewDidLoad() {

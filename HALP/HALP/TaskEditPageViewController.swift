@@ -20,55 +20,64 @@ enum CellTypes:String {
 struct CellData {
     var cellType:CellTypes
     var title:String
-    var detail:String?
+    var detail: Any?
     var date:Date?
-//    var category:Category?
+    // var category:Category?
 }
 
 class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     
-    var task:Task?
     var datePickerIndexPath: IndexPath?
     var fieldData:[[CellData]] = [[]]
     var dateFormatter = DateFormatter()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        tableViewOutlet.backgroundColor = .clear
-//        tableViewOutlet.estimatedRowHeight = 45
-//        tableViewOutlet.rowHeight = UITableViewAutomaticDimension
-//        tableViewOutlet.sectionHeaderHeight = UITableViewAutomaticDimension
-        //remove empty cells in tableview
-        tableViewOutlet.tableFooterView = UIView()
-
-        dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm a"
+    // Logic
+    @IBAction func AddTask(_ sender: UIButton) {
+        let taskTitle = fieldData[0][0].detail!
         
-        let startDateStr = dateFormatter.string(from: Date())
-        guard let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) else{return}
-        let endDateStr = dateFormatter.string(from: date)
+        let startDate = fieldData[1][0].detail as! Date
+        let start = Int32(startDate.timeIntervalSince1970)
         
-        let section0 = [CellData(cellType: .textField, title: "Title", detail: nil, date: nil)]
-        let section1 =
-            [CellData(cellType: .dateDetail, title: "Starts", detail: startDateStr, date: Date()),
-             CellData(cellType: .dateDetail, title: "Ends", detail: endDateStr, date: date)]
-        let section2 =
-            [CellData(cellType: .detail, title: "Category", detail: "", date: nil),
-             CellData(cellType: .detail, title: "Alert", detail: "", date: nil)]
-        let section3 = [CellData(cellType: .textView, title: "Description", detail: nil, date: nil)]
-        fieldData = [ section0, section1, section2, section3]
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
-        self.tableViewOutlet.reloadData()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
+        let deadlineDate = fieldData[1][1].detail! as! Date
+        let deadline = Int32(deadlineDate.timeIntervalSince1970)
+        
+        let categoryString = fieldData[2][0].detail! as! String
+        
+        var category = Category.Study_Work
+        switch categoryString {
+        case "Study":
+            category = Category.Study_Work
+        case "Work":
+            category = Category.Study_Work
+        case "Entertainment":
+            category = Category.Entertainment
+        case "Chore":
+            category = Category.Chore
+        case "Social":
+            category = Category.Relationship
+        default:
+            category = Category.Study_Work
+        }
+        
+        let alarm = fieldData[2][1].detail!
+        let taskDesc = fieldData[3][0].detail!
+        
+        print(taskTitle)
+        print(start)
+        print(deadline)
+        print(category.rawValue)
+        print(alarm)
+        print(taskDesc)
+        print("\n")
     }
     
+    @IBAction func Cancel(_ sender: UIButton) {
+        self.present((self.storyboard?.instantiateViewController(withIdentifier: "ListViewController"))!, animated: true, completion: nil)
+    }
+    
+    // UI
     func numberOfSections(in tableView: UITableView) -> Int {
         return fieldData.count
     }
@@ -105,7 +114,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         case .dateDetail:
             cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
             cell?.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
-            cell?.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail
+            cell?.detailTextLabel?.text = dateFormatter.string(from: fieldData[indexPath.section][indexPath.row].detail as! Date)
             //        case .datePicker:
         //            cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
         case .picker:
@@ -113,7 +122,8 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         case .detail:
             cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
             cell?.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
-            cell?.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail
+            cell?.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail as! String
+            // cell?.detailTextLabel?.text = dateFormatter.string(from: fieldData[indexPath.section][indexPath.row].detail as! Date)
         case .textView:
             cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
         default:
@@ -184,8 +194,8 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             {
                 detailVC.cellData = ["Study", "Work", "Entertainment", "Chore", "Social"]
             }else
-            { // "Alert"
-                detailVC.cellData = ["None", "At start time of Event", "5 minutes before", "5 minutes before",
+            { // "Alarm"
+                detailVC.cellData = ["None", "At start time of Event", "5 minutes before",
                 "10 minutes before", "15 minutes before", "30 minutes before",
                 "1 Hours before", "2 Hours before"]
             }
@@ -219,12 +229,51 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 //        celldata.date = sender.date
 //        celldata.detail = dateFormatter.string(from: sender.date)
         fieldData[parentIndexPath.section][parentIndexPath.row].date = sender.date
-        fieldData[parentIndexPath.section][parentIndexPath.row].detail = dateFormatter.string(from: sender.date)
+        fieldData[parentIndexPath.section][parentIndexPath.row].detail = sender.date
         dateCell?.detailTextLabel?.text = dateFormatter.string(from: sender.date)
-//        self.tableViewOutlet.reloadData()
+//      self.tableViewOutlet.reloadData()
+    }
+    
+    @IBAction func titleValueChanged(_ sender: LeftPaddedTextField) {
+        fieldData[0][0].detail = sender.text!
+    }
+    
+    // Initialize page
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        tableViewOutlet.backgroundColor = .clear
+        //        tableViewOutlet.estimatedRowHeight = 45
+        //        tableViewOutlet.rowHeight = UITableViewAutomaticDimension
+        //        tableViewOutlet.sectionHeaderHeight = UITableViewAutomaticDimension
+        //remove empty cells in tableview
+        tableViewOutlet.tableFooterView = UIView()
+        
+        dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm a"
+        
+        guard let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) else{return}
+        
+        let section0 = [CellData(cellType: .textField, title: "Title", detail: "", date: nil)]
+        let section1 =
+            [CellData(cellType: .dateDetail, title: "Starts", detail: Date(), date: Date()),
+             CellData(cellType: .dateDetail, title: "Ends", detail: Date(), date: date)]
+        let section2 =
+            [CellData(cellType: .detail, title: "Category", detail: "", date: nil),
+             CellData(cellType: .detail, title: "Alarm", detail: "", date: nil)]
+        let section3 = [CellData(cellType: .textView, title: "Description", detail: "", date: nil)]
+        fieldData = [ section0, section1, section2, section3 ]
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+        self.tableViewOutlet.reloadData()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
     }
 }
 
+// Extensions
 extension TaskEditPageViewController : UITextViewDelegate, UITextFieldDelegate
 {
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -261,8 +310,8 @@ extension TaskEditPageViewController : TaskDetailTableViewControllerDelegate
     func changeDetail(text label:String, indexPath:IndexPath)
     {
         self.fieldData[indexPath.section][indexPath.row].detail = label
-//        let cell = self.tableViewOutlet.cellForRow(at: indexPath)
-//        cell?.detailTextLabel?.text = label
+       // let cell = self.tableViewOutlet.cellForRow(at: indexPath)
+       // cell?.detailTextLabel?.text = label
     }
 }
 //extension TaskEditPageViewController: UIPickerViewDelegate, UIPickerViewDataSource
