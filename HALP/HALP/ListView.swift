@@ -86,9 +86,14 @@ class ListViewController: UIViewController, UIGestureRecognizerDelegate {
 			if type(of: subview) == UITaskDetail.self && detailDisplay {
 				let location = sender.location(in: subview)
 				if !subview.point(inside: location, with: nil) {
-					self.view.subviews.last?.removeFromSuperview()
-					self.deTransparentizeAllTasks()
-					detailDisplay = false
+					let animator = UIViewPropertyAnimator(duration: 0.1, curve: .easeOut, animations: UITaskDetail.dimiss(self.view.subviews.last! as! UITaskDetail))
+					animator.addCompletion({_ in
+						print("completion codes executed!")
+						self.view.subviews.last!.removeFromSuperview()
+						self.deTransparentizeAllTasks()
+						self.detailDisplay = false
+					})
+					animator.startAnimation()
 				}
 			}
 		}

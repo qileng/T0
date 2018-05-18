@@ -313,6 +313,12 @@ class HALPTests: XCTestCase {
         }
     }
 	
+	func testCalendar() {
+		let cal = Calendar.current
+		let current = Date()
+		print(cal.startOfDay(for: current).description(with: .current))
+	}
+	
 	override class func tearDown() {
 		super.tearDown()
 		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
