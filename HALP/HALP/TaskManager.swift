@@ -95,7 +95,7 @@ class TaskManager {
 	
 	// Refresh priority of all tasks
 	func refresh() {
-		//TODO
+		//TODO: Yuneng Jiang
 	}
 	
 	// Load tasks from disk
@@ -132,19 +132,25 @@ class TaskManager {
 	}
 
 	
-	// Remove task
-	func removeTask() {
-		//TODO
+	// Remove task by taskID
+	func removeTask(taskID:Int64) {
+		//Traverse array of task to find the Task with desired ID
+		for entry in tasks {
+			//if the task in question has been found
+			if entry.getTaskId() == taskID {
+				//delete the task
+				entry = nil;
+				//since the ID should be unique, we can break
+				break
+			}
+		}
+		//TODO: update Database
 	}
 	
-	// Add task
-	func addTask() {
-		//TODO
-	}
 	
 	// Update task
 	func updateTask() {
-		//TODO
+		//TODO:Yuneng Jiang and add TODO at bottom or database
 	}
 	
 	// Sort tasks by priority
