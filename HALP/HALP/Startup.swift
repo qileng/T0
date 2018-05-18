@@ -353,6 +353,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
             sqlite3_close(dbpointer)
+            print(dbPath)
         }
         else {
             print("fail to open database")

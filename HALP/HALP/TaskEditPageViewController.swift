@@ -22,9 +22,9 @@ struct CellData {
     var title:String
     var detail: Any?
     var date:Date?
-    // var category:Category?
 }
 
+// Todo: code cleaning
 class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
@@ -45,7 +45,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         
         let categoryString = fieldData[2][0].detail! as! String
         
-        var category = Category.Study_Work
+        var category: Category
         switch categoryString {
         case "Study":
             category = Category.Study_Work
@@ -61,9 +61,13 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             category = Category.Study_Work
         }
         
+        // Not sure how to store alarm
+        // Leave it out for now
         let alarm = fieldData[2][1].detail!
+        
         let taskDesc = fieldData[3][0].detail!
         
+        /*
         print(taskTitle)
         print(start)
         print(deadline)
@@ -71,10 +75,21 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         print(alarm)
         print(taskDesc)
         print("\n")
+         */
+        
+        let form = TaskForm(Title: taskTitle as! String, Description: taskDesc as! String, Category: category, Deadline: deadline, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+        
+        // Todo: validate
+        // Todo: exception handling
+        TaskManager.sharedTaskManager.addTask(form)
+        let taskDAO = TaskDAO(form)
+        taskDAO.saveTaskInfoToLocalDB()
+        
+        self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
     }
     
     @IBAction func Cancel(_ sender: UIButton) {
-        self.present((self.storyboard?.instantiateViewController(withIdentifier: "ListViewController"))!, animated: true, completion: nil)
+        self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
     }
     
     // UI
@@ -153,6 +168,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         }
         return rowHeight
     }
+    
     /*
      When we tap a row, tableView:didSelectRowAtIndexPath: is called. There are three cases:
    1.  There is no date picker shown, we tap a row, then a date picker is shown just under it.
@@ -187,6 +203,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             }
             tableView.deselectRow(at: indexPath, animated: false)
             tableView.endUpdates()
+            
         }else if indexPath.section == 2 // the selected row is in section 2
         {
             let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailTableViewController") as! TaskDetailTableViewController
@@ -194,6 +211,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             {
                 detailVC.cellData = ["Study", "Work", "Entertainment", "Chore", "Social"]
             }else
+                // Might need change
             { // "Alarm"
                 detailVC.cellData = ["None", "At start time of Event", "5 minutes before",
                 "10 minutes before", "15 minutes before", "30 minutes before",
@@ -257,7 +275,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         let section0 = [CellData(cellType: .textField, title: "Title", detail: "", date: nil)]
         let section1 =
             [CellData(cellType: .dateDetail, title: "Starts", detail: Date(), date: Date()),
-             CellData(cellType: .dateDetail, title: "Ends", detail: Date(), date: date)]
+             CellData(cellType: .dateDetail, title: "Deadline", detail: Date(), date: date)]
         let section2 =
             [CellData(cellType: .detail, title: "Category", detail: "", date: nil),
              CellData(cellType: .detail, title: "Alarm", detail: "", date: nil)]
@@ -284,6 +302,7 @@ extension TaskEditPageViewController : UITextViewDelegate, UITextFieldDelegate
             textView.font = UIFont.systemFont(ofSize: 15)
         }
     }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n"
         {
@@ -291,6 +310,7 @@ extension TaskEditPageViewController : UITextViewDelegate, UITextFieldDelegate
         }
         return true
     }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text == ""
         {
@@ -298,7 +318,11 @@ extension TaskEditPageViewController : UITextViewDelegate, UITextFieldDelegate
             textView.textColor = .lightGray
             textView.font = UIFont.systemFont(ofSize: 17)
         }
+        else {
+            fieldData[3][0].detail = textView.text
+        }
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -314,6 +338,7 @@ extension TaskEditPageViewController : TaskDetailTableViewControllerDelegate
        // cell?.detailTextLabel?.text = label
     }
 }
+
 //extension TaskEditPageViewController: UIPickerViewDelegate, UIPickerViewDataSource
 //{
 //    func numberOfComponents(in pickerView: UIPickerView) -> Int {
