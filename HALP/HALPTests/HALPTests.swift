@@ -287,6 +287,10 @@ class HALPTests: XCTestCase {
 	}
 */
 	
+    
+    /*
+    * Why is there a initializer taking date as argument
+    * all date should be stored as time interval since 1970
 	func testz_AddTask() {
 		let inputTask = TaskForm(Title: "Input task1", Description: "User input task", Category: .Relationship, Alarm: 1800, Deadline: Date(timeIntervalSinceNow: 3600), SoftDeadline: Date(timeIntervalSinceNow: 1800), Schedule: nil, Duration: 3600, UserID: 0)
 		let writeDAO = TaskDAO(inputTask)
@@ -304,6 +308,7 @@ class HALPTests: XCTestCase {
 			print("error")
 		}
 	}
+ */
 	
 	func testCalculateTimeSpan() {
 		print("Testing Calculate time span!")
