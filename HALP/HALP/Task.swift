@@ -319,4 +319,12 @@ class Task {
 	static func < (left: Task, right: Task) -> (Bool) {
 		return left.getPriority() < right.getPriority()
 	}
+	
+	static func >> (left: Task, right: Task) -> (Bool) {
+		return left.getScheduleStart() > right.getScheduleStart()
+	}
+	
+	static func << (left: Task, right: Task) -> (Bool) {
+		return left.getScheduleStart() < right.getScheduleStart()
+	}
 }

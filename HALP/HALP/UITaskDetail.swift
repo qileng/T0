@@ -86,8 +86,8 @@ class UITaskDetail: UIView {
 		
 		let duration = UIPaddedLabel(frame: self.frame)
 		duration.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
-		duration.text = String(self.task!.getDuration() / 60) + " Hours "
-		duration.text! += String(self.task!.getDuration() % 60) + " Minutes"
+		duration.text = String(self.task!.getDuration() / 3600) + " Hours "
+		duration.text! += String(self.task!.getDuration() / 60) + " Minutes"
 		duration.textColor = TaskManager.sharedTaskManager.getTheme().text
 		duration.drawText(in: duration.frame)
 		duration.textAlignment = .left
@@ -108,6 +108,7 @@ class UITaskDetail: UIView {
 		deadline.textColor = TaskManager.sharedTaskManager.getTheme().text
 		deadline.drawText(in: deadline.frame)
 		deadline.textAlignment = .left
+		deadline.numberOfLines = 0
 		deadline.font = UIFont(name: "AmericanTypewriter", size: UIFont.systemFontSize)
 		
 		let setting = UIButton()
@@ -140,7 +141,14 @@ class UITaskDetail: UIView {
 	
 	func pop() {
 		// Poping animation
+		let temp = self.frame
 		self.frame = self.originFrame!
+		self.originFrame = temp
 		self.alpha = 1
+	}
+	
+	func dimiss() {
+		// Dismissing animation
+		self.frame = self.originFrame!
 	}
 }
