@@ -14,6 +14,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        showLoginVC()
 		// Do any additional setup after loading the view, typically from a nib.
 		// Configure the page view controller and add it as a child view controller.
 		self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -36,12 +37,22 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 		self.pageViewController!.view.frame = pageViewRect
 
 		self.pageViewController!.didMove(toParentViewController: self)
+        
+
 	}
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
 	}
+    
+    func showLoginVC()
+    {
+        DispatchQueue.main.async {
+            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+            self.present(loginVC, animated: false, completion: nil)
+        }
+    }
 
 	var modelController: ModelController {
 		// Return the model controller object, creating it if necessary.
