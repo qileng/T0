@@ -77,7 +77,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         print("\n")
          */
         
-        let form = TaskForm(Title: taskTitle as! String, Description: taskDesc as! String, Category: category, Deadline: deadline, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+		let form = TaskForm(Title: taskTitle as! String, Description: taskDesc as! String, Category: category, Deadline: deadline, Schedule_start: start, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
         
         // Todo: validate
         // Todo: exception handling
