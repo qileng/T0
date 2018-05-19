@@ -26,8 +26,8 @@ final class SettingDAO: Setting {
         let settingId = self.getSettingID()
         let notification = self.isNotificationOn() == true ? 1 : 0
         let defaultView = self.getDefaultView().rawValue
-        let defaultSort = self.getDefaultsort() == SortingType.priority ? "priority" : "time"
-        let theme = self.getTheme()
+        let defaultSort = self.getDefaultSort().rawValue
+        let theme = self.getTheme().rawValue
         let avaliableDays = self.getAvailableDays()
         let startTime = self.getStartTime()
         let endTime = self.getEndTime()
@@ -40,9 +40,9 @@ final class SettingDAO: Setting {
         sqlite3_prepare(dbpointer, saveQueryString, -1, &stmt, nil)
         sqlite3_bind_int64(stmt, 1, settingId)
         sqlite3_bind_int(stmt, 2, Int32(notification))
-        sqlite3_bind_text(stmt, 3, defaultView, -1, nil)
-        sqlite3_bind_text(stmt, 4, defaultSort, -1, nil)
-        sqlite3_bind_int64(stmt, 5, theme)
+        sqlite3_bind_int(stmt, 3, Int32(defaultView))
+        sqlite3_bind_int(stmt, 4, Int32(defaultSort))
+        sqlite3_bind_int(stmt, 5, Int32(theme))
         sqlite3_bind_int(stmt, 6, avaliableDays)
         sqlite3_bind_int(stmt, 7, startTime)
         sqlite3_bind_int(stmt, 8, endTime)
@@ -62,7 +62,7 @@ final class SettingDAO: Setting {
     
     // Update
     func updateSettingInLocalDB(settingId: Int64, notification: Bool? = nil, defaultView: View? = nil, defaultSort: SortingType? = nil,
-                                theme: Int64? = nil, availableDays: Int32? = nil, startTime: Int32? = nil, endTime: Int32? = nil) -> Bool {
+                                theme: Theme? = nil, availableDays: Int32? = nil, startTime: Int32? = nil, endTime: Int32? = nil) -> Bool {
         // Default local database path
         let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
@@ -85,20 +85,19 @@ final class SettingDAO: Setting {
         var defaultViewQueryString = ""
         if defaultView != nil {
             defaultViewQueryString = " default_view = ?,"
-            argumentManager.append((defaultView?.rawValue)! + "`text")
+            argumentManager.append(String(defaultView!.rawValue) + "`int")
         }
         
         var defaultSortQueryString = ""
         if defaultSort != nil {
             defaultSortQueryString = " default_sort = ?,"
-            let sort  = defaultSort! == SortingType.priority ? "priority" : "time"
-            argumentManager.append(sort + "`text")
+            argumentManager.append(String(defaultSort!.rawValue) + "`int")
         }
         
         var themeQueryString = ""
         if theme != nil {
             themeQueryString = " theme = ?,"
-            argumentManager.append(String(theme!) + "`int64")
+            argumentManager.append(String(theme!.rawValue) + "`int")
         }
         
         var availableDaysQueryString = ""
@@ -144,17 +143,9 @@ final class SettingDAO: Setting {
                 if infoAndType[1] == "txt" {
                     sqlite3_bind_text(stmt, Int32(index + 1), (infoAndType[0] as NSString).utf8String, -1, nil)
                 }
-                    // Case2: bind REAL
-                else if infoAndType[1] == "real" {
-                    sqlite3_bind_double(stmt, Int32(index + 1), Double(infoAndType[0])!)
-                }
-                    // Case3: bind INTEGER
+                    // Case2: bind INTEGER
                 else if infoAndType[1] == "int" {
                     sqlite3_bind_int(stmt, Int32(index + 1), Int32(infoAndType[0])!)
-                }
-                    
-                else if infoAndType[1] == "int64" {
-                    sqlite3_bind_int64(stmt, Int32(index + 1), Int64(infoAndType[0])!)
                 }
             }
         }
@@ -195,9 +186,9 @@ final class SettingDAO: Setting {
         if sqlite3_step(stmt) == SQLITE_ROW {
             queryResult.append(sqlite3_column_int64(stmt, 0))
             queryResult.append(sqlite3_column_int(stmt, 1))
-            queryResult.append(sqlite3_column_text(stmt, 2))
-            queryResult.append(sqlite3_column_text(stmt, 3))
-            queryResult.append(sqlite3_column_int64(stmt, 4))
+            queryResult.append(sqlite3_column_int(stmt, 2))
+            queryResult.append(sqlite3_column_int(stmt, 3))
+            queryResult.append(sqlite3_column_int(stmt, 4))
             queryResult.append(sqlite3_column_int(stmt, 5))
             queryResult.append(sqlite3_column_int(stmt, 6))
             queryResult.append(sqlite3_column_int(stmt, 7))
