@@ -12,9 +12,9 @@ import Foundation
 // This class is also the parent class of SettingDAO and SettingForm.
 // This class is in Business Logic Layer.
 
-enum View: String{
-	case clock = "clock"
-	case list = "view"
+enum View: Int{
+	case clock = 0
+	case list = 1
 }
 
 class Setting {
@@ -56,7 +56,7 @@ class Setting {
 	// Empty Initializer
 	init() {
 		self.userID = 0
-		self.settingID = nil
+		self.settingID = 0
 	}
 	
 	// Alternative initializer. Same fashion as the convenience initializer in UserData.
