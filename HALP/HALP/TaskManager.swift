@@ -147,15 +147,23 @@ class TaskManager {
 	}
 
 	
-	// Remove task
-	func removeTask() {
-		//TODO
+	// Remove task by taskID
+	func removeTask(taskID:Int64) {
+		var i = 0
+		//Traverse array of task to find the Task with desired ID
+		for entry in tasks {
+			//if the task in question has been found
+			if entry.getTaskId() == taskID {
+				//delete the task
+				tasks.remove(at: i)
+				//since the ID should be unique, we can break
+				break
+			}
+			i += 1
+		}
+		//TODO: update Database
 	}
 	
-	// Add task
-	func addTask() {
-		//TODO
-	}
 	
 	// Update task
 	func updateTask() {
