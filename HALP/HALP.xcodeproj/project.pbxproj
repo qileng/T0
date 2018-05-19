@@ -12,6 +12,8 @@
 		4A6BD493F0475AF0C647F177 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
 		4A6BDDAAC3A2E42D6FF9BFD7 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
 		4A6BDE028DF44FFAA0230AA4 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
+		833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
+		833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
 		8379928620A93787005784AE /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
 		83927E6720B0A4D100E3D927 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */; };
@@ -471,6 +473,7 @@
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
 				ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */,
 				ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
+				833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */,
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
@@ -505,6 +508,7 @@
 				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,
 				ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */,
 				ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */,
+				833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */,
 				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
 				ED5B5AB120AA703800E3C5F8 /* UI_template.swift in Sources */,
 				ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */,
