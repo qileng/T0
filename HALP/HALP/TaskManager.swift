@@ -92,7 +92,7 @@ class TaskManager {
 		}
 		self.refresh()
 		self.sortTasks(by: .priority)
-		self.schedule()
+		//self.schedule()
 		self.sortTasks(by: .time)
 	}
 	
