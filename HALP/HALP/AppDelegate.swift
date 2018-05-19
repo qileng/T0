@@ -20,6 +20,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+        self.client = MSClient(
+            applicationURLString:"https://halpt0.azurewebsites.net"
+        )
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let client = delegate.client!
+        let item = ["text":"Hello World"]
+        let itemTable = client.table(withName: "TodoItem")
+        itemTable.insert(item){
+            (insertedItem, error) in
+            if (error != nil) {
+                print("\n")
+                print("Error" + error.debugDescription);
+            }
+        }
+        
 		return true
 	}
 
