@@ -32,6 +32,7 @@ class Setting {
 	//	and a setter.
 	private var notificationOn: Bool = true
 	private var defaultView: View = .clock
+	private var defaultSort: SortingType = .time
 	private var theme: Int64 = 0
 	// By default available 7 days a week. Format: SatFriThuWedTuesMonSun
 	private var availableDays: Int32 = 0b1111111
@@ -41,13 +42,14 @@ class Setting {
 	// Main Initializer.
 	// Everything is option except userID. Setting should not be created without a user.
 	init(setting sid: Int64 = 0, notification n: Bool = true, theme t: Int64 = 0,
-		 defaultView v: View = .clock, availableDays d: Int32 = 0b1111111, startTime s: Int32 = 8,
+		 defaultView v: View = .clock, defaultSort sort: SortingType = .time , availableDays d: Int32 = 0b1111111, startTime s: Int32 = 8,
 		 endTime e: Int32 = 24, user uid: Int64) {
 		self.userID = uid
 		self.settingID = (sid == 0) ? IDGenerator.generateID(name: String(uid), type: .setting) : sid
 		self.notificationOn = n
 		self.theme = t
 		self.defaultView = v
+		self.defaultSort = sort
 		self.startTime = s
 		self.availableDays = d
 		self.endTime = e
@@ -72,6 +74,10 @@ class Setting {
 		self.notificationOn = origin.isNotificationOn()
 		self.defaultView = origin.getDefaultView()
 		self.theme = origin.getTheme()
+		self.startTime = origin.getStartTime()
+		self.endTime = origin.getEndTime()
+		self.availableDays = origin.getAvailableDays()
+		self.defaultSort = origin.getDefaultsort()
 	}
 	
 	// Getters
@@ -107,6 +113,10 @@ class Setting {
 		return self.endTime
 	}
 	
+	func getDefaultsort() -> SortingType {
+		return self.defaultSort
+	}
+	
 	// Setters
 	func toggleNotification() {
 		self.notificationOn = !self.notificationOn
@@ -130,5 +140,9 @@ class Setting {
 	
 	func setEndTime(_ t: Int32) {
 		self.endTime = t
+	}
+	
+	func setDefaultSort(_ s: SortingType) {
+		self.defaultSort = s
 	}
 }
