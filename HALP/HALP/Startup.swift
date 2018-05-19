@@ -150,7 +150,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         
         lineView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.signUpButton.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width, height: 1, centerX: nil, centerY: nil)
         
-        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/5, width: view.frame.width-20, height: view.frame.height/4, centerX: view.centerXAnchor, centerY: nil)
+        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/5, width: view.frame.width-20, height: view.frame.height/3, centerX: view.centerXAnchor, centerY: nil)
         
         logoImageView.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 50, width: view.frame.width/3, height: view.frame.width/3, centerX: view.centerXAnchor, centerY: nil)
     }
@@ -218,7 +218,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             // Set up task manager
 			TaskManager.sharedTaskManager.setUp(new: guest, setting: Setting(), caller: self as UIViewController)
 			
-            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
+//            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
         } catch {
             //There should not be any authentication error with guest login
             //All error should be directed here
@@ -232,16 +233,16 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     // UI actions
     // Todo: comment
     
-    func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
-        let movementOnAxis = pointOnAxis / axisLength
-        let positiveMovementOnAxis = fmaxf(Float(movementOnAxis), 0.0)
-        let positiveMovementOnAxisPercent = fminf(positiveMovementOnAxis, 1.0)
-        return CGFloat(positiveMovementOnAxisPercent)
-    }
-    
-    func ensureRange<T>(value: T, minimum: T, maximum: T) -> T where T : Comparable {
-        return min(max(value, minimum), maximum)
-    }
+//    func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
+//        let movementOnAxis = pointOnAxis / axisLength
+//        let positiveMovementOnAxis = fmaxf(Float(movementOnAxis), 0.0)
+//        let positiveMovementOnAxisPercent = fminf(positiveMovementOnAxis, 1.0)
+//        return CGFloat(positiveMovementOnAxisPercent)
+//    }
+//
+//    func ensureRange<T>(value: T, minimum: T, maximum: T) -> T where T : Comparable {
+//        return min(max(value, minimum), maximum)
+//    }
     
     @objc func handleTextInputChange()
     {
