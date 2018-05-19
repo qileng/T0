@@ -15,5 +15,15 @@ final class SettingForm: Setting {
 		return self.getStartTime() < self.getEndTime()
 	}
 	
-	func 
+	func setDefaultView(_ v: Bool) {
+		let view: View = (v) ? .clock : .list
+		self.setDefaultView(view)
+	}
+	
+	func setAvailableDays(_ a: [Bool]) {
+		
+		for bool in a {
+			//
+		}
+	}
 }
