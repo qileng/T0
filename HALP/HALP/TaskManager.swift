@@ -143,7 +143,11 @@ class TaskManager {
 		self.refresh()
 		self.sortTasks(by: .priority)
 		self.schedule()
-		self.sortTasks(by: .time)
+		if self.getSetting().getDefaultSort() == .time {
+			self.sortTasks(by: .time)
+		} else {
+			self.sortTasks(by: .priority)
+		}
 	}
 
 	
