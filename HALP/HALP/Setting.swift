@@ -72,6 +72,9 @@ class Setting {
 		self.notificationOn = origin.isNotificationOn()
 		self.defaultView = origin.getDefaultView()
 		self.theme = origin.getTheme()
+		self.startTime = origin.getStartTime()
+		self.endTime = origin.getEndTime()
+		self.availableDays = origin.getAvailableDays()
 	}
 	
 	// Getters
