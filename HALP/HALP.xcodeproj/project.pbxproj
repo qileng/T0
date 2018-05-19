@@ -12,8 +12,12 @@
 		4A6BD493F0475AF0C647F177 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
 		4A6BDDAAC3A2E42D6FF9BFD7 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
 		4A6BDE028DF44FFAA0230AA4 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
+		833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
+		833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
 		8379928620A93787005784AE /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
+		83927E6720B0A4D100E3D927 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */; };
+		83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		83A61B8A20AF340A00627714 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */; };
 		83F7571920AC23E500FFD1A0 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
@@ -116,6 +120,8 @@
 		4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
 		8379928320A7B797005784AE /* AutolayoutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutExtension.swift; sourceTree = "<group>"; };
 		8379928520A93787005784AE /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTaskViewController.swift; sourceTree = "<group>"; };
+		83927E6820B0A7A500E3D927 /* ClockFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceView.swift; sourceTree = "<group>"; };
 		83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
 		83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditPageViewController.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -200,10 +206,12 @@
 				EDDEE2502097CA730078827A /* Startup.swift */,
 				EDDEE24A2097B77E0078827A /* ListView.swift */,
 				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
+				83927E6820B0A7A500E3D927 /* ClockFaceView.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
 				83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */,
 				83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */,
 				ED5B5AC220AA754400E3C5F8 /* UITask.swift */,
+				83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */,
 				ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */,
 			);
 			name = "View Classes";
@@ -420,6 +428,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83927E6720B0A4D100E3D927 /* ListTaskViewController.swift in Sources */,
 				83F7571920AC23E500FFD1A0 /* TaskEditPageViewController.swift in Sources */,
 				ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */,
 				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
@@ -445,6 +454,7 @@
 				4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
+				83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */,
 				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
 				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,
 				4A6BDE028DF44FFAA0230AA4 /* ButtonExtension.swift in Sources */,
@@ -463,6 +473,7 @@
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
 				ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */,
 				ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
+				833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */,
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
@@ -497,6 +508,7 @@
 				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,
 				ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */,
 				ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */,
+				833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */,
 				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
 				ED5B5AB120AA703800E3C5F8 /* UI_template.swift in Sources */,
 				ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */,

@@ -19,11 +19,12 @@ class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITa
     var cellData:[String]?
     var delegate:TaskDetailTableViewControllerDelegate?
     var selectedIndexPath:IndexPath?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableViewOutlet.tableFooterView = UIView()
         self.tableViewOutlet.backgroundColor = .clear
-
+//        self.setNeedsStatusBarAppearanceUpdate()
         // Do any additional setup after loading the view.
     }
     
@@ -32,6 +33,9 @@ class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITa
         
     }
     
+//    override public var preferredStatusBarStyle: UIStatusBarStyle {
+//        return UIStatusBarStyle.lightContent
+//    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
