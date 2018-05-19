@@ -12,7 +12,7 @@ import UIKit
 class SettingViewController: UIViewController {
 	
 	@IBOutlet weak var ViewLabel: UILabel!
-	
+    
 	var count = 0
 	var viewName = "Setting Page"
     var settingForm: SettingForm?
@@ -53,6 +53,29 @@ class SettingViewController: UIViewController {
         }
     }
     
+    @IBAction func defaultSortingMethodSegControl(_ sender: UISegmentedControl) {
+        if (sender.selectedSegmentIndex == 0){
+            //Switch to Time based sorting
+            settingForm?.setDefaultSort(SortingType(rawValue: 0)!)
+            print(settingForm?.getDefaultSort().rawValue)
+        } else if (sender.selectedSegmentIndex == 1) {
+            //Switch to Prority based sorting
+            settingForm?.setDefaultSort(SortingType(rawValue: 1)!)
+            print(settingForm?.getDefaultSort().rawValue)
+        }
+    }
+    
+    @IBAction func themeSegControl(_ sender: UISegmentedControl) {
+        if (sender.selectedSegmentIndex == 0){
+            //Switch to Light Theme
+            settingForm?.setTheme(Theme(rawValue: 0)!)
+            print(settingForm?.getTheme().rawValue)
+        } else if (sender.selectedSegmentIndex == 1){
+            //Switch to Dark Theme
+            settingForm?.setTheme(Theme(rawValue: 1)!)
+            print(settingForm?.getTheme().rawValue)
+        }
+    }
     
 }
 

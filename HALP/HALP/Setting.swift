@@ -33,7 +33,7 @@ class Setting {
 	private var notificationOn: Bool = true
 	private var defaultView: View = .clock
 	private var defaultSort: SortingType = .time
-	private var theme: Int64 = 0
+	private var theme: Theme = .regular
 	// By default available 7 days a week. Format: SatFriThuWedTuesMonSun
 	private var availableDays: Int32 = 0b1111111
 	private var startTime: Int32 = 8						// default start time 8am
@@ -41,7 +41,7 @@ class Setting {
 	
 	// Main Initializer.
 	// Everything is option except userID. Setting should not be created without a user.
-	init(setting sid: Int64 = 0, notification n: Bool = true, theme t: Int64 = 0,
+	init(setting sid: Int64 = 0, notification n: Bool = true, theme t: Theme = .regular,
 		 defaultView v: View = .clock, defaultSort sort: SortingType = .time , availableDays d: Int32 = 0b1111111, startTime s: Int32 = 8,
 		 endTime e: Int32 = 24, user uid: Int64) {
 		self.userID = uid
@@ -77,7 +77,7 @@ class Setting {
 		self.startTime = origin.getStartTime()
 		self.endTime = origin.getEndTime()
 		self.availableDays = origin.getAvailableDays()
-		self.defaultSort = origin.getDefaultsort()
+		self.defaultSort = origin.getDefaultSort()
 	}
 	
 	// Getters
@@ -97,7 +97,7 @@ class Setting {
 		return self.defaultView
 	}
 	
-	func getTheme() -> Int64 {
+	func getTheme() -> (Theme) {
 		return self.theme
 	}
 	
@@ -113,7 +113,7 @@ class Setting {
 		return self.endTime
 	}
 	
-	func getDefaultsort() -> SortingType {
+	func getDefaultSort() -> SortingType {
 		return self.defaultSort
 	}
 	
@@ -126,7 +126,7 @@ class Setting {
 		self.defaultView = v
 	}
 	
-	func setTheme(_ t: Int64) {
+	func setTheme(_ t: Theme) {
 		self.theme = t
 	}
 	

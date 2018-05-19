@@ -39,8 +39,8 @@ class TaskManager {
 		self.userInfo = user
 		self.setting = setting
 		self.viewController = vc
-		switch self.setting?.getTheme() {
-		case 1:
+		switch self.setting!.getTheme() {
+        case .dark:
 			self.theme = ColorTheme.dark
 		default:
 			self.theme = ColorTheme.regular
