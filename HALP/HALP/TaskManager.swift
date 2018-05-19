@@ -98,6 +98,12 @@ class TaskManager {
 	
 	// Schedule all tasks
 	func schedule() {
+        for item in tasks {
+            
+        }
+        
+        
+        
 		// TODO:
 		// Follow DUC#15 exactly.
 	}
@@ -147,18 +153,31 @@ class TaskManager {
 	}
 
 	
-	// Remove task
-	func removeTask() {
-		//TODO
+	// Remove task by taskID
+	func removeTask(taskID:Int64) {
+		var i = 0
+        let id = taskID;
+		//Traverse array of task to find the Task with desired ID
+		for entry in tasks {
+			//if the task in question has been found
+			if entry.getTaskId() == taskID {
+				//delete the task
+				tasks.remove(at: i)
+				//since the ID should be unique, we can break
+				break
+			}
+			i += 1
+		}
+		//TODO: update Database
+        let removeDAO = TaskDAO();
+        //test this part in particular
+        removeDAO.deleteTaskFromLocalDB(taskId: id);
+        
 	}
 	
-	// Add task
-	func addTask() {
-		//TODO
-	}
 	
 	// Update task
-	func updateTask() {
+    func updateTask(TaskID: Int64, property:Dictionary<String,Any>) {
 		//TODO
 	}
 	
