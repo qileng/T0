@@ -9,16 +9,16 @@
 import UIKit
 
 
+
 class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
 	var viewName = "Setting Page"
     var settingForm: SettingForm?
     
+
     @IBOutlet weak var startTimePicker: UIPickerView!
     @IBOutlet weak var endTimePicker: UIPickerView!
     let hoursArray: Array<Int32> = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
-    
-    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	}
