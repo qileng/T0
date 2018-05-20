@@ -9,12 +9,15 @@
 import UIKit
 
 
-class SettingViewController: UIViewController {
-	
-	@IBOutlet weak var ViewLabel: UILabel!
+class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
 	var viewName = "Setting Page"
     var settingForm: SettingForm?
+    
+    @IBOutlet weak var startTimePicker: UIPickerView!
+    @IBOutlet weak var endTimePicker: UIPickerView!
+    let hoursArray: Array<Int32> = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+    
     
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -132,5 +135,22 @@ class SettingViewController: UIViewController {
         print(settingForm?.getAvailableDays())
     }
     
+    //PickerView functions
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(hoursArray[row])
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return hoursArray.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        settingForm?.setStartTime(hoursArray[row])
+        print(settingForm?.getStartTime())
+    }
 }
 
