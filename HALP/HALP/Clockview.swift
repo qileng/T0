@@ -11,6 +11,13 @@ import UIKit
 class ClockViewController: UIViewController, CAAnimationDelegate {
 	
 //    @IBOutlet weak var ViewLabel: UILabel!
+    @IBOutlet var hi: UILabel!
+    @IBOutlet var sector1112: UIImageView!
+    
+    @IBAction func tap1112(_ sender: UITapGestureRecognizer) {
+        self.hi!.text = "yikes!!"
+    }
+    
     @IBOutlet var myClock: ClockFaceView!
     var containerView: UIView!
     

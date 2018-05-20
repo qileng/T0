@@ -392,17 +392,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pq2-5N-Iqt" customClass="ClockFaceView" customModule="HALP" customModuleProvider="target">
-                                <rect key="frame" x="32" y="33" width="310" height="310.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="32" y="34" width="310" height="310.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Pq2-5N-Iqt" secondAttribute="height" multiplier="1:1" id="2dq-jZ-goH"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Q5k-1v-a5h" appends="YES" id="FTC-nl-Lje"/>
-                                    <outletCollection property="gestureRecognizers" destination="KrL-lj-8F9" appends="YES" id="KBb-FE-rEI"/>
-                                </connections>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="hi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r66-eE-acj">
+                                <rect key="frame" x="166" y="563" width="132" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="11-12" translatesAutoresizingMaskIntoConstraints="NO" id="BVl-Bd-3IG">
+                                <rect key="frame" x="111" y="39" width="77" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="3PM-Vm-WrO" appends="YES" id="Xbn-iu-Evv"/>
+                                    <outletCollection property="gestureRecognizers" destination="3PM-Vm-WrO" appends="YES" id="pye-bw-hud"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -412,14 +424,23 @@
                             <constraint firstItem="Pq2-5N-Iqt" firstAttribute="width" secondItem="8uV-yI-2me" secondAttribute="width" multiplier="0.8" id="kNL-Yx-XJy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9VK-hT-Slc"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="3PM-Vm-WrO" appends="YES" id="P9a-fI-zgm"/>
+                            <outletCollection property="gestureRecognizers" destination="3PM-Vm-WrO" appends="YES" id="9ze-Zs-ZVc"/>
+                        </connections>
                     </view>
                     <connections>
+                        <outlet property="hi" destination="r66-eE-acj" id="e4x-VY-yhT"/>
                         <outlet property="myClock" destination="Pq2-5N-Iqt" id="mqZ-DO-9Ia"/>
+                        <outlet property="sector1112" destination="BVl-Bd-3IG" id="3Tv-Dv-BfU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WRa-PU-QUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Q5k-1v-a5h"/>
-                <tapGestureRecognizer id="KrL-lj-8F9"/>
+                <tapGestureRecognizer id="3PM-Vm-WrO">
+                    <connections>
+                        <action selector="tap1112:" destination="e1P-Hl-fYN" id="0ps-Sv-eaa"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="724" y="-243.32833583208398"/>
         </scene>
@@ -504,6 +525,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="11-12" width="47" height="32"/>
         <image name="sky1" width="372" height="696"/>
         <image name="space1" width="372" height="696"/>
     </resources>

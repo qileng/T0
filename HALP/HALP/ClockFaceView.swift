@@ -119,7 +119,7 @@ class ClockFaceView: UIView {
         }
     }
     override func draw(_ rect: CGRect) {
-        drawOuterFrame()
+//        drawOuterFrame()
         drawFrame()
         drawTicks()
         drawHourLabels()
