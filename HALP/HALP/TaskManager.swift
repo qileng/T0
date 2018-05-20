@@ -180,8 +180,8 @@ class TaskManager {
 		let currentDay = calendar.component(Calendar.Component.day, from: taskFixed[0].start)
 		let currentMonth = calendar.component(Calendar.Component.month, from: taskFixed[0].start)
 		let currentYear = calendar.component(Calendar.Component.year, from: taskFixed[0].start)
-		let startComponents = calendar.component(year: currentYear, month: currentMonth, day: currentDay, hour: 8, minute: 0, second: 0)
-		let endComponents = calendar.component(year:currentYear, month:currentMonth, day: currentDay, hour: 23, minute: 59, second: 59)
+		let startComponents = calendar.component(year: currentYear, month: currentMonth, hour: 8, minute: 0, second: 0)
+		let endComponents = calendar.component(year:currentYear, month:currentMonth, hour: 23, minute: 59, second: 59)
 		var freeTime = DateInterval()
 		var i = 0
 		//make a copy of the array to sort
