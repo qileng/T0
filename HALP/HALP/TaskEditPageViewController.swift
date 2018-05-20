@@ -150,7 +150,14 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         
         
     }
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 10
+//    }
     
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 40
+//    }
+//
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        var rowHeight = tableView.rowHeight
         var rowHeight = UITableViewAutomaticDimension

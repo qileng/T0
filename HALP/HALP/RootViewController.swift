@@ -50,7 +50,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
     {
         DispatchQueue.main.async {
             let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
-            self.present(loginVC, animated: false, completion: nil)
+            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+            self.present(loginSignUpNC, animated: true, completion: nil)
         }
     }
 

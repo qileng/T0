@@ -17,7 +17,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
 	// declare each page as a constant
 	let clockView: ClockViewController
-	let listView: ListViewController
+	let listView: ListTaskViewController
 	let settingPage: SettingViewController
 	var page: [UIViewController]
 
@@ -25,9 +25,10 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 	init(storyboard: UIStoryboard) {
 		// initialize three main pages
 		self.clockView = storyboard.instantiateViewController(withIdentifier: "ClockViewController") as! ClockViewController
-		self.listView = storyboard.instantiateViewController(withIdentifier: "ListViewController") as!ListViewController
-		self.settingPage = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
-		
+//        self.listView = storyboard.instantiateViewController(withIdentifier: "ListViewController") as!ListViewController
+        self.settingPage = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+        self.listView = storyboard.instantiateViewController(withIdentifier: "ListTaskViewController") as! ListTaskViewController
+        
 		// initialize page switching array
 		self.page = [clockView, listView, settingPage]
 	    super.init()
