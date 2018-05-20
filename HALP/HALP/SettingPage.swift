@@ -149,8 +149,14 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        settingForm?.setStartTime(hoursArray[row])
-        print(settingForm?.getStartTime())
+        if (pickerView == startTimePicker){
+            settingForm?.setStartTime(hoursArray[row])
+            print(settingForm?.getStartTime())
+        } else if (pickerView == endTimePicker){
+            settingForm?.setEndTime(hoursArray[row])
+            print(settingForm?.getEndTime())
+        }
+
     }
 }
 
