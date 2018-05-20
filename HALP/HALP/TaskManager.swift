@@ -189,7 +189,7 @@ class TaskManager {
 		})
 		//if you have free time from 8am to your first task
 		if sortedArray[0].start > calendar.date(from: startComponents) {
-			freeTime = new DateInterval(calendar.date(from: startComponents), sortedArray[0].start)
+			freeTime = DateInterval(calendar.date(from: startComponents), sortedArray[0].start)
 			taskFloat.append(freeTime)
 		}
 		//else your first task is at 8am
@@ -198,12 +198,12 @@ class TaskManager {
 				//check if this is your last task
 				if i == sortedArray.count - 1 {
 					//if it is, then after it ends, you are free until 11:59PM of today
-					freeTime = new DateInterval(sortedArray[i].end, calendar.date(from: endComponents))
+					freeTime = DateInterval(sortedArray[i].end, calendar.date(from: endComponents))
 					taskFloat.append(freeTime)
 					break
 				}
 				//Your free time is defined by the time in between the tasks
-				freeTime = newDateInterval(sortedArray[i].end, sortedArray[i+1].begin)
+				freeTime = DateInterval(sortedArray[i].end, sortedArray[i+1].begin)
 				taskFloat.append(freeTime)
 				i += 1
 			}
