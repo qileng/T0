@@ -175,9 +175,10 @@ class TaskManager {
         
 	}
 	func scheduleHelper(taskFixed:[DateInterval], taskFloat:[DateInterval]) {
-		let currentDay = Calendar.Datecomponents(.Day, fromDate: taskFixed[0])
-		let currentMonth = Calendar.Datecomponents(.Month, fromDate: taskFixed[0])
-		let currentYear = Calendar.Datecomponents(.Year, fromDate: taskFixed[0])
+		let calendar = Calendar.current
+		let currentDay = calendar.dateComponents(.Day, fromDate: taskFixed[0])
+		let currentMonth = calendar.dateComponents(.Month, fromDate: taskFixed[0])
+		let currentYear = calendar.dateComponents(.Year, fromDate: taskFixed[0])
 		let startComponents = DateComponents(year: currentYear, month: currentMonth, day: currentDay, hour: 8, minute: 0, second: 0)
 		let endComponents = DateComponents(year:currentYear, month:currentMonth, day: currentDay, hour: 23, minute: 59, second: 59)
 		//make a copy of the array to sort
@@ -187,8 +188,8 @@ class TaskManager {
 			return d1.start < d2.start
 		})
 		//if you have free time from 8am to your first task
-		if sortedArray[0].start > Calendar.date(from: startComponents) {
-			freeTime = new DateInterval(Calendar.date(from: startComponents), sortedArray[0].start)
+		if sortedArray[0].start > calendar.date(from: startComponents) {
+			freeTime = new DateInterval(calendar.date(from: startComponents), sortedArray[0].start)
 			taskFloat.append(freeTime)
 		}
 		//else your first task is at 8am
@@ -197,7 +198,7 @@ class TaskManager {
 				//check if this is your last task
 				if i == sortedArray.count - 1 {
 					//if it is, then after it ends, you are free until 11:59PM of today
-					freeTime = new DateInterval(sortedArray[i].end, Calendar.date(from: endComponents))
+					freeTime = new DateInterval(sortedArray[i].end, calendar.date(from: endComponents))
 					taskFloat.append(freeTime)
 					break
 				}
