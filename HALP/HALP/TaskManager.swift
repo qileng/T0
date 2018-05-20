@@ -177,14 +177,11 @@ class TaskManager {
 	func scheduleHelper(taskFixed:[DateInterval]) -> Array<DateInterval> {
 		var taskFloat = [DateInterval]()
 		let calendar = Calendar.current
-		let currentDay = calendar.dateComponents(Calendar.Component.day, from: taskFixed[0].start)
-		let currentMonth = calendar.dateComponents(Calendar.Component.month, from: taskFixed[0].start)
-		let currentYear = calendar.dateComponents(Calendar.Component.year, from: taskFixed[0].start)
-		var startComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .seconds], from: taskFixed[0].start)
+		var startComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: taskFixed[0].start)
 		startComponents.hour = 8
 		startComponents.minute = 0
 		startComponents.seconds = 0
-		var endComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .seconds], from: taskFixed[0].start)
+		var endComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: taskFixed[0].start)
 		endComponents.hour = 23
 		endComponents.minute = 59
 		endComponents.seconds = 59
