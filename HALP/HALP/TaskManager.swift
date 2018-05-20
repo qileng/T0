@@ -92,7 +92,7 @@ class TaskManager {
 		}
 		self.refresh()
 		self.sortTasks(by: .priority)
-		self.schedule()
+		//self.schedule()
 		self.sortTasks(by: .time)
 	}
     
@@ -331,7 +331,48 @@ class TaskManager {
         removeDAO.deleteTaskFromLocalDB(taskId: id);
         
 	}
-	
+	func scheduleHelper(taskFixed:[DateInterval]) -> Array<DateInterval> {
+		var taskFloat = [DateInterval]()
+		let calendar = Calendar.current
+		var startComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: taskFixed[0].start)
+		startComponents.hour = 8
+		startComponents.minute = 0
+		startComponents.second = 0
+		var endComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: taskFixed[0].start)
+		endComponents.hour = 23
+		endComponents.minute = 59
+		endComponents.second = 59
+		var i = 0
+		var freeTime = DateInterval()
+		//make a copy of the array to sort
+		var sortedArray = taskFixed
+		//sort the array by DateInterval start time.
+		sortedArray = sortedArray.sorted(by: { (d1: DateInterval, d2: DateInterval) -> Bool in 
+			return d1.start < d2.start
+		})
+		//if you have free time from 8am to your first task
+		if sortedArray[0].start > calendar.date(from: startComponents)! {
+			freeTime = DateInterval(start: calendar.date(from: startComponents)!, end: sortedArray[0].start)
+			taskFloat.append(freeTime)
+		}
+		//else your first task is at 8am
+		else {
+			for entry in sortedArray {
+				//check if this is your last task
+				if i == sortedArray.count - 1 {
+					//if it is, then after it ends, you are free until 11:59PM of today
+					var freeTime = DateInterval(start: sortedArray[i].end, end: calendar.date(from: endComponents)!)
+					taskFloat.append(freeTime)
+					break
+				}
+				//Your free time is defined by the time in between the tasks
+				freeTime = DateInterval(start: sortedArray[i].end, end: sortedArray[i+1].start)
+				taskFloat.append(freeTime)
+				i += 1
+			}
+		}
+		return taskFloat
+	}
 	
 	// Update task
     func updateTask(TaskID: Int64, property:Dictionary<String,Any>) {
