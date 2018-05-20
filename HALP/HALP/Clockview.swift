@@ -109,7 +109,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         containerView.layer.addSublayer(secondLayer)
         rotateLayer(secondLayer,dur: 60)
         
-        let endAngle = CGFloat(2*Double.pi)
+        let endAngle = CGFloat(2*M_PI)
         let circle = UIBezierPath(arcCenter: CGPoint(x: containerView.bounds.origin.x, y:containerView.bounds.origin.y), radius: myClock.bounds.height/2 * 0.03, startAngle: 0, endAngle: endAngle, clockwise: true)
         let centerPiece = CAShapeLayer()
         
@@ -164,10 +164,9 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         return (h:points[0],m:points[1],s:points[2])
     }
     func degree2radian(_ a:CGFloat)->CGFloat {
-        let b = CGFloat(Double.pi) * a/180
+        let b = CGFloat(M_PI) * a/180
         return b
     }
-    
     func ctime ()->(h:Int,m:Int,s:Int) {
         var t = time_t()
         time(&t)

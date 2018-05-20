@@ -12,8 +12,8 @@ let π:CGFloat = CGFloat(Double.pi)
 class ClockFaceView: UIView {
     
     func drawFrame() {
-        let center = CGPoint(x:bounds.width/2, y: frame.height/2)
-        let radius: CGFloat = (max(bounds.width, bounds.height) / 2)
+        let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
+        let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 10
         let arcWidth: CGFloat = 0
         let startAngle: CGFloat = 0
         let endAngle: CGFloat = 2*π
@@ -23,7 +23,27 @@ class ClockFaceView: UIView {
         let strokeColor: UIColor = UIColor.black
         path.lineWidth = arcWidth
         strokeColor.setStroke()
-        path.lineWidth = (bounds.height * 0.083)
+        path.lineWidth = (bounds.height * 0.01)
+        path.stroke()
+        
+        let fillColor: UIColor = UIColor.white
+        fillColor.setFill()
+        path.fill()
+    }
+    
+    func drawOuterFrame() {
+        let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
+        let radius: CGFloat = (max(bounds.width, bounds.height) / 2) + 20
+        let arcWidth: CGFloat = 0
+        let startAngle: CGFloat = 0
+        let endAngle: CGFloat = 2*π
+        
+        let path = UIBezierPath(arcCenter: center, radius: radius-(bounds.height * 0.083),startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        
+        let strokeColor: UIColor = UIColor.black
+        path.lineWidth = arcWidth
+        strokeColor.setStroke()
+        path.lineWidth = (bounds.height * 0.01)
         path.stroke()
         
         let fillColor: UIColor = UIColor.white
@@ -70,11 +90,11 @@ class ClockFaceView: UIView {
             
             // translate and fill with hour tick
             if (i%5 == 0) {
-           //     context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.5)) - hourSize)
-            //    hourPath.fill()
+                context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.1235)) - hourSize)
+                hourPath.fill()
             } // translate and fill with minute tick
             else {
-                context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.03)) - hourSize)
+                context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.116)) - hourSize)
                 minutePath.fill()
             }
             // restore the centred context for the next rotate
@@ -83,7 +103,7 @@ class ClockFaceView: UIView {
     }
     
     func drawHourLabels() {
-        let radius:CGFloat = (min(bounds.width, bounds.height) / 2)
+        let radius:CGFloat = (bounds.width/2 * 0.6 )
         var numLabel = [UILabel]()
         
         for i in 0...11 {
@@ -92,14 +112,15 @@ class ClockFaceView: UIView {
             numLabel[i].font = UIFont(name: numLabel[i].font.fontName, size: bounds.width/2 * 0.13)
             numLabel[i].text = String(i+1)
             
-            let angle = CGFloat((Double(i-2) * Double.pi) / 6)
+            let angle = CGFloat((Double(i-2) * M_PI) / 6)
             numLabel[i].center = CGPoint(x: Double(bounds.width/2 + cos(angle) * radius), y: Double(bounds.height/2 + sin(angle) * radius))
             
             self.addSubview(numLabel[i])
         }
     }
     override func draw(_ rect: CGRect) {
-        //drawFrame()
+        drawOuterFrame()
+        drawFrame()
         drawTicks()
         drawHourLabels()
     }
