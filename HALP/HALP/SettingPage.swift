@@ -9,6 +9,7 @@
 import UIKit
 
 
+
 class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
 	var viewName = "Setting Page"
