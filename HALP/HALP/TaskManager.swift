@@ -176,15 +176,17 @@ class TaskManager {
 	}
 	func scheduleHelper(taskFixed:[DateInterval], taskFloat:[DateInterval]) {
 		let calendar = Calendar.current
-		let currentDay = calendar.component(.Day, fromDate: taskFixed[0])
-		let currentMonth = calendar.component(.Month, fromDate: taskFixed[0])
-		let currentYear = calendar.component(.Year, fromDate: taskFixed[0])
+		let currentDay = calendar.component(.Day, from: taskFixed[0])
+		let currentMonth = calendar.component(.Month, from: taskFixed[0])
+		let currentYear = calendar.component(.Year, from: taskFixed[0])
 		let startComponents = component(year: currentYear, month: currentMonth, day: currentDay, hour: 8, minute: 0, second: 0)
 		let endComponents = component(year:currentYear, month:currentMonth, day: currentDay, hour: 23, minute: 59, second: 59)
+		var freeTime
+		var i = 0
 		//make a copy of the array to sort
 		var sortedArray = taskFixed
 		//sort the array by DateInterval start time.
-		sortedArray = sortedArray.sorted(by: { (d1: DateInterval, d2: Dateinterval) -> Bool in 
+		sortedArray = sortedArray.sorted(by: { (d1: DateInterval, d2: DateInterval) -> Bool in 
 			return d1.start < d2.start
 		})
 		//if you have free time from 8am to your first task
