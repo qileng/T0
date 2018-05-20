@@ -13,7 +13,6 @@ class SettingViewController: UIViewController {
 	
 	@IBOutlet weak var ViewLabel: UILabel!
     
-	var count = 0
 	var viewName = "Setting Page"
     var settingForm: SettingForm?
     
@@ -27,8 +26,6 @@ class SettingViewController: UIViewController {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		count += 1
-		self.ViewLabel!.text = viewName + " appeared \(count) time" + ((count == 1) ? "" : "s")
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
 	}
@@ -75,6 +72,64 @@ class SettingViewController: UIViewController {
             settingForm?.setTheme(Theme(rawValue: 1)!)
             print(settingForm?.getTheme().rawValue)
         }
+    }
+    
+    //Seven toggles
+    @IBAction func sunSwitch(_ sender: UISwitch) {
+        if (sender.isOn == true){
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<0)
+        } else {
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1111110)
+        }
+    }
+    
+    @IBAction func monSwitch(_ sender: UISwitch) {
+        if (sender.isOn == true){
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<1)
+        } else {
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1111101)
+        }
+    }
+    
+    @IBAction func tueSwitch(_ sender: UISwitch) {
+        if (sender.isOn == true){
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<2)
+        } else {
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1111011)
+        }
+    }
+    
+    @IBAction func wedSwitch(_ sender: UISwitch) {
+        if (sender.isOn == true){
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<3)
+        } else {
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1110111)
+        }
+    }
+    
+    @IBAction func thuSwitch(_ sender: UISwitch) {
+        if (sender.isOn == true){
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<4)
+        } else {
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1101111)
+        }
+    }
+    
+    @IBAction func friSwitch(_ sender: UISwitch) {
+        if (sender.isOn == true){
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<5)
+        } else {
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1011111)
+        }
+    }
+    
+    @IBAction func satSwitch(_ sender: UISwitch) {
+        if (sender.isOn == true){
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<6)
+        } else {
+            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b0111111)
+        }
+        print(settingForm?.getAvailableDays())
     }
     
 }
