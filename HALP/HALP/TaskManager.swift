@@ -180,14 +180,13 @@ class TaskManager {
 		let currentDay = calendar.component(Calendar.Component.day, from: taskFixed[0].start)
 		let currentMonth = calendar.component(Calendar.Component.month, from: taskFixed[0].start)
 		let currentYear = calendar.component(Calendar.Component.year, from: taskFixed[0].start)
-		var startComponents = calendar.components([.day, .month, .year, .hour], from: taskFixed[0])
+		var startComponents = calendar.components([.day, .month, .year, .hour], from: taskFixed[0].start)
 		startComponents.hour = 8
 		startComponents.minute = 0
-		var endComponents = let startComponents = calendar.components([.day, .month, .year, .hour], from: taskFixed[0])
+		var endComponents = let startComponents = calendar.components([.day, .month, .year, .hour], from: taskFixed[0].start)
 		endComponents.hour = 23
 		endComponents.minute = 59
 		endComponents.seconds = 59
-		var freeTime = DateInterval()
 		var i = 0
 		//make a copy of the array to sort
 		var sortedArray = taskFixed
@@ -197,7 +196,7 @@ class TaskManager {
 		})
 		//if you have free time from 8am to your first task
 		if sortedArray[0].start > calendar.date(from: startComponents) {
-			freeTime = DateInterval(calendar.date(from: startComponents), sortedArray[0].start)
+			var freeTime = DateInterval(calendar.date(from: startComponents), sortedArray[0].start)
 			taskFloat.append(freeTime)
 		}
 		//else your first task is at 8am
@@ -206,16 +205,17 @@ class TaskManager {
 				//check if this is your last task
 				if i == sortedArray.count - 1 {
 					//if it is, then after it ends, you are free until 11:59PM of today
-					freeTime = DateInterval(sortedArray[i].end, calendar.date(from: endComponents))
+					var freeTime = DateInterval(Date.init(timeInterval: 0, since:sortedArray[i].end), calendar.date(from: endComponents))
 					taskFloat.append(freeTime)
 					break
 				}
 				//Your free time is defined by the time in between the tasks
-				freeTime = DateInterval(sortedArray[i].end, sortedArray[i+1].start)
+				var freeTime = DateInterval(Date.init(timeInterval: 0, since:sortedArray[i].end), Date.init(timeInterval: 0, since:sortedArray[i+1].start))
 				taskFloat.append(freeTime)
 				i += 1
 			}
 		}
+		return taskFloat
 	}
 	
 	// Update task
