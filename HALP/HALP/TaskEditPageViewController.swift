@@ -28,7 +28,7 @@ struct CellData {
 class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
-    
+    @IBOutlet weak var addButtonOutlet: UIButton!
     var datePickerIndexPath: IndexPath?
     var fieldData:[[CellData]] = [[]]
     var dateFormatter = DateFormatter()
@@ -85,11 +85,13 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         let taskDAO = TaskDAO(form)
         taskDAO.saveTaskInfoToLocalDB()
         
-        self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+//        self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func Cancel(_ sender: UIButton) {
-        self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+//        self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     // UI
@@ -137,7 +139,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         case .detail:
             cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
             cell?.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
-            cell?.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail as! String
+            cell?.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail as? String
             // cell?.detailTextLabel?.text = dateFormatter.string(from: fieldData[indexPath.section][indexPath.row].detail as! Date)
         case .textView:
             cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
@@ -238,6 +240,22 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+//    @objc func handleTextInputChange()
+//    {
+//        let isFormValid = (textFieldOutlet.text?.count ?? 0) > 0 //&& (passwordTextField.text?.count ?? 0) > 0
+//        if isFormValid
+//        {
+//            addButtonOutlet.isEnabled = true
+//            addButtonOutlet.titleLabel?.text = "Add"
+////            addButtonOutlet.titleLabel?.textColor = .white
+//        } else
+//        {
+//            addButtonOutlet.isEnabled = false
+//            addButtonOutlet.titleLabel?.text = ""
+////            addButtonOutlet.tintColor = .black
+//        }
+//    }
+    
  
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         let parentIndexPath = IndexPath(row: datePickerIndexPath!.row-1, section: datePickerIndexPath!.section)
@@ -255,10 +273,12 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func titleValueChanged(_ sender: LeftPaddedTextField) {
         fieldData[0][0].detail = sender.text!
     }
-    
+
     // Initialize page
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        addButtonOutlet.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         tableViewOutlet.backgroundColor = .clear
@@ -282,12 +302,17 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         let section3 = [CellData(cellType: .textView, title: "Description", detail: "", date: nil)]
         fieldData = [ section0, section1, section2, section3 ]
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         self.tableViewOutlet.reloadData()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barTintColor = .black
+        self.navigationController?.navigationBar.backgroundColor = .clear
+        self.navigationController?.navigationBar.tintColor = .white
     }
 }
 
@@ -310,6 +335,22 @@ extension TaskEditPageViewController : UITextViewDelegate, UITextFieldDelegate
         }
         return true
     }
+    
+   
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if (textField.text?.count)! > 0
+//        {
+//            addButtonOutlet.isEnabled = true
+//            addButtonOutlet.titleLabel?.text = "Add"
+//        }
+//    }
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if (textField.text?.count)! <= 0
+//        {
+//            addButtonOutlet.isEnabled = false
+//            addButtonOutlet.titleLabel?.text = ""
+//        }
+//    }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text == ""
@@ -339,15 +380,3 @@ extension TaskEditPageViewController : TaskDetailTableViewControllerDelegate
     }
 }
 
-//extension TaskEditPageViewController: UIPickerViewDelegate, UIPickerViewDataSource
-//{
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        <#code#>
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        <#code#>
-//    }
-//
-//
-//}
