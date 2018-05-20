@@ -174,11 +174,12 @@ class TaskManager {
         removeDAO.deleteTaskFromLocalDB(taskId: id);
         
 	}
-	func scheduleHelper(taskFixed:[DateInterval], taskFloat:[DateInterval]) {
+	func scheduleHelper(taskFixed:[DateInterval]) -> Array<DateInterval> {
+		var taskFloat = [DateInterval]()
 		let calendar = Calendar.current
-		let currentDay = calendar.startOfDay(for: taskFixed[0].start)
-		let currentMonth = calendar.component(.month, from: taskFixed[0].start)
-		let currentYear = calendar.component(.year, from: taskFixed[0].start)
+		let currentDay = calendar.component(calender.day, from: taskFixed[0].start)
+		let currentMonth = calendar.component(calender.month, from: taskFixed[0].start)
+		let currentYear = calendar.component(calender.year, from: taskFixed[0].start)
 		let startComponents = calendar.component(year: currentYear, month: currentMonth, day: currentDay, hour: 8, minute: 0, second: 0)
 		let endComponents = calendar.component(year:currentYear, month:currentMonth, day: currentDay, hour: 23, minute: 59, second: 59)
 		var freeTime = DateInterval()
@@ -205,7 +206,7 @@ class TaskManager {
 					break
 				}
 				//Your free time is defined by the time in between the tasks
-				freeTime = DateInterval(sortedArray[i].end, sortedArray[i+1].begin)
+				freeTime = DateInterval(sortedArray[i].end, sortedArray[i+1].start)
 				taskFloat.append(freeTime)
 				i += 1
 			}
