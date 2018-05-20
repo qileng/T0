@@ -30,6 +30,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 		
 		// initialize page switching array
 		self.page = [clockView, listView, settingPage]
+
 	    super.init()
 	}
 

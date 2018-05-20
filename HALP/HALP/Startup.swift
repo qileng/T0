@@ -171,6 +171,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                     user = try form.onlineValidateExistingUser()
                     // TODO: retrieve settting using userID
                     // Set up task manager
+                    
 					TaskManager.sharedTaskManager.setUp(new: user, setting: Setting())
         
                     // Bring up rootViewController
@@ -219,7 +220,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
 			TaskManager.sharedTaskManager.setUp(new: guest, setting: Setting(), caller: self as UIViewController)
 			
             self.dismiss(animated: true, completion: nil)
-//            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
         } catch {
             //There should not be any authentication error with guest login
             //All error should be directed here
@@ -354,7 +355,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             
             // SettingData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
-                "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+                "(setting_id INTEGER PRIMARY KEY, notification INTEGER, default_view INTEGER, default_sort INTEGER, theme INTEGER, avaliable_days INTEGER, start_time INTEGER, end_time INTEGER, last_update INTEGER)", nil, nil, nil)
+            
             sqlite3_close(dbpointer)
             print(dbPath)
         }
