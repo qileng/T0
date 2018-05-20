@@ -177,13 +177,13 @@ class TaskManager {
 	func scheduleHelper(taskFixed:[DateInterval]) -> Array<DateInterval> {
 		var taskFloat = [DateInterval]()
 		let calendar = Calendar.current
-		let currentDay = calendar.component(Calendar.Component.day, from: taskFixed[0].start)
-		let currentMonth = calendar.component(Calendar.Component.month, from: taskFixed[0].start)
-		let currentYear = calendar.component(Calendar.Component.year, from: taskFixed[0].start)
-		var startComponents = calendar.components([.day, .month, .year, .hour], from: taskFixed[0].start)
+		let currentDay = calendar.dateComponents(Calendar.Component.day, from: taskFixed[0].start)
+		let currentMonth = calendar.dateComponents(Calendar.Component.month, from: taskFixed[0].start)
+		let currentYear = calendar.dateComponents(Calendar.Component.year, from: taskFixed[0].start)
+		var startComponents = calendar.dateComponents([.day, .month, .year, .hour], from: taskFixed[0].start)
 		startComponents.hour = 8
 		startComponents.minute = 0
-		var endComponents = let startComponents = calendar.components([.day, .month, .year, .hour], from: taskFixed[0].start)
+		var endComponents = startComponents = calendar.components([.day, .month, .year, .hour], from: taskFixed[0].start)
 		endComponents.hour = 23
 		endComponents.minute = 59
 		endComponents.seconds = 59
@@ -195,8 +195,8 @@ class TaskManager {
 			return d1.start < d2.start
 		})
 		//if you have free time from 8am to your first task
-		if sortedArray[0].start > calendar.date(from: startComponents) {
-			var freeTime = DateInterval(calendar.date(from: startComponents), sortedArray[0].start)
+		if sortedArray[0].start > calendar.date!(from: startComponents) {
+			var freeTime = DateInterval(start: calendar.date(from: startComponents), end: sortedArray[0].start)
 			taskFloat.append(freeTime)
 		}
 		//else your first task is at 8am
@@ -205,12 +205,12 @@ class TaskManager {
 				//check if this is your last task
 				if i == sortedArray.count - 1 {
 					//if it is, then after it ends, you are free until 11:59PM of today
-					var freeTime = DateInterval(Date.init(timeInterval: 0, since:sortedArray[i].end), calendar.date(from: endComponents))
+					var freeTime = DateInterval(start: sortedArray[i].end, end: calendar.date(from: endComponents))
 					taskFloat.append(freeTime)
 					break
 				}
 				//Your free time is defined by the time in between the tasks
-				var freeTime = DateInterval(Date.init(timeInterval: 0, since:sortedArray[i].end), Date.init(timeInterval: 0, since:sortedArray[i+1].start))
+				var freeTime = DateInterval(start: sortedArray[i].end, end: sortedArray[i+1].start)
 				taskFloat.append(freeTime)
 				i += 1
 			}
