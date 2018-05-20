@@ -194,7 +194,7 @@ class TaskManager {
 		})
 		//if you have free time from 8am to your first task
 		if sortedArray[0].start > calendar.date(from: startComponents)! {
-			var freeTime = DateInterval(start: calendar.date(from: startComponents), end: sortedArray[0].start)
+			var freeTime = DateInterval(start: calendar.date(from: startComponents)!, end: sortedArray[0].start)
 			taskFloat.append(freeTime)
 		}
 		//else your first task is at 8am
@@ -203,7 +203,7 @@ class TaskManager {
 				//check if this is your last task
 				if i == sortedArray.count - 1 {
 					//if it is, then after it ends, you are free until 11:59PM of today
-					var freeTime = DateInterval(start: sortedArray[i].end, end: calendar.date(from: endComponents))
+					var freeTime = DateInterval(start: sortedArray[i].end, end: calendar.date(from: endComponents)!)
 					taskFloat.append(freeTime)
 					break
 				}
