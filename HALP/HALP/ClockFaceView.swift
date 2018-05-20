@@ -12,7 +12,7 @@ let π:CGFloat = CGFloat(Double.pi)
 class ClockFaceView: UIView {
     
     func drawFrame() {
-        let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
+        let center = CGPoint(x:bounds.width/2, y: frame.height/2)
         let radius: CGFloat = (max(bounds.width, bounds.height) / 2)
         let arcWidth: CGFloat = 0
         let startAngle: CGFloat = 0
@@ -70,11 +70,11 @@ class ClockFaceView: UIView {
             
             // translate and fill with hour tick
             if (i%5 == 0) {
-                context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.1235)) - hourSize)
-                hourPath.fill()
+           //     context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.5)) - hourSize)
+            //    hourPath.fill()
             } // translate and fill with minute tick
             else {
-                context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.116)) - hourSize)
+                context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.03)) - hourSize)
                 minutePath.fill()
             }
             // restore the centred context for the next rotate
@@ -83,7 +83,7 @@ class ClockFaceView: UIView {
     }
     
     func drawHourLabels() {
-        let radius:CGFloat = (bounds.width/2 * 0.6 )
+        let radius:CGFloat = (min(bounds.width, bounds.height) / 2)
         var numLabel = [UILabel]()
         
         for i in 0...11 {
@@ -99,7 +99,7 @@ class ClockFaceView: UIView {
         }
     }
     override func draw(_ rect: CGRect) {
-        drawFrame()
+        //drawFrame()
         drawTicks()
         drawHourLabels()
     }
