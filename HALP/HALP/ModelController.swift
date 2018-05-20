@@ -29,12 +29,8 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 		self.settingPage = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
 		
 		// initialize page switching array
-		let defaultView = TaskManager.sharedTaskManager.getSetting().getDefaultView()
-		if defaultView == .clock {
-			self.page = [clockView, listView, settingPage]
-		} else {
-			self.page = [listView, clockView, settingPage]
-		}
+		self.page = [clockView, listView, settingPage]
+
 	    super.init()
 	}
 
