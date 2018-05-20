@@ -180,11 +180,11 @@ class TaskManager {
 		var startComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: taskFixed[0].start)
 		startComponents.hour = 8
 		startComponents.minute = 0
-		startComponents.seconds = 0
+		startComponents.second = 0
 		var endComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: taskFixed[0].start)
 		endComponents.hour = 23
 		endComponents.minute = 59
-		endComponents.seconds = 59
+		endComponents.second = 59
 		var i = 0
 		//make a copy of the array to sort
 		var sortedArray = taskFixed
@@ -193,7 +193,7 @@ class TaskManager {
 			return d1.start < d2.start
 		})
 		//if you have free time from 8am to your first task
-		if sortedArray[0].start > calendar.date!(from: startComponents) {
+		if sortedArray[0].start > calendar.date(from: startComponents)! {
 			var freeTime = DateInterval(start: calendar.date(from: startComponents), end: sortedArray[0].start)
 			taskFloat.append(freeTime)
 		}
