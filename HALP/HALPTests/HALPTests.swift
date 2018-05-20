@@ -51,6 +51,43 @@ class HALPTests: XCTestCase {
 		super.tearDown()
 	}
     
+    func testHelper() {
+        var taskFixed:[DateInterval] = [DateInterval]();
+        
+        var component:DateComponents = DateComponents();
+        component.year = 2018;
+        component.month = 5;
+        component.day = 2;
+        component.hour = 8;
+        component.minute = 0;
+        component.second = 0;
+        let fixed1 = Calendar.current.date(from: component);
+        taskFixed.append(DateInterval(start: fixed1!, duration: 18000));
+        
+        let fixed2 = Date(timeInterval: 28800, since: fixed1!)
+        taskFixed.append(DateInterval(start: fixed2, duration: 7200));
+        
+        
+        
+        
+        let TaskM = TaskManager.sharedTaskManager;
+        var results = TaskM.scheduleHelperE(taskFixed:taskFixed);
+        
+        for (index,item) in results.enumerated() {
+            print("gap start \(index)" + " day is  \(Calendar.current.component(Calendar.Component.day, from: item.start)) \n" +
+            " hour is \(Calendar.current.component(Calendar.Component.hour, from: item.start) )" +
+            " minute is \(Calendar.current.component(Calendar.Component.minute, from: item.start))" +
+            " second is \(Calendar.current.component(Calendar.Component.second, from: item.start))" +
+                "gap end \(index)" + " day is  \(Calendar.current.component(Calendar.Component.day, from: item.end)) \n" +
+                " hour is \(Calendar.current.component(Calendar.Component.hour, from: item.end) )" +
+                " minute is \(Calendar.current.component(Calendar.Component.minute, from: item.end))" +
+                " second is \(Calendar.current.component(Calendar.Component.second, from: item.end))")
+            
+        }
+        
+    }
+    
+    
     func testa_SaveUserInfoToLocalDB() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.

@@ -92,7 +92,6 @@ final class TaskDAO: Task {
         
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
-        
         var queryResult = [String : Any]()
         let keys = ["task_id", "task_title", "task_desc", "category", "alarm", "deadline", "soft_deadline", "schedule", "duration", "task_priority", "scheduled_start", "notification", "user_id", "last_update"]
         var values = [Any]()
