@@ -24,9 +24,10 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 
 	}
+    
     override func viewDidLayoutSubviews() {
-//         self.removeContainerView()
-//        self.addHandsAndCenterPiece()
+         self.removeContainerView()
+        self.addHandsAndCenterPiece()
     }
     
 	
