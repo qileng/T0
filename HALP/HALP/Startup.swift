@@ -168,7 +168,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                 // UserData.init(Bool:email:password).
                 let user: UserData
                 do {
-                    user = try form.onlineValidateExistingUser()
+                    user = try form.onlineValidateExistingUser() // 
                     // TODO: retrieve settting using userID
                     // Set up task manager
                     // TaskManager.sharedTaskManager.setUp(new: user, setting: )

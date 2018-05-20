@@ -10,6 +10,12 @@
 		4114350220AA399C00D3436D /* TaskEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4114350120AA399C00D3436D /* TaskEdit.swift */; };
 		4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
 		4185636720A5621900AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
+		6359811C20B0F64C00D39CD0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359811B20B0F64C00D39CD0 /* CoreDataManager.swift */; };
+		6359811D20B0F64C00D39CD0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359811B20B0F64C00D39CD0 /* CoreDataManager.swift */; };
+		6359811E20B0F64C00D39CD0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359811B20B0F64C00D39CD0 /* CoreDataManager.swift */; };
+		6359812120B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */; };
+		6359812220B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */; };
+		6359812320B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */; };
 		8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
 		8379928620A93787005784AE /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
@@ -108,6 +114,8 @@
 /* Begin PBXFileReference section */
 		4114350120AA399C00D3436D /* TaskEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEdit.swift; sourceTree = "<group>"; };
 		4185631720A545BB00AA7493 /* TaskDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDAO.swift; sourceTree = "<group>"; };
+		6359811B20B0F64C00D39CD0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		6359812020B0F7C300D39CD0 /* HALPModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HALPModel.xcdatamodel; sourceTree = "<group>"; };
 		8379928320A7B797005784AE /* AutolayoutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutExtension.swift; sourceTree = "<group>"; };
 		8379928520A93787005784AE /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -224,7 +232,9 @@
 				ED43235C209E85EA00F11140 /* TaskManager.swift */,
 				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
 				ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */,
+				6359811B20B0F64C00D39CD0 /* CoreDataManager.swift */,
 				EDFA48C920AB7EF700150BE6 /* Header.h */,
+				6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -431,6 +441,7 @@
 				ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */,
 				8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */,
 				ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */,
+				6359811C20B0F64C00D39CD0 /* CoreDataManager.swift in Sources */,
 				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
 				ED5B5A6E20A105D300E3C5F8 /* SettingForm.swift in Sources */,
 				4114350220AA399C00D3436D /* TaskEdit.swift in Sources */,
@@ -444,6 +455,7 @@
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
 				4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */,
+				6359812120B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
 				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
@@ -460,6 +472,7 @@
 				ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5A9520AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
+				6359812220B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */,
 				ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */,
 				ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
@@ -473,6 +486,7 @@
 				ED5B5A9220AA701A00E3C5F8 /* AutolayoutExtension.swift in Sources */,
 				ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */,
 				ED5B5A7520A511C400E3C5F8 /* TaskForm.swift in Sources */,
+				6359811D20B0F64C00D39CD0 /* CoreDataManager.swift in Sources */,
 				ED5B5AA920AA703800E3C5F8 /* SignUp.swift in Sources */,
 				ED5B5AAB20AA703800E3C5F8 /* ListView.swift in Sources */,
 				ED5B5AA720AA703800E3C5F8 /* Clockview.swift in Sources */,
@@ -491,6 +505,7 @@
 				ED5B5A9320AA701B00E3C5F8 /* AutolayoutExtension.swift in Sources */,
 				ED5B5A9720AA702200E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,
+				6359812320B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */,
 				ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */,
 				ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
@@ -504,6 +519,7 @@
 				ED5B5AB620AA703800E3C5F8 /* RootViewController.swift in Sources */,
 				ED5B5ABB20AA712A00E3C5F8 /* UserData.swift in Sources */,
 				ED5B5ABE20AA712A00E3C5F8 /* TaskForm.swift in Sources */,
+				6359811E20B0F64C00D39CD0 /* CoreDataManager.swift in Sources */,
 				ED5B5AB920AA712A00E3C5F8 /* UserForm.swift in Sources */,
 				ED5B5ABD20AA712A00E3C5F8 /* TaskDAO.swift in Sources */,
 				ED5B5A9420AA701D00E3C5F8 /* TaskManager.swift in Sources */,
@@ -844,6 +860,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6359812020B0F7C300D39CD0 /* HALPModel.xcdatamodel */,
+			);
+			currentVersion = 6359812020B0F7C300D39CD0 /* HALPModel.xcdatamodel */;
+			path = HALPModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = ED6C2A3F209302640063B4AC /* Project object */;
 }

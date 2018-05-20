@@ -27,6 +27,8 @@ final class UserDAO: UserData {
     // PLEASE ENCODE ALL DATA IN UTF-8 OR YOU WILL GET GARBLED DATABASE ENTRIES!!!
 	// Save new user data to the local database
     // Return true for success, false otherwise
+//    var client: MSClient?
+    //var table : MSSyncTable?
 	func saveUserInfoToLocalDB() -> Bool{
             let userId = self.getUserID()
             let username = self.getUsername() as NSString
@@ -163,7 +165,9 @@ final class UserDAO: UserData {
     //Return true if the input email is valid(no duplicate), false otherwise
     func validateUserEmailOnline(email: String, onlineDB: Bool) -> Bool {
         if(onlineDB) {
-            // TODO
+            // TODO connect to the online database, do the query and return the result
+            
+            //self.table
             return true
         }
         else {
@@ -206,12 +210,22 @@ final class UserDAO: UserData {
     }
 	
 	// TODO
-	func readFromDatabase() -> [String] {
-		return []
-	}
-	
-	// TODO
-	func writeToDatabase() {
-	}
+    func fetchFromOnlineDBtoLocalDB(userId: Int64 = -1) -> Bool{
+//        let delegate = UIApplication.shared.delegate as! AppDelegate
+//        let client = delegate.client!
+        // get all the data from the database
+        return false
+    }
+    
+    func UpdateOnlineDBFromLocalDB() -> Bool{
+        return false
+    }
+//    func readFromDatabase() -> [String] {
+//        return []
+//    }
+//
+//    // TODO
+//    func writeToDatabase() {
+//    }
 }
 

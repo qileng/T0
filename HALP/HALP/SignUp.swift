@@ -7,10 +7,9 @@
 //
 
 import UIKit
-
+//import CoreData
 class SignupViewController: UIViewController, UITextFieldDelegate{
 
-    // UI components
     let logoImageView: UIImageView = {
         let image = UIImage(named: "logo")
         let imageView = UIImageView(image: image)
@@ -102,7 +101,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     }()
     
     // End of UI components
-    
+//
+//    var client: MSClient?
+//    var query: MSQuery?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,6 +114,22 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         userNameTextField.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
+//        self.client = MSClient(
+//            applicationURLString:"https://halpt0.azurewebsites.net"
+//        )
+//        let managedObjectContext = (UIApplication.shared.delegate as!AppDelegate).managedObjectContext!
+//        self.store = MSCoreDataStore(managedObjectContext: managedObjectContext)
+//        self.client.syncContext = MSSyncContext(delegate: nil, dataSource: self.store, callback: nil)
+//        let itemTable = client.syncTable(withName: "User")
+//        let item = ["username":"new user"]
+//        itemTable.insert(item){
+//            (insertedItem, error) in
+//            if (error != nil) {
+//                print("\n")
+//                print("Error" + error.debugDescription);
+//            }
+//        }
+        
     }
 
     @objc func backToLoginButtonActionHandler()

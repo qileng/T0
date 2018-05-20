@@ -199,16 +199,15 @@ extern NSString * __nonnull const MSSystemColumnDeleted;
  @param queryString A querystring that will be appended to the GET request
  @param completion A MSReadQueryBlock that will be fired after the server has processed the request
  */
+
 -(void)readWithQueryString:(nonnull NSString *)queryString
                 completion:(nullable MSReadQueryBlock)completion;
-
 /**
- Sends a request to the Azure Mobile App  to return all items from the table. The serevr will apply 
+ Sends a request to the Azure Mobile App to return all items from the table. The serevr will apply
  a default limit to the number of items returned.
  @param completion A MSReadQueryBlock that will be fired after the server has processed the request
  */
 -(void)readWithCompletion:(nullable MSReadQueryBlock)completion;
-
 /**
  Sends a request to the Microsoft Azure Mobile Service to return all items from the table that meet 
  the conditions of the given predicate.
