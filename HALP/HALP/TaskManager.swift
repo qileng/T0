@@ -175,9 +175,9 @@ class TaskManager {
         
 	}
 	func scheduleHelper(taskFixed:[DateInterval], taskFloat:[DateInterval]) {
-		let currentDay = Calendar.components(.Day, fromDate: taskFixed[0])
-		let currentMonth = Calendar.components(.Month, fromDate: taskFixed[0])
-		let currentYear = Calendar.components(.Year, fromDate: taskFixed[0])
+		let currentDay = Calendar.Datecomponents(.Day, fromDate: taskFixed[0])
+		let currentMonth = Calendar.Datecomponents(.Month, fromDate: taskFixed[0])
+		let currentYear = Calendar.Datecomponents(.Year, fromDate: taskFixed[0])
 		let startComponents = DateComponents(year: currentYear, month: currentMonth, day: currentDay, hour: 8, minute: 0, second: 0)
 		let endComponents = DateComponents(year:currentYear, month:currentMonth, day: currentDay, hour: 23, minute: 59, second: 59)
 		//make a copy of the array to sort
@@ -207,7 +207,6 @@ class TaskManager {
 				i += 1
 			}
 		}
-
 	}
 	
 	// Update task
