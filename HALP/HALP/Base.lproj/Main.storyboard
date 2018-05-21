@@ -393,6 +393,16 @@
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pq2-5N-Iqt" customClass="ClockFaceView" customModule="HALP" customModuleProvider="target">
                                 <rect key="frame" x="32" y="34" width="310" height="310.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Csq-Ao-7Fe">
+                                        <rect key="frame" x="84" y="-38" width="142" height="116"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button" image="11-12"/>
+                                        <connections>
+                                            <action selector="tap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="0pg-0n-NZ1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -406,15 +416,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="11-12" translatesAutoresizingMaskIntoConstraints="NO" id="BVl-Bd-3IG">
-                                <rect key="frame" x="111" y="39" width="77" height="54"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="3PM-Vm-WrO" appends="YES" id="Xbn-iu-Evv"/>
-                                    <outletCollection property="gestureRecognizers" destination="3PM-Vm-WrO" appends="YES" id="pye-bw-hud"/>
-                                </connections>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -424,23 +425,13 @@
                             <constraint firstItem="Pq2-5N-Iqt" firstAttribute="width" secondItem="8uV-yI-2me" secondAttribute="width" multiplier="0.8" id="kNL-Yx-XJy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9VK-hT-Slc"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="3PM-Vm-WrO" appends="YES" id="P9a-fI-zgm"/>
-                            <outletCollection property="gestureRecognizers" destination="3PM-Vm-WrO" appends="YES" id="9ze-Zs-ZVc"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="hi" destination="r66-eE-acj" id="e4x-VY-yhT"/>
                         <outlet property="myClock" destination="Pq2-5N-Iqt" id="mqZ-DO-9Ia"/>
-                        <outlet property="sector1112" destination="BVl-Bd-3IG" id="3Tv-Dv-BfU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WRa-PU-QUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="3PM-Vm-WrO">
-                    <connections>
-                        <action selector="tap1112:" destination="e1P-Hl-fYN" id="0ps-Sv-eaa"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="724" y="-243.32833583208398"/>
         </scene>

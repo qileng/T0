@@ -12,12 +12,20 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 	
 //    @IBOutlet weak var ViewLabel: UILabel!
     @IBOutlet var hi: UILabel!
-    @IBOutlet var sector1112: UIImageView!
+ //   @IBOutlet var sector1112: UIImageView!
     
-    @IBAction func tap1112(_ sender: UITapGestureRecognizer) {
+   // @IBOutlet var tap1112: UITapGestureRecognizer!
+    //   @IBAction func tap1112(_ sender: UITapGestureRecognizer) {
+   //     self.hi!.text = "yikes!!"
+   // }
+    
+   // @objc func onTap1112() {
+    //    self.hi!.text = "yikes!!"
+   // }
+    
+    @IBAction func tap(_ sender: UIButton) {
         self.hi!.text = "yikes!!"
     }
-    
     @IBOutlet var myClock: ClockFaceView!
     var containerView: UIView!
     
@@ -26,7 +34,9 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+ //       sector1112.addGestureRecognizer(tap1112)
         
+ //       tap1112.addTarget(self, action: #selector(onTap1112))
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name:NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 
