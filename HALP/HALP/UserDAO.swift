@@ -10,6 +10,7 @@
 // TODO: Add more imports here to perform IO with database
 import Foundation
 import SQLite3
+import UIKit
 
 let SEPERATOR = " "
 
@@ -27,8 +28,7 @@ final class UserDAO: UserData {
     // PLEASE ENCODE ALL DATA IN UTF-8 OR YOU WILL GET GARBLED DATABASE ENTRIES!!!
 	// Save new user data to the local database
     // Return true for success, false otherwise
-//    var client: MSClient?
-    //var table : MSSyncTable?
+
 	func saveUserInfoToLocalDB() -> Bool{
             let userId = self.getUserID()
             let username = self.getUsername() as NSString
@@ -131,12 +131,12 @@ final class UserDAO: UserData {
             sqlite3_close(dbpointer)
             return -1
         }
-    
+        
         //SQL command for fecting a row from database base on id
         var selectQueryString = "SELECT user_id, email FROM UserData WHERE password=\'" + password + "\' AND " +
             "email LIKE " + "\'%" + emailString[0] + "%\'"
         selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
-
+        
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
         //Query the specific usermane + password combination
@@ -163,11 +163,51 @@ final class UserDAO: UserData {
     //This function query the database to maksure that user do not signup with duplicated email
     //Take two parameters: the input email and boolean flag for querying online or local database
     //Return true if the input email is valid(no duplicate), false otherwise
-    func validateUserEmailOnline(email: String, onlineDB: Bool) -> Bool {
+    
+    var client: MSClient?
+    var userTable : MSSyncTable?
+    var query: MSQuery?
+    var predicate: NSPredicate?
+    var queryString: NSString?
+    var res : Operation?
+    var store: MSCoreDataStore?
+    func validateUserEmailOnline(email: String, onlineDB: Bool, delegate: UITextFieldDelegate) -> Bool {
         if(onlineDB) {
             // TODO connect to the online database, do the query and return the result
+            print("open online db")
+            self.client = MSClient(
+                            applicationURLString:"https://halpt0.azurewebsites.net")
+            let delegate =  UIApplication.shared.delegate as! AppDelegate
+            //let client = delegate.client!
+            print("assign delegate")
+            let managedObjectContext = delegate.managedObjectContext!
+            print("core data")
+            store = MSCoreDataStore(managedObjectContext: managedObjectContext)
+            print("define sync text")
+            self.client?.syncContext = MSSyncContext(delegate: nil, dataSource: store, callback: nil)
+            let userTable = self.client!.syncTable(withName: "MS_User")
+            // validate only
+            //print("defining predicate")
+            let predicate = NSPredicate(format: "email == %@",email) //
+            //print("going here")
+            //retrieve the data from the online database?
+            let queryString = userTable.query(with: predicate)
+            let res = userTable.pull(with: queryString, queryId: "AllRecords"){
+                (error) in
+                if error != nil {
+                    print("pulling error ", error)
+                }
+            }
+            print(res.result)
+           // print("inserting into database")
             
-            //self.table
+//            let item = ["email": email]
+//            userTable.insert(item){
+//                (inserteditem, error) in
+//                if error != nil {
+//                    print("ERROR ", error)
+//                }
+//            }
             return true
         }
         else {

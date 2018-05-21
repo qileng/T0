@@ -194,7 +194,6 @@ DEPRECATED_MSG_ATTRIBUTE("Deprecated. Use SFSafariViewController-based login met
 -(nonnull MSSyncTable *)syncTableWithName:(nonnull NSString *)tableName;
 
 /// @}
-
 #pragma mark * Public invokeAPI Methods
 
 /// @name Invoking Custom APIs

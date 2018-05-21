@@ -5,7 +5,7 @@
 //  Created by Dong Yoon Han on 5/13/18.
 //  Copyright © 2018 Team Zero. All rights reserved.
 //
-
+import SQLite3
 import UIKit
 //import CoreData
 class SignupViewController: UIViewController, UITextFieldDelegate{
@@ -114,21 +114,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         userNameTextField.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
-//        self.client = MSClient(
-//            applicationURLString:"https://halpt0.azurewebsites.net"
-//        )
-//        let managedObjectContext = (UIApplication.shared.delegate as!AppDelegate).managedObjectContext!
-//        self.store = MSCoreDataStore(managedObjectContext: managedObjectContext)
-//        self.client.syncContext = MSSyncContext(delegate: nil, dataSource: self.store, callback: nil)
-//        let itemTable = client.syncTable(withName: "User")
-//        let item = ["username":"new user"]
-//        itemTable.insert(item){
-//            (insertedItem, error) in
-//            if (error != nil) {
-//                print("\n")
-//                print("Error" + error.debugDescription);
-//            }
-//        }
+        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let dbPath = documentsPath + "HALP.sqlite"
+        var dbpointer: OpaquePointer? = nil
+    
+        if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
+        }
         
     }
 
@@ -154,7 +145,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
-    @objc func signUpActionHandler()
+    @objc func signUpActionHandler(delegate: UITextFieldDelegate)
     {
         //TODO: after signup button touched
         
@@ -185,7 +176,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         // write to local database
         let _DAO = UserDAO(username: form.getUsername(), password: form.getPassword(), email: form.getUserEmail(), id: form.getUserID())
         // check databse for duplicate email address
-        if(!_DAO.validateUserEmailOnline(email: form.getUserEmail(), onlineDB: false)) {
+        if(!_DAO.validateUserEmailOnline(email: form.getUserEmail(), onlineDB: true, delegate: self)) {
             let alert = UIAlertController(title: "Email already taken!", message: "Please try again", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alert, animated: true)

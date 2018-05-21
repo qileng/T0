@@ -95,7 +95,10 @@ class UserForm: UserData {
 	}
 	
 	func onlineValidateNewUser() ->  Bool {
-		// TODO: Validate new user with database, i.e. check for duplicate userID
+		// TODO: Validate new user with database, i.e. check for duplicate email
+        // sent a query to the online database and retrieve the email that is being used.
+        // initialize a user to the database instantly.
+        //
 		return true
 	}
 	

@@ -15,7 +15,6 @@ enum RuntimeError: Error {
 	case InternalError(String)
 }
 
-
 // This class is the basic runtime instance containing necessary user information.
 // This class is also the parent class of UserDAO and UserForm.
 // This class is in Business Logic Layer.
@@ -102,7 +101,6 @@ class UserData {
 		self.UserEmail = origin.getUserEmail()
 		self.UserID = origin.getUserID()
 	}
-	
 	// Getters
 	func getUsername() -> String{
 		return self.Username!

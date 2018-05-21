@@ -19,7 +19,6 @@ final class TaskDAO: Task {
         // Default local database path
         let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
-        
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
             print("fail to establish databse connection")
 			sqlite3_close(dbpointer)

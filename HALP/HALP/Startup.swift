@@ -11,7 +11,8 @@ import UIKit
 
 
 class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
-	
+    var table : MSSyncTable?
+    var store : MSCoreDataStore?
     // UI components
     let logoImageView: UIImageView = {
         let image = UIImage(named: "logo")

@@ -13,9 +13,9 @@
 		6359811C20B0F64C00D39CD0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359811B20B0F64C00D39CD0 /* CoreDataManager.swift */; };
 		6359811D20B0F64C00D39CD0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359811B20B0F64C00D39CD0 /* CoreDataManager.swift */; };
 		6359811E20B0F64C00D39CD0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6359811B20B0F64C00D39CD0 /* CoreDataManager.swift */; };
-		6359812120B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */; };
-		6359812220B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */; };
-		6359812320B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */; };
+		6359812120B0F7C300D39CD0 /* HALPT0.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6359811F20B0F7C300D39CD0 /* HALPT0.xcdatamodeld */; };
+		6359812220B0F7C300D39CD0 /* HALPT0.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6359811F20B0F7C300D39CD0 /* HALPT0.xcdatamodeld */; };
+		6359812320B0F7C300D39CD0 /* HALPT0.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6359811F20B0F7C300D39CD0 /* HALPT0.xcdatamodeld */; };
 		8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
 		8379928620A93787005784AE /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
@@ -234,7 +234,7 @@
 				ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */,
 				6359811B20B0F64C00D39CD0 /* CoreDataManager.swift */,
 				EDFA48C920AB7EF700150BE6 /* Header.h */,
-				6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */,
+				6359811F20B0F7C300D39CD0 /* HALPT0.xcdatamodeld */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -455,7 +455,7 @@
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
 				4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */,
-				6359812120B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */,
+				6359812120B0F7C300D39CD0 /* HALPT0.xcdatamodeld in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
 				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
@@ -472,7 +472,7 @@
 				ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5A9520AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
-				6359812220B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */,
+				6359812220B0F7C300D39CD0 /* HALPT0.xcdatamodeld in Sources */,
 				ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */,
 				ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
@@ -505,7 +505,7 @@
 				ED5B5A9320AA701B00E3C5F8 /* AutolayoutExtension.swift in Sources */,
 				ED5B5A9720AA702200E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,
-				6359812320B0F7C300D39CD0 /* HALPModel.xcdatamodeld in Sources */,
+				6359812320B0F7C300D39CD0 /* HALPT0.xcdatamodeld in Sources */,
 				ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */,
 				ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
@@ -862,13 +862,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		6359811F20B0F7C300D39CD0 /* HALPModel.xcdatamodeld */ = {
+		6359811F20B0F7C300D39CD0 /* HALPT0.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				6359812020B0F7C300D39CD0 /* HALPModel.xcdatamodel */,
 			);
 			currentVersion = 6359812020B0F7C300D39CD0 /* HALPModel.xcdatamodel */;
-			path = HALPModel.xcdatamodeld;
+			path = HALPT0.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

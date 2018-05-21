@@ -26,7 +26,7 @@ class TaskManager {
 	var alerts: [UIAlertController] = []
 	// A collection of past tasks. Working as a queue so matches alerts.
 	var pastTasks: [Task] = []
-	
+    
 	// Initializer
 	private init () {
 		self.clear()
