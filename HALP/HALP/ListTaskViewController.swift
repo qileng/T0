@@ -13,12 +13,14 @@ class ListTaskViewController: UIViewController {
     @IBOutlet weak var addButtonOutlet: UIButton!
     @IBOutlet weak var tableViewOutlet: UITableView!
     
+    @IBOutlet weak var topView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableViewOutlet.tableFooterView = UIView()
 
         UIApplication.shared.statusBarStyle = .lightContent
-
+//        89, 38, 47
+        topView.backgroundColor = UIColor.rgbColor(89, 38, 47).withAlphaComponent(0.5)
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -76,6 +78,8 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         guard let originFrame = cell?.frame.origin else{return}
         print(task)
         print(task.getTitle())
+        print(task.getDescription())
+        print(task.getSchedule())
         print(originFrame)
 
 //        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailViewController") as! TaskDetailViewController

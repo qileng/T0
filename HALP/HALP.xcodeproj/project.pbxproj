@@ -20,6 +20,7 @@
 		83927E6720B0A4D100E3D927 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */; };
 		83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		83A61B8A20AF340A00627714 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */; };
+		83BBB17D20B2BECD0013776D /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */; };
 		83F7571920AC23E500FFD1A0 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */; };
 		83FC745B20B21ED200CA0BEB /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
@@ -126,6 +127,7 @@
 		83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTaskViewController.swift; sourceTree = "<group>"; };
 		83927E6820B0A7A500E3D927 /* ClockFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceView.swift; sourceTree = "<group>"; };
 		83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
+		83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditPageViewController.swift; sourceTree = "<group>"; };
 		83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -200,6 +202,16 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		83BBB17E20B34A060013776D /* TaskEditPage */ = {
+			isa = PBXGroup;
+			children = (
+				83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */,
+				83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */,
+				83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */,
+			);
+			name = TaskEditPage;
+			sourceTree = "<group>";
+		};
 		ED432362209FAD3E00F11140 /* View Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,8 +224,7 @@
 				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
 				83927E6820B0A7A500E3D927 /* ClockFaceView.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
-				83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */,
-				83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */,
+				83BBB17E20B34A060013776D /* TaskEditPage */,
 				ED5B5AC220AA754400E3C5F8 /* UITask.swift */,
 				83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */,
 				833DED8520B0DC6100CCA657 /* ListTaskTableViewCell.swift */,
@@ -461,6 +472,7 @@
 				4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
+				83BBB17D20B2BECD0013776D /* TextFieldTableViewCell.swift in Sources */,
 				83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */,
 				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
 				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,

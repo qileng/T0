@@ -17,6 +17,8 @@ class ListTaskTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+//            self.backgroundColor = UIColor.rgbColor(0, 122, 255)
+        self.backgroundColor = UIColor.rgbColor(206, 137, 100).withAlphaComponent(0.6)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
