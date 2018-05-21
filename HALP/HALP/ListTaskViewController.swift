@@ -70,11 +70,34 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let task = TaskManager.sharedTaskManager.getTasks()[indexPath.row]
+        let cell = tableView.cellForRow(at: indexPath)
+        guard let originFrame = cell?.frame.origin else{return}
+        print(task)
+        print(task.getTitle())
+        print(originFrame)
+
+//        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailViewController") as! TaskDetailViewController
+//        UIView.animate(withDuration: 0.2, animations: {
+//            cell?.frame.origin = CGPoint(x: self.tableViewOutlet.frame.origin.x, y: self.tableViewOutlet.frame.origin.y)
+//        }) { (true) in
+////            self.present(detailVC, animated: false, completion: nil)
+//            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn , animations: {
+//                cell?.frame = CGRect(x: self.tableViewOutlet.frame.origin.x, y: self.tableViewOutlet.frame.origin.y, width: (cell?.frame.width)!, height: self.view.frame.height)
+//            }, completion: { (true) in
+//                cell?.frame = originFrame
+//            })
+//        }
+
+        
+        
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             // delete item at indexPath
+            
 //           .remove(at: indexPath.row)
 //            tableView.deleteRows(at: [indexPath], with: .fade)
 //            TaskManager.sharedTaskManager.

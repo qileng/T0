@@ -286,6 +286,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         
 //        addButtonOutlet.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         tableViewOutlet.backgroundColor = .clear
