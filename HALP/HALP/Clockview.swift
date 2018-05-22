@@ -9,22 +9,15 @@
 import UIKit
 
 class ClockViewController: UIViewController, CAAnimationDelegate {
-	
-//    @IBOutlet weak var ViewLabel: UILabel!
-    @IBOutlet var hi: UILabel!
- //   @IBOutlet var sector1112: UIImageView!
     
-   // @IBOutlet var tap1112: UITapGestureRecognizer!
-    //   @IBAction func tap1112(_ sender: UITapGestureRecognizer) {
-   //     self.hi!.text = "yikes!!"
-   // }
-    
-   // @objc func onTap1112() {
-    //    self.hi!.text = "yikes!!"
-   // }
-    
+    @IBOutlet var b1: UIButton! //Button for 11-12 region of clock
+    //On tap, b1 button should change image
     @IBAction func tap(_ sender: UIButton) {
-        self.hi!.text = "yikes!!"
+        if self.b1.currentImage == UIImage(imageLiteralResourceName: "11-12.png") {
+            self.b1.setImage(UIImage(imageLiteralResourceName: "12-1.png"), for: .normal)
+        } else {
+            self.b1.setImage(UIImage(imageLiteralResourceName: "11-12.png"), for: .normal)
+        }
     }
     @IBOutlet var myClock: ClockFaceView!
     var containerView: UIView!
@@ -34,9 +27,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
- //       sector1112.addGestureRecognizer(tap1112)
-        
- //       tap1112.addTarget(self, action: #selector(onTap1112))
+
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name:NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 
