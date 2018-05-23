@@ -50,6 +50,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         let task = TaskManager.sharedTaskManager.getTasks()[indexPath.row]
         let category = task.getCategory()
         let title = task.getTitle()
+        let description = task.getDescription()
         let eventStartTime = task.getSchedule()
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskListCell", for: indexPath) as! ListTaskTableViewCell
         
@@ -66,7 +67,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         }
         cell.taskImageView.image = image
         cell.titleLabel.text = title
-        cell.detailLabel.text = String(eventStartTime)
+        cell.detailLabel.text = description//String(eventStartTime)
         return cell
     }
     

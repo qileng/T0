@@ -20,20 +20,21 @@ enum CellTypes:String {
 struct CellData {
     var cellType:CellTypes
     var title:String
-    var detail: Any?
+    var detail: String?
     var date:Date?
 }
 
 // Todo: code cleaning
 class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+//    @IBOutlet weak var textViewOutlet: UITextView!
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var addButtonOutlet: UIButton!
     var datePickerIndexPath: IndexPath?
     var fieldData:[[CellData]] = [[]]
     var dateFormatter = DateFormatter()
     var titleTextFieldCell:TextFieldTableViewCell?
-    
+    var descriptionTextViewCell: TextViewTableViewCell?
     // Logic
     @IBAction func AddTask(_ sender: UIButton) {
 
@@ -43,20 +44,14 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         }
         let task:Task?
         
-        //This below needs to fix
-        //To Do: take datas from each field and store to task variable and append the task data to TaskManager.
-        let taskTitle = fieldData[0][0].detail!
+        let description = self.descriptionTextViewCell?.textViewOutlet.text
+        let startDate = Int32((fieldData[1][0].date?.timeIntervalSince1970)!)
+        let deadlineDate = Int32((fieldData[1][1].date?.timeIntervalSince1970)!)
         
-        let startDate = fieldData[1][0].detail as! Date
-        let start = Int32(startDate.timeIntervalSince1970)
-        
-        let deadlineDate = fieldData[1][1].detail! as! Date
-        let deadline = Int32(deadlineDate.timeIntervalSince1970)
-        
-        let categoryString = fieldData[2][0].detail! as! String
-        
+        let categoryStr = fieldData[2][0].detail // why is detail type Any?
+        let alarm = fieldData[2][1].detail
         var category: Category
-        switch categoryString {
+        switch categoryStr {
         case "Study":
             category = Category.Study_Work
         case "Work":
@@ -71,11 +66,22 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             category = Category.Study_Work
         }
         
+        //This below needs to fix
+        //To Do: take datas from each field and store to task variable and append the task data to TaskManager.
+//        let taskTitle = fieldData[0][0].detail!
+//        print("TaskTitle: ", taskTitle)
+        
+//        let startDate = fieldData[1][0].detail as! Date
+//        let start = Int32(startDate.timeIntervalSince1970)
+        
+//        let deadlineDate = fieldData[1][1].detail! as! Date
+//        let deadline = Int32(deadlineDate.timeIntervalSince1970)
+
         // Not sure how to store alarm
         // Leave it out for now
-        let alarm = fieldData[2][1].detail!
+//        let alarm = fieldData[2][1].detail!
         
-        let taskDesc = fieldData[3][0].detail!
+//        let taskDesc = fieldData[3][0].detail!
         
         /*
         print(taskTitle)
@@ -87,14 +93,14 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         print("\n")
          */
         
-		let form = TaskForm(Title: taskTitle as! String, Description: taskDesc as! String, Category: category, Deadline: deadline, Schedule_start: start, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+        let form = TaskForm(Title: title, Description: description ?? "", Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
         
-        // Todo: validate
-        // Todo: exception handling
+//         Todo: validate
+//         Todo: exception handling
         TaskManager.sharedTaskManager.addTask(form)
         let taskDAO = TaskDAO(form)
         taskDAO.saveTaskInfoToLocalDB()
-        
+//
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -141,19 +147,16 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         case .dateDetail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
             cell.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
-            cell.detailTextLabel?.text = dateFormatter.string(from: fieldData[indexPath.section][indexPath.row].detail as! Date)
-            return cell
-        case .picker:
-            let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
+            cell.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail
             return cell
         case .detail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
             cell.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
-            cell.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail as? String
-            // cell?.detailTextLabel?.text = dateFormatter.string(from: fieldData[indexPath.section][indexPath.row].detail as! Date)
+            cell.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail
             return cell
         case .textView:
-            let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath) as! TextViewTableViewCell
+            self.descriptionTextViewCell = cell
             return cell
         default:
             let cell = UITableViewCell()
@@ -266,7 +269,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 //        celldata.date = sender.date
 //        celldata.detail = dateFormatter.string(from: sender.date)
         fieldData[parentIndexPath.section][parentIndexPath.row].date = sender.date
-        fieldData[parentIndexPath.section][parentIndexPath.row].detail = sender.date
+        fieldData[parentIndexPath.section][parentIndexPath.row].detail = dateFormatter.string(from: sender.date)//sender.date
         dateCell?.detailTextLabel?.text = dateFormatter.string(from: sender.date)
 //      self.tableViewOutlet.reloadData()
     }
@@ -284,16 +287,11 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             })
         })
     }
-    
-    @IBAction func titleValueChanged(_ sender: LeftPaddedTextField) {
-        fieldData[0][0].detail = sender.text!
-    }
 
     // Initialize page
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        addButtonOutlet.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         tableViewOutlet.backgroundColor = .clear
@@ -306,11 +304,10 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm a"
         
         guard let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) else{return}
-        
         let section0 = [CellData(cellType: .textField, title: "Title", detail: "", date: nil)]
         let section1 =
-            [CellData(cellType: .dateDetail, title: "Starts", detail: Date(), date: Date()),
-             CellData(cellType: .dateDetail, title: "Deadline", detail: Date(), date: date)]
+            [CellData(cellType: .dateDetail, title: "Starts", detail: dateFormatter.string(from: Date()), date: Date()),
+             CellData(cellType: .dateDetail, title: "Deadline", detail: dateFormatter.string(from: date), date: date)]
         let section2 =
             [CellData(cellType: .detail, title: "Category", detail: "", date: nil),
              CellData(cellType: .detail, title: "Alarm", detail: "", date: nil)]
@@ -331,45 +328,10 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
 }
 
-// Extensions
-extension TaskEditPageViewController : UITextViewDelegate
-{
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == "Description"
-        {
-            textView.text = ""
-            textView.textColor = .black
-            textView.font = UIFont.systemFont(ofSize: 15)
-        }
-    }
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n"
-        {
-            textView.resignFirstResponder()
-        }
-        return true
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text == ""
-        {
-            textView.text = "Description"
-            textView.textColor = .lightGray
-            textView.font = UIFont.systemFont(ofSize: 17)
-        }
-        else {
-            fieldData[3][0].detail = textView.text
-        }
-    }
-}
-
 extension TaskEditPageViewController : TaskDetailTableViewControllerDelegate
 {
     func changeDetail(text label:String, indexPath:IndexPath)
     {
         self.fieldData[indexPath.section][indexPath.row].detail = label
-       // let cell = self.tableViewOutlet.cellForRow(at: indexPath)
-       // cell?.detailTextLabel?.text = label
     }
 }

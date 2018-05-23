@@ -21,6 +21,7 @@
 		83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		83A61B8A20AF340A00627714 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */; };
 		83BBB17D20B2BECD0013776D /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */; };
+		83BBB18520B4FF030013776D /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBB18420B4FF030013776D /* TextViewTableViewCell.swift */; };
 		83F7571920AC23E500FFD1A0 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */; };
 		83FC745B20B21ED200CA0BEB /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
@@ -78,8 +79,6 @@
 		ED5B5AC820AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
 		ED5B5AC920AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
 		ED5B5ACB20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
-		ED5B5ACC20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
-		ED5B5ACD20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
 		ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
@@ -128,6 +127,7 @@
 		83927E6820B0A7A500E3D927 /* ClockFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceView.swift; sourceTree = "<group>"; };
 		83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
 		83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		83BBB18420B4FF030013776D /* TextViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTableViewCell.swift; sourceTree = "<group>"; };
 		83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditPageViewController.swift; sourceTree = "<group>"; };
 		83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
@@ -208,8 +208,20 @@
 				83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */,
 				83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */,
 				83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */,
+				83BBB18420B4FF030013776D /* TextViewTableViewCell.swift */,
 			);
 			name = TaskEditPage;
+			sourceTree = "<group>";
+		};
+		83BBB17F20B4F8D80013776D /* ListView */ = {
+			isa = PBXGroup;
+			children = (
+				83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */,
+				833DED8520B0DC6100CCA657 /* ListTaskTableViewCell.swift */,
+				83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */,
+				ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */,
+			);
+			name = ListView;
 			sourceTree = "<group>";
 		};
 		ED432362209FAD3E00F11140 /* View Classes */ = {
@@ -226,10 +238,7 @@
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
 				83BBB17E20B34A060013776D /* TaskEditPage */,
 				ED5B5AC220AA754400E3C5F8 /* UITask.swift */,
-				83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */,
-				833DED8520B0DC6100CCA657 /* ListTaskTableViewCell.swift */,
-				83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */,
-				ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */,
+				83BBB17F20B4F8D80013776D /* ListView */,
 			);
 			name = "View Classes";
 			sourceTree = "<group>";
@@ -478,6 +487,7 @@
 				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,
 				83FC745B20B21ED200CA0BEB /* TaskDetailViewController.swift in Sources */,
 				4A6BDE028DF44FFAA0230AA4 /* ButtonExtension.swift in Sources */,
+				83BBB18520B4FF030013776D /* TextViewTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,7 +497,6 @@
 			files = (
 				ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */,
 				ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */,
-				ED5B5ACC20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */,
 				ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5A9520AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
@@ -522,7 +531,6 @@
 			files = (
 				ED5B5A9620AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
 				ED5B5AB020AA703800E3C5F8 /* Clockview.swift in Sources */,
-				ED5B5ACD20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */,
 				ED5B5A9320AA701B00E3C5F8 /* AutolayoutExtension.swift in Sources */,
 				ED5B5A9720AA702200E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,

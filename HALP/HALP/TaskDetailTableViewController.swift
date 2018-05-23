@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol  TaskDetailTableViewControllerDelegate{
+protocol TaskDetailTableViewControllerDelegate{
     func changeDetail(text label:String, indexPath:IndexPath)
 }
 

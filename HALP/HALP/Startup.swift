@@ -372,24 +372,24 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
 
 
 		// Testing data
-		var tasks: [Task] = []
-		let current = Int32(Date().timeIntervalSince1970)
-		tasks.append(Task(Title: "Task6", Description: "Testing Task 6", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 14400, UserID: 0))
-        tasks.append(Task(Title: "Task2", Description: "Testing Task 2", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 7200, UserID: 0))
-        tasks.append(Task(Title: "Task5", Description: "Testing Task 5", Category: .Entertainment,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 10800, UserID: 0))
-        tasks.append(Task(Title: "Task4", Description: "Testing Task 4", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 3600, UserID: 0))
-        tasks.append(Task(Title: "Task1", Description: "Testing Task 1", Category: .Relationship,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 18000, UserID: 0))
-        tasks.append(Task(Title: "Task8", Description: "Testing Task 8", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 21600, UserID: 0))
-        tasks.append(Task(Title: "Task7", Description: "Testing Task 7", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 25200, UserID: 0))
-        tasks.append(Task(Title: "Task3", Description: "Testing Task 3", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 28800, UserID: 0))
+//        var tasks: [Task] = []
+//        let current = Int32(Date().timeIntervalSince1970)
+//        tasks.append(Task(Title: "Task6", Description: "Testing Task 6", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 14400, UserID: 0))
+//        tasks.append(Task(Title: "Task2", Description: "Testing Task 2", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 7200, UserID: 0))
+//        tasks.append(Task(Title: "Task5", Description: "Testing Task 5", Category: .Entertainment,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 10800, UserID: 0))
+//        tasks.append(Task(Title: "Task4", Description: "Testing Task 4", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 3600, UserID: 0))
+//        tasks.append(Task(Title: "Task1", Description: "Testing Task 1", Category: .Relationship,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 18000, UserID: 0))
+//        tasks.append(Task(Title: "Task8", Description: "Testing Task 8", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 21600, UserID: 0))
+//        tasks.append(Task(Title: "Task7", Description: "Testing Task 7", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 25200, UserID: 0))
+//        tasks.append(Task(Title: "Task3", Description: "Testing Task 3", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 28800, UserID: 0))
 
 
-		for task in tasks {
-			let DAO = TaskDAO(task)
-			if !DAO.saveTaskInfoToLocalDB() {
-				print("Saving ", task.getTitle(), " failed!")
-			}
-		}
+//        for task in tasks {
+//            let DAO = TaskDAO(task)
+//            if !DAO.saveTaskInfoToLocalDB() {
+//                print("Saving ", task.getTitle(), " failed!")
+//            }
+//        }
 
     }
     

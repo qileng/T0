@@ -155,9 +155,6 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                                    <connections>
-                                                        <action selector="titleValueChanged:" destination="faX-xt-hLQ" eventType="editingChanged" id="d8F-ns-OPg"/>
-                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -195,7 +192,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textViewCell" rowHeight="128" id="phN-RU-SNE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textViewCell" rowHeight="128" id="phN-RU-SNE" customClass="TextViewTableViewCell" customModule="HALP" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="376" width="300" height="128"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="phN-RU-SNE" id="fQE-7G-ws0">
@@ -220,6 +217,9 @@
                                                 <constraint firstItem="kwt-Os-Ri8" firstAttribute="leading" secondItem="fQE-7G-ws0" secondAttribute="leading" constant="12" id="anD-S9-czL"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="textViewOutlet" destination="kwt-Os-Ri8" id="tHM-P6-8xa"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="pickerCell" rowHeight="44" id="ZMZ-fA-EPL">
                                         <rect key="frame" x="0.0" y="504" width="300" height="44"/>
