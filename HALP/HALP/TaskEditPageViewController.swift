@@ -42,14 +42,14 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.shakeTitleInput()
             return
         }
-        let task:Task?
+//        let task:Task?
         
         let description = self.descriptionTextViewCell?.textViewOutlet.text
         let startDate = Int32((fieldData[1][0].date?.timeIntervalSince1970)!)
         let deadlineDate = Int32((fieldData[1][1].date?.timeIntervalSince1970)!)
         
         let categoryStr = fieldData[2][0].detail // why is detail type Any?
-        let alarm = fieldData[2][1].detail
+//        let alarm = fieldData[2][1].detail
         var category: Category
         switch categoryStr {
         case "Study":
@@ -229,6 +229,16 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             
         }else if indexPath.section == 2 // the selected row is in section 2
         {
+            if datePickerIndexPath != nil
+            {
+                tableView.beginUpdates()
+                let cell = tableViewOutlet.cellForRow(at: IndexPath(row: (datePickerIndexPath?.row)!-1, section: (datePickerIndexPath?.section)!))
+                cell?.detailTextLabel?.textColor = .black
+                tableView.deleteRows(at: [datePickerIndexPath!], with: .fade)
+                datePickerIndexPath = nil
+                tableView.endUpdates()
+            }
+            
             let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailTableViewController") as! TaskDetailTableViewController
             if fieldData[indexPath.section][indexPath.row].title == "Category"
             {

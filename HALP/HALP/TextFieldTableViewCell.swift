@@ -35,19 +35,4 @@ class TextFieldTableViewCell: UITableViewCell, UITextFieldDelegate {
         self.textFieldOutlet.resignFirstResponder()
         return true
     }
-    
-//    func shakeTitleInput()
-//    {
-//        UIView.animate(withDuration: 0.05, animations: { self.textFieldOutlet.frame.origin.x -= 5 }, completion: { _ in
-//            UIView.animate(withDuration: 0.05, animations: { self.textFieldOutlet.frame.origin.x += 10 }, completion: { _ in
-//                UIView.animate(withDuration: 0.05, animations: { self.textFieldOutlet.frame.origin.x -= 10 }, completion: { _ in
-//                    UIView.animate(withDuration: 0.05, animations: { self.textFieldOutlet.frame.origin.x += 10 }, completion: { _ in
-//                        UIView.animate(withDuration: 0.05, animations: { self.textFieldOutlet.frame.origin.x -= 5 })
-//                    })
-//                })
-//            })
-//        })
-//    }
-    
-
 }
