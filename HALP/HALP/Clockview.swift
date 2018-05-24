@@ -7,18 +7,60 @@
 //
 
 import UIKit
+import CoreGraphics
 
 class ClockViewController: UIViewController, CAAnimationDelegate {
     
+    
+    //The following commented code is for reference
+    /*
     @IBOutlet var b1: UIButton! //Button for 11-12 region of clock
+    
+    @IBOutlet var b2: UIButton! //Button for 12-1 region of clock
+
+    @IBAction func circleTap(_ sender: UIButton) {
+        //THIS WORKS. DELETE THIS CIRLCE, BUT FOLLOW
+        //THIS CODE FOR FUTURE TINTS ASDF
+        
+        if self.circle.tintColor == UIColor.purple
+        {
+            self.circle.tintColor = UIColor.green
+            self.circle.showsTouchWhenHighlighted = true
+        } else {
+            //self.circle.tintColor = UIColor.purple
+            //self.circle.showsTouchWhenHighlighted = false
+        }
+    }
+    
     //On tap, b1 button should change image
     @IBAction func tap(_ sender: UIButton) {
         if self.b1.currentImage == UIImage(imageLiteralResourceName: "11-12.png") {
             self.b1.setImage(UIImage(imageLiteralResourceName: "12-1.png"), for: .normal)
+                self.b1.tintColor = UIColor.green
         } else {
             self.b1.setImage(UIImage(imageLiteralResourceName: "11-12.png"), for: .normal)
+                self.b1.tintColor = UIColor.red
         }
+        
+        //remove unless fixed - animation to change opacity
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 0
+        animation.toValue = 1
+        //FIGURE OUT HOW TO ANIMATE ASDF
+        //b1.add(animation, forKey: "b1")
+        //b1.tintColor = UIColor(named: "black")
     }
+    //On tap, b2 button should change image
+    @IBAction func tap2(_ sender: UIButton) {
+        if self.b2.currentImage == UIImage(imageLiteralResourceName: "12-1.png") {
+            self.b2.setImage(UIImage(imageLiteralResourceName: "11-12.png"), for: .normal)
+        } else {
+            self.b2.setImage(UIImage(imageLiteralResourceName: "12-1.png"), for: .normal)
+        }
+    }*/
+    
+    //Regular clock functions start here
+    //DO NOT TOUCH
     @IBOutlet var myClock: ClockFaceView!
     var containerView: UIView!
     
