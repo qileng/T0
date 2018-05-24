@@ -43,8 +43,12 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             return
         }
 //        let task:Task?
-        
-        let description = self.descriptionTextViewCell?.textViewOutlet.text
+        let description:String
+        if self.descriptionTextViewCell?.textViewOutlet.text != "Description" {
+            description = (self.descriptionTextViewCell?.textViewOutlet.text)!
+        }else{
+            description = ""
+        }
         let startDate = Int32((fieldData[1][0].date?.timeIntervalSince1970)!)
         let deadlineDate = Int32((fieldData[1][1].date?.timeIntervalSince1970)!)
         

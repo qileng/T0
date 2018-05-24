@@ -226,8 +226,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             // Set up task manager
 			TaskManager.sharedTaskManager.setUp(new: guest, setting: Setting(), caller: self as UIViewController)
 			
-            self.dismiss(animated: true, completion: nil)
-//            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+//            self.dismiss(animated: true, completion: nil)
+            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
         } catch {
             //There should not be any authentication error with guest login
             //All error should be directed here

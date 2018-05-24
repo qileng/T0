@@ -43,6 +43,7 @@ class ListTaskViewController: UIViewController {
 extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("task count:" ,TaskManager.sharedTaskManager.getTasks().count)
         return TaskManager.sharedTaskManager.getTasks().count
     }
     
