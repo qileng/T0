@@ -51,7 +51,7 @@ class HALPTests: XCTestCase {
 		super.tearDown()
 	}
     
-    func testHelper() {
+    func testScheduleHelper() {
         var taskFixed:[DateInterval] = [DateInterval]();
         
         var component:DateComponents = DateComponents();
@@ -71,7 +71,7 @@ class HALPTests: XCTestCase {
         
         
         let TaskM = TaskManager.sharedTaskManager;
-        var results = TaskM.scheduleHelperE(taskFixed:taskFixed);
+        var results = TaskM.scheduleHelper(taskFixed:taskFixed);
         
         for (index,item) in results.enumerated() {
             print("gap start \(index)" + " day is  \(Calendar.current.component(Calendar.Component.day, from: item.start)) \n" +
@@ -87,6 +87,18 @@ class HALPTests: XCTestCase {
         
     }
     
+    func testScheduleKeyGetter() {
+        
+    }
+    
+    func testSchedule() {
+        
+        var task:[Task] = [Task]();
+        let dt0:[String: Any] = ["title":"t0","scheduled_start":36000,"duration":7200,"deadline":100800,"task_Priority":1];
+        let dt1:[String: Any] = ["title":"t1","scheduled_start":28800,"duration":10800,"deadline":100800,"task_Priority":1];
+        
+        
+    }
     
     func testa_SaveUserInfoToLocalDB() {
         // This is an example of a functional test case.
