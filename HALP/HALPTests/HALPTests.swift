@@ -133,8 +133,23 @@ func testScheduleKeyGetter() {
      @return Array that stores the task that satisfy the parameter requirements
      */
     func taskGeneratorFix(startTime:Array<Int32>,endTime:Array<Int32>,day: Array<Int>) ->Array<Task>{
+        var tasks:[Task] = []
+        var i = 0
+        var start = 0
+        var end = 0
+        var duration = 0
+        for entry in startTime {
+        	var currentTask = Task()
+        	currentTask.setPriority(2)
+        	start = startTime[i] * 60 * 60 + day[i] * 24 * 60 * 60
+        	end = endTime[i] * 60 * 60 + day[i] * 24 * 60 * 60
+        	duration = end - start
+        	currentTask.setDuration(duration)
+        	tasks.append(currentTask)
+        	i += 1
+        }
+        return tasks
         
-        return nil;
     }
     /*
      generator task below highest priority
@@ -402,7 +417,37 @@ func testScheduleKeyGetter() {
 		}
 	}
 
-
+	func testScheduleHelper() {
+		print("Testing Schedule Helper!")
+		let calendar = Calendar.current
+		var taskFixed : [DateInterval] = []
+		let current = Date()
+		var start1 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		start1.hour = 8
+		start1.minute = 0
+		start1.second = 0
+		var end1 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		end1.hour = 9
+		end1.minute = 0
+		end1.second = 0
+		var start2 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		start2.hour = 10
+		start2.minute = 0
+		start2.second = 0
+		var end2 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		end2.hour = 11
+		end2.minute = 0
+		end2.second = 0
+		var dateInt1 = DateInterval(start: calendar.date(from: start1)!, end:calendar.date(from:end1)!)
+		var dateInt2 = DateInterval(start: calendar.date(from: start2)!, end:calendar.date(from:end2)!)
+		taskFixed.append(dateInt1)
+		taskFixed.append(dateInt2)
+		var taskfloat = TaskManager.sharedTaskManager.scheduleHelper(taskFixed: taskFixed)
+		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].start), 9)
+		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].end), 10)
+		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].start), 11)
+		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), 23)
+	}
     
     func testPropertySetter() {
     	print("Testing Property Setter!")
@@ -412,28 +457,28 @@ func testScheduleKeyGetter() {
     	var dict1:[String: Any] = 
     	["title": "Title1",
     	 "taskDescription":"description1",
-    	 "taskPriority":1,
-    	 "alarm":1,
-    	 "deadline":1, 
-    	 "schedule":1, 
-    	 "duration":1,
+    	 "taskPriority":(Int32)1,
+    	 "alarm":(Int32)1,
+    	 "deadline":(Int32)1, 
+    	 "schedule":(Int32)1, 
+    	 "duration":(Int32)1,
     	 "category":Category.Study_Work,
-    	 "softDeadline":1,
-    	 "scheduled_start":1]
+    	 "softDeadline":(Int32)1,
+    	 "scheduled_start":(Int32)1]
 
     	 do {
     	 	try tasks[0].propertySetter(dict1)
 
 	    	XCTAssertEqual(tasks[0].getTitle(), "Title1")
    	 	 	XCTAssertEqual(tasks[0].getDescription(), "description1")
-    	 	XCTAssertEqual(tasks[0].getPriority(), 1)
-    	 	XCTAssertEqual(tasks[0].getAlarm(), 1)
-    	 	XCTAssertEqual(tasks[0].getDeadline(), 1)
-    	 	XCTAssertEqual(tasks[0].getSchedule(), 1)
-    	 	XCTAssertEqual(tasks[0].getDuration(), 1)
+    	 	XCTAssertEqual(tasks[0].getPriority(), (Int32)1)
+    	 	XCTAssertEqual(tasks[0].getAlarm(), (Int32)1)
+    	 	XCTAssertEqual(tasks[0].getDeadline(), (Int32)1)
+    	 	XCTAssertEqual(tasks[0].getSchedule(), (Int32)1)
+    	 	XCTAssertEqual(tasks[0].getDuration(), (Int32)1)
     	 	XCTAssertEqual(tasks[0].getCategory(), Category.Study_Work)
-    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), 1)
-    	 	XCTAssertEqual(tasks[0].getScheduleStart(), 1)
+    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), (Int32)1)
+    	 	XCTAssertEqual(tasks[0].getScheduleStart(), (Int32)1)
     	 }
     	 catch {
     	 	print("Error")
