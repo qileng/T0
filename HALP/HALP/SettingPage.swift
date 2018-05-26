@@ -25,6 +25,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var endTimeNum: UILabel!
     
     override func viewDidLoad() {
+
 		super.viewDidLoad()
 	}
 	
@@ -141,6 +142,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+
         if (pickerView == startTimePicker){
             return String(startHoursArray[row])
         } else {
@@ -191,6 +193,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             timeWarning.dismiss(animated: true, completion: nil)
         }))
         self.present(timeWarning, animated: true, completion: nil)
+
     }
 }
 
