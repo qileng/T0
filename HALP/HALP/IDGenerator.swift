@@ -46,7 +46,7 @@ struct IDGenerator {
 		let timestamp = (UInt32)(current.timeIntervalSince1970)
 		let prefix = IDGenerator.simpleStringHash(s)
 		let ID = (Int64(prefix) << 36) + (Int64(t.rawValue) << 32) + Int64(timestamp)
-	
+        
 		// Debug output
 		/*
 		print("Prefix is: 0x" + String(prefix, radix:16))

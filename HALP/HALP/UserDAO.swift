@@ -14,7 +14,7 @@ import UIKit
 
 let SEPERATOR = " "
 
-var db = "HALP.sqlite"					// Global variable indicates which database to use.
+var db = "/HALP.sqlite"					// Global variable indicates which database to use.
 
 
 // This class is used in Data Management layer.
@@ -29,16 +29,17 @@ final class UserDAO: UserData {
 	// Save new user data to the local database
     // Return true for success, false otherwise
 
-	func saveUserInfoToLocalDB() -> Bool{
+	func saveUserInfoToLocalDB() -> Bool {
             let userId = String(self.getUserID()) as NSString // change it to string
+            print(userId)
             let username = self.getUsername() as NSString
             let password = self.getPassword() as NSString
             let email = self.getUserEmail() as NSString
             let last_update = Date().timeIntervalSince1970
         
             let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+            print(dbPath)
             var dbpointer: OpaquePointer?
-        
             //Establish database connection
             if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
                 print("fail to establish database connection")
@@ -47,7 +48,7 @@ final class UserDAO: UserData {
             }
         
             //SQL command for inserting new row into database
-            let insertQueryString = "INSERT INTO MS_User (id, username, password, email, last_update) VALUES (?, ?, ?, ?, ?)"
+            let insertQueryString = "INSERT INTO ZMS_User (zid, zusername, zpassword, zemail, zlast_update) VALUES (?, ?, ?, ?, ?)"
         
             //statement for binding values into insert statement
             var stmt: OpaquePointer?
@@ -61,6 +62,7 @@ final class UserDAO: UserData {
             //The operation returns SQLITE_DONE, which is an int success
             //See SQLite result codes for detail
             if sqlite3_step(stmt) == SQLITE_DONE {
+                //print("done")
                 sqlite3_close(dbpointer)
                 return true
             } else {
@@ -98,7 +100,7 @@ final class UserDAO: UserData {
         
         //Traverse through the specific row
         while sqlite3_step(stmt) == SQLITE_ROW {
-            let id = Int64(String(cString: sqlite3_column_text(stmt, 0)))
+            let id = String(cString: sqlite3_column_text(stmt, 0))
             let username = String(cString: sqlite3_column_text(stmt, 1))
             let password = String(cString: sqlite3_column_text(stmt, 2))
             let email = String(cString: sqlite3_column_text(stmt, 3))
@@ -188,53 +190,47 @@ final class UserDAO: UserData {
             let userTable = client!.syncTable(withName: "MS_User")
             let predicate = NSPredicate(format: "email == %@",email)
             let query = userTable.query(with: predicate)
-            //print(query)
-            //let result = client?.syncContext(with: query?)
-            //print(result.totalCount)
-//            if(result.totalCount == 0)
-//            {
-//                return true
-//            }
-//            else{
-//                return false
-//            }
-            return true
+            // MSSync table is only for pulling and pushing operations only
+            let res = userTable.pull(with: query, queryId: "AllRecords"){
+                 (error) in
+                 if error != nil {
+                    print("pulling error ", error)
+                }
+            }
         }
-        else{
-            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
-            var dbpointer: OpaquePointer?
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+        var dbpointer: OpaquePointer?
             //Establish database connection
-            if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
-                print("fail to establish database connection")
-				sqlite3_close(dbpointer)
-                return false
-            }
-            let emailString = email.split(separator: "@")
-            if emailString.count != 2 {
-				sqlite3_close(dbpointer)
-                return false
-            }
-            
+        if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+            print("fail to establish database connection")
+            sqlite3_close(dbpointer)
+            return false
+        }
+        let emailString = email.split(separator: "@")
+        if emailString.count != 2 {
+            sqlite3_close(dbpointer)
+            return false
+        }
             //SQL command for fecting a row from database base on id
-            var selectQueryString = "SELECT email FROM MS_User WHERE email LIKE " + "\'%" + emailString[0] + "%\'"
-            selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
-            var stmt: OpaquePointer?
-            sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
-            //Check if the email address exists
-            while sqlite3_step(stmt) == SQLITE_ROW {
-                let email_verify = String(cString: sqlite3_column_text(stmt, 0))
-                if(email == email_verify) {
+        var selectQueryString = "SELECT email FROM MS_User WHERE email LIKE " + "\'%" + emailString[0] + "%\'"
+        selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
+        var stmt: OpaquePointer?
+        sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
+        //Check if the email address exists
+        while sqlite3_step(stmt) == SQLITE_ROW {
+        let email_verify = String(cString: sqlite3_column_text(stmt, 0))
+            if(email == email_verify) {
                     //Finialize statement to prevent database from locking
                     sqlite3_finalize(stmt)
                     sqlite3_close(dbpointer)
                     return false
-                }
             }
-            sqlite3_finalize(stmt)
-            sqlite3_close(dbpointer)
-            return true
         }
+        sqlite3_finalize(stmt)
+        sqlite3_close(dbpointer)
+        return true
     }
+    
 	
 	// TODO
     func fetchFromOnlineDBtoLocalDB(userId: Int64 = -1) -> Bool{

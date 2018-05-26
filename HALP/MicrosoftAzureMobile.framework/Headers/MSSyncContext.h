@@ -189,7 +189,7 @@ onPushCompleteWithError:(nullable NSError *)error
  @param delegate optional delegate to use to control actions during sync processes
  @param dataSource optional datasource to use to store items with
  @param callbackQueue optional queue to use for triggering callbacks related to sync on
-
+ 
  @returns the crreated MSSyncContext
  */
 - (nonnull instancetype) initWithDelegate:(nullable id<MSSyncContextDelegate>)delegate

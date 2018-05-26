@@ -349,7 +349,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         
         // Initialize local database
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let dbPath = documentsPath + "HALP.sqlite"
+        let dbPath = documentsPath + "/HALP.sqlite"
         var dbpointer: OpaquePointer? = nil
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {

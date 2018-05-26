@@ -117,11 +117,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbPath = documentsPath + "HALP.sqlite"
         var dbpointer: OpaquePointer? = nil
-    
-        if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
-            // create a table called MS_User
-            print("local database success")
-        }
+        
+//        if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
+//            // create a table called MS_User
+//            print("local database success")
+//        }
         
     }
 
