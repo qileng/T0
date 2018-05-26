@@ -15,6 +15,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	var viewName = "Setting Page"
     var settingForm: SettingForm?
     
+
     //Could have: Loop the data
     @IBOutlet weak var startTimePicker: UIPickerView!
     @IBOutlet weak var endTimePicker: UIPickerView!
