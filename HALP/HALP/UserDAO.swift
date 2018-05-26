@@ -36,7 +36,6 @@ final class UserDAO: UserData {
             let password = self.getPassword() as NSString
             let email = self.getUserEmail() as NSString
             let last_update = Date().timeIntervalSince1970
-        
             let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
             print(dbPath)
             var dbpointer: OpaquePointer?
@@ -62,8 +61,8 @@ final class UserDAO: UserData {
             //The operation returns SQLITE_DONE, which is an int success
             //See SQLite result codes for detail
             if sqlite3_step(stmt) == SQLITE_DONE {
-                //print("done")
                 sqlite3_close(dbpointer)
+                print("save to local database")
                 return true
             } else {
                 let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
@@ -91,7 +90,7 @@ final class UserDAO: UserData {
 			throw RuntimeError.DBError("Local DB does not exist!")
         }
         //SQL command for fecting a row from database base on id
-        let selectQueryString = "SELECT * FROM UserData WHERE user_id=" + String(userId)
+        let selectQueryString = "SELECT * FROM ZMS_User WHERE zid = " + String(userId)
         
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
@@ -100,7 +99,7 @@ final class UserDAO: UserData {
         
         //Traverse through the specific row
         while sqlite3_step(stmt) == SQLITE_ROW {
-            let id = String(cString: sqlite3_column_text(stmt, 0))
+            let id = Int64(String(cString: sqlite3_column_text(stmt, 0)))
             let username = String(cString: sqlite3_column_text(stmt, 1))
             let password = String(cString: sqlite3_column_text(stmt, 2))
             let email = String(cString: sqlite3_column_text(stmt, 3))
@@ -135,21 +134,17 @@ final class UserDAO: UserData {
         }
         
         //SQL command for fecting a row from database base on id
-        var selectQueryString = "SELECT id, email FROM MS_User WHERE password=\'" + password + "\' AND " +
-            "email LIKE " + "\'%" + emailString[0] + "%\'"
-        selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
-        
+        var selectQueryString = "SELECT zid, zemail FROM ZMS_User WHERE zpassword= '" + password + "' AND zemail = '" + email + "'"
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
         //Query the specific usermane + password combination
         if sqlite3_step(stmt) == SQLITE_ROW {
-            let id = sqlite3_column_int64(stmt, 0)
+            let id = String(cString: sqlite3_column_text(stmt, 0)) // change it back to int
             let email_verify = String(cString: sqlite3_column_text(stmt, 1))
-            
             if(email == email_verify) {
                 sqlite3_finalize(stmt)
                 sqlite3_close(dbpointer)
-                return id
+                return Int64(id)!
             }
             sqlite3_finalize(stmt)
             sqlite3_close(dbpointer)
@@ -187,11 +182,13 @@ final class UserDAO: UserData {
             store = MSCoreDataStore(managedObjectContext: managedObjectContext)
             client?.syncContext = MSSyncContext(delegate: nil, dataSource: store, callback: nil)
             let context = client?.syncContext
-            let userTable = client!.syncTable(withName: "MS_User")
-            let predicate = NSPredicate(format: "email == %@",email)
+            let userTable = client!.syncTable(withName: "ZMS_User")
+            let predicate = NSPredicate(format: "zemail == % @",email)
             let query = userTable.query(with: predicate)
             // MSSync table is only for pulling and pushing operations only
-            let res = userTable.pull(with: query, queryId: "AllRecords"){
+            // only adding data to the local database
+            let res = userTable.pull(with: query, queryId: "AllRecords")
+            {
                  (error) in
                  if error != nil {
                     print("pulling error ", error)
@@ -211,15 +208,14 @@ final class UserDAO: UserData {
             sqlite3_close(dbpointer)
             return false
         }
-            //SQL command for fecting a row from database base on id
-        var selectQueryString = "SELECT email FROM MS_User WHERE email LIKE " + "\'%" + emailString[0] + "%\'"
-        selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
+        //SQL command for fecting a row from database base on id
+        var selectQueryString = "SELECT zemail FROM ZMS_User WHERE zemail = " + "'" + email + "'"
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
         //Check if the email address exists
         while sqlite3_step(stmt) == SQLITE_ROW {
         let email_verify = String(cString: sqlite3_column_text(stmt, 0))
-            if(email == email_verify) {
+        if(email == email_verify) {
                     //Finialize statement to prevent database from locking
                     sqlite3_finalize(stmt)
                     sqlite3_close(dbpointer)
@@ -228,6 +224,7 @@ final class UserDAO: UserData {
         }
         sqlite3_finalize(stmt)
         sqlite3_close(dbpointer)
+        // udpate the database with the online database
         return true
     }
     

@@ -114,15 +114,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         userNameTextField.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let dbPath = documentsPath + "HALP.sqlite"
-        var dbpointer: OpaquePointer? = nil
-        
-//        if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
-//            // create a table called MS_User
-//            print("local database success")
-//        }
-        
     }
 
     @objc func backToLoginButtonActionHandler()
