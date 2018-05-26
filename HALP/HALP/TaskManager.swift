@@ -145,14 +145,16 @@ class TaskManager {
      }
  
     func scheduleKeyGetter(item:Task) -> Date? {
-        var date = Date(timeIntervalSince1970: (Double)(item.getSchedule()));
+        let date = Date(timeIntervalSince1970: (Double)(item.getScheduleStart()));
         var component:DateComponents = DateComponents();
         component.year = Calendar.current.component(Calendar.Component.year, from: date);
         component.month = Calendar.current.component(Calendar.Component.month,from:date);
         component.day = Calendar.current.component(Calendar.Component.day,from:date);
+        print("check initializer \(Calendar.current.component(Calendar.Component.hour, from: date))");
         component.hour = 8;
         component.minute = 0;
         component.second = 0;
+        print("component day is \(component.day!)");
         return Calendar.current.date(from: component);
     }
 	// Schedule all tasks

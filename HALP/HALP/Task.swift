@@ -119,7 +119,10 @@ class Task {
         self.taskID = origin.getTaskId()
         self.userID = origin.getUserId()
     }
-	
+    convenience init(_ dict: Dictionary<String, Any>)  {
+        self.init();
+        try? self.propertySetter(dict);
+    }
 	// Alternative Initalier.
 	// Create a new Task object by primary key and foreign key.
 	// Load from database.
@@ -131,21 +134,7 @@ class Task {
 	}
 	
 	// Alternative Initializer
-	init(_ dict: Dictionary<String, Any>) {
-		self.title = dict["task_title"] as! String
-		self.taskDescription = dict["task_desc"] as! String
-		self.category = Category(rawValue: (dict["category"] as! Double))!
-		self.alarm = dict["alarm"] as! Int32
-		self.deadline = dict["deadline"] as! Int32
-		self.softDeadline = dict["soft_deadline"]! as! Int32
-		self.schedule = dict["schedule"] as! Int32
-		self.duration = dict["duration"] as! Int32
-		self.taskPriority = dict["task_priority"] as! Double
-		self.scheduled_start = dict["scheduled_start"] as! Int32
-		self.notification = (dict["notification"] as! Int32) == 1 ? true : false
-		self.taskID = dict["task_id"] as! Int64
-		self.userID = dict["user_id"] as! Int64
-	}
+
 
 	// Getter.
 	// Return all fields in one dictioanry

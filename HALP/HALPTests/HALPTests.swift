@@ -51,6 +51,12 @@ class HALPTests: XCTestCase {
 		super.tearDown()
 	}
     
+    func testIntializerDict() {
+      let t0 =  Task(["title":"t0","scheduled_start":(Int32)(36000),"duration":(Int32)(7200),"deadline":(Int32)(100800),"task_Priority":1])
+      let t1 = Task(["title":"t2","scheduled_start":(Int32)(122400),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]);
+        print("t0 is \(t0.getScheduleStart())");
+    }
+    
     func testScheduleHelper() {
         var taskFixed:[DateInterval] = [DateInterval]();
         
@@ -87,10 +93,30 @@ class HALPTests: XCTestCase {
         
     }
     
-    func testScheduleKeyGetter() {
+func testScheduleKeyGetter() {
+        let TaskM = TaskManager.sharedTaskManager;
+        var testDic = Dictionary<Date,[String]>();
+        let key0 = TaskM.scheduleKeyGetter(item: Task(["title":"t0","scheduled_start":(Int32)(36000),"duration":(Int32)(7200),"deadline":(Int32)(100800),"task_Priority":1]));//day1
+        let key1 = TaskM.scheduleKeyGetter(item: Task(["title":"t1","scheduled_start":(Int32)(57600),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]));//day1
+        let key2 = TaskM.scheduleKeyGetter(item: Task(["title":"t2","scheduled_start":(Int32)(122400),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]));//day2
+        let key3 = TaskM.scheduleKeyGetter(item: Task(["title":"t2","scheduled_start":(Int32)(140400),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]))//day2
+        let key4 = TaskM.scheduleKeyGetter(item: Task(["title":"t3","scheduled_start":(Int32)(295200),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]))//day3
+        testDic[key0!] = [String]();
+        testDic[key2!] = [String]();
+        testDic[key4!] = [String]();
+        print("key0 information \(Calendar.current.component(Calendar.Component.year, from: key2!))")
+        testDic[key0!]!.append("day1Task0");
+        testDic[key1!]!.append("day1Task1");
+        testDic[key2!]!.append("day2Task0");
+        testDic[key3!]!.append("day2Task1");
+        testDic[key4!]!.append("day3Task0");
+        
+        print(testDic[key0!]!.count);
+        
+        
         
     }
-    
+ 
     func testSchedule() {
         
         var task:[Task] = [Task]();
