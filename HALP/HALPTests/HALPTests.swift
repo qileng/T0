@@ -132,10 +132,11 @@ func testScheduleKeyGetter() {
      for example startTime[0] endTime[0]. day[0] means the task happen on day[0] start at start[0] end at endTime[0]
      @return Array that stores the task that satisfy the parameter requirements
      */
-    func taskGeneratorFix(startTime:Array<Int32>,endTime:Array<Int32>,day: Array<Int>) ->Array<Task>{
+    
+    func taskGeneratorFix(startTime:Array<Int32>,endTime:Array<Int32>,day:Array<Int32>) ->Array<Task>{
         
-        return nil;
     }
+ 
     /*
      generator task below highest priority
      @parameter : startTime: array that stores startTime of the task
@@ -144,14 +145,21 @@ func testScheduleKeyGetter() {
      Functionality see the example above
      @return Array that stores the task that satisfy the parameter requirements
     */
-    func taskGeneratorFloat(startTime:Array<Int32>, deadLine:Array<Int32>, duration:Array<Int32>)->Array<Task> {
-        return nil;
+    func taskGeneratorFloat(startTime:Array<Int32>, deadLine:Array<Int32>, startTimeDay:Array<Int>, deadLineDay: Array<Int>, duration:Array<Int32>,priority:Array<Double>)->Array<Task> {
+        var result:[Task] = [Task]();
+        for (index,_) in startTime.enumerated() {
+            let task:Task = Task(["scheduled_start":(Int32)(startTimeDay[index]*24*60*60) + startTime[index],"duration":duration[index],"taskPriority":priority[index],"deadline":deadLine[index] + (Int32)(deadLineDay[index]*24*60*60)]);
+            result.append(task);
+        }
+        return result;
     }
     
     func testSchedule() {
-        
+       let floatTasks =  taskGeneratorFloat(startTime: [(Int32)(72000),(Int32)(64800)], deadLine: [(Int32)(72000),(Int32)(90000)], startTimeDay: [0,2], deadLineDay: [4,3], duration: [(Int32)(7200),(Int32)(3600)], priority: [(Double)(1),(Double)(0)])
+        for i in 0..<2 {
+        print("check the property " + "startTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getScheduleStart()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getScheduleStart()))))" + "endTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getDeadline()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getDeadline()))))" + "duration is  \(floatTasks[i].getDuration())" + "priority is \(floatTasks[i].getPriority())\n");
       
-        
+        }
         
     }
     
