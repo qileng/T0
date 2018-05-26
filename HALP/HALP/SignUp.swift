@@ -119,6 +119,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         var dbpointer: OpaquePointer? = nil
     
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
+            // create a table called MS_User
+            print("local database success")
         }
         
     }

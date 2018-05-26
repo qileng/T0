@@ -14,7 +14,7 @@ import UIKit
 
 let SEPERATOR = " "
 
-var db = "/appData.sqlite"					// Global variable indicates which database to use.
+var db = "HALP.sqlite"					// Global variable indicates which database to use.
 
 
 // This class is used in Data Management layer.
@@ -30,7 +30,7 @@ final class UserDAO: UserData {
     // Return true for success, false otherwise
 
 	func saveUserInfoToLocalDB() -> Bool{
-            let userId = self.getUserID()
+            let userId = String(self.getUserID()) as NSString // change it to string
             let username = self.getUsername() as NSString
             let password = self.getPassword() as NSString
             let email = self.getUserEmail() as NSString
@@ -47,12 +47,12 @@ final class UserDAO: UserData {
             }
         
             //SQL command for inserting new row into database
-            let insertQueryString = "INSERT INTO UserData (user_id, user_name, password, email, last_update) VALUES (?, ?, ?, ?, ?)"
+            let insertQueryString = "INSERT INTO MS_User (id, username, password, email, last_update) VALUES (?, ?, ?, ?, ?)"
         
             //statement for binding values into insert statement
             var stmt: OpaquePointer?
             sqlite3_prepare(dbpointer, insertQueryString, -1, &stmt, nil)
-            sqlite3_bind_int64(stmt, 1, userId)
+            sqlite3_bind_text(stmt, 1, userId.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 2, username.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 3, password.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 4, email.utf8String, -1, nil)
@@ -98,7 +98,7 @@ final class UserDAO: UserData {
         
         //Traverse through the specific row
         while sqlite3_step(stmt) == SQLITE_ROW {
-            let id = sqlite3_column_int64(stmt, 0)
+            let id = Int64(String(cString: sqlite3_column_text(stmt, 0)))
             let username = String(cString: sqlite3_column_text(stmt, 1))
             let password = String(cString: sqlite3_column_text(stmt, 2))
             let email = String(cString: sqlite3_column_text(stmt, 3))
@@ -133,7 +133,7 @@ final class UserDAO: UserData {
         }
         
         //SQL command for fecting a row from database base on id
-        var selectQueryString = "SELECT user_id, email FROM UserData WHERE password=\'" + password + "\' AND " +
+        var selectQueryString = "SELECT id, email FROM MS_User WHERE password=\'" + password + "\' AND " +
             "email LIKE " + "\'%" + emailString[0] + "%\'"
         selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
         
@@ -169,51 +169,40 @@ final class UserDAO: UserData {
     var query: MSQuery?
     var predicate: NSPredicate?
     var queryString: NSString?
-    var res : Operation?
+    var context: MSSyncContext?
+    //var res : Operation?
     var store: MSCoreDataStore?
+    var result: MSSyncContextReadResult?
     func validateUserEmailOnline(email: String, onlineDB: Bool, delegate: UITextFieldDelegate) -> Bool {
-        if(onlineDB) {
+        if(onlineDB)
+        {
             // TODO connect to the online database, do the query and return the result
-            print("open online db")
-            self.client = MSClient(
+            // always connect to online db for now
+            client = MSClient(
                             applicationURLString:"https://halpt0.azurewebsites.net")
             let delegate =  UIApplication.shared.delegate as! AppDelegate
-            //let client = delegate.client!
-            print("assign delegate")
             let managedObjectContext = delegate.managedObjectContext!
-            print("core data")
             store = MSCoreDataStore(managedObjectContext: managedObjectContext)
-            print("define sync text")
-            self.client?.syncContext = MSSyncContext(delegate: nil, dataSource: store, callback: nil)
-            let userTable = self.client!.syncTable(withName: "MS_User")
-            // validate only
-            //print("defining predicate")
-            let predicate = NSPredicate(format: "email == %@",email) //
-            //print("going here")
-            //retrieve the data from the online database?
-            let queryString = userTable.query(with: predicate)
-            let res = userTable.pull(with: queryString, queryId: "AllRecords"){
-                (error) in
-                if error != nil {
-                    print("pulling error ", error)
-                }
-            }
-            print(res.result)
-           // print("inserting into database")
-            
-//            let item = ["email": email]
-//            userTable.insert(item){
-//                (inserteditem, error) in
-//                if error != nil {
-//                    print("ERROR ", error)
-//                }
+            client?.syncContext = MSSyncContext(delegate: nil, dataSource: store, callback: nil)
+            let context = client?.syncContext
+            let userTable = client!.syncTable(withName: "MS_User")
+            let predicate = NSPredicate(format: "email == %@",email)
+            let query = userTable.query(with: predicate)
+            //print(query)
+            //let result = client?.syncContext(with: query?)
+            //print(result.totalCount)
+//            if(result.totalCount == 0)
+//            {
+//                return true
+//            }
+//            else{
+//                return false
 //            }
             return true
         }
-        else {
+        else{
             let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
             var dbpointer: OpaquePointer?
-            
             //Establish database connection
             if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
                 print("fail to establish database connection")
@@ -227,15 +216,13 @@ final class UserDAO: UserData {
             }
             
             //SQL command for fecting a row from database base on id
-            var selectQueryString = "SELECT email FROM UserData WHERE email LIKE " + "\'%" + emailString[0] + "%\'"
+            var selectQueryString = "SELECT email FROM MS_User WHERE email LIKE " + "\'%" + emailString[0] + "%\'"
             selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
-            
             var stmt: OpaquePointer?
             sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
             //Check if the email address exists
             while sqlite3_step(stmt) == SQLITE_ROW {
                 let email_verify = String(cString: sqlite3_column_text(stmt, 0))
-                
                 if(email == email_verify) {
                     //Finialize statement to prevent database from locking
                     sqlite3_finalize(stmt)
@@ -251,9 +238,7 @@ final class UserDAO: UserData {
 	
 	// TODO
     func fetchFromOnlineDBtoLocalDB(userId: Int64 = -1) -> Bool{
-//        let delegate = UIApplication.shared.delegate as! AppDelegate
-//        let client = delegate.client!
-        // get all the data from the database
+        
         return false
     }
     

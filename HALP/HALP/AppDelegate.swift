@@ -21,69 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    var query:  MSQuery?
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-		// Override point for customization after application launch.
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//        self.client = MSClient(
-//            applicationURLString:"https://halpt0.azurewebsites.net"
-//        )
-//        let delegate = UIApplication.shared.delegate as! AppDelegate
-//       //self.store = MSCoreDataStore(managedObjectContext: managedObjectContext)
-//        let client = delegate.client!
-//        let item = ["id":"3", "username": "test user 2"]
-//        let userTable = client.table(withName: "User")
-//        let taskTable = client.table(withName: "Task")
-////
-//        itemTable.insert(item){
-//            (insertedItem, error) in
-//            if (error != nil) {
-//                print("\n")
-//                print("Error" + error.debugDescription);
-//            }
-//        }
-//
-//        let predicate = NSPredicate(format: "username == 'test user 2'@");
-//        let query = itemTable.query(with: predicate)
-//        itemTable.pull(with: query, queryId: "AllRecords"){
-//                (error)  -> Void in
-//            if (error != nil) {
-//                print("\n")
-//                print("Error" + error.debugDescription);
-//            }
-//        }
-        //let item2 = ["id":"1","username": "test user 2"]
-        
-//        query = itemTable.queryWithPredicate(){
-//            (item2, error) in
-//        if (error != nil) {
-//            print("\n")
-//            print("Error" + error.debugDescription);
-//            }
-//        }
-        // read with query string, try to load the data from the same user .
-//        let readId = ["id":"1"]
-//        itemTable.readWithId(readId){
-//            (query, error) in
-//            if (error != nil) {
-//                print("\n")
-//                print("Error" + error.debugDescription);
-//            }
-//        }
-        
-//        itemTable.delete(item){
-//            (deletedItem, error) in
-//            if (error != nil) {
-//                print("\n")
-//                print("Error" + error.debugDescription);
-//            }
-//        }
-//        let item2 = ["id":"1", "password": "test password"]
-//        itemTable.update(item2){
-//            (deletedItem, error) in
-//            if (error != nil) {
-//                print("\n")
-//                print("Error" + error.debugDescription);
-//            }
-//        }
+
 		return true
 	}
 

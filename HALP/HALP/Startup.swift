@@ -349,22 +349,22 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         
         // Initialize local database
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let dbPath = documentsPath + "/appData.sqlite"
+        let dbPath = documentsPath + "HALP.sqlite"
         var dbpointer: OpaquePointer? = nil
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             // UserData table
-            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
-                "(user_id INTEGER PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
+            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS MS_User" +
+                "(id TEXT PRIMARY KEY, username TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
             // Initialize guest account
-            sqlite3_exec(dbpointer, "INSERT INTO UserData (user_id, user_name, password, email, last_update) " +
-                "VALUES (0, 'GUEST', 'GUEST', 'GUEST@GUEST.com', 0)", nil , nil, nil)
+            sqlite3_exec(dbpointer, "INSERT INTO MS_User (username, password, email) " +
+                "VALUES ('GUEST', 'GUEST', 'GUEST@gmail.com')", nil , nil, nil)
             
             // TaskData table
-            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
-                "(task_id INTEGER PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
+            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS MS_Task" +
+                "(id TEXT PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
                 "category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
-                "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
+                "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id TEXT, last_update INTEGER)", nil, nil, nil)
             
             // SettingData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
