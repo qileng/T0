@@ -377,7 +377,7 @@ func testScheduleKeyGetter() {
 		print("Testing Schedule Helper!")
 		let calendar = Calendar.current
 		var taskFixed : [DateInterval] = []
-		let current = Int32(Date().timeIntervalSince1970)
+		let current = Date()
 		var start1 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
 		start1.hour = 8
 		start1.minute = 0
