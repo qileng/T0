@@ -196,6 +196,13 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		D2F03C1C20B771FC00B8906F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		ED432362209FAD3E00F11140 /* View Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +258,7 @@
 				ED6C2A62209302660063B4AC /* HALPTests */,
 				ED6C2A6D209302660063B4AC /* HALPUITests */,
 				ED6C2A48209302640063B4AC /* Products */,
+				D2F03C1C20B771FC00B8906F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

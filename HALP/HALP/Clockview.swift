@@ -5,13 +5,17 @@
 //  Created by Qihao Leng on 4/30/18.
 //  Copyright © 2018 Team Zero. All rights reserved.
 //
+//  Edited by Anagha Subramanian and Kelly Zhang
+//
 
 import UIKit
 import CoreGraphics
 
 class ClockViewController: UIViewController, CAAnimationDelegate {
+
+    @IBOutlet var timeButtons: [UIButton]!
     
-    
+
     //The following commented code is for reference
     /*
     @IBOutlet var b1: UIButton! //Button for 11-12 region of clock
@@ -73,6 +77,12 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name:NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 
+        let startAngle = M_PI/12
+        let angle = M_PI/6
+        for index in 0...11 {
+            timeButtons[index].transform = CGAffineTransform(rotationAngle: CGFloat((Double(index)*angle)+startAngle));
+        }
+        
 	}
     
     override func viewDidLayoutSubviews() {
@@ -97,9 +107,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		super.viewDidAppear(animated)
 
 	}
-    
-    
-    
     
     func addHandsAndCenterPiece() {
         containerView = UIView(frame: CGRect(x: myClock.frame.midX, y: myClock.frame.midY, width: myClock.frame.width, height: myClock.frame.width))
