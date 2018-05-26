@@ -346,6 +346,19 @@ class HALPTests: XCTestCase {
 			print("Unexpected Error!")
 		}
 	}
+
+	func testScheduleHelper() {
+		print("Testing Schedule Helper!")
+		var tasksfixed : [DateInterval] = []
+		let current = Int32(Date().timeIntervalSince1970)
+		var start1 = dateComponent(year: 2018, month:5, day:1, hour:8, minute:0, second:0)
+		var end1 = dateComponent(year: 2018, month:5, day:1, hour:9, minute:0, second:0)
+		var dateInt1 = DateInterval(start: calendar.date(from: start1)!, end:calendar.date(from:end1)!)
+		taskFixed.append(dateInt1)
+		var taskFloat = scheduleHelper(taskFixed: taskFixed)
+		XCTAssert(calendar.dateComponent(.hour, from:taskfloat[0]), 9)
+
+	}
     
     
 	/*
