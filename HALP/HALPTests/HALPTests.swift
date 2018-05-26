@@ -141,8 +141,12 @@ func testScheduleKeyGetter() {
         for entry in startTime {
         	var currentTask = Task()
         	currentTask.setPriority(2)
-        	start = startTime[i] * 60 * 60 + day[i] * 24 * 60 * 60
-        	end = endTime[i] * 60 * 60 + day[i] * 24 * 60 * 60
+        	var startHour = (Int32)(startTime[i] * 60 * 60)
+        	var startDay = (Int32)(day[i] * 24 * 60 * 60)
+        	start = startHour + startDay
+        	var endHour = (Int32)(endTime[i] * 60 * 60) 
+        	var endDay = (Int32)(day[i] * 24 * 60 * 60)
+        	end = endHour + endDay
         	duration = end - start
         	currentTask.setDuration(duration)
         	currentTask.setDeadline(end)
@@ -473,14 +477,14 @@ func testScheduleKeyGetter() {
 
 	    	XCTAssertEqual(tasks[0].getTitle(), "Title1")
    	 	 	XCTAssertEqual(tasks[0].getDescription(), "description1")
-    	 	XCTAssertEqual(tasks[0].getPriority(), (Int32)1)
-    	 	XCTAssertEqual(tasks[0].getAlarm(), (Int32)1)
-    	 	XCTAssertEqual(tasks[0].getDeadline(), (Int32)1)
-    	 	XCTAssertEqual(tasks[0].getSchedule(), (Int32)1)
-    	 	XCTAssertEqual(tasks[0].getDuration(), (Int32)1)
+    	 	XCTAssertEqual(tasks[0].getPriority(), (Int32)(1))
+    	 	XCTAssertEqual(tasks[0].getAlarm(), (Int32)(1))
+    	 	XCTAssertEqual(tasks[0].getDeadline(), (Int32)(1))
+    	 	XCTAssertEqual(tasks[0].getSchedule(), (Int32)(1))
+    	 	XCTAssertEqual(tasks[0].getDuration(), (Int32)(1))
     	 	XCTAssertEqual(tasks[0].getCategory(), Category.Study_Work)
-    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), (Int32)1)
-    	 	XCTAssertEqual(tasks[0].getScheduleStart(), (Int32)1)
+    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), (Int32)(1))
+    	 	XCTAssertEqual(tasks[0].getScheduleStart(), (Int32)(1))
     	 }
     	 catch {
     	 	print("Error")
