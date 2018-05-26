@@ -15,6 +15,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	var viewName = "Setting Page"
     var settingForm: SettingForm?
     
+
     //Could have: Loop the data
     @IBOutlet weak var startTimePicker: UIPickerView!
     @IBOutlet weak var endTimePicker: UIPickerView!
@@ -25,6 +26,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var endTimeNum: UILabel!
     
     override func viewDidLoad() {
+
 		super.viewDidLoad()
 	}
 	
@@ -151,6 +153,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+
         if (pickerView == startTimePicker){
             return String(startHoursArray[row])
         } else {
