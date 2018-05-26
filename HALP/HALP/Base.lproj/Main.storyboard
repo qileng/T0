@@ -391,30 +391,136 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Traditional" translatesAutoresizingMaskIntoConstraints="NO" id="apO-CC-Vv9">
+                                <rect key="frame" x="-12" y="-14" width="399" height="691"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pq2-5N-Iqt" customClass="ClockFaceView" customModule="HALP" customModuleProvider="target">
-                                <rect key="frame" x="37.5" y="194.5" width="300" height="299.5"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="38" y="38" width="300" height="300.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHH-LD-Rpo">
+                                        <rect key="frame" x="159" y="12" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmZ-Gb-fYZ">
+                                        <rect key="frame" x="215" y="43" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bat-0i-k54">
+                                        <rect key="frame" x="251" y="102" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hH4-Qo-xdW">
+                                        <rect key="frame" x="251" y="169" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeN-03-udy">
+                                        <rect key="frame" x="217" y="229" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r9w-zy-fkU">
+                                        <rect key="frame" x="159" y="262" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cc2-OJ-MHF">
+                                        <rect key="frame" x="92" y="262" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oRl-hc-IiC">
+                                        <rect key="frame" x="34" y="229" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRq-AO-3hE">
+                                        <rect key="frame" x="0.0" y="169" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAP-qs-CYi">
+                                        <rect key="frame" x="0.0" y="102" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="10" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pIG-Lh-oyk">
+                                        <rect key="frame" x="35" y="43" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SfE-5L-jRU">
+                                        <rect key="frame" x="92" y="12" width="49" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Pq2-5N-Iqt" secondAttribute="height" multiplier="1:1" id="2dq-jZ-goH"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap an hour to view tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0HF-ds-XaN">
+                                <rect key="frame" x="34" y="354" width="310" height="293"/>
+                                <color key="backgroundColor" red="0.80721745466321249" green="0.80721745466321249" blue="0.80721745466321249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Pq2-5N-Iqt" firstAttribute="centerX" secondItem="9VK-hT-Slc" secondAttribute="centerX" id="9Wq-cE-Gzu"/>
-                            <constraint firstItem="Pq2-5N-Iqt" firstAttribute="centerY" secondItem="9VK-hT-Slc" secondAttribute="centerY" id="BUy-rd-ULu"/>
+                            <constraint firstItem="Pq2-5N-Iqt" firstAttribute="centerY" secondItem="9VK-hT-Slc" secondAttribute="centerY" multiplier="0.55" id="BUy-rd-ULu"/>
+                            <constraint firstAttribute="trailing" secondItem="apO-CC-Vv9" secondAttribute="trailing" constant="-12" id="DD3-WP-vSt"/>
+                            <constraint firstItem="9VK-hT-Slc" firstAttribute="trailing" secondItem="0HF-ds-XaN" secondAttribute="trailing" constant="33" id="HeL-A6-Fji"/>
+                            <constraint firstItem="9VK-hT-Slc" firstAttribute="bottom" secondItem="0HF-ds-XaN" secondAttribute="bottom" constant="27" id="NGK-nz-KlX"/>
+                            <constraint firstAttribute="bottom" secondItem="apO-CC-Vv9" secondAttribute="bottom" constant="-10" id="On2-gK-aKF"/>
+                            <constraint firstItem="9VK-hT-Slc" firstAttribute="bottom" secondItem="0HF-ds-XaN" secondAttribute="bottom" constant="20" id="QEk-Gg-9hT"/>
+                            <constraint firstItem="0HF-ds-XaN" firstAttribute="leading" secondItem="9VK-hT-Slc" secondAttribute="leading" constant="32" id="TE6-oF-9AR"/>
+                            <constraint firstItem="apO-CC-Vv9" firstAttribute="top" secondItem="8uV-yI-2me" secondAttribute="top" constant="-14" id="hDn-pz-WSa"/>
                             <constraint firstItem="Pq2-5N-Iqt" firstAttribute="width" secondItem="8uV-yI-2me" secondAttribute="width" multiplier="0.8" id="kNL-Yx-XJy"/>
+                            <constraint firstItem="0HF-ds-XaN" firstAttribute="top" secondItem="Pq2-5N-Iqt" secondAttribute="bottom" constant="7.5" id="nfO-om-Qea"/>
+                            <constraint firstItem="apO-CC-Vv9" firstAttribute="leading" secondItem="8uV-yI-2me" secondAttribute="leading" constant="-12" id="qG9-Rt-hWK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9VK-hT-Slc"/>
                     </view>
                     <connections>
                         <outlet property="myClock" destination="Pq2-5N-Iqt" id="mqZ-DO-9Ia"/>
+                        <outletCollection property="timeButtons" destination="PHH-LD-Rpo" collectionClass="NSMutableArray" id="yTA-2o-rDh"/>
+                        <outletCollection property="timeButtons" destination="tmZ-Gb-fYZ" collectionClass="NSMutableArray" id="mBC-jY-Qn8"/>
+                        <outletCollection property="timeButtons" destination="Bat-0i-k54" collectionClass="NSMutableArray" id="ZAR-uh-MPn"/>
+                        <outletCollection property="timeButtons" destination="hH4-Qo-xdW" collectionClass="NSMutableArray" id="186-sJ-FpG"/>
+                        <outletCollection property="timeButtons" destination="yeN-03-udy" collectionClass="NSMutableArray" id="AqT-ha-Lex"/>
+                        <outletCollection property="timeButtons" destination="r9w-zy-fkU" collectionClass="NSMutableArray" id="E3T-ri-8C7"/>
+                        <outletCollection property="timeButtons" destination="cc2-OJ-MHF" collectionClass="NSMutableArray" id="3Mj-av-z3B"/>
+                        <outletCollection property="timeButtons" destination="oRl-hc-IiC" collectionClass="NSMutableArray" id="icS-hm-ERr"/>
+                        <outletCollection property="timeButtons" destination="KRq-AO-3hE" collectionClass="NSMutableArray" id="ahE-gE-jFY"/>
+                        <outletCollection property="timeButtons" destination="sAP-qs-CYi" collectionClass="NSMutableArray" id="Tm1-PH-2u3"/>
+                        <outletCollection property="timeButtons" destination="pIG-Lh-oyk" collectionClass="NSMutableArray" id="hAZ-9x-LNK"/>
+                        <outletCollection property="timeButtons" destination="SfE-5L-jRU" collectionClass="NSMutableArray" id="xvI-mt-ZcS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WRa-PU-QUc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="724" y="-243"/>
+            <point key="canvasLocation" x="724" y="-243.32833583208398"/>
         </scene>
         <!--List View Controller-->
         <scene sceneID="TOR-ow-ekC">
@@ -647,15 +753,19 @@
                                     <outlet property="delegate" destination="PiT-cf-OIt" id="SI5-lo-gfo"/>
                                 </connections>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h65-fS-fHq">
-                                <rect key="frame" x="16" y="530" width="80" height="21"/>
+
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h65-fS-fHq">
+                                <rect key="frame" x="16" y="530" width="85" height="21"/>
+
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k1I-B1-edg">
-                                <rect key="frame" x="288" y="530" width="72" height="21"/>
+
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k1I-B1-edg">
+                                <rect key="frame" x="249" y="529" width="77" height="21"/>
+
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -668,13 +778,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OIu-fO-AKb">
+                                <rect key="frame" x="103" y="530" width="20" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1G-cP-edT">
+                                <rect key="frame" x="329" y="529" width="21" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="NYq-1U-oGf"/>
                     </view>
                     <connections>
+
+                        <outlet property="endTimeNum" destination="u1G-cP-edT" id="RE7-Jy-p47"/>
                         <outlet property="endTimePicker" destination="Q1g-MK-v9C" id="guY-Ef-Krk"/>
+                        <outlet property="startTimeNum" destination="OIu-fO-AKb" id="8qu-aG-XSA"/>
+
                         <outlet property="startTimePicker" destination="dOp-0R-SD7" id="Y7v-CL-oZD"/>
                     </connections>
                 </viewController>
@@ -701,6 +831,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Traditional" width="120" height="212"/>
         <image name="sky1" width="372" height="696"/>
         <image name="space1" width="372" height="696"/>
     </resources>

@@ -15,11 +15,17 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	var viewName = "Setting Page"
     var settingForm: SettingForm?
     
-
+    //Could have: Loop the data
     @IBOutlet weak var startTimePicker: UIPickerView!
     @IBOutlet weak var endTimePicker: UIPickerView!
-    let hoursArray: Array<Int32> = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
-	override func viewDidLoad() {
+    let startHoursArray: Array<Int32> = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+    let endHoursArray: Array<Int32> = [24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0]
+    
+    @IBOutlet weak var startTimeNum: UILabel!
+    @IBOutlet weak var endTimeNum: UILabel!
+    
+    override func viewDidLoad() {
+
 		super.viewDidLoad()
 	}
 	
@@ -57,11 +63,9 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         if (sender.selectedSegmentIndex == 0){
             //Switch to Time based sorting
             settingForm?.setDefaultSort(SortingType(rawValue: 0)!)
-            print(settingForm?.getDefaultSort().rawValue)
         } else if (sender.selectedSegmentIndex == 1) {
             //Switch to Prority based sorting
             settingForm?.setDefaultSort(SortingType(rawValue: 1)!)
-            print(settingForm?.getDefaultSort().rawValue)
         }
     }
     
@@ -69,11 +73,9 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         if (sender.selectedSegmentIndex == 0){
             //Switch to Light Theme
             settingForm?.setTheme(Theme(rawValue: 0)!)
-            print(settingForm?.getTheme().rawValue)
         } else if (sender.selectedSegmentIndex == 1){
             //Switch to Dark Theme
             settingForm?.setTheme(Theme(rawValue: 1)!)
-            print(settingForm?.getTheme().rawValue)
         }
     }
     
@@ -132,7 +134,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         } else {
             settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b0111111)
         }
-        print(settingForm?.getAvailableDays())
     }
     
     //PickerView functions
@@ -141,21 +142,57 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(hoursArray[row])
+
+        if (pickerView == startTimePicker){
+            return String(startHoursArray[row])
+        } else {
+            return String(endHoursArray[row])
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return hoursArray.count
+        if (pickerView == startTimePicker){
+            return startHoursArray.count
+        } else {
+            return endHoursArray.count
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        var temp: Int32
+        
         if (pickerView == startTimePicker){
-            settingForm?.setStartTime(hoursArray[row])
-            print(settingForm?.getStartTime())
+            temp = (settingForm?.getStartTime())!
+            
+            settingForm?.setStartTime(startHoursArray[row])
+            
+            if (!(settingForm?.verificateTime())!){
+                createTimeWarning(title: "Invalid Start Time", message: "Start Time has to be eariler than End Time")
+                settingForm?.setStartTime(temp)
+            }
+            
         } else if (pickerView == endTimePicker){
-            settingForm?.setEndTime(hoursArray[row])
-            print(settingForm?.getEndTime())
+            temp = (settingForm?.getEndTime())!
+            
+            settingForm?.setEndTime(endHoursArray[row])
+            
+            if (!(settingForm?.verificateTime())!){
+                createTimeWarning(title: "Invalid End Time", message: "End Time has to be later than Start Time")
+                settingForm?.setEndTime(temp)
+            }
+            
         }
+        
+        startTimeNum.text = String(settingForm!.getStartTime())
+        endTimeNum.text = String(settingForm!.getEndTime())
+    }
+    
+    func createTimeWarning (title:String, message:String){
+        let timeWarning = UIAlertController(title:title, message:message, preferredStyle: UIAlertControllerStyle.alert)
+        timeWarning.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler:{ (action) in
+            timeWarning.dismiss(animated: true, completion: nil)
+        }))
+        self.present(timeWarning, animated: true, completion: nil)
 
     }
 }
