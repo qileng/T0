@@ -15,7 +15,18 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	var viewName = "Setting Page"
     var settingForm: SettingForm?
     
-
+    @IBOutlet weak var notificationSwitch: UISwitch!
+    @IBOutlet weak var viewSeg: UISegmentedControl!
+    @IBOutlet weak var sortingMethodSeg: UISegmentedControl!
+    @IBOutlet weak var themeSeg: UISegmentedControl!
+    @IBOutlet weak var sunSwitch: UISwitch!
+    @IBOutlet weak var monSwitch: UISwitch!
+    @IBOutlet weak var tueSwitch: UISwitch!
+    @IBOutlet weak var wedSwitch: UISwitch!
+    @IBOutlet weak var thuSwitch: UISwitch!
+    @IBOutlet weak var friSwitch: UISwitch!
+    @IBOutlet weak var satSwitch: UISwitch!
+    
     //Could have: Loop the data
     @IBOutlet weak var startTimePicker: UIPickerView!
     @IBOutlet weak var endTimePicker: UIPickerView!
@@ -207,6 +218,39 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         self.present(timeWarning, animated: true, completion: nil)
     }
     
-    
+    @IBAction func reset(_ sender: UIButton) {
+        //change the states of toggles displayed
+        notificationSwitch.setOn(true, animated: true)
+        viewSeg.selectedSegmentIndex = 0
+        sortingMethodSeg.selectedSegmentIndex = 0
+        themeSeg.selectedSegmentIndex = 0
+        sunSwitch.setOn(true, animated: true)
+        monSwitch.setOn(true, animated: true)
+        tueSwitch.setOn(true, animated: true)
+        wedSwitch.setOn(true, animated: true)
+        thuSwitch.setOn(true, animated: true)
+        friSwitch.setOn(true, animated: true)
+        satSwitch.setOn(true, animated:true)
+        startTimePicker.selectRow(0, inComponent: 0, animated: true)
+        endTimePicker.selectRow(0, inComponent: 0, animated: true)
+        
+        //reset settings in database
+        if (!(settingForm?.isNotificationOn())!){
+            settingForm?.toggleNotification()
+        }
+        settingForm?.setDefaultView(View(rawValue: 0)!)
+        settingForm?.setDefaultSort(SortingType(rawValue: 0)!)
+        settingForm?.setTheme(Theme(rawValue: 0)!)
+        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<0)
+        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<1)
+        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<2)
+        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<3)
+        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<4)
+        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<5)
+        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<6)
+        settingForm?.setStartTime(0)
+        settingForm?.setEndTime(0)
+    }
+
 }
 

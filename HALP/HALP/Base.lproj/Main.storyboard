@@ -686,6 +686,9 @@
                                 <rect key="frame" x="168" y="637" width="39" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="reset:" destination="PiT-cf-OIt" eventType="touchUpInside" id="fWV-pl-IrP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -695,8 +698,19 @@
                     <connections>
                         <outlet property="endTimeNum" destination="u1G-cP-edT" id="RE7-Jy-p47"/>
                         <outlet property="endTimePicker" destination="Q1g-MK-v9C" id="guY-Ef-Krk"/>
+                        <outlet property="friSwitch" destination="4mc-Aa-HWN" id="vSb-GC-Qwc"/>
+                        <outlet property="monSwitch" destination="ce9-Su-Sah" id="Y6B-xC-iy2"/>
+                        <outlet property="notificationSwitch" destination="OwR-pv-nRD" id="xbA-70-GUi"/>
+                        <outlet property="satSwitch" destination="FMv-MG-esO" id="xyN-L4-ymU"/>
+                        <outlet property="sortingMethodSeg" destination="Glg-vL-BA4" id="2eT-4f-FVl"/>
                         <outlet property="startTimeNum" destination="OIu-fO-AKb" id="8qu-aG-XSA"/>
-                        <outlet property="startTimePicker" destination="dOp-0R-SD7" id="Y7v-CL-oZD"/>
+                        <outlet property="startTimePicker" destination="dOp-0R-SD7" id="nbO-09-f2z"/>
+                        <outlet property="sunSwitch" destination="5mC-V1-V6B" id="Pv8-vp-Fgx"/>
+                        <outlet property="themeSeg" destination="mgj-nL-uxE" id="5E8-pv-iO2"/>
+                        <outlet property="thuSwitch" destination="ovy-kI-x64" id="AIi-fi-Pr2"/>
+                        <outlet property="tueSwitch" destination="MEQ-ia-4kd" id="n5T-vk-IRQ"/>
+                        <outlet property="viewSeg" destination="CxL-9a-2Km" id="K7d-IQ-wGA"/>
+                        <outlet property="wedSwitch" destination="D2f-q0-bJy" id="lgt-RI-slf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nPa-2J-cO6" userLabel="First Responder" sceneMemberID="firstResponder"/>
