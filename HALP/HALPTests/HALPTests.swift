@@ -378,10 +378,22 @@ func testScheduleKeyGetter() {
 		let calendar = Calendar.current
 		var taskFixed : [DateInterval] = []
 		let current = Int32(Date().timeIntervalSince1970)
-		var start1 = calendar.dateComponents(year: 2018, month:5, day:1, hour:8, minute:0, second:0)
-		var end1 = calendar.dateComponents(year: 2018, month:5, day:1, hour:9, minute:0, second:0)
-		var start2 = calendar.dateComponents(year: 2018, month:5, day:1, hour:10, minute:0, second:0)
-		var end2 = calendar.dateComponents(year: 2018, month:5, day:1, hour:11, minute:0, second:0)
+		var start1 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		start1.hour = 8
+		start1.minute = 0
+		start1.second = 0
+		var end1 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		end1.hour = 9
+		end1.minute = 0
+		end1.second = 0
+		var start2 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		start2.hour = 10
+		start2.minute = 0
+		start2.second = 0
+		var end2 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		end2.hour = 11
+		end2.minute = 0
+		end2.second = 0
 		var dateInt1 = DateInterval(start: calendar.date(from: start1)!, end:calendar.date(from:end1)!)
 		var dateInt2 = DateInterval(start: calendar.date(from: start2)!, end:calendar.date(from:end2)!)
 		taskFixed.append(dateInt1)
