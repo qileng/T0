@@ -104,24 +104,53 @@ func testScheduleKeyGetter() {
         testDic[key0!] = [String]();
         testDic[key2!] = [String]();
         testDic[key4!] = [String]();
-        print("key0 information \(Calendar.current.component(Calendar.Component.year, from: key2!))")
+        //print("key0 information \(Calendar.current.component(Calendar.Component.year, from: key2!))")
         testDic[key0!]!.append("day1Task0");
         testDic[key1!]!.append("day1Task1");
         testDic[key2!]!.append("day2Task0");
         testDic[key3!]!.append("day2Task1");
         testDic[key4!]!.append("day3Task0");
         
-        print(testDic[key0!]!.count);
+    
+        XCTAssertEqual(testDic[key0!]! == ["day1Task0","day1Task1"],true);
+        XCTAssertEqual(testDic[key2!]! == ["day2Task0","day2Task1"],true);
+        XCTAssertEqual(testDic[key4!]! == ["day3Task0"],true);
+    
+        
+    
         
         
         
     }
- 
+  
+    /*
+     helper method while testing schedule generator highest
+     priority task // day means start from 1970 1st Janaury to make testing life easier
+     @parameteer:startTime: array that stores the startTime of tasks
+     @parameter: endTime:array that stores the endTime of Tasks
+     @parameter: nth day of the tasks
+     for example startTime[0] endTime[0]. day[0] means the task happen on day[0] start at start[0] end at endTime[0]
+     @return Array that stores the task that satisfy the parameter requirements
+     */
+    func taskGeneratorFix(startTime:Array<Int32>,endTime:Array<Int32>,day: Array<Int>) ->Array<Task>{
+        
+        return nil;
+    }
+    /*
+     generator task below highest priority
+     @parameter : startTime: array that stores startTime of the task
+     @parameter : deadLine:  array that stores hardDeadline of the task
+     @parameter:  duration:  array that stores how long the task takes
+     Functionality see the example above
+     @return Array that stores the task that satisfy the parameter requirements
+    */
+    func taskGeneratorFloat(startTime:Array<Int32>, deadLine:Array<Int32>, duration:Array<Int32>)->Array<Task> {
+        return nil;
+    }
+    
     func testSchedule() {
         
-        var task:[Task] = [Task]();
-        let dt0:[String: Any] = ["title":"t0","scheduled_start":36000,"duration":7200,"deadline":100800,"task_Priority":1];
-        let dt1:[String: Any] = ["title":"t1","scheduled_start":28800,"duration":10800,"deadline":100800,"task_Priority":1];
+      
         
         
     }
@@ -373,18 +402,7 @@ func testScheduleKeyGetter() {
 		}
 	}
 
-	func testScheduleHelper() {
-		print("Testing Schedule Helper!")
-		var tasksfixed : [DateInterval] = []
-		let current = Int32(Date().timeIntervalSince1970)
-		var start1 = dateComponent(year: 2018, month:5, day:1, hour:8, minute:0, second:0)
-		var end1 = dateComponent(year: 2018, month:5, day:1, hour:9, minute:0, second:0)
-		var dateInt1 = DateInterval(start: calendar.date(from: start1)!, end:calendar.date(from:end1)!)
-		taskFixed.append(dateInt1)
-		var taskFloat = scheduleHelper(taskFixed: taskFixed)
-		XCTAssert(calendar.dateComponent(.hour, from:taskfloat[0]), 9)
 
-	}
     
     
 	/*

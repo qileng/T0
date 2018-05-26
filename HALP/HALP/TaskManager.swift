@@ -150,11 +150,11 @@ class TaskManager {
         component.year = Calendar.current.component(Calendar.Component.year, from: date);
         component.month = Calendar.current.component(Calendar.Component.month,from:date);
         component.day = Calendar.current.component(Calendar.Component.day,from:date);
-        print("check initializer \(Calendar.current.component(Calendar.Component.hour, from: date))");
+        //print("check initializer \(Calendar.current.component(Calendar.Component.hour, from: date))");
         component.hour = 8;
         component.minute = 0;
         component.second = 0;
-        print("component day is \(component.day!)");
+        //print("component day is \(component.day!)");
         return Calendar.current.date(from: component);
     }
 	// Schedule all tasks
