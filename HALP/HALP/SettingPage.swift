@@ -38,6 +38,16 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
 	}
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let setting = SettingDAO(settingForm!)
+        //TODO: update setting changes to database
+        if (!setting.saveSettingIntoLocalDB()){
+            setting.updateSettingInLocalDB(settingId: TaskManager.sharedTaskManager.getSetting().getSettingID(), notification: settingForm?.isNotificationOn(), defaultView: settingForm?.getDefaultView(), defaultSort: settingForm?.getDefaultSort(),
+                theme: settingForm?.getTheme(), availableDays: settingForm?.getAvailableDays(), startTime: settingForm?.getStartTime(), endTime: settingForm?.getEndTime())
+        }
+    }
+    
     @IBAction func Logout(_ sender: Any) {
         let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
         let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)

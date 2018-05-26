@@ -354,6 +354,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                 "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
             
             // SettingData table not yet implemented
+            sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, notification INTEGER, default_view INTEGER, default_sort INTEGER, theme INTEGER, avaliable_days INTEGER, start_time INTEGER, end_time INTEGER, last_update INTEGER)", nil, nil, nil)
             

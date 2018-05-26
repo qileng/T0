@@ -14,7 +14,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        showLoginVC()
+        //showLoginVC()
 		// Do any additional setup after loading the view, typically from a nib.
 		// Configure the page view controller and add it as a child view controller.
 		self.pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
