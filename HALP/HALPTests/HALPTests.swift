@@ -378,15 +378,15 @@ func testScheduleKeyGetter() {
 		let calendar = Calendar.current
 		var taskFixed : [DateInterval] = []
 		let current = Int32(Date().timeIntervalSince1970)
-		var start1 = calendar.dateComponent(year: 2018, month:5, day:1, hour:8, minute:0, second:0)
-		var end1 = calendar.dateComponent(year: 2018, month:5, day:1, hour:9, minute:0, second:0)
-		var start2 = calendar.dateComponent(year: 2018, month:5, day:1, hour:10, minute:0, second:0)
-		var end2 = calendar.dateComponent(year: 2018, month:5, day:1, hour:11, minute:0, second:0)
+		var start1 = calendar.dateComponents(year: 2018, month:5, day:1, hour:8, minute:0, second:0)
+		var end1 = calendar.dateComponents(year: 2018, month:5, day:1, hour:9, minute:0, second:0)
+		var start2 = calendar.dateComponents(year: 2018, month:5, day:1, hour:10, minute:0, second:0)
+		var end2 = calendar.dateComponents(year: 2018, month:5, day:1, hour:11, minute:0, second:0)
 		var dateInt1 = DateInterval(start: calendar.date(from: start1)!, end:calendar.date(from:end1)!)
 		var dateInt2 = DateInterval(start: calendar.date(from: start2)!, end:calendar.date(from:end2)!)
 		taskFixed.append(dateInt1)
 		taskFixed.append(dateInt2)
-		var taskFloat = TaskManager.sharedTaskManager.scheduleHelper(taskFixed: taskFixed)
+		var taskfloat = TaskManager.sharedTaskManager.scheduleHelper(taskFixed: taskFixed)
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].start), 9)
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].end), 10)
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].start), 11)
@@ -410,17 +410,23 @@ func testScheduleKeyGetter() {
     	 "softDeadline":1,
     	 "scheduled_start":1]
 
-    	 tasks[0].propertySetter(dict1)
-    	 XCTAssertEqual(tasks[0].getTitle(), "Title1")
-    	 XCTAssertEqual(tasks[0].getDescription(), "description1")
-    	 XCTAssertEqual(tasks[0].getPriority(), 1)
-    	 XCTAssertEqual(tasks[0].getAlarm(), 1)
-    	 XCTAssertEqual(tasks[0].getDeadline(), 1)
-    	 XCTAssertEqual(tasks[0].getSchedule(), 1)
-    	 XCTAssertEqual(tasks[0].getDuration(), 1)
-    	 XCTAssertEqual(tasks[0].getCategory(), Category.Study_Work)
-    	 XCTAssertEqual(tasks[0].getSoftDeadline(), 1)
-    	 XCTAssertEqual(tasks[0].getScheduleStart(), 1)
+    	 do {
+    	 	try tasks[0].propertySetter(dict1)
+
+	    	XCTAssertEqual(tasks[0].getTitle(), "Title1")
+   	 	 	XCTAssertEqual(tasks[0].getDescription(), "description1")
+    	 	XCTAssertEqual(tasks[0].getPriority(), 1)
+    	 	XCTAssertEqual(tasks[0].getAlarm(), 1)
+    	 	XCTAssertEqual(tasks[0].getDeadline(), 1)
+    	 	XCTAssertEqual(tasks[0].getSchedule(), 1)
+    	 	XCTAssertEqual(tasks[0].getDuration(), 1)
+    	 	XCTAssertEqual(tasks[0].getCategory(), Category.Study_Work)
+    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), 1)
+    	 	XCTAssertEqual(tasks[0].getScheduleStart(), 1)
+    	 }
+    	 catch {
+    	 	print("Error")
+    	 }
     }
     
 	/*
