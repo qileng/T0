@@ -145,6 +145,8 @@ func testScheduleKeyGetter() {
         	end = endTime[i] * 60 * 60 + day[i] * 24 * 60 * 60
         	duration = end - start
         	currentTask.setDuration(duration)
+        	currentTask.setDeadline(end)
+        	currentTask.setScheduleStart(start)
         	tasks.append(currentTask)
         	i += 1
         }
