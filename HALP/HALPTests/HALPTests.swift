@@ -57,7 +57,7 @@ class HALPTests: XCTestCase {
         print("t0 is \(t0.getScheduleStart())");
     }
     
-    func testScheduleHelper() {
+    /*func testScheduleHelper() {
         var taskFixed:[DateInterval] = [DateInterval]();
         
         var component:DateComponents = DateComponents();
@@ -91,7 +91,7 @@ class HALPTests: XCTestCase {
             
         }
         
-    }
+    } */
     
 func testScheduleKeyGetter() {
         let TaskM = TaskManager.sharedTaskManager;
@@ -404,6 +404,41 @@ func testScheduleKeyGetter() {
 
 
     
+    func testPropertySetter() {
+    	print("Testing Property Setter!")
+    	var tasks: [Task] = []
+    	var task1 = Task()
+    	tasks.append(task1)
+    	var dict1:[String: Any] = 
+    	["title": "Title1",
+    	 "taskDescription":"description1",
+    	 "taskPriority":1,
+    	 "alarm":1,
+    	 "deadline":1, 
+    	 "schedule":1, 
+    	 "duration":1,
+    	 "category":Category.Study_Work,
+    	 "softDeadline":1,
+    	 "scheduled_start":1]
+
+    	 do {
+    	 	try tasks[0].propertySetter(dict1)
+
+	    	XCTAssertEqual(tasks[0].getTitle(), "Title1")
+   	 	 	XCTAssertEqual(tasks[0].getDescription(), "description1")
+    	 	XCTAssertEqual(tasks[0].getPriority(), 1)
+    	 	XCTAssertEqual(tasks[0].getAlarm(), 1)
+    	 	XCTAssertEqual(tasks[0].getDeadline(), 1)
+    	 	XCTAssertEqual(tasks[0].getSchedule(), 1)
+    	 	XCTAssertEqual(tasks[0].getDuration(), 1)
+    	 	XCTAssertEqual(tasks[0].getCategory(), Category.Study_Work)
+    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), 1)
+    	 	XCTAssertEqual(tasks[0].getScheduleStart(), 1)
+    	 }
+    	 catch {
+    	 	print("Error")
+    	 }
+    }
     
 	/*
 	func testSettingDAO() {
