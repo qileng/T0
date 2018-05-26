@@ -45,6 +45,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         let setting = SettingDAO(settingForm!)
         //TODO: update setting changes to database
         if (!setting.saveSettingIntoLocalDB()){
+            
             setting.updateSettingInLocalDB(settingId: TaskManager.sharedTaskManager.getSetting().getSettingID(), notification: settingForm?.isNotificationOn(), defaultView: settingForm?.getDefaultView(), defaultSort: settingForm?.getDefaultSort(),
                 theme: settingForm?.getTheme(), availableDays: settingForm?.getAvailableDays(), startTime: settingForm?.getStartTime(), endTime: settingForm?.getEndTime())
         }
