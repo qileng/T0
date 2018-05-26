@@ -105,11 +105,11 @@ class TaskManager {
      var taskFloat = [DateInterval]()
      let calendar = Calendar.current
      var startComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: taskFixed[0].start)
-     startComponents.hour = self.setting!.getStartTime()
+     startComponents.hour = (Int32)self.setting!.getStartTime()
      startComponents.minute = 0
      startComponents.second = 0
      var endComponents = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: taskFixed[0].start)
-     endComponents.hour = self.setting!.getEndTime()
+     endComponents.hour = (Int32)self.setting!.getEndTime()
      endComponents.minute = 0
      endComponents.second = 0
      var i = 0
