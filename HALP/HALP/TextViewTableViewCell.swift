@@ -31,6 +31,10 @@ class TextViewTableViewCell: UITableViewCell, UITextViewDelegate {
             textView.text = ""
             textView.textColor = .black
             textView.font = UIFont.systemFont(ofSize: 15)
+        }else
+        {
+            textView.textColor = .black
+            textView.font = UIFont.systemFont(ofSize: 15)
         }
     }
     

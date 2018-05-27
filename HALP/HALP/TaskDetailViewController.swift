@@ -30,21 +30,23 @@ class TaskDetailViewController: UIViewController {
         timeDateFormatter.dateFormat = "HH:mm a"
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(EditButtonHandler))
-        //rgb(255,90,95)
-        self.navigationItem.title = "Event Details"        
-//        print("title: ", mainDetailCell?.taskTitle.text)
+        self.navigationItem.title = "Event Details"
     }
     override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = false
+        self.tableViewOutlet.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = true
     }
     
     @objc func EditButtonHandler()
     {
         print("Edit button touched")
+        let taskEditVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskEditPageViewController") as! TaskEditPageViewController
+        taskEditVC.isEditMode = true
+        taskEditVC.taskToEdit = self.task
+        let taskEditNC: UINavigationController = UINavigationController(rootViewController: taskEditVC)
+        self.present(taskEditNC, animated: true, completion: nil)
     }
 
 }
@@ -78,7 +80,7 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource
             }
             mainDetailCell?.taskImageView.image = image
             mainDetailCell?.taskImageView.contentMode = .scaleAspectFit
-            mainDetailCell?.taskImageView.tintColor = UIColor.HalpColors.pastelRed
+            mainDetailCell?.taskImageView.tintColor = taskColorTheme
         }
         
         //setting task title
