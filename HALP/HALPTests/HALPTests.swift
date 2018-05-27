@@ -188,15 +188,18 @@ func testScheduleKeyGetter() {
         }
         
         /*  test schedule */
-        var taskManager = TaskManager.sharedTaskManager;
+        let taskManager = TaskManager.sharedTaskManager;
         for item in floatTasks {
             taskManager.addTaskTest(task: item);
         }
-        for item in fixTasks {
-            taskManager.addTaskTest(task: item);
+        taskManager.sortTasks(by: .priority);
+        taskManager.schedule();
+        let case1Result = taskManager.getTasks();
+        
+        for item in case1Result {
+            print("start time of task is \(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(item.getScheduleStart()))))")
         }
         
-        taskManager.schedule();
         
     }
     
@@ -472,7 +475,7 @@ func testScheduleKeyGetter() {
 		var dateInt2 = DateInterval(start: calendar.date(from: start2)!, end:calendar.date(from:end2)!)
 		taskFixed.append(dateInt1)
 		taskFixed.append(dateInt2)
-		var taskfloat = TaskManager.sharedTaskManager.scheduleHelper(taskFixed: taskFixed)
+        var taskfloat = TaskManager.sharedTaskManager.scheduleHelper(taskFixed: taskFixed, startTime: nil, changeStartTime: false );
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].start), 9)
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].end), 10)
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].start), 11)
