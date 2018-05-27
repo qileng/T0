@@ -321,6 +321,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         tableViewOutlet.tableFooterView = UIView()
         dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm a"
         
+        guard let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) else {return}
         if isEditMode //when it is EditMode
         {
             
