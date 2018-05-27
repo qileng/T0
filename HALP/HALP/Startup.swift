@@ -406,6 +406,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, notification INTEGER, default_view INTEGER, default_sort INTEGER, theme INTEGER, avaliable_days INTEGER, start_time INTEGER, end_time INTEGER, last_update INTEGER)", nil, nil, nil)
             
+            sqlite3_exec(dbpointer, "INSERT INTO SettingData (setting_id, notification, default_view, default_sort, theme, avaliable_days, start_time, end_time , last_update) " + "VALUES(0, 1, 0, 0, 0, 127, 0, 0, 0)", nil, nil, nil)
+            
             sqlite3_close(dbpointer)
             print(dbPath)
         }
