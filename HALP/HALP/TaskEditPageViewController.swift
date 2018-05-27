@@ -35,7 +35,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     var dateFormatter = DateFormatter()
     var titleTextFieldCell:TextFieldTableViewCell?
     var descriptionTextViewCell: TextViewTableViewCell?
-    
+
     var isEditMode:Bool = false
     var taskToEdit:Task?
     var indexForTaskToEdit:Int?
@@ -287,7 +287,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         let dateCell = tableViewOutlet.cellForRow(at: parentIndexPath)
 
         fieldData[parentIndexPath.section][parentIndexPath.row].date = sender.date
-        fieldData[parentIndexPath.section][parentIndexPath.row].detail = dateFormatter.string(from: sender.date)
+        fieldData[parentIndexPath.section][parentIndexPath.row].detail = dateFormatter.string(from: sender.date)//sender.date
         dateCell?.detailTextLabel?.text = dateFormatter.string(from: sender.date)
     }
     func shakeTitleInput()
@@ -317,12 +317,9 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         
         self.cancelButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         self.addButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-
         //remove empty cells in tableview
         tableViewOutlet.tableFooterView = UIView()
         dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm a"
-        
-        guard let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) else{return}
         
         if isEditMode //when it is EditMode
         {
@@ -382,6 +379,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     override func viewWillAppear(_ animated: Bool) {
+
         self.tableViewOutlet.reloadData()
     }
     
