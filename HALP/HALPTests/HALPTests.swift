@@ -439,7 +439,12 @@ func testScheduleKeyGetter() {
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].start), 9)
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].end), 10)
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].start), 11)
-		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), 23)
+		if (Int)(TaskManager.getSetting().getEndTime()) == 0 {
+			XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), 23)
+		}
+		else {
+			XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), (Int)(TaskManager.getSetting().getEndTime())
+		}
 	}
     
     func testPropertySetter() {
@@ -447,31 +452,33 @@ func testScheduleKeyGetter() {
     	var tasks: [Task] = []
     	var task1 = Task()
     	tasks.append(task1)
+    	let one: Int32 = 1
+    	let doubleOne = Double(1)
     	var dict1:[String: Any] = 
     	["title": "Title1",
     	 "taskDescription":"description1",
-    	 "taskPriority":(Int32)1,
-    	 "alarm":(Int32)1,
-    	 "deadline":(Int32)1, 
-    	 "schedule":(Int32)1, 
-    	 "duration":(Int32)1,
+    	 "taskPriority":one,
+    	 "alarm":one,
+    	 "deadline":one, 
+    	 "schedule":one, 
+    	 "duration":one,
     	 "category":Category.Study_Work,
-    	 "softDeadline":(Int32)1,
-    	 "scheduled_start":(Int32)1]
+    	 "softDeadline":one,
+    	 "scheduled_start":one]
 
     	 do {
     	 	try tasks[0].propertySetter(dict1)
 
 	    	XCTAssertEqual(tasks[0].getTitle(), "Title1")
    	 	 	XCTAssertEqual(tasks[0].getDescription(), "description1")
-    	 	XCTAssertEqual(tasks[0].getPriority(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getAlarm(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getDeadline(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getSchedule(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getDuration(), (Int32)(1))
+    	 	XCTAssertEqual(tasks[0].getPriority(), one)
+    	 	XCTAssertEqual(tasks[0].getAlarm(), one)
+    	 	XCTAssertEqual(tasks[0].getDeadline(), one)
+    	 	XCTAssertEqual(tasks[0].getSchedule(), one)
+    	 	XCTAssertEqual(tasks[0].getDuration(), one)
     	 	XCTAssertEqual(tasks[0].getCategory(), Category.Study_Work)
-    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getScheduleStart(), (Int32)(1))
+    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), one)
+    	 	XCTAssertEqual(tasks[0].getScheduleStart(), one)
     	 }
     	 catch {
     	 	print("Error")
