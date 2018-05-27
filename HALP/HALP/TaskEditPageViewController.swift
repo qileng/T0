@@ -27,7 +27,8 @@ struct CellData {
 // Todo: code cleaning
 class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-//    @IBOutlet weak var textViewOutlet: UITextView!
+    @IBOutlet weak var cancelButtonOutlet: UIButton!
+    //    @IBOutlet weak var textViewOutlet: UITextView!
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var addButtonOutlet: UIButton!
     var datePickerIndexPath: IndexPath?
@@ -69,33 +70,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         default:
             category = Category.Study_Work
         }
-        
-        //This below needs to fix
-        //To Do: take datas from each field and store to task variable and append the task data to TaskManager.
-//        let taskTitle = fieldData[0][0].detail!
-//        print("TaskTitle: ", taskTitle)
-        
-//        let startDate = fieldData[1][0].detail as! Date
-//        let start = Int32(startDate.timeIntervalSince1970)
-        
-//        let deadlineDate = fieldData[1][1].detail! as! Date
-//        let deadline = Int32(deadlineDate.timeIntervalSince1970)
-
-        // Not sure how to store alarm
-        // Leave it out for now
-//        let alarm = fieldData[2][1].detail!
-        
-//        let taskDesc = fieldData[3][0].detail!
-        
-        /*
-        print(taskTitle)
-        print(start)
-        print(deadline)
-        print(category.rawValue)
-        print(alarm)
-        print(taskDesc)
-        print("\n")
-         */
         
         let form = TaskForm(Title: title, Description: description ?? "", Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
         
@@ -151,12 +125,18 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         case .dateDetail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
             cell.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
-            cell.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail
+            let detailStr = fieldData[indexPath.section][indexPath.row].detail
+            let attributedStr = NSMutableAttributedString(string: detailStr!, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+            cell.detailTextLabel?.attributedText = attributedStr
+            
             return cell
         case .detail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
             cell.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
-            cell.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail
+            let detailStr = fieldData[indexPath.section][indexPath.row].detail
+            let attributedStr = NSMutableAttributedString(string: detailStr!, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+            cell.detailTextLabel?.attributedText = attributedStr
+            
             return cell
         case .textView:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath) as! TextViewTableViewCell
@@ -196,7 +176,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         }
         return rowHeight
     }
-    
+
     /*
      When we tap a row, tableView:didSelectRowAtIndexPath: is called. There are three cases:
    1.  There is no date picker shown, we tap a row, then a date picker is shown just under it.
@@ -225,7 +205,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                     cell?.detailTextLabel?.textColor = .black
                     tableView.deleteRows(at: [datePickerIndexPath!], with: .fade)
                 }
-                selectedCell?.detailTextLabel?.textColor = .red
+                selectedCell?.detailTextLabel?.textColor = UIColor.HalpColors.pastelRed
                 datePickerIndexPath = calculateDatePickerIndexPath(indexPathSelected: indexPath)
                 tableView.insertRows(at: [datePickerIndexPath!], with: .fade)
             }
@@ -307,9 +287,16 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "New Task"
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
-        tableViewOutlet.backgroundColor = .clear
+        
+        self.cancelButtonOutlet.backgroundColor = UIColor.HalpColors.pastelRed
+        self.addButtonOutlet.backgroundColor = UIColor.HalpColors.pastelRed
+        
+        self.cancelButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        self.addButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+//        tableViewOutlet.backgroundColor = .clear
         //        tableViewOutlet.estimatedRowHeight = 45
         //        tableViewOutlet.rowHeight = UITableViewAutomaticDimension
         //        tableViewOutlet.sectionHeaderHeight = UITableViewAutomaticDimension
@@ -317,6 +304,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         tableViewOutlet.tableFooterView = UIView()
         
         dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm a"
+        
         
         guard let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) else{return}
         let section0 = [CellData(cellType: .textField, title: "Title", detail: "", date: nil)]
@@ -331,15 +319,15 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = false
         self.tableViewOutlet.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
-        self.navigationController?.navigationBar.barTintColor = .black
-        self.navigationController?.navigationBar.backgroundColor = .clear
-        self.navigationController?.navigationBar.tintColor = .white
+//        self.navigationController?.isNavigationBarHidden = false
+//        self.navigationController?.navigationBar.barTintColor = .black
+//        self.navigationController?.navigationBar.backgroundColor = .clear
+//        self.navigationController?.navigationBar.tintColor = .white
     }
 }
 

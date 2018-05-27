@@ -10,12 +10,14 @@ import SQLite3
 import UIKit
 
 
+let colorTheme = UIColor.HalpColors.paleCopper
 class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
-	
+    
     // UI components
     let logoImageView: UIImageView = {
-        let image = UIImage(named: "logo")
+        let image = UIImage(named: "logo")//?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: image)
+//        imageView.tintColor = colorTheme
         return imageView
     }()
     
@@ -48,7 +50,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         button.setTitle("Login", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor.brown
+        button.backgroundColor = colorTheme
         button.layer.cornerRadius = 5
         button.isEnabled = false
         button.alpha = 0.4
@@ -63,7 +65,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         button.setTitle("Guest Login", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor.brown
+        button.backgroundColor = colorTheme
         button.layer.cornerRadius = 5
         button.isEnabled = true
         button.alpha = 1
@@ -82,7 +84,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
 
         let attributedTitle = NSMutableAttributedString(string: "Hide Password", attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
         button.setAttributedTitle(attributedTitle, for: .normal)
-        button.tintColor = .brown
+        button.tintColor = colorTheme
         button.imageView?.contentMode = .scaleAspectFit
         
 //        button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, button.frame.width - button.frame.height ,0)
@@ -96,7 +98,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     let forgotPasswordButton:UIButton = {
         
         let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Forgot password?", attributes: [ NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : UIColor.brown ])
+        let attributedTitle = NSMutableAttributedString(string: "Forgot password?", attributes: [ NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : colorTheme ])
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.contentHorizontalAlignment = .right
         button.addTarget(self, action: #selector(forgotPasswordButtonHandler), for: .touchUpInside)
@@ -124,7 +126,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     let signUpButton:UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Don't have an account? ", attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
-        attributedTitle.append(NSAttributedString(string: "Sign up.", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.brown]))
+        attributedTitle.append(NSAttributedString(string: "Sign up.", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : colorTheme]))
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(signUpActionHandler), for: .touchUpInside)
         

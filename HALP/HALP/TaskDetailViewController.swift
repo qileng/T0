@@ -29,19 +29,17 @@ class TaskDetailViewController: UIViewController {
         generalDateFormatter.dateFormat = "EEEE, MMMM dd, yyyy"
         timeDateFormatter.dateFormat = "HH:mm a"
         
-        guard let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) else{return}
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(EditButtonHandler))
-        print(task?.getTitle())
-        
+        //rgb(255,90,95)
+        self.navigationItem.title = "Event Details"        
 //        print("title: ", mainDetailCell?.taskTitle.text)
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = false
+//        self.navigationController?.isNavigationBarHidden = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
     }
     
     @objc func EditButtonHandler()
@@ -61,9 +59,9 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        self.mainDetailCell = tableView.dequeueReusableCell(withIdentifier: "mainDetailCell", for: indexPath) as! MainDetailTableViewCell
-        mainDetailCell?.selectionStyle = .none
-        
+        self.mainDetailCell = tableView.dequeueReusableCell(withIdentifier: "mainDetailCell", for: indexPath) as? MainDetailTableViewCell
+
+            mainDetailCell?.selectionStyle = .none
         //setting task category image
         if let category = task?.getCategory()
         {
@@ -79,6 +77,8 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource
                 image = #imageLiteral(resourceName: "relationship")
             }
             mainDetailCell?.taskImageView.image = image
+            mainDetailCell?.taskImageView.contentMode = .scaleAspectFit
+            mainDetailCell?.taskImageView.tintColor = UIColor.HalpColors.pastelRed
         }
         
         //setting task title
@@ -104,16 +104,25 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource
         {
             //case1: event takes place on the same day
             
-            //Thursday, May
             let sameDayStr = generalDateFormatter.string(from: startDate)
-            mainDetailCell?.eventTimeLabel1.text = sameDayStr
-            mainDetailCell?.eventTimeLabel2.text = "from " + startDateTimeStr + " to " + deadlineDateTimeStr
+            let attributedStr1 = NSMutableAttributedString(string: sameDayStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+            let timeStr = "from " + startDateTimeStr + " to " + deadlineDateTimeStr
+            let attributedStr2 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+            
+            mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
+            mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
         }else{
             //case2: event takes places on the different day
             let startDayStr = generalDateFormatter.string(from: startDate)
             let deadlineDayStr = generalDateFormatter.string(from: deadlineDate)
-            mainDetailCell?.eventTimeLabel1.text = "from " + startDateTimeStr + ", " + startDayStr
-            mainDetailCell?.eventTimeLabel2.text = "to " + deadlineDateTimeStr + ", " + deadlineDayStr
+            
+            let timeStr1 = "from " + startDateTimeStr + ", " + startDayStr
+            let timeStr2 = "to " + deadlineDateTimeStr + ", " + deadlineDayStr
+            let attributedStr1 = NSMutableAttributedString(string: timeStr1, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+            let attributedStr2 = NSMutableAttributedString(string: timeStr2, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+            
+            mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
+            mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
             
 //            mainDetailCell?.eventTimeLabel1.textColor = .gray
 //            mainDetailCell?.eventTimeLabel2.textColor = .gray
@@ -122,5 +131,4 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource
 //        mainDetailCell?.halpSuggestionLabel.text = "Halp suggests that you just do it"
         return self.mainDetailCell!
     }
-    
 }

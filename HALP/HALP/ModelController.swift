@@ -32,7 +32,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         let listView = storyboard.instantiateViewController(withIdentifier: "ListTaskViewController") as! ListTaskViewController
 //        let listView = storyboard.instantiateViewController(withIdentifier: "ListTaskViewController") as! ListTaskViewController
         listNavVC = UINavigationController(rootViewController: listView)
-        listNavVC.isNavigationBarHidden = true
+//        listNavVC.isNavigationBarHidden = true
         
         
         
