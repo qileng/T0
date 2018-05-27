@@ -450,14 +450,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V6e-kE-PaH">
-                                <rect key="frame" x="310" y="637" width="52" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Log out"/>
-                                <connections>
-                                    <action selector="Logout:" destination="PiT-cf-OIt" eventType="touchUpInside" id="pRg-LF-CgK"/>
-                                </connections>
-                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sky1" translatesAutoresizingMaskIntoConstraints="NO" id="tE3-iz-Rry">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nT2-BD-yqg">
+                                <rect key="frame" x="-0.5" y="0.0" width="375" height="687"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Rmj-3W-gl6">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="687"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V6e-kE-PaH">
+                                            <rect key="frame" x="285" y="630" width="90" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" title="Log out"/>
+                                            <connections>
+                                                <action selector="Logout:" destination="PiT-cf-OIt" eventType="touchUpInside" id="pRg-LF-CgK"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af5-y8-PEp">
+                                            <rect key="frame" x="143" y="630" width="90" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" title="Reset"/>
+                                            <connections>
+                                                <action selector="reset:" destination="PiT-cf-OIt" eventType="touchUpInside" id="fWV-pl-IrP"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="extraLight"/>
+                            </visualEffectView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OwR-pv-nRD">
                                 <rect key="frame" x="311" y="61" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -682,20 +708,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af5-y8-PEp">
-                                <rect key="frame" x="144" y="630" width="86" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Reset"/>
-                                <connections>
-                                    <action selector="reset:" destination="PiT-cf-OIt" eventType="touchUpInside" id="fWV-pl-IrP"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="nT2-BD-yqg" firstAttribute="width" secondItem="bma-MH-N5e" secondAttribute="width" id="14z-V0-pct"/>
+                            <constraint firstItem="tE3-iz-Rry" firstAttribute="bottom" secondItem="NYq-1U-oGf" secondAttribute="bottom" id="C0j-3C-doF"/>
+                            <constraint firstItem="tE3-iz-Rry" firstAttribute="leading" secondItem="NYq-1U-oGf" secondAttribute="leading" id="MAD-hA-5bg"/>
+                            <constraint firstItem="nT2-BD-yqg" firstAttribute="top" secondItem="bma-MH-N5e" secondAttribute="top" id="Wd4-XE-Kvf"/>
+                            <constraint firstItem="tE3-iz-Rry" firstAttribute="top" secondItem="bma-MH-N5e" secondAttribute="top" id="bsk-Vb-UvQ"/>
+                            <constraint firstItem="tE3-iz-Rry" firstAttribute="trailing" secondItem="NYq-1U-oGf" secondAttribute="trailing" id="d3m-Zb-BQS"/>
+                            <constraint firstItem="nT2-BD-yqg" firstAttribute="centerX" secondItem="NYq-1U-oGf" secondAttribute="centerX" id="m8Q-DU-shV"/>
+                            <constraint firstItem="nT2-BD-yqg" firstAttribute="centerY" secondItem="NYq-1U-oGf" secondAttribute="centerY" id="yap-cs-8hG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="NYq-1U-oGf"/>
                     </view>
                     <connections>

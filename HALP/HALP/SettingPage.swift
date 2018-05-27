@@ -256,38 +256,52 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     @IBAction func reset(_ sender: UIButton) {
-        //change the states of toggles displayed
-        notificationSwitch.setOn(true, animated: true)
-        viewSeg.selectedSegmentIndex = 0
-        sortingMethodSeg.selectedSegmentIndex = 0
-        themeSeg.selectedSegmentIndex = 0
-        sunSwitch.setOn(true, animated: true)
-        monSwitch.setOn(true, animated: true)
-        tueSwitch.setOn(true, animated: true)
-        wedSwitch.setOn(true, animated: true)
-        thuSwitch.setOn(true, animated: true)
-        friSwitch.setOn(true, animated: true)
-        satSwitch.setOn(true, animated:true)
-        startTimePicker.selectRow(0, inComponent: 0, animated: true)
-        endTimePicker.selectRow(0, inComponent: 0, animated: true)
-        
-        //reset settings in database
-        if (!(settingForm?.isNotificationOn())!){
-            settingForm?.toggleNotification()
-        }
-        settingForm?.setDefaultView(View(rawValue: 0)!)
-        settingForm?.setDefaultSort(SortingType(rawValue: 0)!)
-        settingForm?.setTheme(Theme(rawValue: 0)!)
-        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<0)
-        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<1)
-        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<2)
-        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<3)
-        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<4)
-        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<5)
-        settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<6)
-        settingForm?.setStartTime(0)
-        settingForm?.setEndTime(0)
+        createResetWarning(title: "Are you sure?", message: "Do you want to reset?")
     }
 
+    func createResetWarning (title:String, message: String){
+        let resetWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
+        
+        resetWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+            resetWarning.dismiss(animated: true, completion: nil)
+            
+            //change the states of toggles displayed
+            self.notificationSwitch.setOn(true, animated: true)
+            self.viewSeg.selectedSegmentIndex = 0
+            self.sortingMethodSeg.selectedSegmentIndex = 0
+            self.themeSeg.selectedSegmentIndex = 0
+            self.sunSwitch.setOn(true, animated: true)
+            self.monSwitch.setOn(true, animated: true)
+            self.tueSwitch.setOn(true, animated: true)
+            self.wedSwitch.setOn(true, animated: true)
+            self.thuSwitch.setOn(true, animated: true)
+            self.friSwitch.setOn(true, animated: true)
+            self.satSwitch.setOn(true, animated:true)
+            self.startTimePicker.selectRow(0, inComponent: 0, animated: true)
+            self.endTimePicker.selectRow(0, inComponent: 0, animated: true)
+            
+            //reset settings in database
+            if (!(self.settingForm?.isNotificationOn())!){
+                self.settingForm?.toggleNotification()
+            }
+            self.settingForm?.setDefaultView(View(rawValue: 0)!)
+            self.settingForm?.setDefaultSort(SortingType(rawValue: 0)!)
+            self.settingForm?.setTheme(Theme(rawValue: 0)!)
+            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<0)
+            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<1)
+            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<2)
+            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<3)
+            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<4)
+            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<5)
+            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<6)
+            self.settingForm?.setStartTime(0)
+            self.settingForm?.setEndTime(0)
+        }))
+        
+        resetWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
+            resetWarning.dismiss(animated: true, completion: nil)
+        }))
+        self.present(resetWarning, animated:true, completion: nil)
+    }
 }
 
