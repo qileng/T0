@@ -49,6 +49,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 		super.viewWillAppear(animated)
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
+        
 	}
     
     override func viewWillDisappear(_ animated: Bool) {
