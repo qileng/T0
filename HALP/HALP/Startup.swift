@@ -182,7 +182,30 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                     // TODO: retrieve settting using userID
                     // Set up task manager
                     
-					TaskManager.sharedTaskManager.setUp(new: user, setting: Setting())
+                    let settingDAO = SettingDAO()
+                    do {
+                            
+                    let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: user.getUserID())
+                        
+                        let settingId = settingArray[0] as! Int64
+                        let notification = settingArray[1] as! Int32 == 1 ? true : false
+                        let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                        let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
+                        let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
+                        let avaliableDays = settingArray[5] as! Int32
+                        let start = settingArray[6] as! Int32
+                        let end = settingArray[7] as! Int32
+                        
+                        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                            defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                            endTime: end, user: settingId)
+                        
+                        TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+                        
+                    }catch {
+                        print("Error")
+                    }
+                    
         
                     // Bring up rootViewController
                     self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
@@ -227,7 +250,31 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             guest = try guestForm.onlineValidateExistingUser()
             // TODO: retrieve guest setting
             // Set up task manager
-			TaskManager.sharedTaskManager.setUp(new: guest, setting: Setting(), caller: self as UIViewController)
+			
+            let settingDAO = SettingDAO()
+            do {
+                
+                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: guest.getUserID())
+                
+                let settingId = settingArray[0] as! Int64
+                let notification = settingArray[1] as! Int32 == 1 ? true : false
+                let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
+                let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
+                let avaliableDays = settingArray[5] as! Int32
+                let start = settingArray[6] as! Int32
+                let end = settingArray[7] as! Int32
+                
+                
+                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                          defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                          endTime: end, user: settingId)
+                
+                TaskManager.sharedTaskManager.setUp(new: guest, setting: userSetting, caller: self as UIViewController)
+                
+            }catch {
+                print("Error")
+            }
 			
 //            self.dismiss(animated: true, completion: nil)
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
@@ -358,12 +405,14 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                 "VALUES (0, 'GUEST', 'GUEST', 'GUEST@GUEST.com', 0)", nil , nil, nil)
             
             // TaskData table
+            // sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
                 "(task_id INTEGER PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
                 "category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
                 "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
             
             // SettingData table not yet implemented
+            // sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, notification INTEGER, default_view INTEGER, default_sort INTEGER, theme INTEGER, avaliable_days INTEGER, start_time INTEGER, end_time INTEGER, last_update INTEGER)", nil, nil, nil)
             
