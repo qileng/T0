@@ -245,11 +245,6 @@
 				ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */,
 			);
 			name = ListView;
-		D2F03C1C20B771FC00B8906F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		ED432362209FAD3E00F11140 /* View Classes */ = {
