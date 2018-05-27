@@ -162,7 +162,11 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.descriptionTextViewCell = cell
             if isEditMode
             {
-                let descriptionStr = taskToEdit?.getDescription()
+                var descriptionStr = taskToEdit?.getDescription()
+                if descriptionStr == ""
+                {
+                    descriptionStr = "Description"
+                }
                 descriptionTextViewCell?.textViewOutlet.text = descriptionStr
             }
             return cell
