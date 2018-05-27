@@ -50,6 +50,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
         //initialize databse settings
         
+        /* testing purpose
         print(settingForm.getSettingID())
         print(settingForm.getDefaultView())
         print(settingForm.getDefaultSort())
@@ -57,7 +58,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         print(settingForm.isNotificationOn())
         print(settingForm.getTheme())
         print(settingForm.getStartTime())
-        print(settingForm.getEndTime())
+        print(settingForm.getEndTime())*/
         
         if (!(settingForm.isNotificationOn())){
             notificationSwitch.setOn(false, animated: true)
@@ -122,9 +123,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     @IBAction func Logout(_ sender: Any) {
-        let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
-        let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
-        self.present(loginSignUpNC, animated: true, completion: nil)
+        createLogoutWarning(title: "Are you sure?", message: "Do you want to logout?")
     }
     
     @IBAction func notificationSwitch(_ sender: UISwitch) {
@@ -303,27 +302,43 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             self.endTimePicker.selectRow(0, inComponent: 0, animated: true)
             
             //reset settings in database
-            if (!(self.settingForm?.isNotificationOn())!){
-                self.settingForm?.toggleNotification()
+            if (!(self.settingForm.isNotificationOn())){
+                self.settingForm.toggleNotification()
             }
-            self.settingForm?.setDefaultView(View(rawValue: 0)!)
-            self.settingForm?.setDefaultSort(SortingType(rawValue: 0)!)
-            self.settingForm?.setTheme(Theme(rawValue: 0)!)
-            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<0)
-            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<1)
-            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<2)
-            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<3)
-            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<4)
-            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<5)
-            self.settingForm?.setAvailableDays((self.settingForm?.getAvailableDays())! | 1<<6)
-            self.settingForm?.setStartTime(0)
-            self.settingForm?.setEndTime(0)
+            self.settingForm.setDefaultView(View(rawValue: 0)!)
+            self.settingForm.setDefaultSort(SortingType(rawValue: 0)!)
+            self.settingForm.setTheme(Theme(rawValue: 0)!)
+            self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<0)
+            self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<1)
+            self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<2)
+            self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<3)
+            self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<4)
+            self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<5)
+            self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<6)
+            self.settingForm.setStartTime(0)
+            self.settingForm.setEndTime(0)
         }))
         
         resetWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
             resetWarning.dismiss(animated: true, completion: nil)
         }))
         self.present(resetWarning, animated:true, completion: nil)
+    }
+    
+    func createLogoutWarning (title:String, message:String){
+        let logoutWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
+        
+        logoutWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+            logoutWarning.dismiss(animated: true, completion: nil)
+            let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+            self.present(loginSignUpNC, animated: true, completion: nil)
+        }))
+        
+        logoutWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
+            logoutWarning.dismiss(animated: true, completion: nil)
+        }))
+        self.present(logoutWarning, animated:true, completion: nil)
     }
 }
 
