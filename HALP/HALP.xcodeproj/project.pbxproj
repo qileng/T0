@@ -252,12 +252,12 @@
 			children = (
 				ED6C2A50209302650063B4AC /* ModelController.swift */,
 				EDDEE2482097B3B50078827A /* Clockview.swift */,
+				83927E6820B0A7A500E3D927 /* ClockFaceView.swift */,
 				EDDEE24E2097C7830078827A /* UI_template.swift */,
 				8379928520A93787005784AE /* SignUp.swift */,
 				EDDEE2502097CA730078827A /* Startup.swift */,
 				EDDEE24A2097B77E0078827A /* ListView.swift */,
 				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
-				83927E6820B0A7A500E3D927 /* ClockFaceView.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
 				83BBB17E20B34A060013776D /* TaskEditPage */,
 				ED5B5AC220AA754400E3C5F8 /* UITask.swift */,
@@ -300,6 +300,7 @@
 				ED6C2A62209302660063B4AC /* HALPTests */,
 				ED6C2A6D209302660063B4AC /* HALPUITests */,
 				ED6C2A48209302640063B4AC /* Products */,
+				D2F03C1C20B771FC00B8906F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

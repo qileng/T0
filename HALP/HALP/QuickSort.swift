@@ -8,9 +8,9 @@
 
 import Foundation
 
-enum SortingType {
-	case priority
-	case time
+enum SortingType: Int {
+	case time = 0
+	case priority = 1
 }
 
 // Quick sort extension for [Task]

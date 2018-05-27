@@ -181,6 +181,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                     user = try form.onlineValidateExistingUser()
                     // TODO: retrieve settting using userID
                     // Set up task manager
+                    
 					TaskManager.sharedTaskManager.setUp(new: user, setting: Setting())
         
                     // Bring up rootViewController
@@ -364,7 +365,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             
             // SettingData table not yet implemented
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
-                "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+                "(setting_id INTEGER PRIMARY KEY, notification INTEGER, default_view INTEGER, default_sort INTEGER, theme INTEGER, avaliable_days INTEGER, start_time INTEGER, end_time INTEGER, last_update INTEGER)", nil, nil, nil)
+            
             sqlite3_close(dbpointer)
             print(dbPath)
         }
