@@ -34,6 +34,8 @@
 		834A4C6C20BB3196000F1C80 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */; };
 		834A4C6D20BB31A6000F1C80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A55209302660063B4AC /* Assets.xcassets */; };
 		834A4C6E20BB31A7000F1C80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A55209302660063B4AC /* Assets.xcassets */; };
+		834A4C7020BB329A000F1C80 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
+		834A4C7120BB329A000F1C80 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
 		8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
 		8379928620A93787005784AE /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
 		83927E6720B0A4D100E3D927 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */; };
@@ -548,6 +550,7 @@
 				834A4C6320BB317D000F1C80 /* MainDetailTableViewCell.swift in Sources */,
 				834A4C6520BB318C000F1C80 /* TextViewTableViewCell.swift in Sources */,
 				834A4C6120BB317A000F1C80 /* TaskDetailViewController.swift in Sources */,
+				834A4C7020BB329A000F1C80 /* UITaskDetail.swift in Sources */,
 				834A4C6720BB318F000F1C80 /* TextFieldTableViewCell.swift in Sources */,
 				ED5B5AAC20AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */,
@@ -590,6 +593,7 @@
 				834A4C6420BB317E000F1C80 /* MainDetailTableViewCell.swift in Sources */,
 				834A4C6620BB318C000F1C80 /* TextViewTableViewCell.swift in Sources */,
 				834A4C6220BB317A000F1C80 /* TaskDetailViewController.swift in Sources */,
+				834A4C7120BB329A000F1C80 /* UITaskDetail.swift in Sources */,
 				834A4C6820BB318F000F1C80 /* TextFieldTableViewCell.swift in Sources */,
 				ED5B5AB320AA703800E3C5F8 /* Startup.swift in Sources */,
 				ED5B5A9020AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
