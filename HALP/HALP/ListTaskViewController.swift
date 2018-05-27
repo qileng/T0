@@ -8,7 +8,7 @@
 
 import UIKit
 
-let taskColorTheme = UIColor.HalpColors.brilliantAzure
+let taskColorTheme = UIColor.HalpColors.fuzzyWuzzy
 class ListTaskViewController: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!

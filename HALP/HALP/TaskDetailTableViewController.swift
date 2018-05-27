@@ -14,7 +14,6 @@ protocol TaskDetailTableViewControllerDelegate{
 
 class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-
     @IBOutlet weak var tableViewOutlet: UITableView!
     var cellData:[String]?
     var delegate:TaskDetailTableViewControllerDelegate?
