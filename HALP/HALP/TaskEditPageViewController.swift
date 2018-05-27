@@ -36,6 +36,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     var dateFormatter = DateFormatter()
     var titleTextFieldCell:TextFieldTableViewCell?
     var descriptionTextViewCell: TextViewTableViewCell?
+    
     // Logic
     @IBAction func AddTask(_ sender: UIButton) {
 
