@@ -37,8 +37,9 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var endTimeNum: UILabel!
     
     override func viewDidLoad() {
-
 		super.viewDidLoad()
+        
+        
 	}
 	
 	override func didReceiveMemoryWarning() {
