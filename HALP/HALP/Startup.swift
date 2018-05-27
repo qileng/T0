@@ -255,6 +255,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                 let start = settingArray[6] as! Int32
                 let end = settingArray[7] as! Int32
                 
+                
                 let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
                                           defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
                                           endTime: end, user: settingId)

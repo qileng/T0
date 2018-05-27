@@ -38,6 +38,7 @@ class TaskManager {
 	func setUp(new user: UserData, setting: Setting, caller vc: UIViewController? = nil) {
 		self.userInfo = user
 		self.setting = setting
+        print("settingId is: ",setting.getSettingID())
 		self.viewController = vc
 		switch self.setting!.getTheme() {
         case .dark:
@@ -62,9 +63,14 @@ class TaskManager {
 	}
 	
 	// Update user setting
-	func updateSetting(new setting: Setting) {
+	func updateSetting(setting: Setting) {
 		self.setting = setting
-		// TODO: After user setting is changed, use SettingDAO to store data.
+        let newSetting = SettingDAO(self.setting!)
+        newSetting.updateSettingInLocalDB(settingId: newSetting.getSettingID(), notification: newSetting.isNotificationOn(),
+                                       defaultView: newSetting.getDefaultView(), defaultSort: newSetting.getDefaultSort(),
+                                       theme: newSetting.getTheme(), availableDays: newSetting.getAvailableDays(),
+                                       startTime: newSetting.getStartTime(), endTime: newSetting.getEndTime())
+        
 	}
 	
 	// Add Task
