@@ -172,7 +172,30 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                     // TODO: retrieve settting using userID
                     // Set up task manager
                     
-					TaskManager.sharedTaskManager.setUp(new: user, setting: Setting())
+                    let settingDAO = SettingDAO()
+                    do {
+                            
+                    let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: user.getUserID())
+                        
+                        let settingId = settingArray[0] as! Int64
+                        let notification = settingArray[1] as! Int32 == 1 ? true : false
+                        let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                        let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
+                        let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
+                        let avaliableDays = settingArray[5] as! Int32
+                        let start = settingArray[6] as! Int32
+                        let end = settingArray[7] as! Int32
+                        
+                        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                            defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                            endTime: end, user: settingId)
+                        
+                        TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+                        
+                    }catch {
+                        print("Error")
+                    }
+                    
         
                     // Bring up rootViewController
                     self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
@@ -217,7 +240,30 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             guest = try guestForm.onlineValidateExistingUser()
             // TODO: retrieve guest setting
             // Set up task manager
-			TaskManager.sharedTaskManager.setUp(new: guest, setting: Setting(), caller: self as UIViewController)
+			
+            let settingDAO = SettingDAO()
+            do {
+                
+                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: guest.getUserID())
+                
+                let settingId = settingArray[0] as! Int64
+                let notification = settingArray[1] as! Int32 == 1 ? true : false
+                let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
+                let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
+                let avaliableDays = settingArray[5] as! Int32
+                let start = settingArray[6] as! Int32
+                let end = settingArray[7] as! Int32
+                
+                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                          defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                          endTime: end, user: settingId)
+                
+                TaskManager.sharedTaskManager.setUp(new: guest, setting: userSetting, caller: self as UIViewController)
+                
+            }catch {
+                print("Error")
+            }
 			
             self.dismiss(animated: true, completion: nil)
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
