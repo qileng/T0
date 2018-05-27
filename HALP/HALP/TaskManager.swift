@@ -138,10 +138,10 @@ class TaskManager {
 			if loadedTask.getScheduleStart() < current && loadedTask.getScheduleStart() != 0 && self.viewController != nil {
 				pastTasks.append(loadedTask)
 				// TaskManager shall proceed to ask the user if they has completed the task.
-				let completionAlert = UIAlertController(title: loadedTask.getTitle(), message: "Have you completed this task?", preferredStyle: .alert)
-				completionAlert.addAction(UIAlertAction(title: "Yes!", style: .cancel, handler: promptNextAlert))
-				completionAlert.addAction(UIAlertAction(title: "No!", style: .destructive, handler: promptReschedule))
-				alerts.append(completionAlert)
+//                let completionAlert = UIAlertController(title: loadedTask.getTitle(), message: "Have you completed this task?", preferredStyle: .alert)
+//                completionAlert.addAction(UIAlertAction(title: "Yes!", style: .cancel, handler: promptNextAlert))
+//                completionAlert.addAction(UIAlertAction(title: "No!", style: .destructive, handler: promptReschedule))
+//                alerts.append(completionAlert)
 				continue
 			}
 			tasks.append(loadedTask)
