@@ -331,13 +331,14 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         let dbPath = documentsPath + "/appData.sqlite"
 		print(dbPath)
         var dbpointer: OpaquePointer? = nil
-		/*
+
+        //Comment this out later
 		sqlite3_open(dbPath, &dbpointer)
 		sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
 		sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
 		sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
 		sqlite3_close(dbpointer)
-		*/
+
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             // UserData table

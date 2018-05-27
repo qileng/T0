@@ -13,7 +13,29 @@ import CoreGraphics
 
 class ClockViewController: UIViewController, CAAnimationDelegate {
 
+    var clockTasks = Array(repeating: [Task](), count: 12)
+    
     @IBOutlet var timeButtons: [UIButton]!
+    
+    @IBAction func onTap(_ sender: UIButton) {
+        var offset = Int(Date().timeIntervalSince1970)
+        offset = offset - (offset%3600)
+        let cal = Calendar.current
+        let startOfDay = cal.startOfDay(for: Date())
+        offset = offset - Int(startOfDay.timeIntervalSince1970)
+        offset = (offset / 3600) % 12
+        
+        let idx = (12+(sender.tag - offset))%12
+        print("index is ",idx, " offset is ", offset)
+        for tasks in clockTasks[idx] {
+            print("Task: " +
+                 tasks.getTitle())
+        }
+    }
+    
+    
+    
+    
     
 
     //The following commented code is for reference
@@ -95,12 +117,56 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		super.didReceiveMemoryWarning()
 	}
 	
+    //ADD HERE !!
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-//        count += 1
-//        self.ViewLabel!.text = viewName + " appeared \(count) time" + ((count == 1) ? "" : "s")
+
         self.removeContainerView()
         self.addHandsAndCenterPiece()
+        
+        for i in 0...11 {
+            clockTasks[i].removeAll()
+        }
+        
+        //Tasks sort every time page is viewed
+        TaskManager.sharedTaskManager.sortTasks(by: .time)
+        let currTasks = TaskManager.sharedTaskManager.getTasks()
+        
+        //Current system time
+        var sysTime = Int32(Date().timeIntervalSince1970)
+        sysTime = sysTime - (sysTime%3600)
+        
+        for curr in currTasks {
+            let startTime = curr.getScheduleStart()
+            let endTime = curr.getDeadline()
+            //If beyond 12 hours, return
+            if startTime >= sysTime+(12*3600) {
+                return
+            }
+            
+            //at this point, task is within 12 hours
+            //Start index
+            let startIdx = (startTime-sysTime)/3600
+            //clockTasks[Int(startIdx)].append(curr)
+            
+            //End index
+            let endIdx = (endTime-1-sysTime)/3600
+            for i in startIdx...endIdx {
+                if i > 11 {
+                    return
+                }
+                clockTasks[Int(i)].append(curr)
+            }
+            
+        }
+     
+        for i in 0...11 {
+            for task in clockTasks[i] {
+                print(task.getTitle())
+            }
+            print("end")
+        }
+
 	}
 	
 	override func viewDidAppear(_ animated: Bool) {
