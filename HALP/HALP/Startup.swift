@@ -210,8 +210,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     // Guest login
     @objc func guestLoginActionHandler() {
         //Dummy password and email for guest account
-        let guestForm = UserForm(password: "GUEST", email: "GUEST@GUEST.com")
-        
+        let guestForm = UserForm(password: "GUEST", email: "halptest0@gmail.com")
         let guest: UserData
         do {
             guest = try guestForm.onlineValidateExistingUser()
@@ -352,28 +351,28 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         let dbPath = documentsPath + "/HALP.sqlite"
         var dbpointer: OpaquePointer? = nil
         
-        if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
-            // UserData table
-            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS MS_User" +
-                "(id TEXT PRIMARY KEY, username TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
-            // Initialize guest account
-            sqlite3_exec(dbpointer, "INSERT INTO MS_User (username, password, email) " +
-                "VALUES ('GUEST', 'GUEST', 'GUEST@gmail.com')", nil , nil, nil)
-            
-            // TaskData table
-            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS MS_Task" +
-                "(id TEXT PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
-                "category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
-                "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id TEXT, last_update INTEGER)", nil, nil, nil)
-            
-            // SettingData table not yet implemented
-            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
-                "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
-            sqlite3_close(dbpointer)
-        }
-        else {
-            print("fail to open database")
-        }
+//        if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
+//            // UserData table
+//            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS ZMS_User" +
+//                "(zid TEXT PRIMARY KEY, zusername TEXT, zpassword TEXT, zemail TEXT, zlast_update INTEGER)", nil, nil, nil)
+//
+////            sqlite3_exec(dbpointer, "INSERT INTO MS_User (username, password, email) " +
+////                "VALUES ('GUEST', 'GUEST', 'GUEST@gmail.com')", nil , nil, nil)
+////
+//            // TaskData table
+//            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS ZMS_Task" +
+//                "(id TEXT PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
+//                "category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
+//                "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id TEXT, last_update INTEGER)", nil, nil, nil)
+//
+//            // SettingData table not yet implemented
+//            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
+//                "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+//            sqlite3_close(dbpointer)
+//        }
+//        else {
+//            print("fail to open database")
+//        }
     }
     
     // This function I haven't figure out any significant usage yet.         --Qihao
