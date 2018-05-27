@@ -10,11 +10,33 @@
 
 import UIKit
 import CoreGraphics
+extension ClockViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return clockTasks[currentIndex].count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "clockTaskCell", for: indexPath) as! ClockTaskCell
+        
+        let task = clockTasks[currentIndex][indexPath.row]
+        cell.displayContent(task: task)
+        
+        //let cell = ClockTaskCell(task: task, frame: displayLabel.frame)
+            return cell
+        
+    }
+    
+    
+}
 
 class ClockViewController: UIViewController, CAAnimationDelegate {
 
     var clockTasks = Array(repeating: [Task](), count: 12)
+    var currentIndex = 0
     
+    var taskCollection: UICollectionView!
+    
+    @IBOutlet var displayLabel: UILabel!
     @IBOutlet var timeButtons: [UIButton]!
     
     @IBAction func onTap(_ sender: UIButton) {
@@ -26,18 +48,32 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         offset = (offset / 3600) % 12
         
         let idx = (12+(sender.tag - offset))%12
-        print("index is ",idx, " offset is ", offset)
-        for tasks in clockTasks[idx] {
-            print("Task: " +
-                 tasks.getTitle())
+        currentIndex = idx
+        
+        //Collection view declaration
+        if taskCollection != nil {
+            taskCollection.removeFromSuperview()
+        }
+        taskCollection = UICollectionView(frame: displayLabel.frame, collectionViewLayout: UICollectionViewFlowLayout())
+        taskCollection.register(ClockTaskCell.self, forCellWithReuseIdentifier: "clockTaskCell")
+        taskCollection.dataSource = self
+        taskCollection.delegate = self
+        taskCollection.backgroundColor = UIColor(hex: 0xffffff)
+        self.view.addSubview(taskCollection)
+        
+        //print("index is ",idx, " offset is ", offset)
+        if (clockTasks[idx].count == 0) {
+           // message.text = "No Tasks"
+        } else {
+            for tasks in clockTasks[idx] {
+                //print("Task: " + tasks.getTitle())
+                //message.text = "Task: " + tasks.getTitle()
+            }
         }
     }
     
     
     
-    
-    
-
     //The following commented code is for reference
     /*
     @IBOutlet var b1: UIButton! //Button for 11-12 region of clock
@@ -108,7 +144,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 	}
     
     override func viewDidLayoutSubviews() {
-         self.removeContainerView()
+        self.removeContainerView()
         self.addHandsAndCenterPiece()
     }
     
@@ -141,7 +177,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
             let endTime = curr.getDeadline()
             //If beyond 12 hours, return
             if startTime >= sysTime+(12*3600) {
-                return
+                break
             }
             
             //at this point, task is within 12 hours
@@ -153,19 +189,19 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
             let endIdx = (endTime-1-sysTime)/3600
             for i in startIdx...endIdx {
                 if i > 11 {
-                    return
+                    break
                 }
                 clockTasks[Int(i)].append(curr)
             }
             
         }
      
-        for i in 0...11 {
+        /*for i in 0...11 {
             for task in clockTasks[i] {
                 print(task.getTitle())
             }
             print("end")
-        }
+        }*/
 
 	}
 	
@@ -175,7 +211,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 	}
     
     func addHandsAndCenterPiece() {
-        containerView = UIView(frame: CGRect(x: myClock.frame.midX, y: myClock.frame.midY, width: myClock.frame.width, height: myClock.frame.width))
+        containerView = UIView(frame: CGRect(x: myClock.frame.midX, y: myClock.frame.midY, width: myClock.frame.width/4, height: myClock.frame.width/4))
         
         containerView.tag = 10
         self.view.addSubview(containerView)

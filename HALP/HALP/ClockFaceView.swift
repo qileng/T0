@@ -40,28 +40,28 @@ class ClockFaceView: UIView {
         let startAngle: CGFloat = 0
         let endAngle: CGFloat = π/6
 
-        //Test code begins here
+        //Draws sectors behind clock
         for index in 0...11 {
-        let path = UIBezierPath()
-        path.move(to: center)
-        path.addArc(withCenter: center, radius: radius, startAngle: (startAngle+(CGFloat(index)*endAngle)), endAngle: (endAngle+(CGFloat(index)*endAngle)), clockwise: true)
-        path.close()
-        
-        let strokeColor: UIColor = UIColor.clear
-        path.lineWidth = arcWidth
-        strokeColor.setStroke()
-        path.lineWidth = (bounds.height * 0.01)
-        path.stroke()
-        //Test code ends here
-        
-        let fillColor: UIColor
+            let path = UIBezierPath()
+            path.move(to: center)
+            path.addArc(withCenter: center, radius: radius, startAngle: (startAngle+(CGFloat(index)*endAngle)), endAngle: (endAngle+(CGFloat(index)*endAngle)), clockwise: true)
+            path.close()
+            
+            let strokeColor: UIColor = UIColor.clear
+            path.lineWidth = arcWidth
+            strokeColor.setStroke()
+            path.lineWidth = (bounds.height * 0.01)
+            path.stroke()
+            
+            
+            let fillColor: UIColor
             if (index%2 == 0) {
                 fillColor = UIColor(hex: 0x59262F)
             } else {
                 fillColor = UIColor(hex: 0xCE8964)
             }
-        fillColor.setFill()
-        path.fill()
+            fillColor.setFill()
+            path.fill()
         }
     }
     

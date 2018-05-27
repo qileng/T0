@@ -20,6 +20,9 @@
 		83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		83A61B8A20AF340A00627714 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */; };
 		83F7571920AC23E500FFD1A0 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */; };
+		D23C023920BB3E5E006557CD /* ClockTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C023820BB3E5E006557CD /* ClockTaskCell.swift */; };
+		D23C023A20BB3E5E006557CD /* ClockTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C023820BB3E5E006557CD /* ClockTaskCell.swift */; };
+		D23C023B20BB3E5E006557CD /* ClockTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C023820BB3E5E006557CD /* ClockTaskCell.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED432360209E870B00F11140 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235F209E870B00F11140 /* Task.swift */; };
@@ -124,6 +127,7 @@
 		83927E6820B0A7A500E3D927 /* ClockFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceView.swift; sourceTree = "<group>"; };
 		83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
 		83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditPageViewController.swift; sourceTree = "<group>"; };
+		D23C023820BB3E5E006557CD /* ClockTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockTaskCell.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		ED43235F209E870B00F11140 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 				ED6C2A50209302650063B4AC /* ModelController.swift */,
 				EDDEE2482097B3B50078827A /* Clockview.swift */,
 				83927E6820B0A7A500E3D927 /* ClockFaceView.swift */,
+				D23C023820BB3E5E006557CD /* ClockTaskCell.swift */,
 				EDDEE24E2097C7830078827A /* UI_template.swift */,
 				8379928520A93787005784AE /* SignUp.swift */,
 				EDDEE2502097CA730078827A /* Startup.swift */,
@@ -439,6 +444,7 @@
 				83927E6720B0A4D100E3D927 /* ListTaskViewController.swift in Sources */,
 				83F7571920AC23E500FFD1A0 /* TaskEditPageViewController.swift in Sources */,
 				ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */,
+				D23C023920BB3E5E006557CD /* ClockTaskCell.swift in Sources */,
 				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
 				8379928620A93787005784AE /* SignUp.swift in Sources */,
 				ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */,
@@ -485,6 +491,7 @@
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
+				D23C023A20BB3E5E006557CD /* ClockTaskCell.swift in Sources */,
 				ED5B5AC420AA754400E3C5F8 /* UITask.swift in Sources */,
 				4185636720A5621900AA7493 /* TaskDAO.swift in Sources */,
 				ED5B5AA820AA703800E3C5F8 /* UI_template.swift in Sources */,
@@ -520,6 +527,7 @@
 				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
 				ED5B5AB120AA703800E3C5F8 /* UI_template.swift in Sources */,
 				ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */,
+				D23C023B20BB3E5E006557CD /* ClockTaskCell.swift in Sources */,
 				ED5B5AC520AA754400E3C5F8 /* UITask.swift in Sources */,
 				ED5B5AAF20AA703800E3C5F8 /* ModelController.swift in Sources */,
 				ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */,
