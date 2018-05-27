@@ -5,12 +5,66 @@
 //  Created by Qihao Leng on 4/30/18.
 //  Copyright © 2018 Team Zero. All rights reserved.
 //
+//  Edited by Anagha Subramanian and Kelly Zhang
+//
 
 import UIKit
+import CoreGraphics
 
 class ClockViewController: UIViewController, CAAnimationDelegate {
-	
-//    @IBOutlet weak var ViewLabel: UILabel!
+
+    @IBOutlet var timeButtons: [UIButton]!
+    
+
+    //The following commented code is for reference
+    /*
+    @IBOutlet var b1: UIButton! //Button for 11-12 region of clock
+    
+    @IBOutlet var b2: UIButton! //Button for 12-1 region of clock
+
+    @IBAction func circleTap(_ sender: UIButton) {
+        //THIS WORKS. DELETE THIS CIRLCE, BUT FOLLOW
+        //THIS CODE FOR FUTURE TINTS ASDF
+        
+        if self.circle.tintColor == UIColor.purple
+        {
+            self.circle.tintColor = UIColor.green
+            self.circle.showsTouchWhenHighlighted = true
+        } else {
+            //self.circle.tintColor = UIColor.purple
+            //self.circle.showsTouchWhenHighlighted = false
+        }
+    }
+    
+    //On tap, b1 button should change image
+    @IBAction func tap(_ sender: UIButton) {
+        if self.b1.currentImage == UIImage(imageLiteralResourceName: "11-12.png") {
+            self.b1.setImage(UIImage(imageLiteralResourceName: "12-1.png"), for: .normal)
+                self.b1.tintColor = UIColor.green
+        } else {
+            self.b1.setImage(UIImage(imageLiteralResourceName: "11-12.png"), for: .normal)
+                self.b1.tintColor = UIColor.red
+        }
+        
+        //remove unless fixed - animation to change opacity
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 0
+        animation.toValue = 1
+        //FIGURE OUT HOW TO ANIMATE ASDF
+        //b1.add(animation, forKey: "b1")
+        //b1.tintColor = UIColor(named: "black")
+    }
+    //On tap, b2 button should change image
+    @IBAction func tap2(_ sender: UIButton) {
+        if self.b2.currentImage == UIImage(imageLiteralResourceName: "12-1.png") {
+            self.b2.setImage(UIImage(imageLiteralResourceName: "11-12.png"), for: .normal)
+        } else {
+            self.b2.setImage(UIImage(imageLiteralResourceName: "12-1.png"), for: .normal)
+        }
+    }*/
+    
+    //Regular clock functions start here
+    //DO NOT TOUCH
     @IBOutlet var myClock: ClockFaceView!
     var containerView: UIView!
     
@@ -19,14 +73,21 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name:NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
 
+        let startAngle = M_PI/12
+        let angle = M_PI/6
+        for index in 0...11 {
+            timeButtons[index].transform = CGAffineTransform(rotationAngle: CGFloat((Double(index)*angle)+startAngle));
+        }
+        
 	}
+    
     override func viewDidLayoutSubviews() {
-//         self.removeContainerView()
-//        self.addHandsAndCenterPiece()
+         self.removeContainerView()
+        self.addHandsAndCenterPiece()
     }
     
 	
@@ -46,9 +107,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		super.viewDidAppear(animated)
 
 	}
-    
-    
-    
     
     func addHandsAndCenterPiece() {
         containerView = UIView(frame: CGRect(x: myClock.frame.midX, y: myClock.frame.midY, width: myClock.frame.width, height: myClock.frame.width))
@@ -109,7 +167,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         containerView.layer.addSublayer(secondLayer)
         rotateLayer(secondLayer,dur: 60)
         
-        let endAngle = CGFloat(2*Double.pi)
+        let endAngle = CGFloat(2*M_PI)
         let circle = UIBezierPath(arcCenter: CGPoint(x: containerView.bounds.origin.x, y:containerView.bounds.origin.y), radius: myClock.bounds.height/2 * 0.03, startAngle: 0, endAngle: endAngle, clockwise: true)
         let centerPiece = CAShapeLayer()
         
@@ -164,10 +222,9 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         return (h:points[0],m:points[1],s:points[2])
     }
     func degree2radian(_ a:CGFloat)->CGFloat {
-        let b = CGFloat(Double.pi) * a/180
+        let b = CGFloat(M_PI) * a/180
         return b
     }
-    
     func ctime ()->(h:Int,m:Int,s:Int) {
         var t = time_t()
         time(&t)

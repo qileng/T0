@@ -5,6 +5,8 @@
 //  Created by Dong Yoon Han on 5/19/18.
 //  Copyright © 2018 Team Zero. All rights reserved.
 //
+//  Edited by Anagha Subramanian and Kelly Zhang
+//
 
 import UIKit
 
@@ -13,22 +15,54 @@ class ClockFaceView: UIView {
     
     func drawFrame() {
         let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
-        let radius: CGFloat = (max(bounds.width, bounds.height) / 2)
+        let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 10
         let arcWidth: CGFloat = 0
         let startAngle: CGFloat = 0
         let endAngle: CGFloat = 2*π
         
         let path = UIBezierPath(arcCenter: center, radius: radius-(bounds.height * 0.083),startAngle: startAngle, endAngle: endAngle, clockwise: true)
         
-        let strokeColor: UIColor = UIColor.black
+        let strokeColor: UIColor = UIColor.clear
         path.lineWidth = arcWidth
         strokeColor.setStroke()
-        path.lineWidth = (bounds.height * 0.083)
+        path.lineWidth = (bounds.height * 0.01)
         path.stroke()
         
         let fillColor: UIColor = UIColor.white
         fillColor.setFill()
         path.fill()
+    }
+    
+    func drawOuterFrame() {
+        let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
+        let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 5
+        let arcWidth: CGFloat = 0
+        let startAngle: CGFloat = 0
+        let endAngle: CGFloat = π/6
+
+        //Test code begins here
+        for index in 0...11 {
+        let path = UIBezierPath()
+        path.move(to: center)
+        path.addArc(withCenter: center, radius: radius, startAngle: (startAngle+(CGFloat(index)*endAngle)), endAngle: (endAngle+(CGFloat(index)*endAngle)), clockwise: true)
+        path.close()
+        
+        let strokeColor: UIColor = UIColor.clear
+        path.lineWidth = arcWidth
+        strokeColor.setStroke()
+        path.lineWidth = (bounds.height * 0.01)
+        path.stroke()
+        //Test code ends here
+        
+        let fillColor: UIColor
+            if (index%2 == 0) {
+                fillColor = UIColor(hex: 0x59262F)
+            } else {
+                fillColor = UIColor(hex: 0xCE8964)
+            }
+        fillColor.setFill()
+        path.fill()
+        }
     }
     
     func drawTicks() {
@@ -92,13 +126,14 @@ class ClockFaceView: UIView {
             numLabel[i].font = UIFont(name: numLabel[i].font.fontName, size: bounds.width/2 * 0.13)
             numLabel[i].text = String(i+1)
             
-            let angle = CGFloat((Double(i-2) * Double.pi) / 6)
+            let angle = CGFloat((Double(i-2) * M_PI) / 6)
             numLabel[i].center = CGPoint(x: Double(bounds.width/2 + cos(angle) * radius), y: Double(bounds.height/2 + sin(angle) * radius))
             
             self.addSubview(numLabel[i])
         }
     }
     override func draw(_ rect: CGRect) {
+        drawOuterFrame()
         drawFrame()
         drawTicks()
         drawHourLabels()

@@ -268,6 +268,35 @@ class HALPTests: XCTestCase {
 			print(Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart())).description(with: .current))
 		}
 	}
+	
+	func testRemoveTask() {
+		print("Testing Remove Task!")
+		let testTask = TaskForm(TaskID: 12345, UserID: 12345)
+		TaskManager.sharedTaskManager.addTask(testTask)
+		let DAO = TaskDAO()
+		var	result: [Int64]
+		do {
+			result = try DAO.fetchTaskIdListFromLocalDB(userId: 12345)
+			XCTAssertEqual(result.contains(12345), true)
+		} catch RuntimeError.DBError(let errorMessage) {
+			print(errorMessage)
+		} catch RuntimeError.InternalError(let errorMessage) {
+			print(errorMessage)
+		} catch {
+			print("Unexpected Error!")
+		}
+		TaskManager.sharedTaskManager.removeTask(taskID: 12345)
+		do {
+			result = try DAO.fetchTaskIdListFromLocalDB(userId: 12345)
+			XCTAssertEqual(result.contains(12345), false)
+		} catch RuntimeError.DBError(let errorMessage) {
+			print(errorMessage)
+		} catch RuntimeError.InternalError(let errorMessage) {
+			print(errorMessage)
+		} catch {
+			print("Unexpected Error!")
+		}
+	}
     
     
 	/*
