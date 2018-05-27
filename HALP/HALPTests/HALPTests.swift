@@ -132,11 +132,29 @@ func testScheduleKeyGetter() {
      for example startTime[0] endTime[0]. day[0] means the task happen on day[0] start at start[0] end at endTime[0]
      @return Array that stores the task that satisfy the parameter requirements
      */
-    
-    func taskGeneratorFix(startTime:Array<Int32>,endTime:Array<Int32>,day:Array<Int32>) ->Array<Task>{
+    func taskGeneratorFix(startTime:Array<Int32>,endTime:Array<Int32>,day: Array<Int>) ->Array<Task>{
+        var tasks:[Task] = []
+        var start:Int32 = 0
+        var end:Int32 = 0
+        var duration:Int32 = 0
+        for (i, _ ) in startTime.enumerated() {
+            var currentTask = Task()
+            currentTask.setPriority(2)
+            var startHour = (Int32)(startTime[i])
+            var startDay = (Int32)(day[i] * 24 * 60 * 60)
+            start = startHour + startDay
+            var endHour = (Int32)(endTime[i])
+            var endDay = (Int32)(day[i] * 24 * 60 * 60)
+            end = endHour + endDay
+            duration = end - start
+            currentTask.setDuration(duration)
+            currentTask.setDeadline(end)
+            currentTask.setScheduleStart(start)
+            tasks.append(currentTask)
+        }
+        return tasks
         
     }
- 
     /*
      generator task below highest priority
      @parameter : startTime: array that stores startTime of the task
@@ -155,11 +173,30 @@ func testScheduleKeyGetter() {
     }
     
     func testSchedule() {
+        
+        /* test helper method */
        let floatTasks =  taskGeneratorFloat(startTime: [(Int32)(72000),(Int32)(64800)], deadLine: [(Int32)(72000),(Int32)(90000)], startTimeDay: [0,2], deadLineDay: [4,3], duration: [(Int32)(7200),(Int32)(3600)], priority: [(Double)(1),(Double)(0)])
         for i in 0..<2 {
-        print("check the property " + "startTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getScheduleStart()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getScheduleStart()))))" + "endTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getDeadline()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getDeadline()))))" + "duration is  \(floatTasks[i].getDuration())" + "priority is \(floatTasks[i].getPriority())\n");
+        print("check flaot the property " + "startTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getScheduleStart()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getScheduleStart()))))" + "endTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getDeadline()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getDeadline()))))" + "duration is  \(floatTasks[i].getDuration())" + "priority is \(floatTasks[i].getPriority())\n");
       
         }
+        
+        let fixTasks = taskGeneratorFix(startTime: [(Int32)(57600)], endTime: [(Int32)(72000)], day: [0])
+        
+        for i in 0..<1 {
+                    print("check fix the property " + "startTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(fixTasks[i].getScheduleStart()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(fixTasks[i].getScheduleStart()))))" + "endTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(fixTasks[i].getDeadline()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(fixTasks[i].getDeadline()))))" + "duration is  \(fixTasks[i].getDuration())" + "priority is \(fixTasks[i].getPriority())\n");
+        }
+        
+        /*  test schedule */
+        var taskManager = TaskManager.sharedTaskManager;
+        for item in floatTasks {
+            taskManager.addTaskTest(task: item);
+        }
+        for item in fixTasks {
+            taskManager.addTaskTest(task: item);
+        }
+        
+        taskManager.schedule();
         
     }
     
@@ -439,45 +476,52 @@ func testScheduleKeyGetter() {
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].start), 9)
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].end), 10)
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].start), 11)
-		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), 23)
+        if (TaskManager.sharedTaskManager.getSetting().getEndTime() == 24){
+            XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), 23)
+        }
+        else {
+		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), (Int)(TaskManager.sharedTaskManager.getSetting().getEndTime()))
+        }
 	}
     
     func testPropertySetter() {
     	print("Testing Property Setter!")
     	var tasks: [Task] = []
     	var task1 = Task()
+        let double:Double = 1;
     	tasks.append(task1)
+     let one: Int32 = 1;
     	var dict1:[String: Any] = 
     	["title": "Title1",
     	 "taskDescription":"description1",
-    	 "taskPriority":(Int32)1,
-    	 "alarm":(Int32)1,
-    	 "deadline":(Int32)1, 
-    	 "schedule":(Int32)1, 
-    	 "duration":(Int32)1,
+         "taskPriority":double,
+    	 "alarm":one,
+    	 "deadline":one,
+    	 "schedule":one,
+    	 "duration":one,
     	 "category":Category.Study_Work,
-    	 "softDeadline":(Int32)1,
-    	 "scheduled_start":(Int32)1]
+    	 "softDeadline":one,
+    	 "scheduled_start":one]
 
     	 do {
     	 	try tasks[0].propertySetter(dict1)
 
 	    	XCTAssertEqual(tasks[0].getTitle(), "Title1")
    	 	 	XCTAssertEqual(tasks[0].getDescription(), "description1")
-    	 	XCTAssertEqual(tasks[0].getPriority(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getAlarm(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getDeadline(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getSchedule(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getDuration(), (Int32)(1))
+    	 	XCTAssertEqual(tasks[0].getPriority(), double)
+    	 	XCTAssertEqual(tasks[0].getAlarm(), one)
+    	 	XCTAssertEqual(tasks[0].getDeadline(), one)
+    	 	XCTAssertEqual(tasks[0].getSchedule(), one)
+    	 	XCTAssertEqual(tasks[0].getDuration(), one)
     	 	XCTAssertEqual(tasks[0].getCategory(), Category.Study_Work)
-    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), (Int32)(1))
-    	 	XCTAssertEqual(tasks[0].getScheduleStart(), (Int32)(1))
+    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), one)
+    	 	XCTAssertEqual(tasks[0].getScheduleStart(), one)
     	 }
     	 catch {
     	 	print("Error")
     	 }
     }
-    
+ 
 	/*
 	func testSettingDAO() {
 		print("Testing SettingDAO write.\n")
