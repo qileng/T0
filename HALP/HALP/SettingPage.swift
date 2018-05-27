@@ -13,7 +13,7 @@ import UIKit
 class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
 	var viewName = "Setting Page"
-    var settingForm: SettingForm?
+    var settingForm: SettingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
     
     @IBOutlet weak var notificationSwitch: UISwitch!
     @IBOutlet weak var viewSeg: UISegmentedControl!
@@ -49,54 +49,76 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
         //initialize databse settings
-        if (!(settingForm?.isNotificationOn())!){
+        
+        print(settingForm.getSettingID())
+        print(settingForm.getDefaultView())
+        print(settingForm.getDefaultSort())
+        print(settingForm.getAvailableDays())
+        print(settingForm.isNotificationOn())
+        print(settingForm.getTheme())
+        print(settingForm.getStartTime())
+        print(settingForm.getEndTime())
+        
+        if (!(settingForm.isNotificationOn())){
             notificationSwitch.setOn(false, animated: true)
         }
-        if (settingForm?.getDefaultView().rawValue == 1){
-            print(settingForm?.getDefaultView().rawValue)
+        
+        if (settingForm.getDefaultView().rawValue == 1){
             viewSeg.selectedSegmentIndex = 1
+        } else {
+            viewSeg.selectedSegmentIndex = 0
         }
-        if (settingForm?.getDefaultSort().rawValue == 1){
+        
+        if (settingForm.getDefaultSort().rawValue == 1){
             sortingMethodSeg.selectedSegmentIndex = 1
         }
-        if (settingForm?.getTheme().rawValue == 1){
+        else {
+            sortingMethodSeg.selectedSegmentIndex = 0
+        }
+        
+        if (settingForm.getTheme().rawValue == 1){
             themeSeg.selectedSegmentIndex = 1
         }
+        else {
+            themeSeg.selectedSegmentIndex = 0
+        }
 
-        if ((settingForm?.getAvailableDays())! & 0b1 == 0){
+        if ((settingForm.getAvailableDays()) & 0b1 == 0){
             sunSwitch.setOn(false, animated: true)
         }
-        if (((settingForm?.getAvailableDays())! >> 1) & 0b1 == 0){
+        if (((settingForm.getAvailableDays()) >> 1) & 0b1 == 0){
             monSwitch.setOn(false, animated: true)
         }
-        if (((settingForm?.getAvailableDays())! >> 2) & 0b1 == 0){
+        if (((settingForm.getAvailableDays()) >> 2) & 0b1 == 0){
             tueSwitch.setOn(false, animated: true)
         }
-        if (((settingForm?.getAvailableDays())! >> 3) & 0b1 == 0){
+        if (((settingForm.getAvailableDays()) >> 3) & 0b1 == 0){
             wedSwitch.setOn(false, animated: true)
         }
-        if (((settingForm?.getAvailableDays())! >> 4) & 0b1 == 0){
+        if (((settingForm.getAvailableDays()) >> 4) & 0b1 == 0){
             thuSwitch.setOn(false, animated: true)
         }
-        if (((settingForm?.getAvailableDays())! >> 5) & 0b1 == 0){
+        if (((settingForm.getAvailableDays()) >> 5) & 0b1 == 0){
             friSwitch.setOn(false, animated: true)
         }
-        if (((settingForm?.getAvailableDays())! >> 6) & 0b1 == 0){
+        if (((settingForm.getAvailableDays()) >> 6) & 0b1 == 0){
             satSwitch.setOn(false, animated: true)
         }
-        startTimeNum.text = String(settingForm!.getStartTime())
-        endTimeNum.text = String(settingForm!.getEndTime())
+        startTimeNum.text = String(settingForm.getStartTime())
+        endTimeNum.text = String(settingForm.getEndTime())
 	}
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        let setting = SettingDAO(settingForm!)
-        //TODO: update setting changes to database
-        if (!setting.saveSettingIntoLocalDB()){
-            
-            setting.updateSettingInLocalDB(settingId: TaskManager.sharedTaskManager.getSetting().getSettingID(), notification: settingForm?.isNotificationOn(), defaultView: settingForm?.getDefaultView(), defaultSort: settingForm?.getDefaultSort(),
-                theme: settingForm?.getTheme(), availableDays: settingForm?.getAvailableDays(), startTime: settingForm?.getStartTime(), endTime: settingForm?.getEndTime())
-        }
+        
+        let newSetting = Setting(setting: settingForm.getSettingID(), notification: settingForm.isNotificationOn(),
+                                 theme: settingForm.getTheme(), defaultView: settingForm.getDefaultView(),
+                                 defaultSort: settingForm.getDefaultSort(), availableDays: settingForm.getAvailableDays(),
+                                 startTime: settingForm.getStartTime(), endTime: settingForm.getEndTime(),
+                                 user: settingForm.getUserID())
+        
+        TaskManager.sharedTaskManager.updateSetting(setting: newSetting)
+        
     }
     
     @IBAction func Logout(_ sender: Any) {
@@ -106,93 +128,93 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     @IBAction func notificationSwitch(_ sender: UISwitch) {
-        settingForm?.toggleNotification()
+        settingForm.toggleNotification()
     }
     
     @IBAction func defaultViewSegControl(_ sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0){
             //Switch to Clock View
-            settingForm?.setDefaultView(View(rawValue: 0)!)
+            settingForm.setDefaultView(View(rawValue: 0)!)
         } else if (sender.selectedSegmentIndex == 1) {
             //Switch to List View
-            settingForm?.setDefaultView(View(rawValue: 1)!)
+            settingForm.setDefaultView(View(rawValue: 1)!)
         }
     }
     
     @IBAction func defaultSortingMethodSegControl(_ sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0){
             //Switch to Time based sorting
-            settingForm?.setDefaultSort(SortingType(rawValue: 0)!)
+            settingForm.setDefaultSort(SortingType(rawValue: 0)!)
         } else if (sender.selectedSegmentIndex == 1) {
             //Switch to Prority based sorting
-            settingForm?.setDefaultSort(SortingType(rawValue: 1)!)
+            settingForm.setDefaultSort(SortingType(rawValue: 1)!)
         }
     }
     
     @IBAction func themeSegControl(_ sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0){
             //Switch to Light Theme
-            settingForm?.setTheme(Theme(rawValue: 0)!)
+            settingForm.setTheme(Theme(rawValue: 0)!)
         } else if (sender.selectedSegmentIndex == 1){
             //Switch to Dark Theme
-            settingForm?.setTheme(Theme(rawValue: 1)!)
+            settingForm.setTheme(Theme(rawValue: 1)!)
         }
     }
     
     //Seven toggles
     @IBAction func sunSwitch(_ sender: UISwitch) {
         if (sender.isOn == true){
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<0)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) | 1<<0)
         } else {
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1111110)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) & 0b1111110)
         }
     }
     
     @IBAction func monSwitch(_ sender: UISwitch) {
         if (sender.isOn == true){
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<1)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) | 1<<1)
         } else {
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1111101)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) & 0b1111101)
         }
     }
     
     @IBAction func tueSwitch(_ sender: UISwitch) {
         if (sender.isOn == true){
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<2)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) | 1<<2)
         } else {
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1111011)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) & 0b1111011)
         }
     }
     
     @IBAction func wedSwitch(_ sender: UISwitch) {
         if (sender.isOn == true){
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<3)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) | 1<<3)
         } else {
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1110111)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) & 0b1110111)
         }
     }
     
     @IBAction func thuSwitch(_ sender: UISwitch) {
         if (sender.isOn == true){
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<4)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) | 1<<4)
         } else {
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1101111)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) & 0b1101111)
         }
     }
     
     @IBAction func friSwitch(_ sender: UISwitch) {
         if (sender.isOn == true){
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<5)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) | 1<<5)
         } else {
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b1011111)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) & 0b1011111)
         }
     }
     
     @IBAction func satSwitch(_ sender: UISwitch) {
         if (sender.isOn == true){
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! | 1<<6)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) | 1<<6)
         } else {
-            settingForm?.setAvailableDays((settingForm?.getAvailableDays())! & 0b0111111)
+            settingForm.setAvailableDays((settingForm.getAvailableDays()) & 0b0111111)
         }
     }
     
@@ -222,29 +244,29 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         var temp: Int32
         
         if (pickerView == startTimePicker){
-            temp = (settingForm?.getStartTime())!
+            temp = (settingForm.getStartTime())
             
-            settingForm?.setStartTime(startHoursArray[row])
+            settingForm.setStartTime(startHoursArray[row])
             
-            if (!(settingForm?.verificateTime())!){
+            if (!(settingForm.verificateTime())){
                 createTimeWarning(title: "Invalid Start Time", message: "Start Time has to be eariler than End Time")
-                settingForm?.setStartTime(temp)
+                settingForm.setStartTime(temp)
             }
             
         } else if (pickerView == endTimePicker){
-            temp = (settingForm?.getEndTime())!
+            temp = (settingForm.getEndTime())
             
-            settingForm?.setEndTime(endHoursArray[row])
+            settingForm.setEndTime(endHoursArray[row])
             
-            if (!(settingForm?.verificateTime())!){
+            if (!(settingForm.verificateTime())){
                 createTimeWarning(title: "Invalid End Time", message: "End Time has to be later than Start Time")
-                settingForm?.setEndTime(temp)
+                settingForm.setEndTime(temp)
             }
             
         }
         
-        startTimeNum.text = String(settingForm!.getStartTime())
-        endTimeNum.text = String(settingForm!.getEndTime())
+        startTimeNum.text = String(settingForm.getStartTime())
+        endTimeNum.text = String(settingForm.getEndTime())
     }
     
     func createTimeWarning (title:String, message:String){
