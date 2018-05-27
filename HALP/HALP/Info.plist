@@ -37,6 +37,6 @@
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<string></string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

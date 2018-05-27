@@ -14,8 +14,16 @@ class ListTaskViewController: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     @IBOutlet weak var topView: UIView!
+    let dateFormatter = DateFormatter()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        
+        dateFormatter.dateFormat = "HH:mm a, EEEE, MMMM dd, yyyy"
+        
         self.tableViewOutlet.tableFooterView = UIView()
 
         UIApplication.shared.statusBarStyle = .lightContent
@@ -68,35 +76,23 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         }
         cell.taskImageView.image = image
         cell.titleLabel.text = title
-        cell.detailLabel.text = description//String(eventStartTime)
+        
+        if description.isEmpty
+        {
+            let startDate = Date(timeIntervalSince1970: TimeInterval((task.getScheduleStart())))
+            cell.detailLabel.text = "from " + dateFormatter.string(from: startDate)
+        }else {
+            cell.detailLabel.text = description//String(eventStartTime)
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let task = TaskManager.sharedTaskManager.getTasks()[indexPath.row]
-        let cell = tableView.cellForRow(at: indexPath)
-        guard let originFrame = cell?.frame.origin else{return}
-        print(task)
-        print(task.getTitle())
-        print(task.getDescription())
-        print(task.getSchedule())
-        print(originFrame)
 
-//        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailViewController") as! TaskDetailViewController
-//        UIView.animate(withDuration: 0.2, animations: {
-//            cell?.frame.origin = CGPoint(x: self.tableViewOutlet.frame.origin.x, y: self.tableViewOutlet.frame.origin.y)
-//        }) { (true) in
-////            self.present(detailVC, animated: false, completion: nil)
-//            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn , animations: {
-//                cell?.frame = CGRect(x: self.tableViewOutlet.frame.origin.x, y: self.tableViewOutlet.frame.origin.y, width: (cell?.frame.width)!, height: self.view.frame.height)
-//            }, completion: { (true) in
-//                cell?.frame = originFrame
-//            })
-//        }
-
-        
+        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailViewController") as! TaskDetailViewController
+        detailVC.task = TaskManager.sharedTaskManager.getTasks()[indexPath.row]
+        self.navigationController?.pushViewController(detailVC, animated: true)
         
     }
     
