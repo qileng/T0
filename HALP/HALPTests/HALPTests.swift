@@ -213,11 +213,11 @@ func testScheduleKeyGetter() {
         }
         
         taskManager.schedule();
-        result = taskManager.getTasks()
+        var result = taskManager.getTasks()
         for entry in result {
         	print("Printing the tasks information after schedule: \n" +
         		"Start hour is: " + "\(Calendar.current.component(Calendar.Component.hour, from: entry.getScheduleStart()))" + 
-        		"End hour is: " + "\(Calendar.current.component(Calendar.Component.hour, from: entry.getDeadline))"
+        		"End hour is: " + "\(Calendar.current.component(Calendar.Component.hour, from: entry.getDeadline)))"
         }
         
     }
