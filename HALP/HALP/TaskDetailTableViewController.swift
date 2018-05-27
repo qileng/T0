@@ -24,7 +24,7 @@ class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
         self.tableViewOutlet.tableFooterView = UIView()
         self.tableViewOutlet.backgroundColor = .clear
-        self.view.backgroundColor = UIColor.HalpColors.pastelRed
+        self.view.backgroundColor = taskColorTheme
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -78,7 +78,7 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource
             }
             mainDetailCell?.taskImageView.image = image
             mainDetailCell?.taskImageView.contentMode = .scaleAspectFit
-            mainDetailCell?.taskImageView.tintColor = UIColor.HalpColors.pastelRed
+            mainDetailCell?.taskImageView.tintColor = taskColorTheme
         }
         
         //setting task title

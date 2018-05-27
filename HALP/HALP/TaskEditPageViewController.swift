@@ -241,8 +241,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.navigationController?.pushViewController(detailVC, animated: true)
             tableView.deselectRow(at: indexPath, animated: false)
         }
-//        tableViewOutlet.reloadData()
-//        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     func calculateDatePickerIndexPath(indexPathSelected: IndexPath) -> IndexPath
@@ -259,15 +257,11 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         let parentIndexPath = IndexPath(row: datePickerIndexPath!.row-1, section: datePickerIndexPath!.section)
-        
         let dateCell = tableViewOutlet.cellForRow(at: parentIndexPath)
-//        var celldata = fieldData[parentIndexPath.section][parentIndexPath.row]
-//        celldata.date = sender.date
-//        celldata.detail = dateFormatter.string(from: sender.date)
+
         fieldData[parentIndexPath.section][parentIndexPath.row].date = sender.date
-        fieldData[parentIndexPath.section][parentIndexPath.row].detail = dateFormatter.string(from: sender.date)//sender.date
+        fieldData[parentIndexPath.section][parentIndexPath.row].detail = dateFormatter.string(from: sender.date)
         dateCell?.detailTextLabel?.text = dateFormatter.string(from: sender.date)
-//      self.tableViewOutlet.reloadData()
     }
     func shakeTitleInput()
     {
@@ -292,15 +286,12 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         
-        self.cancelButtonOutlet.backgroundColor = UIColor.HalpColors.pastelRed
-        self.addButtonOutlet.backgroundColor = UIColor.HalpColors.pastelRed
+        self.cancelButtonOutlet.backgroundColor = taskColorTheme
+        self.addButtonOutlet.backgroundColor = taskColorTheme
         
         self.cancelButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         self.addButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-//        tableViewOutlet.backgroundColor = .clear
-        //        tableViewOutlet.estimatedRowHeight = 45
-        //        tableViewOutlet.rowHeight = UITableViewAutomaticDimension
-        //        tableViewOutlet.sectionHeaderHeight = UITableViewAutomaticDimension
+
         //remove empty cells in tableview
         tableViewOutlet.tableFooterView = UIView()
         
@@ -320,15 +311,10 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = false
         self.tableViewOutlet.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = false
-//        self.navigationController?.navigationBar.barTintColor = .black
-//        self.navigationController?.navigationBar.backgroundColor = .clear
-//        self.navigationController?.navigationBar.tintColor = .white
     }
 }
 
