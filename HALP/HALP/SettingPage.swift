@@ -38,8 +38,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     override func viewDidLoad() {
 		super.viewDidLoad()
-        
-        
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -50,7 +48,44 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 		super.viewWillAppear(animated)
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
-        
+        //initialize databse settings
+        if (!(settingForm?.isNotificationOn())!){
+            notificationSwitch.setOn(false, animated: true)
+        }
+        if (settingForm?.getDefaultView().rawValue == 1){
+            print(settingForm?.getDefaultView().rawValue)
+            viewSeg.selectedSegmentIndex = 1
+        }
+        if (settingForm?.getDefaultSort().rawValue == 1){
+            sortingMethodSeg.selectedSegmentIndex = 1
+        }
+        if (settingForm?.getTheme().rawValue == 1){
+            themeSeg.selectedSegmentIndex = 1
+        }
+
+        if ((settingForm?.getAvailableDays())! & 0b1 == 0){
+            sunSwitch.setOn(false, animated: true)
+        }
+        if (((settingForm?.getAvailableDays())! >> 1) & 0b1 == 0){
+            monSwitch.setOn(false, animated: true)
+        }
+        if (((settingForm?.getAvailableDays())! >> 2) & 0b1 == 0){
+            tueSwitch.setOn(false, animated: true)
+        }
+        if (((settingForm?.getAvailableDays())! >> 3) & 0b1 == 0){
+            wedSwitch.setOn(false, animated: true)
+        }
+        if (((settingForm?.getAvailableDays())! >> 4) & 0b1 == 0){
+            thuSwitch.setOn(false, animated: true)
+        }
+        if (((settingForm?.getAvailableDays())! >> 5) & 0b1 == 0){
+            friSwitch.setOn(false, animated: true)
+        }
+        if (((settingForm?.getAvailableDays())! >> 6) & 0b1 == 0){
+            satSwitch.setOn(false, animated: true)
+        }
+        startTimeNum.text = String(settingForm!.getStartTime())
+        endTimeNum.text = String(settingForm!.getEndTime())
 	}
     
     override func viewWillDisappear(_ animated: Bool) {

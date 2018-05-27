@@ -249,8 +249,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                 let settingId = settingArray[0] as! Int64
                 let notification = settingArray[1] as! Int32 == 1 ? true : false
                 let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
-                let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
+                let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
+                let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
                 let avaliableDays = settingArray[5] as! Int32
                 let start = settingArray[6] as! Int32
                 let end = settingArray[7] as! Int32
