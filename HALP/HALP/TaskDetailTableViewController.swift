@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TaskDetailTableViewControllerDelegate{
+protocol  TaskDetailTableViewControllerDelegate{
     func changeDetail(text label:String, indexPath:IndexPath)
 }
 
@@ -24,13 +24,18 @@ class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
         self.tableViewOutlet.tableFooterView = UIView()
         self.tableViewOutlet.backgroundColor = .clear
-        self.view.backgroundColor = UIColor.HalpColors.pastelRed
+//        self.setNeedsStatusBarAppearanceUpdate()
+        // Do any additional setup after loading the view.
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellData?.count ?? 0
+        
     }
     
+//    override public var preferredStatusBarStyle: UIStatusBarStyle {
+//        return UIStatusBarStyle.lightContent
+//    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)

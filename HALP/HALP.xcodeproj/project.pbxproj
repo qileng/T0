@@ -14,37 +14,12 @@
 		4A6BDE028DF44FFAA0230AA4 /* ButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */; };
 		833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
-		833DED8620B0DC6100CCA657 /* ListTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833DED8520B0DC6100CCA657 /* ListTaskTableViewCell.swift */; };
-		834A4C5C20B9E82F000F1C80 /* MainDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834A4C5B20B9E82F000F1C80 /* MainDetailTableViewCell.swift */; };
-		834A4C5D20BB3173000F1C80 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */; };
-		834A4C5E20BB3173000F1C80 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */; };
-		834A4C5F20BB3177000F1C80 /* ListTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833DED8520B0DC6100CCA657 /* ListTaskTableViewCell.swift */; };
-		834A4C6020BB3177000F1C80 /* ListTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 833DED8520B0DC6100CCA657 /* ListTaskTableViewCell.swift */; };
-		834A4C6120BB317A000F1C80 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */; };
-		834A4C6220BB317A000F1C80 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */; };
-		834A4C6320BB317D000F1C80 /* MainDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834A4C5B20B9E82F000F1C80 /* MainDetailTableViewCell.swift */; };
-		834A4C6420BB317E000F1C80 /* MainDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834A4C5B20B9E82F000F1C80 /* MainDetailTableViewCell.swift */; };
-		834A4C6520BB318C000F1C80 /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBB18420B4FF030013776D /* TextViewTableViewCell.swift */; };
-		834A4C6620BB318C000F1C80 /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBB18420B4FF030013776D /* TextViewTableViewCell.swift */; };
-		834A4C6720BB318F000F1C80 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */; };
-		834A4C6820BB318F000F1C80 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */; };
-		834A4C6920BB3192000F1C80 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */; };
-		834A4C6A20BB3193000F1C80 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */; };
-		834A4C6B20BB3195000F1C80 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */; };
-		834A4C6C20BB3196000F1C80 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */; };
-		834A4C6D20BB31A6000F1C80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A55209302660063B4AC /* Assets.xcassets */; };
-		834A4C6E20BB31A7000F1C80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A55209302660063B4AC /* Assets.xcassets */; };
-		834A4C7020BB329A000F1C80 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
-		834A4C7120BB329A000F1C80 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
 		8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
 		8379928620A93787005784AE /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
 		83927E6720B0A4D100E3D927 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */; };
 		83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		83A61B8A20AF340A00627714 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */; };
-		83BBB17D20B2BECD0013776D /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */; };
-		83BBB18520B4FF030013776D /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BBB18420B4FF030013776D /* TextViewTableViewCell.swift */; };
 		83F7571920AC23E500FFD1A0 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */; };
-		83FC745B20B21ED200CA0BEB /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED432360209E870B00F11140 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235F209E870B00F11140 /* Task.swift */; };
@@ -100,6 +75,8 @@
 		ED5B5AC820AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
 		ED5B5AC920AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
 		ED5B5ACB20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
+		ED5B5ACC20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
+		ED5B5ACD20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
 		ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
@@ -141,17 +118,12 @@
 /* Begin PBXFileReference section */
 		4185631720A545BB00AA7493 /* TaskDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDAO.swift; sourceTree = "<group>"; };
 		4A6BDC18DA95777B3555B32E /* ButtonExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonExtension.swift; sourceTree = "<group>"; };
-		833DED8520B0DC6100CCA657 /* ListTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTaskTableViewCell.swift; sourceTree = "<group>"; };
-		834A4C5B20B9E82F000F1C80 /* MainDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainDetailTableViewCell.swift; sourceTree = "<group>"; };
 		8379928320A7B797005784AE /* AutolayoutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutExtension.swift; sourceTree = "<group>"; };
 		8379928520A93787005784AE /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTaskViewController.swift; sourceTree = "<group>"; };
 		83927E6820B0A7A500E3D927 /* ClockFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceView.swift; sourceTree = "<group>"; };
 		83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
-		83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
-		83BBB18420B4FF030013776D /* TextViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTableViewCell.swift; sourceTree = "<group>"; };
 		83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEditPageViewController.swift; sourceTree = "<group>"; };
-		83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		ED43235F209E870B00F11140 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -224,27 +196,6 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		83BBB17E20B34A060013776D /* TaskEditPage */ = {
-			isa = PBXGroup;
-			children = (
-				83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */,
-				83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */,
-				83BBB17C20B2BECD0013776D /* TextFieldTableViewCell.swift */,
-				83BBB18420B4FF030013776D /* TextViewTableViewCell.swift */,
-			);
-			name = TaskEditPage;
-			sourceTree = "<group>";
-		};
-		83BBB17F20B4F8D80013776D /* ListView */ = {
-			isa = PBXGroup;
-			children = (
-				83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */,
-				833DED8520B0DC6100CCA657 /* ListTaskTableViewCell.swift */,
-				83FC745A20B21ED200CA0BEB /* TaskDetailViewController.swift */,
-				834A4C5B20B9E82F000F1C80 /* MainDetailTableViewCell.swift */,
-				ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */,
-			);
-			name = ListView;
 		D2F03C1C20B771FC00B8906F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,9 +215,11 @@
 				EDDEE24A2097B77E0078827A /* ListView.swift */,
 				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
-				83BBB17E20B34A060013776D /* TaskEditPage */,
+				83F7571820AC23E500FFD1A0 /* TaskEditPageViewController.swift */,
+				83A61B8920AF340A00627714 /* TaskDetailTableViewController.swift */,
 				ED5B5AC220AA754400E3C5F8 /* UITask.swift */,
-				83BBB17F20B4F8D80013776D /* ListView */,
+				83927E6620B0A4D100E3D927 /* ListTaskViewController.swift */,
+				ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */,
 			);
 			name = "View Classes";
 			sourceTree = "<group>";
@@ -466,7 +419,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				834A4C6D20BB31A6000F1C80 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,7 +426,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				834A4C6E20BB31A7000F1C80 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,7 +438,6 @@
 			files = (
 				83927E6720B0A4D100E3D927 /* ListTaskViewController.swift in Sources */,
 				83F7571920AC23E500FFD1A0 /* TaskEditPageViewController.swift in Sources */,
-				833DED8620B0DC6100CCA657 /* ListTaskTableViewCell.swift in Sources */,
 				ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */,
 				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
 				8379928620A93787005784AE /* SignUp.swift in Sources */,
@@ -512,14 +462,10 @@
 				4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
-				83BBB17D20B2BECD0013776D /* TextFieldTableViewCell.swift in Sources */,
 				83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */,
 				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
 				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,
-				83FC745B20B21ED200CA0BEB /* TaskDetailViewController.swift in Sources */,
 				4A6BDE028DF44FFAA0230AA4 /* ButtonExtension.swift in Sources */,
-				834A4C5C20B9E82F000F1C80 /* MainDetailTableViewCell.swift in Sources */,
-				83BBB18520B4FF030013776D /* TextViewTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,18 +474,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */,
-				834A4C5D20BB3173000F1C80 /* ListTaskViewController.swift in Sources */,
 				ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */,
+				ED5B5ACC20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */,
 				ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5A9520AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
-				834A4C5F20BB3177000F1C80 /* ListTaskTableViewCell.swift in Sources */,
 				ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */,
 				ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */,
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
-				834A4C6920BB3192000F1C80 /* TaskDetailTableViewController.swift in Sources */,
-				834A4C6B20BB3195000F1C80 /* TaskEditPageViewController.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
 				ED5B5AC420AA754400E3C5F8 /* UITask.swift in Sources */,
@@ -553,11 +496,6 @@
 				ED5B5AA920AA703800E3C5F8 /* SignUp.swift in Sources */,
 				ED5B5AAB20AA703800E3C5F8 /* ListView.swift in Sources */,
 				ED5B5AA720AA703800E3C5F8 /* Clockview.swift in Sources */,
-				834A4C6320BB317D000F1C80 /* MainDetailTableViewCell.swift in Sources */,
-				834A4C6520BB318C000F1C80 /* TextViewTableViewCell.swift in Sources */,
-				834A4C6120BB317A000F1C80 /* TaskDetailViewController.swift in Sources */,
-				834A4C7020BB329A000F1C80 /* UITaskDetail.swift in Sources */,
-				834A4C6720BB318F000F1C80 /* TextFieldTableViewCell.swift in Sources */,
 				ED5B5AAC20AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */,
 				ED5B5AAA20AA703800E3C5F8 /* Startup.swift in Sources */,
@@ -571,18 +509,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED5B5A9620AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
-				834A4C5E20BB3173000F1C80 /* ListTaskViewController.swift in Sources */,
 				ED5B5AB020AA703800E3C5F8 /* Clockview.swift in Sources */,
+				ED5B5ACD20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */,
 				ED5B5A9320AA701B00E3C5F8 /* AutolayoutExtension.swift in Sources */,
 				ED5B5A9720AA702200E3C5F8 /* IDGenerator.swift in Sources */,
 				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,
-				834A4C6020BB3177000F1C80 /* ListTaskTableViewCell.swift in Sources */,
 				ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */,
 				ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */,
 				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
-				834A4C6A20BB3193000F1C80 /* TaskDetailTableViewController.swift in Sources */,
-				834A4C6C20BB3196000F1C80 /* TaskEditPageViewController.swift in Sources */,
 				ED5B5AB120AA703800E3C5F8 /* UI_template.swift in Sources */,
 				ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */,
 				ED5B5AC520AA754400E3C5F8 /* UITask.swift in Sources */,
@@ -596,11 +531,6 @@
 				ED5B5AB920AA712A00E3C5F8 /* UserForm.swift in Sources */,
 				ED5B5ABD20AA712A00E3C5F8 /* TaskDAO.swift in Sources */,
 				ED5B5A9420AA701D00E3C5F8 /* TaskManager.swift in Sources */,
-				834A4C6420BB317E000F1C80 /* MainDetailTableViewCell.swift in Sources */,
-				834A4C6620BB318C000F1C80 /* TextViewTableViewCell.swift in Sources */,
-				834A4C6220BB317A000F1C80 /* TaskDetailViewController.swift in Sources */,
-				834A4C7120BB329A000F1C80 /* UITaskDetail.swift in Sources */,
-				834A4C6820BB318F000F1C80 /* TextFieldTableViewCell.swift in Sources */,
 				ED5B5AB320AA703800E3C5F8 /* Startup.swift in Sources */,
 				ED5B5A9020AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				ED5B5ABA20AA712A00E3C5F8 /* UserDAO.swift in Sources */,

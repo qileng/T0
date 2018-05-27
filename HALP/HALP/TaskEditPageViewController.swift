@@ -20,44 +20,33 @@ enum CellTypes:String {
 struct CellData {
     var cellType:CellTypes
     var title:String
-    var detail: String?
+    var detail: Any?
     var date:Date?
 }
 
 // Todo: code cleaning
 class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var cancelButtonOutlet: UIButton!
-    //    @IBOutlet weak var textViewOutlet: UITextView!
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var addButtonOutlet: UIButton!
     var datePickerIndexPath: IndexPath?
     var fieldData:[[CellData]] = [[]]
     var dateFormatter = DateFormatter()
-    var titleTextFieldCell:TextFieldTableViewCell?
-    var descriptionTextViewCell: TextViewTableViewCell?
     
     // Logic
     @IBAction func AddTask(_ sender: UIButton) {
-
-        guard let title = self.titleTextFieldCell?.textFieldOutlet.text, !title.isEmpty else {
-            self.shakeTitleInput()
-            return
-        }
-//        let task:Task?
-        let description:String
-        if self.descriptionTextViewCell?.textViewOutlet.text != "Description" {
-            description = (self.descriptionTextViewCell?.textViewOutlet.text)!
-        }else{
-            description = ""
-        }
-        let startDate = Int32((fieldData[1][0].date?.timeIntervalSince1970)!)
-        let deadlineDate = Int32((fieldData[1][1].date?.timeIntervalSince1970)!)
+        let taskTitle = fieldData[0][0].detail!
         
-        let categoryStr = fieldData[2][0].detail // why is detail type Any?
-//        let alarm = fieldData[2][1].detail
+        let startDate = fieldData[1][0].detail as! Date
+        let start = Int32(startDate.timeIntervalSince1970)
+        
+        let deadlineDate = fieldData[1][1].detail! as! Date
+        let deadline = Int32(deadlineDate.timeIntervalSince1970)
+        
+        let categoryString = fieldData[2][0].detail! as! String
+        
         var category: Category
-        switch categoryStr {
+        switch categoryString {
         case "Study":
             category = Category.Study_Work
         case "Work":
@@ -72,18 +61,36 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             category = Category.Study_Work
         }
         
-        let form = TaskForm(Title: title, Description: description ?? "", Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+        // Not sure how to store alarm
+        // Leave it out for now
+        let alarm = fieldData[2][1].detail!
         
-//         Todo: validate
-//         Todo: exception handling
+        let taskDesc = fieldData[3][0].detail!
+        
+        /*
+        print(taskTitle)
+        print(start)
+        print(deadline)
+        print(category.rawValue)
+        print(alarm)
+        print(taskDesc)
+        print("\n")
+         */
+        
+		let form = TaskForm(Title: taskTitle as! String, Description: taskDesc as! String, Category: category, Deadline: deadline, Schedule_start: start, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+        
+        // Todo: validate
+        // Todo: exception handling
         TaskManager.sharedTaskManager.addTask(form)
         let taskDAO = TaskDAO(form)
         taskDAO.saveTaskInfoToLocalDB()
-//
+        
+//        self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func Cancel(_ sender: UIButton) {
+//        self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -102,62 +109,48 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell:UITableViewCell?
+        let cell:UITableViewCell?
         if datePickerIndexPath != nil && datePickerIndexPath?.section == indexPath.section
                                     && datePickerIndexPath!.row == indexPath.row
         {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CellTypes.datePicker.rawValue, for: indexPath)
-            let datePicker = cell.viewWithTag(99) as! UIDatePicker
+            cell = tableView.dequeueReusableCell(withIdentifier: CellTypes.datePicker.rawValue, for: indexPath)
+            let datePicker = cell?.viewWithTag(99) as! UIDatePicker
 
             if let date = fieldData[indexPath.section][indexPath.row-1].date
             {
                 datePicker.setDate(date, animated: true)
             }
-            return cell
+            return cell!
         }
 
         let celltype = self.fieldData[indexPath.section][indexPath.row].cellType
         switch (celltype)
         {
         case .textField:
-            titleTextFieldCell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath) as? TextFieldTableViewCell
-            titleTextFieldCell?.textFieldOutlet.becomeFirstResponder()
-            return titleTextFieldCell!
+            cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
         case .dateDetail:
-            let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
-            cell.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
-            let detailStr = fieldData[indexPath.section][indexPath.row].detail
-            let attributedStr = NSMutableAttributedString(string: detailStr!, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
-            cell.detailTextLabel?.attributedText = attributedStr
-            
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
+            cell?.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
+            cell?.detailTextLabel?.text = dateFormatter.string(from: fieldData[indexPath.section][indexPath.row].detail as! Date)
+            //        case .datePicker:
+        //            cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
+        case .picker:
+            cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
         case .detail:
-            let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
-            cell.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
-            let detailStr = fieldData[indexPath.section][indexPath.row].detail
-            let attributedStr = NSMutableAttributedString(string: detailStr!, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
-            cell.detailTextLabel?.attributedText = attributedStr
-            
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
+            cell?.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
+            cell?.detailTextLabel?.text = fieldData[indexPath.section][indexPath.row].detail as? String
+            // cell?.detailTextLabel?.text = dateFormatter.string(from: fieldData[indexPath.section][indexPath.row].detail as! Date)
         case .textView:
-            let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath) as! TextViewTableViewCell
-            self.descriptionTextViewCell = cell
-            return cell
+            cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
         default:
-            let cell = UITableViewCell()
-            return cell
+            cell = UITableViewCell()
         }
+        return cell!
+        
         
     }
     
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 10
-//    }
-
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
-    }
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        var rowHeight = tableView.rowHeight
         var rowHeight = UITableViewAutomaticDimension
@@ -177,7 +170,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         }
         return rowHeight
     }
-
+    
     /*
      When we tap a row, tableView:didSelectRowAtIndexPath: is called. There are three cases:
    1.  There is no date picker shown, we tap a row, then a date picker is shown just under it.
@@ -206,7 +199,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                     cell?.detailTextLabel?.textColor = .black
                     tableView.deleteRows(at: [datePickerIndexPath!], with: .fade)
                 }
-                selectedCell?.detailTextLabel?.textColor = UIColor.HalpColors.pastelRed
+                selectedCell?.detailTextLabel?.textColor = .red
                 datePickerIndexPath = calculateDatePickerIndexPath(indexPathSelected: indexPath)
                 tableView.insertRows(at: [datePickerIndexPath!], with: .fade)
             }
@@ -215,16 +208,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             
         }else if indexPath.section == 2 // the selected row is in section 2
         {
-            if datePickerIndexPath != nil
-            {
-                tableView.beginUpdates()
-                let cell = tableViewOutlet.cellForRow(at: IndexPath(row: (datePickerIndexPath?.row)!-1, section: (datePickerIndexPath?.section)!))
-                cell?.detailTextLabel?.textColor = .black
-                tableView.deleteRows(at: [datePickerIndexPath!], with: .fade)
-                datePickerIndexPath = nil
-                tableView.endUpdates()
-            }
-            
             let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailTableViewController") as! TaskDetailTableViewController
             if fieldData[indexPath.section][indexPath.row].title == "Category"
             {
@@ -257,6 +240,23 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+//    @objc func handleTextInputChange()
+//    {
+//        let isFormValid = (textFieldOutlet.text?.count ?? 0) > 0 //&& (passwordTextField.text?.count ?? 0) > 0
+//        if isFormValid
+//        {
+//            addButtonOutlet.isEnabled = true
+//            addButtonOutlet.titleLabel?.text = "Add"
+////            addButtonOutlet.titleLabel?.textColor = .white
+//        } else
+//        {
+//            addButtonOutlet.isEnabled = false
+//            addButtonOutlet.titleLabel?.text = ""
+////            addButtonOutlet.tintColor = .black
+//        }
+//    }
+    
+ 
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         let parentIndexPath = IndexPath(row: datePickerIndexPath!.row-1, section: datePickerIndexPath!.section)
         
@@ -265,39 +265,23 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 //        celldata.date = sender.date
 //        celldata.detail = dateFormatter.string(from: sender.date)
         fieldData[parentIndexPath.section][parentIndexPath.row].date = sender.date
-        fieldData[parentIndexPath.section][parentIndexPath.row].detail = dateFormatter.string(from: sender.date)//sender.date
+        fieldData[parentIndexPath.section][parentIndexPath.row].detail = sender.date
         dateCell?.detailTextLabel?.text = dateFormatter.string(from: sender.date)
 //      self.tableViewOutlet.reloadData()
     }
-    func shakeTitleInput()
-    {
-        UIView.animate(withDuration: 0.05, animations: { self.titleTextFieldCell?.textFieldOutlet.frame.origin.x -= 5 }, completion: { _ in
-            UIView.animate(withDuration: 0.05, animations: { self.titleTextFieldCell?.textFieldOutlet.frame.origin.x += 10 }, completion: { _ in
-                UIView.animate(withDuration: 0.05, animations: { self.titleTextFieldCell?.textFieldOutlet.frame.origin.x -= 10 }, completion: { _ in
-                    UIView.animate(withDuration: 0.05, animations: {
-                        self.titleTextFieldCell?.textFieldOutlet.frame.origin.x += 10 }, completion: { _ in
-                        UIView.animate(withDuration: 0.05, animations: {
-                            self.titleTextFieldCell?.textFieldOutlet.frame.origin.x -= 5 })
-                    })
-                })
-            })
-        })
+    
+    @IBAction func titleValueChanged(_ sender: LeftPaddedTextField) {
+        fieldData[0][0].detail = sender.text!
     }
 
     // Initialize page
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "New Task"
+//        addButtonOutlet.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
-        
-        self.cancelButtonOutlet.backgroundColor = UIColor.HalpColors.pastelRed
-        self.addButtonOutlet.backgroundColor = UIColor.HalpColors.pastelRed
-        
-        self.cancelButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        self.addButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-//        tableViewOutlet.backgroundColor = .clear
+        tableViewOutlet.backgroundColor = .clear
         //        tableViewOutlet.estimatedRowHeight = 45
         //        tableViewOutlet.rowHeight = UITableViewAutomaticDimension
         //        tableViewOutlet.sectionHeaderHeight = UITableViewAutomaticDimension
@@ -306,12 +290,12 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         
         dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm a"
         
-        
         guard let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) else{return}
+        
         let section0 = [CellData(cellType: .textField, title: "Title", detail: "", date: nil)]
         let section1 =
-            [CellData(cellType: .dateDetail, title: "Starts", detail: dateFormatter.string(from: Date()), date: Date()),
-             CellData(cellType: .dateDetail, title: "Deadline", detail: dateFormatter.string(from: date), date: date)]
+            [CellData(cellType: .dateDetail, title: "Starts", detail: Date(), date: Date()),
+             CellData(cellType: .dateDetail, title: "Deadline", detail: Date(), date: date)]
         let section2 =
             [CellData(cellType: .detail, title: "Category", detail: "", date: nil),
              CellData(cellType: .detail, title: "Alarm", detail: "", date: nil)]
@@ -320,15 +304,69 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = true
         self.tableViewOutlet.reloadData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = false
-//        self.navigationController?.navigationBar.barTintColor = .black
-//        self.navigationController?.navigationBar.backgroundColor = .clear
-//        self.navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.barTintColor = .black
+        self.navigationController?.navigationBar.backgroundColor = .clear
+        self.navigationController?.navigationBar.tintColor = .white
+    }
+}
+
+// Extensions
+extension TaskEditPageViewController : UITextViewDelegate, UITextFieldDelegate
+{
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "Description"
+        {
+            textView.text = ""
+            textView.textColor = .black
+            textView.font = UIFont.systemFont(ofSize: 15)
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n"
+        {
+            textView.resignFirstResponder()
+        }
+        return true
+    }
+    
+   
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        if (textField.text?.count)! > 0
+//        {
+//            addButtonOutlet.isEnabled = true
+//            addButtonOutlet.titleLabel?.text = "Add"
+//        }
+//    }
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        if (textField.text?.count)! <= 0
+//        {
+//            addButtonOutlet.isEnabled = false
+//            addButtonOutlet.titleLabel?.text = ""
+//        }
+//    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text == ""
+        {
+            textView.text = "Description"
+            textView.textColor = .lightGray
+            textView.font = UIFont.systemFont(ofSize: 17)
+        }
+        else {
+            fieldData[3][0].detail = textView.text
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
@@ -337,5 +375,8 @@ extension TaskEditPageViewController : TaskDetailTableViewControllerDelegate
     func changeDetail(text label:String, indexPath:IndexPath)
     {
         self.fieldData[indexPath.section][indexPath.row].detail = label
+       // let cell = self.tableViewOutlet.cellForRow(at: indexPath)
+       // cell?.detailTextLabel?.text = label
     }
 }
+
