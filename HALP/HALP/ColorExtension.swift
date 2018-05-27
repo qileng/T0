@@ -22,6 +22,20 @@ extension UIColor {
 		
 		self.init(red: CGred, green: CGgreen, blue: CGblue, alpha: CGFloat(1.0))
 	}
+    
+    struct HalpColors {
+        //rgb(255,90,95)
+        static let pastelRed = UIColor.rgbColor(255, 90, 95)
+        //rgb(211,106,99)
+        static let fuzzyWuzzy = UIColor.rgbColor(211, 106, 99)
+        //rgb(89,38,47)
+        static let caputMortuum = UIColor.rgbColor(89, 38, 47)
+        //rgb(206,137,100)
+        static let paleCopper = UIColor.rgbColor(206, 137, 100)
+        //blue colors
+        //rgb(53,142,252)
+        static let brilliantAzure = UIColor.rgbColor(53, 142, 252)
+    }
 }
 
 

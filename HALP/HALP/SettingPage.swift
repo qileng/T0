@@ -274,6 +274,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             timeWarning.dismiss(animated: true, completion: nil)
         }))
         self.present(timeWarning, animated: true, completion: nil)
+
     }
     
     @IBAction func reset(_ sender: UIButton) {
