@@ -173,9 +173,19 @@ func testScheduleKeyGetter() {
     }
     
     func testSchedule() {
-        
+    	//task from 9AM to 11AM on May 28, 2018
+        let fixedStart = [(Int32)(32400), (Int32)(46800), (Int32)(32400), (Int32)(64800), (Int32)(28800)]
+        let fixedEnd = [(Int32)(39600), (Int32)(61200), (Int32)(50400), (Int32)(82800), (Int32)(64800)]
+        let fixedDay = [0, 0, 1, 1, 2]
+
+        let floatStart = [(Int32)(36000), (Int32)(57600)]
+        let floatDeadline = [(Int32)(46800), (Int32)(68400)]
+        let floatStartTimeDay = [0, 0]
+        let floatDeadlineDay = [0, 0]
+        let floatDuration = [(Int32)(1800), (Int32)(3600)]
+        let floatPriority = [Double(1), Double(1)]
         /* test helper method */
-       let floatTasks =  taskGeneratorFloat(startTime: [(Int32)(72000),(Int32)(64800)], deadLine: [(Int32)(72000),(Int32)(90000)], startTimeDay: [0,2], deadLineDay: [4,3], duration: [(Int32)(7200),(Int32)(3600)], priority: [(Double)(1),(Double)(0)])
+       /*let floatTasks =  taskGeneratorFloat(startTime: [(Int32)(72000),(Int32)(64800)], deadLine: [(Int32)(72000),(Int32)(90000)], startTimeDay: [0,2], deadLineDay: [4,3], duration: [(Int32)(7200),(Int32)(3600)], priority: [(Double)(1),(Double)(0)])
         for i in 0..<2 {
         print("check flaot the property " + "startTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getScheduleStart()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getScheduleStart()))))" + "endTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getDeadline()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(floatTasks[i].getDeadline()))))" + "duration is  \(floatTasks[i].getDuration())" + "priority is \(floatTasks[i].getPriority())\n");
       
@@ -187,6 +197,8 @@ func testScheduleKeyGetter() {
                     print("check fix the property " + "startTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(fixTasks[i].getScheduleStart()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(fixTasks[i].getScheduleStart()))))" + "endTime is \(Calendar.current.component(Calendar.Component.day, from: Date(timeIntervalSince1970: (Double)(fixTasks[i].getDeadline()))))" + ":\(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(fixTasks[i].getDeadline()))))" + "duration is  \(fixTasks[i].getDuration())" + "priority is \(fixTasks[i].getPriority())\n");
         }
         
+
+        */
         /*  test schedule */
         let taskManager = TaskManager.sharedTaskManager;
         for item in floatTasks {
