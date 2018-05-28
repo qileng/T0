@@ -11,14 +11,23 @@ import UIKit
 
 
 let colorTheme = UIColor.HalpColors.paleCopper
-class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class StartupViewController: UIViewController, UITextFieldDelegate {
     
     // UI components
     let logoImageView: UIImageView = {
         let image = UIImage(named: "logo")//?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: image)
-//        imageView.tintColor = colorTheme
+        //        imageView.tintColor = colorTheme
         return imageView
+    }()
+    
+    let halpLabel:UILabel = {
+        let label = UILabel()
+        let descriptionStr:String = "HALP"
+        let attributedTitle = NSMutableAttributedString(string: descriptionStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.medium), NSAttributedStringKey.foregroundColor : UIColor.black.withAlphaComponent(0.8) ])
+        label.attributedText = attributedTitle
+        label.textAlignment = .center
+        return label
     }()
     
     let emailTextField:LeftPaddedTextField = {
@@ -37,12 +46,44 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15)])
         textField.backgroundColor = .white
         textField.borderStyle = .roundedRect
-        textField.clearButtonMode = .whileEditing
+//        textField.clearButtonMode = .whileEditing
         textField.isSecureTextEntry = true
+//        textField.rightView = hidePasswordButton
         textField.tag = 2
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
+    
+    var hidePasswordButton:UIButton = {
+
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "hide").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "visible").withRenderingMode(.alwaysTemplate), for: .selected)
+        button.imageView?.contentMode = .scaleAspectFit
+        let buttonWidth:CGFloat = 26.5
+        let buttonHeight:CGFloat = 37
+        let buttonVerticalMargin:CGFloat = 9
+        let buttonHorizontalMargin:CGFloat = 8
+        button.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight)
+        button.imageEdgeInsets = UIEdgeInsets(top: buttonVerticalMargin, left: 0, bottom: buttonVerticalMargin, right: buttonHorizontalMargin)
+      
+        button.tintColor = .black//colorTheme
+        button.addTarget(self, action: #selector(hidePasswordButtonHandler), for: .touchUpInside)
+
+        return button
+    }()
+    
+    //    private lazy var showHidePasswordButton: UIButton = {
+    //        let button = UIButton(type: .custom)
+    //        button.imageEdgeInsets = UIEdgeInsets(top: buttonVerticalMargin, left: 0, bottom: buttonVerticalMargin, right: buttonHorizontalMargin)
+    //        button.frame = buttonFrame
+    //        button.tintColor = .text
+    //        button.setImage(#imageLiteral(resourceName: "Password-show"), for: .normal)
+    //        button.setImage(#imageLiteral(resourceName: "Password-hide"), for: .selected)
+    //        button.addTarget(self, action: #selector(togglePasswordVisibility(_:)), for: .touchUpInside)
+    //        return button
+    //    }()
+    
     
     let loginButton:UIButton = {
         
@@ -74,27 +115,27 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         return button
     }()
     
-    let hidePasswordButton:UIButton = {
-        
-        let button = UIButton(type: .custom)
-        let checkedBoxImg = UIImage(named: "checkedBox")?.withRenderingMode(.alwaysTemplate)
-        let uncheckedBoxImg = UIImage(named: "uncheckedBox")?.withRenderingMode(.alwaysTemplate)
-        button.setImage(checkedBoxImg, for: .normal)
-        button.setImage(uncheckedBoxImg, for: .selected)
-
-        let attributedTitle = NSMutableAttributedString(string: "Hide Password", attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        button.tintColor = colorTheme
-        button.imageView?.contentMode = .scaleAspectFit
-        
-//        button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, button.frame.width - button.frame.height ,0)
-//        button.titleEdgeInsets = UIEdgeInsetsMake(0, -23, 0, 0)
-        button.contentHorizontalAlignment = .left
-        button.addTarget(self, action: #selector(hidePasswordButtonHandler), for: .touchUpInside)
-        
-        return button
-    }()
-
+    //    let hidePasswordButton:UIButton = {
+    //
+    //        let button = UIButton(type: .custom)
+    //        let checkedBoxImg = UIImage(named: "checkedBox")?.withRenderingMode(.alwaysTemplate)
+    //        let uncheckedBoxImg = UIImage(named: "uncheckedBox")?.withRenderingMode(.alwaysTemplate)
+    //        button.setImage(checkedBoxImg, for: .normal)
+    //        button.setImage(uncheckedBoxImg, for: .selected)
+    //
+    //        let attributedTitle = NSMutableAttributedString(string: "Hide Password", attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
+    //        button.setAttributedTitle(attributedTitle, for: .normal)
+    //        button.tintColor = colorTheme
+    //        button.imageView?.contentMode = .scaleAspectFit
+    //
+    ////        button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, button.frame.width - button.frame.height ,0)
+    ////        button.titleEdgeInsets = UIEdgeInsetsMake(0, -23, 0, 0)
+    //        button.contentHorizontalAlignment = .left
+    //        button.addTarget(self, action: #selector(hidePasswordButtonHandler), for: .touchUpInside)
+    //
+    //        return button
+    //    }()
+    
     let forgotPasswordButton:UIButton = {
         
         let button = UIButton(type: .system)
@@ -109,7 +150,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-//        stackView.backgroundColor = .red
+        //        stackView.backgroundColor = .red
         stackView.spacing = 10
         return stackView
     }()
@@ -118,7 +159,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-//        stackView.backgroundColor = .red
+        //        stackView.backgroundColor = .red
         stackView.spacing = 10
         return stackView
     }()
@@ -145,24 +186,26 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     // Setup UI components
     fileprivate func setUpSubViewsLayout()
     {
-        horizontalStackView.addArrangedSubViews([hidePasswordButton, forgotPasswordButton])
-        verticalStackView.addArrangedSubViews([emailTextField, passwordTextField, horizontalStackView, loginButton, guestLoginButton ])
-        view.addSubviews([logoImageView, verticalStackView, lineView, signUpButton])
+        
+//        horizontalStackView.addArrangedSubViews([forgotPasswordButton])
+        verticalStackView.addArrangedSubViews([emailTextField, passwordTextField, loginButton, guestLoginButton])
+        view.addSubviews([logoImageView,halpLabel, verticalStackView, forgotPasswordButton, lineView, signUpButton])
         
         signUpButton.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width, height: 45, centerX: nil, centerY: nil)
         
         lineView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.signUpButton.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width, height: 1, centerX: nil, centerY: nil)
         
-        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/5, width: view.frame.width-20, height: view.frame.height/3, centerX: view.centerXAnchor, centerY: nil)
         
-        logoImageView.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 50, width: view.frame.width/3, height: view.frame.width/3, centerX: view.centerXAnchor, centerY: nil)
+        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/4, width: view.frame.width-20, height: view.frame.height/4, centerX: view.centerXAnchor, centerY: nil)
         
-//        hidePasswordButton.semanticContentAttribute = .forceRightToLeft
+        forgotPasswordButton.anchor(top: self.verticalStackView.bottomAnchor, left: nil, right: view.rightAnchor, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 10, bottomConstant: 0, width: view.frame.width/3, height: 40, centerX: nil, centerY: nil)
         
-//        hidePasswordButton.imageView?.anchor(top: hidePasswordButton.topAnchor, left: hidePasswordButton.leftAnchor, right: nil, bottom: hidePasswordButton.bottomAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: hidePasswordButton.frame.width/5, height: hidePasswordButton.frame.width/5, centerX: nil, centerY: nil)
-//        hidePasswordButton.titleLabel?.anchor(top: hidePasswordButton.topAnchor, left: hidePasswordButton.imageView?.rightAnchor, right: nil, bottom: hidePasswordButton.bottomAnchor, topConstant: 0, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: (hidePasswordButton.titleLabel?.frame.width)!, height: hidePasswordButton.frame.height, centerX: nil, centerY: nil)
- 
-
+        halpLabel.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: 10, width: view.frame.width-20, height: 30, centerX: view.centerXAnchor, centerY: nil)
+        
+        logoImageView.anchor(top: nil, left: nil, right: nil, bottom: self.halpLabel.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width/3, height: view.frame.width/3, centerX: view.centerXAnchor, centerY: nil)
+        
+        passwordTextField.rightView = hidePasswordButton
+        passwordTextField.rightViewMode = .whileEditing
     }
     
     
@@ -170,37 +213,37 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     // Login function
     @objc func loginActionHandler()
     {
-                // UserForm collects input.
-                let form = UserForm(password: self.passwordTextField.text!, email: self.emailTextField.text!)
-                // Validate with DB using via UserData.
-                // TODO: Currently, actual online authentication is not implemented. So authentication is in
-                // SQLite as a template. To enable authentication from Azure, implement
-                // UserData.init(Bool:email:password).
-                let user: UserData
-                do {
-                    user = try form.onlineValidateExistingUser()
-                    // TODO: retrieve settting using userID
-                    // Set up task manager
-                    
-					TaskManager.sharedTaskManager.setUp(new: user, setting: Setting())
-        
-                    // Bring up rootViewController
-                    self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-                } catch RuntimeError.DBError(let errorMessage) {
-                    let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
-        
-                } catch RuntimeError.InternalError(let errorMessage) {
-                    let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
-        
-                } catch {
-                    let alert = UIAlertController(title: "Oops!", message: "Unexpected Error!", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
-                }
+        // UserForm collects input.
+        let form = UserForm(password: self.passwordTextField.text!, email: self.emailTextField.text!)
+        // Validate with DB using via UserData.
+        // TODO: Currently, actual online authentication is not implemented. So authentication is in
+        // SQLite as a template. To enable authentication from Azure, implement
+        // UserData.init(Bool:email:password).
+        let user: UserData
+        do {
+            user = try form.onlineValidateExistingUser()
+            // TODO: retrieve settting using userID
+            // Set up task manager
+            
+            TaskManager.sharedTaskManager.setUp(new: user, setting: Setting())
+            
+            // Bring up rootViewController
+            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+        } catch RuntimeError.DBError(let errorMessage) {
+            let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            
+        } catch RuntimeError.InternalError(let errorMessage) {
+            let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            
+        } catch {
+            let alert = UIAlertController(title: "Oops!", message: "Unexpected Error!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+        }
     }
     
     // Sign up function
@@ -227,9 +270,9 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             guest = try guestForm.onlineValidateExistingUser()
             // TODO: retrieve guest setting
             // Set up task manager
-			TaskManager.sharedTaskManager.setUp(new: guest, setting: Setting(), caller: self as UIViewController)
-			
-//            self.dismiss(animated: true, completion: nil)
+            TaskManager.sharedTaskManager.setUp(new: guest, setting: Setting(), caller: self as UIViewController)
+            
+            //            self.dismiss(animated: true, completion: nil)
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
         } catch {
             //There should not be any authentication error with guest login
@@ -244,16 +287,16 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     // UI actions
     // Todo: comment
     
-//    func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
-//        let movementOnAxis = pointOnAxis / axisLength
-//        let positiveMovementOnAxis = fmaxf(Float(movementOnAxis), 0.0)
-//        let positiveMovementOnAxisPercent = fminf(positiveMovementOnAxis, 1.0)
-//        return CGFloat(positiveMovementOnAxisPercent)
-//    }
-//
-//    func ensureRange<T>(value: T, minimum: T, maximum: T) -> T where T : Comparable {
-//        return min(max(value, minimum), maximum)
-//    }
+    //    func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
+    //        let movementOnAxis = pointOnAxis / axisLength
+    //        let positiveMovementOnAxis = fmaxf(Float(movementOnAxis), 0.0)
+    //        let positiveMovementOnAxisPercent = fminf(positiveMovementOnAxis, 1.0)
+    //        return CGFloat(positiveMovementOnAxisPercent)
+    //    }
+    //
+    //    func ensureRange<T>(value: T, minimum: T, maximum: T) -> T where T : Comparable {
+    //        return min(max(value, minimum), maximum)
+    //    }
     
     @objc func handleTextInputChange()
     {
@@ -276,15 +319,14 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         if hidePasswordButton.isSelected
         {
             passwordTextField.isSecureTextEntry = false
-        
+            
         }else
         {
             passwordTextField.isSecureTextEntry = true
         }
-        
     }
     
-   @objc func keyboardHide() {
+    @objc func keyboardHide() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             
             self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
@@ -339,15 +381,15 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         // Initialize local database
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbPath = documentsPath + "/appData.sqlite"
-		print(dbPath)
+        print(dbPath)
         var dbpointer: OpaquePointer? = nil
-		/*
-		sqlite3_open(dbPath, &dbpointer)
-		sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
-		sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
-		sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
-		sqlite3_close(dbpointer)
-		*/
+        /*
+         sqlite3_open(dbPath, &dbpointer)
+         sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
+         sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
+         sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
+         sqlite3_close(dbpointer)
+         */
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             // UserData table
@@ -373,28 +415,28 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         else {
             print("fail to open database")
         }
-
-
-		// Testing data
-//        var tasks: [Task] = []
-//        let current = Int32(Date().timeIntervalSince1970)
-//        tasks.append(Task(Title: "Task6", Description: "Testing Task 6", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 14400, UserID: 0))
-//        tasks.append(Task(Title: "Task2", Description: "Testing Task 2", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 7200, UserID: 0))
-//        tasks.append(Task(Title: "Task5", Description: "Testing Task 5", Category: .Entertainment,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 10800, UserID: 0))
-//        tasks.append(Task(Title: "Task4", Description: "Testing Task 4", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 3600, UserID: 0))
-//        tasks.append(Task(Title: "Task1", Description: "Testing Task 1", Category: .Relationship,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 18000, UserID: 0))
-//        tasks.append(Task(Title: "Task8", Description: "Testing Task 8", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 21600, UserID: 0))
-//        tasks.append(Task(Title: "Task7", Description: "Testing Task 7", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 25200, UserID: 0))
-//        tasks.append(Task(Title: "Task3", Description: "Testing Task 3", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 28800, UserID: 0))
-
-
-//        for task in tasks {
-//            let DAO = TaskDAO(task)
-//            if !DAO.saveTaskInfoToLocalDB() {
-//                print("Saving ", task.getTitle(), " failed!")
-//            }
-//        }
-
+        
+        
+        // Testing data
+        //        var tasks: [Task] = []
+        //        let current = Int32(Date().timeIntervalSince1970)
+        //        tasks.append(Task(Title: "Task6", Description: "Testing Task 6", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 14400, UserID: 0))
+        //        tasks.append(Task(Title: "Task2", Description: "Testing Task 2", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 7200, UserID: 0))
+        //        tasks.append(Task(Title: "Task5", Description: "Testing Task 5", Category: .Entertainment,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 10800, UserID: 0))
+        //        tasks.append(Task(Title: "Task4", Description: "Testing Task 4", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 3600, UserID: 0))
+        //        tasks.append(Task(Title: "Task1", Description: "Testing Task 1", Category: .Relationship,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 18000, UserID: 0))
+        //        tasks.append(Task(Title: "Task8", Description: "Testing Task 8", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 21600, UserID: 0))
+        //        tasks.append(Task(Title: "Task7", Description: "Testing Task 7", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 25200, UserID: 0))
+        //        tasks.append(Task(Title: "Task3", Description: "Testing Task 3", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 28800, UserID: 0))
+        
+        
+        //        for task in tasks {
+        //            let DAO = TaskDAO(task)
+        //            if !DAO.saveTaskInfoToLocalDB() {
+        //                print("Saving ", task.getTitle(), " failed!")
+        //            }
+        //        }
+        
     }
     
     // This function I haven't figure out any significant usage yet.         --Qihao
