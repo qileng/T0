@@ -82,7 +82,7 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
         var rowHeight = UITableViewAutomaticDimension
         if indexPath.row == 0
         {
-            rowHeight = 260
+            rowHeight = 290
         }else
         {
             rowHeight = 44
