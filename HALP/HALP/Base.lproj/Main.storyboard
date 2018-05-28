@@ -683,8 +683,9 @@
                                 </view>
                                 <blurEffect style="extraLight"/>
                             </visualEffectView>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OwR-pv-nRD">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OwR-pv-nRD">
                                 <rect key="frame" x="311" y="61" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="notificationSwitch:" destination="PiT-cf-OIt" eventType="valueChanged" id="L9v-f6-gKJ"/>
                                 </connections>
@@ -710,8 +711,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CxL-9a-2Km">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CxL-9a-2Km">
                                 <rect key="frame" x="243" y="103" width="117" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Clock"/>
                                     <segment title="List"/>
@@ -720,8 +722,9 @@
                                     <action selector="defaultViewSegControl:" destination="PiT-cf-OIt" eventType="valueChanged" id="pUq-SH-rk2"/>
                                 </connections>
                             </segmentedControl>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Glg-vL-BA4">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Glg-vL-BA4">
                                 <rect key="frame" x="243" y="145" width="117" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Time"/>
                                     <segment title="Priority"/>
@@ -737,8 +740,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mgj-nL-uxE">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mgj-nL-uxE">
                                 <rect key="frame" x="243" y="190" width="117" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Light"/>
                                     <segment title="Dark"/>
@@ -803,44 +807,51 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ce9-Su-Sah">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ce9-Su-Sah">
                                 <rect key="frame" x="308" y="295" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="monSwitch:" destination="PiT-cf-OIt" eventType="valueChanged" id="lc0-eq-7u2"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MEQ-ia-4kd">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MEQ-ia-4kd">
                                 <rect key="frame" x="308" y="334" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="tueSwitch:" destination="PiT-cf-OIt" eventType="valueChanged" id="Twc-kJ-hyS"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D2f-q0-bJy">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D2f-q0-bJy">
                                 <rect key="frame" x="308" y="373" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="wedSwitch:" destination="PiT-cf-OIt" eventType="valueChanged" id="Jaa-aN-XnS"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ovy-kI-x64">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ovy-kI-x64">
                                 <rect key="frame" x="308" y="412" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="thuSwitch:" destination="PiT-cf-OIt" eventType="valueChanged" id="PGj-6Z-PkJ"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4mc-Aa-HWN">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4mc-Aa-HWN">
                                 <rect key="frame" x="308" y="451" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="friSwitch:" destination="PiT-cf-OIt" eventType="valueChanged" id="lbi-iu-dI6"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FMv-MG-esO">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FMv-MG-esO">
                                 <rect key="frame" x="308" y="490" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="satSwitch:" destination="PiT-cf-OIt" eventType="valueChanged" id="7NO-aw-CFf"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5mC-V1-V6B">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5mC-V1-V6B">
                                 <rect key="frame" x="309" y="256" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="sunSwitch:" destination="PiT-cf-OIt" eventType="valueChanged" id="Ayg-jo-DaG"/>
                                 </connections>
@@ -901,27 +912,13 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="nT2-BD-yqg" firstAttribute="width" secondItem="bma-MH-N5e" secondAttribute="width" id="14z-V0-pct"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="Glg-vL-BA4" secondAttribute="trailing" constant="15" id="1T5-gj-rJ7"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="CxL-9a-2Km" secondAttribute="trailing" constant="15" id="Aa7-KW-Olw"/>
                             <constraint firstItem="tE3-iz-Rry" firstAttribute="bottom" secondItem="NYq-1U-oGf" secondAttribute="bottom" id="C0j-3C-doF"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="ovy-kI-x64" secondAttribute="trailing" constant="18" id="DaV-nV-WVs"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="ce9-Su-Sah" secondAttribute="trailing" constant="18" id="FH7-ff-C3Q"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="4mc-Aa-HWN" secondAttribute="trailing" constant="18" id="Iat-dA-7LV"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="OwR-pv-nRD" secondAttribute="trailing" constant="15" id="L1a-lz-peJ"/>
                             <constraint firstItem="tE3-iz-Rry" firstAttribute="leading" secondItem="NYq-1U-oGf" secondAttribute="leading" id="MAD-hA-5bg"/>
                             <constraint firstItem="nT2-BD-yqg" firstAttribute="top" secondItem="bma-MH-N5e" secondAttribute="top" id="Wd4-XE-Kvf"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="MEQ-ia-4kd" secondAttribute="trailing" constant="18" id="Y1W-38-rYD"/>
                             <constraint firstItem="tE3-iz-Rry" firstAttribute="top" secondItem="bma-MH-N5e" secondAttribute="top" id="bsk-Vb-UvQ"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="FMv-MG-esO" secondAttribute="trailing" constant="18" id="cNW-D7-ZDH"/>
                             <constraint firstItem="tE3-iz-Rry" firstAttribute="trailing" secondItem="NYq-1U-oGf" secondAttribute="trailing" id="d3m-Zb-BQS"/>
-                            <constraint firstItem="CxL-9a-2Km" firstAttribute="leading" secondItem="NYq-1U-oGf" secondAttribute="leading" constant="243" id="h2s-mQ-gEF"/>
-                            <constraint firstItem="mgj-nL-uxE" firstAttribute="leading" secondItem="NYq-1U-oGf" secondAttribute="leading" constant="243" id="jKO-KH-grb"/>
                             <constraint firstItem="nT2-BD-yqg" firstAttribute="centerX" secondItem="NYq-1U-oGf" secondAttribute="centerX" id="m8Q-DU-shV"/>
-                            <constraint firstItem="Glg-vL-BA4" firstAttribute="leading" secondItem="NYq-1U-oGf" secondAttribute="leading" constant="243" id="nzL-p9-Cs8"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="5mC-V1-V6B" secondAttribute="trailing" constant="17" id="rbU-l9-On8"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="mgj-nL-uxE" secondAttribute="trailing" constant="15" id="w83-Zg-bAP"/>
                             <constraint firstItem="nT2-BD-yqg" firstAttribute="centerY" secondItem="NYq-1U-oGf" secondAttribute="centerY" id="yap-cs-8hG"/>
-                            <constraint firstItem="NYq-1U-oGf" firstAttribute="trailing" secondItem="D2f-q0-bJy" secondAttribute="trailing" constant="18" id="zDN-jX-miA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NYq-1U-oGf"/>
                     </view>
@@ -967,22 +964,22 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="n2P-BG-qFo">
-                                                    <rect key="frame" x="63.5" y="5" width="301.5" height="33.5"/>
+                                                    <rect key="frame" x="71.5" y="5" width="293.5" height="41.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0a-EU-2fP">
-                                                            <rect key="frame" x="0.0" y="0.0" width="301.5" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="293.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gVW-k3-jHk">
-                                                            <rect key="frame" x="0.0" y="20.5" width="301.5" height="13"/>
+                                                            <rect key="frame" x="0.0" y="21" width="293.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PC3-f8-OfY">
-                                                    <rect key="frame" x="20" y="10" width="23.5" height="23.5"/>
+                                                    <rect key="frame" x="20" y="10" width="31.5" height="31.5"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="PC3-f8-OfY" secondAttribute="height" multiplier="1:1" id="0PY-7b-t9b"/>
@@ -1052,6 +1049,5 @@
     <resources>
         <image name="Traditional" width="120" height="212"/>
         <image name="sky1" width="372" height="696"/>
-        <image name="space1" width="372" height="696"/>
     </resources>
 </document>
