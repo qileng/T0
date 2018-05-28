@@ -56,9 +56,9 @@ class ClockFaceView: UIView {
             
             let fillColor: UIColor
             if (index%2 == 0) {
-                fillColor = UIColor(hex: 0x59262F)
+                fillColor = UIColor(hex: 0x59262F, alpha: 0.5)
             } else {
-                fillColor = UIColor(hex: 0xCE8964)
+                fillColor = UIColor(hex: 0xCE8964, alpha: 0.5)
             }
             fillColor.setFill()
             path.fill()

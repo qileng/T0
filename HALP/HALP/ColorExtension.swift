@@ -22,6 +22,19 @@ extension UIColor {
 		
 		self.init(red: CGred, green: CGgreen, blue: CGblue, alpha: CGFloat(1.0))
 	}
+    
+    convenience init (hex: Int, alpha: CGFloat) {
+        let red = hex & 0xff0000
+        let green = hex & 0x00ff00
+        let blue = hex & 0x0000ff
+        
+        let CGred = CGFloat(red >> 16) / 255.0
+        let CGgreen = CGFloat(green >> 8) / 255.0
+        let CGblue = CGFloat(blue) / 255.0
+        
+        self.init(red: CGred, green: CGgreen, blue: CGblue, alpha: alpha)
+    }
+    
 }
 
 

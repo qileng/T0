@@ -17,8 +17,10 @@ class ClockTaskCell: UICollectionViewCell {
     override init(frame: CGRect) {
         taskName = UILabel()
         
-        let f = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width / 2 , height: frame.height / 2)
-        super.init(frame: f)
+        super.init(frame: frame)
+        self.backgroundColor = UIColor(hex: 0x59262f)
+        self.layer.cornerRadius = 30
+        self.clipsToBounds = true
     }
     
     func displayContent(task:Task) {
@@ -32,13 +34,15 @@ class ClockTaskCell: UICollectionViewCell {
         case .Relationship:
             taskImage = UIImageView(image: #imageLiteral(resourceName: "relationship"))
         }
+        taskImage.image = taskImage.image!.withRenderingMode(.alwaysTemplate)
+        taskImage.tintColor = UIColor.white
         //taskName = UILabel()
         taskName.text = task.getTitle()
         self.addSubview(taskImage)
-        taskImage.anchor(top: nil, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: frame.width, height: frame.height, centerX: self.centerXAnchor, centerY: self.centerYAnchor)
+        taskImage.anchor(top: nil, left: nil, right: nil, bottom: self.centerYAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: frame.width/2, height: frame.width/2, centerX: self.centerXAnchor, centerY: nil)
         self.addSubview(taskName)
-        taskName.anchor(top: taskImage.bottomAnchor, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: frame.width, height: frame.height, centerX: self.centerXAnchor, centerY: nil)
-        print(taskName.text)
+        taskName.anchor(top: taskImage.bottomAnchor, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: frame.width, height: frame.width/2, centerX: self.centerXAnchor, centerY: nil)
+        taskName.textColor = UIColor.white
         //let size = CGSize(width: frame.width/2, height: frame.height/2)
         //super.init(frame: CGRect(origin: frame.origin, size: size))
         

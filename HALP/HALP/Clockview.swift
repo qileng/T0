@@ -54,22 +54,36 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         if taskCollection != nil {
             taskCollection.removeFromSuperview()
         }
-        taskCollection = UICollectionView(frame: displayLabel.frame, collectionViewLayout: UICollectionViewFlowLayout())
+        
+        //Layout setup
+        let padding = CGFloat(10.0)
+        var layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = padding
+        layout.minimumInteritemSpacing = padding
+        layout.itemSize = CGSize(width: ((displayLabel.frame.width-padding)-(3*padding))/2, height: ((displayLabel.frame.height-padding)-(3*padding))/2)
+        let insets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        layout.sectionInset = insets
+        
+        taskCollection = UICollectionView(frame: displayLabel.frame, collectionViewLayout: layout)
         taskCollection.register(ClockTaskCell.self, forCellWithReuseIdentifier: "clockTaskCell")
         taskCollection.dataSource = self
         taskCollection.delegate = self
-        taskCollection.backgroundColor = UIColor(hex: 0xffffff)
+        
+        taskCollection.backgroundColor = UIColor(hex: 0xce8964) //Needs to be color coded by category
+        
         self.view.addSubview(taskCollection)
+        taskCollection.anchor(top: nil, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: displayLabel.frame.width - 10, height: displayLabel.frame.height - 10, centerX: displayLabel.centerXAnchor, centerY: displayLabel.centerYAnchor)
         
         //print("index is ",idx, " offset is ", offset)
-        if (clockTasks[idx].count == 0) {
+        /*if (clockTasks[idx].count == 0) {
            // message.text = "No Tasks"
         } else {
             for tasks in clockTasks[idx] {
                 //print("Task: " + tasks.getTitle())
                 //message.text = "Task: " + tasks.getTitle()
             }
-        }
+        }*/
     }
     
     
