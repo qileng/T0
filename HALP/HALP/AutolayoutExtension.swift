@@ -11,12 +11,14 @@ import Foundation
 
 class LeftPaddedTextField: UITextField {
     
+    
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return CGRect(x: bounds.origin.x + 10, y: bounds.origin.y, width: bounds.width + 10, height: bounds.height)
     }
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return CGRect(x: bounds.origin.x + 10, y: bounds.origin.y, width: bounds.width + 10, height: bounds.height)
     }
+    
     
 }
 extension UIColor
@@ -25,7 +27,6 @@ extension UIColor
     {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1.0)
     }
-
 }
 
 extension UIStackView

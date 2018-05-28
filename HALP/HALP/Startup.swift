@@ -10,12 +10,14 @@ import SQLite3
 import UIKit
 
 
+let colorTheme = UIColor.HalpColors.paleCopper
 class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
-	
+    
     // UI components
     let logoImageView: UIImageView = {
-        let image = UIImage(named: "logo")
+        let image = UIImage(named: "logo")//?.withRenderingMode(.alwaysTemplate)
         let imageView = UIImageView(image: image)
+//        imageView.tintColor = colorTheme
         return imageView
     }()
     
@@ -48,7 +50,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         button.setTitle("Login", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor.brown
+        button.backgroundColor = colorTheme
         button.layer.cornerRadius = 5
         button.isEnabled = false
         button.alpha = 0.4
@@ -63,7 +65,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         button.setTitle("Guest Login", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor.brown
+        button.backgroundColor = colorTheme
         button.layer.cornerRadius = 5
         button.isEnabled = true
         button.alpha = 1
@@ -82,20 +84,21 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
 
         let attributedTitle = NSMutableAttributedString(string: "Hide Password", attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
         button.setAttributedTitle(attributedTitle, for: .normal)
-        button.tintColor = .brown
+        button.tintColor = colorTheme
         button.imageView?.contentMode = .scaleAspectFit
-        button.imageEdgeInsets = UIEdgeInsetsMake(8, -15, 8, 8)
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, -23, 0, 0)
+        
+//        button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, button.frame.width - button.frame.height ,0)
+//        button.titleEdgeInsets = UIEdgeInsetsMake(0, -23, 0, 0)
         button.contentHorizontalAlignment = .left
         button.addTarget(self, action: #selector(hidePasswordButtonHandler), for: .touchUpInside)
         
         return button
     }()
-    
+
     let forgotPasswordButton:UIButton = {
         
         let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Forgot password?", attributes: [ NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : UIColor.brown ])
+        let attributedTitle = NSMutableAttributedString(string: "Forgot password?", attributes: [ NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : colorTheme ])
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.contentHorizontalAlignment = .right
         button.addTarget(self, action: #selector(forgotPasswordButtonHandler), for: .touchUpInside)
@@ -106,7 +109,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.backgroundColor = .red
+//        stackView.backgroundColor = .red
         stackView.spacing = 10
         return stackView
     }()
@@ -115,7 +118,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
-        stackView.backgroundColor = .red
+//        stackView.backgroundColor = .red
         stackView.spacing = 10
         return stackView
     }()
@@ -123,7 +126,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     let signUpButton:UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Don't have an account? ", attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
-        attributedTitle.append(NSAttributedString(string: "Sign up.", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.brown]))
+        attributedTitle.append(NSAttributedString(string: "Sign up.", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : colorTheme]))
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(signUpActionHandler), for: .touchUpInside)
         
@@ -150,9 +153,16 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         
         lineView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.signUpButton.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width, height: 1, centerX: nil, centerY: nil)
         
-        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/5, width: view.frame.width-20, height: view.frame.height/4, centerX: view.centerXAnchor, centerY: nil)
+        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/5, width: view.frame.width-20, height: view.frame.height/3, centerX: view.centerXAnchor, centerY: nil)
         
         logoImageView.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 50, width: view.frame.width/3, height: view.frame.width/3, centerX: view.centerXAnchor, centerY: nil)
+        
+//        hidePasswordButton.semanticContentAttribute = .forceRightToLeft
+        
+//        hidePasswordButton.imageView?.anchor(top: hidePasswordButton.topAnchor, left: hidePasswordButton.leftAnchor, right: nil, bottom: hidePasswordButton.bottomAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: hidePasswordButton.frame.width/5, height: hidePasswordButton.frame.width/5, centerX: nil, centerY: nil)
+//        hidePasswordButton.titleLabel?.anchor(top: hidePasswordButton.topAnchor, left: hidePasswordButton.imageView?.rightAnchor, right: nil, bottom: hidePasswordButton.bottomAnchor, topConstant: 0, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: (hidePasswordButton.titleLabel?.frame.width)!, height: hidePasswordButton.frame.height, centerX: nil, centerY: nil)
+ 
+
     }
     
     
@@ -171,7 +181,31 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                     user = try form.onlineValidateExistingUser()
                     // TODO: retrieve settting using userID
                     // Set up task manager
-					TaskManager.sharedTaskManager.setUp(new: user, setting: Setting())
+                    
+                    let settingDAO = SettingDAO()
+                    do {
+                            
+                    let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: user.getUserID())
+                        
+                        let settingId = settingArray[0] as! Int64
+                        let notification = settingArray[1] as! Int32 == 1 ? true : false
+                        let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                        let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
+                        let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
+                        let avaliableDays = settingArray[5] as! Int32
+                        let start = settingArray[6] as! Int32
+                        let end = settingArray[7] as! Int32
+                        
+                        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                            defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                            endTime: end, user: settingId)
+                        
+                        TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+                        
+                    }catch {
+                        print("Error")
+                    }
+                    
         
                     // Bring up rootViewController
                     self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
@@ -216,8 +250,33 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             guest = try guestForm.onlineValidateExistingUser()
             // TODO: retrieve guest setting
             // Set up task manager
-			TaskManager.sharedTaskManager.setUp(new: guest, setting: Setting(), caller: self as UIViewController)
 			
+            let settingDAO = SettingDAO()
+            do {
+                
+                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: guest.getUserID())
+                
+                let settingId = settingArray[0] as! Int64
+                let notification = settingArray[1] as! Int32 == 1 ? true : false
+                let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
+                let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
+                let avaliableDays = settingArray[5] as! Int32
+                let start = settingArray[6] as! Int32
+                let end = settingArray[7] as! Int32
+                
+                
+                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                          defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                          endTime: end, user: settingId)
+                
+                TaskManager.sharedTaskManager.setUp(new: guest, setting: userSetting, caller: self as UIViewController)
+                
+            }catch {
+                print("Error")
+            }
+			
+//            self.dismiss(animated: true, completion: nil)
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
         } catch {
             //There should not be any authentication error with guest login
@@ -232,16 +291,16 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
     // UI actions
     // Todo: comment
     
-    func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
-        let movementOnAxis = pointOnAxis / axisLength
-        let positiveMovementOnAxis = fmaxf(Float(movementOnAxis), 0.0)
-        let positiveMovementOnAxisPercent = fminf(positiveMovementOnAxis, 1.0)
-        return CGFloat(positiveMovementOnAxisPercent)
-    }
-    
-    func ensureRange<T>(value: T, minimum: T, maximum: T) -> T where T : Comparable {
-        return min(max(value, minimum), maximum)
-    }
+//    func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
+//        let movementOnAxis = pointOnAxis / axisLength
+//        let positiveMovementOnAxis = fmaxf(Float(movementOnAxis), 0.0)
+//        let positiveMovementOnAxisPercent = fminf(positiveMovementOnAxis, 1.0)
+//        return CGFloat(positiveMovementOnAxisPercent)
+//    }
+//
+//    func ensureRange<T>(value: T, minimum: T, maximum: T) -> T where T : Comparable {
+//        return min(max(value, minimum), maximum)
+//    }
     
     @objc func handleTextInputChange()
     {
@@ -346,14 +405,20 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                 "VALUES (0, 'GUEST', 'GUEST', 'GUEST@GUEST.com', 0)", nil , nil, nil)
             
             // TaskData table
+            // sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
                 "(task_id INTEGER PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
                 "category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
                 "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
             
             // SettingData table not yet implemented
+            // sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
-                "(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+                "(setting_id INTEGER PRIMARY KEY, notification INTEGER, default_view INTEGER, default_sort INTEGER, theme INTEGER, avaliable_days INTEGER, start_time INTEGER, end_time INTEGER, last_update INTEGER)", nil, nil, nil)
+            
+            //Create a default setting for guest login
+            sqlite3_exec(dbpointer, "INSERT INTO SettingData (setting_id, notification, default_view, default_sort, theme, avaliable_days, start_time, end_time , last_update) " + "VALUES(0, 1, 0, 0, 0, 127, 0, 0, 0)", nil, nil, nil)
+            
             sqlite3_close(dbpointer)
             print(dbPath)
         }
@@ -361,27 +426,27 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             print("fail to open database")
         }
 
-		/*
+
 		// Testing data
-		var tasks: [Task] = []
-		let current = Int32(Date().timeIntervalSince1970)
-		tasks.append(Task(Title: "Task6", Description: "Testing Task 6", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 14400, UserID: 0))
-		tasks.append(Task(Title: "Task2", Description: "Testing Task 2", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 7200, UserID: 0))
-		tasks.append(Task(Title: "Task5", Description: "Testing Task 5", Category: .Entertainment,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 10800, UserID: 0))
-		tasks.append(Task(Title: "Task4", Description: "Testing Task 4", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 3600, UserID: 0))
-		tasks.append(Task(Title: "Task1", Description: "Testing Task 1", Category: .Relationship,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 18000, UserID: 0))
-		tasks.append(Task(Title: "Task8", Description: "Testing Task 8", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 21600, UserID: 0))
-		tasks.append(Task(Title: "Task7", Description: "Testing Task 7", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 25200, UserID: 0))
-		tasks.append(Task(Title: "Task3", Description: "Testing Task 3", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 28800, UserID: 0))
+//        var tasks: [Task] = []
+//        let current = Int32(Date().timeIntervalSince1970)
+//        tasks.append(Task(Title: "Task6", Description: "Testing Task 6", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 14400, UserID: 0))
+//        tasks.append(Task(Title: "Task2", Description: "Testing Task 2", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 7200, UserID: 0))
+//        tasks.append(Task(Title: "Task5", Description: "Testing Task 5", Category: .Entertainment,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 10800, UserID: 0))
+//        tasks.append(Task(Title: "Task4", Description: "Testing Task 4", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 3600, UserID: 0))
+//        tasks.append(Task(Title: "Task1", Description: "Testing Task 1", Category: .Relationship,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 18000, UserID: 0))
+//        tasks.append(Task(Title: "Task8", Description: "Testing Task 8", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 21600, UserID: 0))
+//        tasks.append(Task(Title: "Task7", Description: "Testing Task 7", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 25200, UserID: 0))
+//        tasks.append(Task(Title: "Task3", Description: "Testing Task 3", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 28800, UserID: 0))
 
 
-		for task in tasks {
-			let DAO = TaskDAO(task)
-			if !DAO.saveTaskInfoToLocalDB() {
-				print("Saving ", task.getTitle(), " failed!")
-			}
-		}
-		*/
+//        for task in tasks {
+//            let DAO = TaskDAO(task)
+//            if !DAO.saveTaskInfoToLocalDB() {
+//                print("Saving ", task.getTitle(), " failed!")
+//            }
+//        }
+
     }
     
     // This function I haven't figure out any significant usage yet.         --Qihao
