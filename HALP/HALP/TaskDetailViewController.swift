@@ -12,6 +12,7 @@ class TaskDetailViewController: UIViewController {
 
     var mainDetailCell:MainDetailTableViewCell?
     var task:Task?
+    var alarm:String = "" // temporary alarm
     let generalDateFormatter = DateFormatter()
     let timeDateFormatter = DateFormatter()
     
@@ -53,84 +54,143 @@ class TaskDetailViewController: UIViewController {
 
 
 //tableview cell identifier: mainDetailCell
-extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource
+extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource, TaskDetailTableViewControllerDelegate
 {
+    func changeDetail(text label: String, indexPath: IndexPath) {
+        self.alarm = label
+    }
+    
+//    func getCategoryStr(from category:Category) -> String
+//    {
+//        var categoryStr:String = ""
+//        switch category
+//        {
+//        case Category.Study_Work:
+//            categoryStr = "Study"
+//        case Category.Entertainment:
+//            categoryStr = "Entertainment"
+//        case Category.Chore:
+//            categoryStr = "Chore"
+//        case Category.Relationship:
+//            categoryStr = "Social"
+//        }
+//        return categoryStr
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        //        var rowHeight = tableView.rowHeight
+        var rowHeight = UITableViewAutomaticDimension
+        if indexPath.row == 0
+        {
+            rowHeight = 260
+        }else
+        {
+            rowHeight = 44
+        }
+        return rowHeight
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row != 0
+        {
+            let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailTableViewController") as! TaskDetailTableViewController
+            detailVC.cellData = ["None", "At start time of Event", "5 minutes before",
+                                     "10 minutes before", "15 minutes before", "30 minutes before",
+                                     "1 Hours before", "2 Hours before"]
+            detailVC.selectedIndexPath = indexPath
+            detailVC.delegate = self
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        self.mainDetailCell = tableView.dequeueReusableCell(withIdentifier: "mainDetailCell", for: indexPath) as? MainDetailTableViewCell
-
+        
+        if indexPath.row == 0
+        {
+            self.mainDetailCell = tableView.dequeueReusableCell(withIdentifier: "mainDetailCell", for: indexPath) as? MainDetailTableViewCell
+            
             mainDetailCell?.selectionStyle = .none
-        //setting task category image
-        if let category = task?.getCategory()
-        {
-            let image:UIImage
-            switch category {
-            case Category.Study_Work:
-                image = #imageLiteral(resourceName: "study")
-            case .Entertainment:
-                image = #imageLiteral(resourceName: "entertainment")
-            case .Chore:
-                image = #imageLiteral(resourceName: "chore")
-            case .Relationship:
-                image = #imageLiteral(resourceName: "relationship")
+            //setting task category image
+            if let category = task?.getCategory()
+            {
+                let image:UIImage
+                switch category {
+                case Category.Study_Work:
+                    image = #imageLiteral(resourceName: "study")
+                case .Entertainment:
+                    image = #imageLiteral(resourceName: "entertainment")
+                case .Chore:
+                    image = #imageLiteral(resourceName: "chore")
+                case .Relationship:
+                    image = #imageLiteral(resourceName: "relationship")
+                }
+                mainDetailCell?.taskImageView.image = image
+                mainDetailCell?.taskImageView.contentMode = .scaleAspectFit
+                mainDetailCell?.taskImageView.tintColor = taskColorTheme
             }
-            mainDetailCell?.taskImageView.image = image
-            mainDetailCell?.taskImageView.contentMode = .scaleAspectFit
-            mainDetailCell?.taskImageView.tintColor = taskColorTheme
-        }
-        
-        //setting task title
-        mainDetailCell?.taskTitle.text = self.task?.getTitle()
-        if !((task?.getDescription().isEmpty)!)
+            
+            //setting task title
+            mainDetailCell?.taskTitle.text = self.task?.getTitle()
+            if !((task?.getDescription().isEmpty)!)
+            {
+                mainDetailCell?.taskDescriptionLabel.text = task?.getDescription()
+                mainDetailCell?.taskDescriptionLabel.textColor = .black
+            }
+            
+            //setting event duration
+            let startDate = Date(timeIntervalSince1970: TimeInterval((task?.getScheduleStart())!))
+            let deadlineDate = Date(timeIntervalSince1970: TimeInterval((task?.getDeadline())!))
+            let startDateTimeStr = timeDateFormatter.string(from: startDate)
+            let deadlineDateTimeStr = timeDateFormatter.string(from: deadlineDate)
+            
+            mainDetailCell?.eventTimeLabel1.textColor = .black
+            mainDetailCell?.eventTimeLabel2.textColor = .black
+            mainDetailCell?.eventTimeLabel1.adjustsFontSizeToFitWidth = true
+            mainDetailCell?.eventTimeLabel2.adjustsFontSizeToFitWidth = true
+            
+            if Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .month) == .orderedSame && Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .day) == .orderedSame
+            {
+                //case1: event takes place on the same day
+                
+                let sameDayStr = generalDateFormatter.string(from: startDate)
+                let attributedStr1 = NSMutableAttributedString(string: sameDayStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                let timeStr = "from " + startDateTimeStr + " to " + deadlineDateTimeStr
+                let attributedStr2 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                
+                mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
+                mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
+            }else{
+                //case2: event takes places on the different day
+                let startDayStr = generalDateFormatter.string(from: startDate)
+                let deadlineDayStr = generalDateFormatter.string(from: deadlineDate)
+                
+                let timeStr1 = "from " + startDateTimeStr + ", " + startDayStr
+                let timeStr2 = "to " + deadlineDateTimeStr + ", " + deadlineDayStr
+                let attributedStr1 = NSMutableAttributedString(string: timeStr1, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                let attributedStr2 = NSMutableAttributedString(string: timeStr2, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                
+                mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
+                mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
+                
+                //            mainDetailCell?.eventTimeLabel1.textColor = .gray
+                //            mainDetailCell?.eventTimeLabel2.textColor = .gray
+            }
+            
+            //        mainDetailCell?.halpSuggestionLabel.text = "Halp suggests that you just do it"
+            return self.mainDetailCell!
+        }else //Alarm cell
         {
-            mainDetailCell?.taskDescriptionLabel.text = task?.getDescription()
-            mainDetailCell?.taskDescriptionLabel.textColor = .black
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellTypes.detail.rawValue, for: indexPath)
+            cell.textLabel?.text = "Alarm"
+            let attributedStr = NSMutableAttributedString(string: self.alarm, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+            cell.detailTextLabel?.attributedText = attributedStr
+            return cell
         }
-        
-        //setting event duration
-        let startDate = Date(timeIntervalSince1970: TimeInterval((task?.getScheduleStart())!))
-        let deadlineDate = Date(timeIntervalSince1970: TimeInterval((task?.getDeadline())!))
-        let startDateTimeStr = timeDateFormatter.string(from: startDate)
-        let deadlineDateTimeStr = timeDateFormatter.string(from: deadlineDate)
-        
-        mainDetailCell?.eventTimeLabel1.textColor = .black
-        mainDetailCell?.eventTimeLabel2.textColor = .black
-        mainDetailCell?.eventTimeLabel1.adjustsFontSizeToFitWidth = true
-        mainDetailCell?.eventTimeLabel2.adjustsFontSizeToFitWidth = true
-        
-        if Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .month) == .orderedSame && Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .day) == .orderedSame
-        {
-            //case1: event takes place on the same day
-            
-            let sameDayStr = generalDateFormatter.string(from: startDate)
-            let attributedStr1 = NSMutableAttributedString(string: sameDayStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
-            let timeStr = "from " + startDateTimeStr + " to " + deadlineDateTimeStr
-            let attributedStr2 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
-            
-            mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
-            mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
-        }else{
-            //case2: event takes places on the different day
-            let startDayStr = generalDateFormatter.string(from: startDate)
-            let deadlineDayStr = generalDateFormatter.string(from: deadlineDate)
-            
-            let timeStr1 = "from " + startDateTimeStr + ", " + startDayStr
-            let timeStr2 = "to " + deadlineDateTimeStr + ", " + deadlineDayStr
-            let attributedStr1 = NSMutableAttributedString(string: timeStr1, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
-            let attributedStr2 = NSMutableAttributedString(string: timeStr2, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
-            
-            mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
-            mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
-            
-//            mainDetailCell?.eventTimeLabel1.textColor = .gray
-//            mainDetailCell?.eventTimeLabel2.textColor = .gray
-        }
-        
-//        mainDetailCell?.halpSuggestionLabel.text = "Halp suggests that you just do it"
-        return self.mainDetailCell!
     }
 }
