@@ -66,7 +66,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         button.setTitle("Sign up", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor.brown
+        button.backgroundColor = colorTheme
         button.layer.cornerRadius = 5
         button.isEnabled = false
         button.alpha = 0.4
@@ -87,7 +87,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     let backToLoginButton:UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Have an account? ", attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
-        attributedTitle.append(NSAttributedString(string: "Log in.", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : UIColor.brown]))
+        attributedTitle.append(NSAttributedString(string: "Log in.", attributes: [NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 14), NSAttributedStringKey.foregroundColor : colorTheme]))
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(backToLoginButtonActionHandler), for: .touchUpInside)
         
@@ -167,6 +167,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         
         // write to local database
         let _DAO = UserDAO(username: form.getUsername(), password: form.getPassword(), email: form.getUserEmail(), id: form.getUserID())
+        let defaultSetting = SettingForm(userId: _DAO.getUserID())
+        let defaultSettingDAO = SettingDAO(defaultSetting)
+        
         // check databse for duplicate email address
         if(!_DAO.validateUserEmailOnline(email: form.getUserEmail(), onlineDB: false)) {
             let alert = UIAlertController(title: "Email already taken!", message: "Please try again", preferredStyle: .alert)
@@ -180,6 +183,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                 self.present(alert, animated: true)
             }
             else {
+                defaultSettingDAO.saveSettingIntoLocalDB()
                 let alert = UIAlertController(title: "Success!", message: "You can now sign in with your account", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) -> Void in
                     let signupVC:SignupViewController = self.storyboard?.instantiateViewController(withIdentifier: "SignupViewController") as! SignupViewController
