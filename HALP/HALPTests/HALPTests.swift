@@ -452,7 +452,7 @@ func testScheduleKeyGetter() {
 			print("Unexpected Error!")
 		}
 	}
-<<<<<<< HEAD
+
 
 	func testScheduleHelper() {
 		print("Testing Schedule Helper!")
@@ -490,8 +490,7 @@ func testScheduleKeyGetter() {
 		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), (Int)(TaskManager.sharedTaskManager.getSetting().getEndTime()))
         }
 	}
-=======
->>>>>>> e535836c47b56bc1a1762a547522749883cc595c
+
     
     func testPropertySetter() {
     	print("Testing Property Setter!")
