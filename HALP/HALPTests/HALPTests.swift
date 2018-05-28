@@ -174,6 +174,7 @@ func testScheduleKeyGetter() {
     
     func testSchedule() {
     	//task from 9AM to 11AM on May 28, 2018
+        
         let fixedStart = [(Int32)(32400), (Int32)(46800), (Int32)(32400), (Int32)(64800), (Int32)(28800)]
         let fixedEnd = [(Int32)(39600), (Int32)(61200), (Int32)(50400), (Int32)(82800), (Int32)(64800)]
         let fixedDay = [0, 0, 1, 1, 2]
@@ -200,17 +201,7 @@ func testScheduleKeyGetter() {
 
         */
         /*  test schedule */
-        let taskManager = TaskManager.sharedTaskManager;
-        for item in floatTasks {
-            taskManager.addTaskTest(task: item);
-        }
-        taskManager.sortTasks(by: .priority);
-        taskManager.schedule();
-        let case1Result = taskManager.getTasks();
-        
-        for item in case1Result {
-            print("start time of task is \(Calendar.current.component(Calendar.Component.hour, from: Date(timeIntervalSince1970: (Double)(item.getScheduleStart()))))")
-        }
+
         
         
     }
