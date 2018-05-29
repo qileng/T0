@@ -45,7 +45,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     
     // Logic
     @IBAction func AddTask(_ sender: UIButton) {
-
+        print("executed \n")
         guard let title = self.titleTextFieldCell?.textFieldOutlet.text, !title.isEmpty else {
             self.shakeTitleInput()
             return
@@ -84,14 +84,22 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.taskToEdit?.setDeadline(deadlineDate)
             self.taskToEdit?.setCategory(category)
             self.taskToEdit?.setDescription(description)
+            let updateForm = TaskForm(Title: title, Description: description, Category: category,
+                                      Alarm: (taskToEdit?.getAlarm())!, Deadline: deadlineDate,
+                                      SoftDeadline: (taskToEdit?.getSoftDeadline())!,
+                                      Schedule: (taskToEdit?.getSchedule())!, Duration: (taskToEdit?.getDuration())!,
+                                      Priority: (taskToEdit?.getPriority())!, Schedule_start: startDate,
+                                      Notification: (taskToEdit?.getNotification())!, TaskID: (taskToEdit?.getTaskId())!,
+                                      UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+            TaskManager.sharedTaskManager.updateTask(form: updateForm)
         }else {
             let form = TaskForm(Title: title, Description: description, Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             
             //         Todo: validate
             //         Todo: exception handling
             TaskManager.sharedTaskManager.addTask(form)
-            let taskDAO = TaskDAO(form)
-            taskDAO.saveTaskInfoToLocalDB()
+//            let taskDAO = TaskDAO(form)
+//            taskDAO.saveTaskInfoToLocalDB()
         }
         self.dismiss(animated: true, completion: nil)
     }

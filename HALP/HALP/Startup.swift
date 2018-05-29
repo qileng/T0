@@ -316,11 +316,11 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                 TaskManager.sharedTaskManager.setUp(new: guest, setting: userSetting, caller: self as UIViewController)
              
                 // Example usage
-//                dbSync(userId: 878442598476046, completion: {(flag) in
-//                    if flag {
-//                        print("Done")
-//                    }
-//                })
+                dbSync(userId: 0, completion: {(flag) in
+                    if flag {
+                        print("Done")
+                    }
+                })
                 
             }catch {
                 print("Error")
@@ -437,11 +437,11 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         var dbpointer: OpaquePointer? = nil
         
         //Comment this out later
-		sqlite3_open(dbPath, &dbpointer)
-		sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
-		sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
-		sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
-		sqlite3_close(dbpointer)
+//        sqlite3_open(dbPath, &dbpointer)
+//        sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
+//        sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
+//        sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
+//        sqlite3_close(dbpointer)
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             // UserData table

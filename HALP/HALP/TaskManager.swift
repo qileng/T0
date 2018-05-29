@@ -187,8 +187,16 @@ class TaskManager {
 	
 	
 	// Update task
-    func updateTask(TaskID: Int64, property:Dictionary<String,Any>) {
+    func updateTask(form: TaskForm) {
 		//TODO
+        let taskDAO = TaskDAO()
+        print(form.getTaskId())
+        taskDAO.updateTaskInfoInLocalDB(taskId: form.getTaskId(), taskTitle: form.getTitle(),
+                                        taskDesc: form.getDescription(), category: form.getCategory().rawValue,
+                                        alarm: Int(form.getAlarm()), deadline: Int(form.getDeadline()),
+                                        softDeadline: Int(form.getSoftDeadline()), schedule: Int(form.getSchedule()),
+                                        duration: Int(form.getDuration()), taskPriority: form.getPriority(),
+                                        scheduleStart: Int(form.getScheduleStart()), notification: form.getNotification())
 	}
 	
 	// Sort tasks by priority
