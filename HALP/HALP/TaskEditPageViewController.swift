@@ -296,6 +296,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         let detailStr = dateFormatter.string(from: sender.date)
         let attributedStr = NSMutableAttributedString(string: detailStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
         dateCell?.detailTextLabel?.attributedText = attributedStr
+        dateCell?.detailTextLabel?.textColor = UIColor.HalpColors.pastelRed
         dateCell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
     }
     func shakeTitleInput()
@@ -315,7 +316,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc func keyboardHide() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            
             let y = self.view.frame.height - self.buttonStackView.frame.height
             self.buttonStackView.frame = CGRect(x: 0, y: y, width: self.buttonStackView.frame.width, height: self.buttonStackView.frame.height)
             
@@ -324,14 +324,12 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc func keyboardShow(notification: Notification) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            
-            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            {
                 let keyboardHeight:CGFloat = CGFloat(keyboardSize.height)
-                print("keyboardHeight",keyboardHeight)
-                let y: CGFloat = self.view.frame.height - keyboardHeight - self.buttonStackView.frame.height//UIDevice.current.orientation.isLandscape ? -150 : -80
+                let y: CGFloat = self.view.frame.height - keyboardHeight - self.buttonStackView.frame.height
                     self.buttonStackView.frame = CGRect(x: 0, y: y, width: self.buttonStackView.frame.width, height: self.buttonStackView.frame.height)
             }
-            
         }, completion: nil)
     }
     
