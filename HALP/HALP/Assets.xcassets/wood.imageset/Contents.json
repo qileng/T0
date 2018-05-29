@@ -2,25 +2,22 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Cog.png",
+      "filename" : "wood.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Cog-2.png",
+      "filename" : "wood-1.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Cog-1.png",
+      "filename" : "wood-2.png",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
-  },
-  "properties" : {
-    "template-rendering-intent" : "template"
   }
 }

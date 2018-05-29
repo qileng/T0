@@ -510,8 +510,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Traditional" translatesAutoresizingMaskIntoConstraints="NO" id="apO-CC-Vv9">
-                                <rect key="frame" x="-12" y="-14" width="399" height="691"/>
+                            <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wooder" translatesAutoresizingMaskIntoConstraints="NO" id="apO-CC-Vv9">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="tintColor" red="0.45005285739898682" green="0.86405473947525024" blue="0.26836201548576355" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pq2-5N-Iqt" customClass="ClockFaceView" customModule="HALP" customModuleProvider="target">
                                 <rect key="frame" x="38" y="38" width="300" height="300.5"/>
@@ -521,72 +522,108 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="Shv-De-eSG"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmZ-Gb-fYZ">
                                         <rect key="frame" x="215" y="43" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="RBP-eW-egO"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bat-0i-k54">
                                         <rect key="frame" x="251" y="102" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="Ovo-5P-Mv7"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hH4-Qo-xdW">
                                         <rect key="frame" x="251" y="169" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="fcS-kA-V89"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yeN-03-udy">
                                         <rect key="frame" x="217" y="229" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="UqK-3S-Wo1"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="5" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r9w-zy-fkU">
                                         <rect key="frame" x="159" y="262" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="EUR-jj-ndp"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cc2-OJ-MHF">
                                         <rect key="frame" x="92" y="262" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="giB-5P-EIa"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="7" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oRl-hc-IiC">
                                         <rect key="frame" x="34" y="229" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="m08-Ka-I21"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="8" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRq-AO-3hE">
                                         <rect key="frame" x="0.0" y="169" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="w0O-Rv-OcL"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="9" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sAP-qs-CYi">
                                         <rect key="frame" x="0.0" y="102" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="ipO-DD-rLo"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="10" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pIG-Lh-oyk">
                                         <rect key="frame" x="35" y="43" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="8Pe-57-wBv"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" tag="11" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SfE-5L-jRU">
                                         <rect key="frame" x="92" y="12" width="49" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="onTap:" destination="e1P-Hl-fYN" eventType="touchUpInside" id="GN2-Of-vB8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -597,31 +634,36 @@
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap an hour to view tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0HF-ds-XaN">
                                 <rect key="frame" x="34" y="354" width="310" height="293"/>
-                                <color key="backgroundColor" red="0.80721745466321249" green="0.80721745466321249" blue="0.80721745466321249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Pq2-5N-Iqt" firstAttribute="centerX" secondItem="9VK-hT-Slc" secondAttribute="centerX" id="9Wq-cE-Gzu"/>
+                            <constraint firstItem="apO-CC-Vv9" firstAttribute="leading" secondItem="9VK-hT-Slc" secondAttribute="leading" id="9n1-LD-EdQ"/>
                             <constraint firstItem="Pq2-5N-Iqt" firstAttribute="centerY" secondItem="9VK-hT-Slc" secondAttribute="centerY" multiplier="0.55" id="BUy-rd-ULu"/>
                             <constraint firstAttribute="trailing" secondItem="apO-CC-Vv9" secondAttribute="trailing" constant="-12" id="DD3-WP-vSt"/>
                             <constraint firstItem="9VK-hT-Slc" firstAttribute="trailing" secondItem="0HF-ds-XaN" secondAttribute="trailing" constant="33" id="HeL-A6-Fji"/>
+                            <constraint firstItem="apO-CC-Vv9" firstAttribute="bottom" secondItem="9VK-hT-Slc" secondAttribute="bottom" id="LaS-Wq-c4B"/>
                             <constraint firstItem="9VK-hT-Slc" firstAttribute="bottom" secondItem="0HF-ds-XaN" secondAttribute="bottom" constant="27" id="NGK-nz-KlX"/>
                             <constraint firstAttribute="bottom" secondItem="apO-CC-Vv9" secondAttribute="bottom" constant="-10" id="On2-gK-aKF"/>
-                            <constraint firstItem="9VK-hT-Slc" firstAttribute="bottom" secondItem="0HF-ds-XaN" secondAttribute="bottom" constant="20" id="QEk-Gg-9hT"/>
                             <constraint firstItem="0HF-ds-XaN" firstAttribute="leading" secondItem="9VK-hT-Slc" secondAttribute="leading" constant="32" id="TE6-oF-9AR"/>
+                            <constraint firstItem="apO-CC-Vv9" firstAttribute="trailing" secondItem="9VK-hT-Slc" secondAttribute="trailing" id="Zh5-7G-dad"/>
                             <constraint firstItem="apO-CC-Vv9" firstAttribute="top" secondItem="8uV-yI-2me" secondAttribute="top" constant="-14" id="hDn-pz-WSa"/>
                             <constraint firstItem="Pq2-5N-Iqt" firstAttribute="width" secondItem="8uV-yI-2me" secondAttribute="width" multiplier="0.8" id="kNL-Yx-XJy"/>
                             <constraint firstItem="0HF-ds-XaN" firstAttribute="top" secondItem="Pq2-5N-Iqt" secondAttribute="bottom" constant="7.5" id="nfO-om-Qea"/>
+                            <constraint firstItem="apO-CC-Vv9" firstAttribute="top" secondItem="8uV-yI-2me" secondAttribute="top" id="nx8-Nq-rai"/>
                             <constraint firstItem="apO-CC-Vv9" firstAttribute="leading" secondItem="8uV-yI-2me" secondAttribute="leading" constant="-12" id="qG9-Rt-hWK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9VK-hT-Slc"/>
                     </view>
                     <connections>
+                        <outlet property="displayLabel" destination="0HF-ds-XaN" id="ZHJ-Hl-VWX"/>
                         <outlet property="myClock" destination="Pq2-5N-Iqt" id="mqZ-DO-9Ia"/>
                         <outletCollection property="timeButtons" destination="PHH-LD-Rpo" collectionClass="NSMutableArray" id="yTA-2o-rDh"/>
                         <outletCollection property="timeButtons" destination="tmZ-Gb-fYZ" collectionClass="NSMutableArray" id="mBC-jY-Qn8"/>
@@ -1047,7 +1089,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Traditional" width="120" height="212"/>
         <image name="sky1" width="372" height="696"/>
+        <image name="space1" width="372" height="696"/>
+        <image name="wooder" width="480" height="699"/>
     </resources>
 </document>
