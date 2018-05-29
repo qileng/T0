@@ -38,7 +38,6 @@ class TaskManager {
 	func setUp(new user: UserData, setting: Setting, caller vc: UIViewController? = nil) {
 		self.userInfo = user
 		self.setting = setting
-        print("settingId is: ",setting.getSettingID())
 		self.viewController = vc
 		switch self.setting!.getTheme() {
         case .dark:
@@ -60,13 +59,15 @@ class TaskManager {
 	func updateUser(new user: UserData) {
 		self.userInfo = user
 		// TODO: After user information is changed, use UserDAO to store data.
+        let userDAO = UserDAO()
+        _ = userDAO.saveUserInfoToLocalDB()
 	}
 	
 	// Update user setting
 	func updateSetting(setting: Setting) {
 		self.setting = setting
         let newSetting = SettingDAO(self.setting!)
-        newSetting.updateSettingInLocalDB(settingId: newSetting.getSettingID(), notification: newSetting.isNotificationOn(),
+        _ = newSetting.updateSettingInLocalDB(settingId: newSetting.getSettingID(), notification: newSetting.isNotificationOn(),
                                        defaultView: newSetting.getDefaultView(), defaultSort: newSetting.getDefaultSort(),
                                        theme: newSetting.getTheme(), availableDays: newSetting.getAvailableDays(),
                                        startTime: newSetting.getStartTime(), endTime: newSetting.getEndTime())
@@ -98,8 +99,9 @@ class TaskManager {
 		}
 		self.refresh()
 		self.sortTasks(by: .priority)
-		//self.schedule()
-		self.sortTasks(by: .time)
+		self.schedule()
+        let sortType = self.setting!.getDefaultSort();
+        self.sortTasks(by: sortType);
 	}
 	
 	// Refresh priority of all tasks
@@ -132,10 +134,10 @@ class TaskManager {
 			if loadedTask.getScheduleStart() < current && loadedTask.getScheduleStart() != 0 && self.viewController != nil {
 				pastTasks.append(loadedTask)
 				// TaskManager shall proceed to ask the user if they has completed the task.
-//                let completionAlert = UIAlertController(title: loadedTask.getTitle(), message: "Have you completed this task?", preferredStyle: .alert)
-//                completionAlert.addAction(UIAlertAction(title: "Yes!", style: .cancel, handler: promptNextAlert))
-//                completionAlert.addAction(UIAlertAction(title: "No!", style: .destructive, handler: promptReschedule))
-//                alerts.append(completionAlert)
+                let completionAlert = UIAlertController(title: loadedTask.getTitle(), message: "Have you completed this task?", preferredStyle: .alert)
+                completionAlert.addAction(UIAlertAction(title: "Yes!", style: .cancel, handler: promptNextAlert))
+                completionAlert.addAction(UIAlertAction(title: "No!", style: .destructive, handler: promptReschedule))
+                alerts.append(completionAlert)
 				continue
 			}
 			tasks.append(loadedTask)
@@ -169,8 +171,13 @@ class TaskManager {
 		//TODO: update Database
         let removeDAO = TaskDAO();
         //test this part in particular
-        removeDAO.deleteTaskFromLocalDB(taskId: id);
+        _ = removeDAO.deleteTaskFromLocalDB(taskId: id);
         
+        self.refresh();
+        self.sortTasks(by: .priority);
+        self.schedule();
+        let sortType = self.setting!.getDefaultSort();
+        self.sortTasks(by: sortType);
 	}
 	
 	
