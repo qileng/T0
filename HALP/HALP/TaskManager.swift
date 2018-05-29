@@ -102,18 +102,6 @@ class TaskManager {
 		self.sortTasks(by: .time)
 	}
 	
-	// Schedule all tasks
-	func schedule() {
-        for item in tasks {
-            
-        }
-        
-        
-        
-		// TODO:
-		// Follow DUC#15 exactly.
-	}
-	
 	// Refresh priority of all tasks
 	func refresh() {
 		for task in tasks {
@@ -246,6 +234,7 @@ class TaskManager {
 		tasks.removeAll()
 		alerts.removeAll()
 		pastTasks.removeAll()
+		self.clearTimeSpan()
 	}
 	
 	// Calculate next avaible timespan.
@@ -269,7 +258,15 @@ class TaskManager {
 		// start = 12a.m. of first available day + the start hour converted into seconds
 		let startTime = Int32(startOfDay.timeIntervalSince1970) + self.setting!.getStartTime() * 60 * 60
 		let endTime = Int32(startOfDay.timeIntervalSince1970) + self.setting!.getEndTime() * 60 * 60
-		self.timespan = (startTime, endTime)
+		if startTime > Int32(Date().timeIntervalSince1970) {
+			self.timespan = (startTime, endTime)
+		} else {
+			self.timespan = (Int32(Date().timeIntervalSince1970), endTime)
+		}
+	}
+	
+	func clearTimeSpan() {
+		self.timespan = (0,0)
 	}
 	
 	// Getters
