@@ -16,6 +16,16 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         let imageView = UIImageView(image: image)
         return imageView
     }()
+    
+    let halpLabel:UILabel = {
+        let label = UILabel()
+        let descriptionStr:String = "HALP"
+        let attributedTitle = NSMutableAttributedString(string: descriptionStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 26, weight: UIFont.Weight.medium), NSAttributedStringKey.foregroundColor : UIColor.black.withAlphaComponent(0.8) ])
+        label.attributedText = attributedTitle
+        label.textAlignment = .center
+        return label
+    }()
+    
     let signUpDescriptionLabel:UILabel = {
         let label = UILabel()
         let descriptionStr:String = "New account"
@@ -58,6 +68,25 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         textField.tag = 2
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
+    }()
+    
+    var hidePasswordButton:UIButton = {
+        
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "hide").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "visible").withRenderingMode(.alwaysTemplate), for: .selected)
+        button.imageView?.contentMode = .scaleAspectFit
+        let buttonWidth:CGFloat = 26.5
+        let buttonHeight:CGFloat = 37
+        let buttonVerticalMargin:CGFloat = 9
+        let buttonHorizontalMargin:CGFloat = 8
+        button.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight)
+        button.imageEdgeInsets = UIEdgeInsets(top: buttonVerticalMargin, left: 0, bottom: buttonVerticalMargin, right: buttonHorizontalMargin)
+        
+        button.tintColor = .black//colorTheme
+        button.addTarget(self, action: #selector(hidePasswordButtonHandler), for: .touchUpInside)
+        
+        return button
     }()
     
     let signUpButton:UIButton = {
@@ -198,19 +227,22 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     fileprivate func setUpSubViewsLayout()
     {
         verticalStackView.addArrangedSubViews([userNameTextField, emailTextField, passwordTextField, signUpButton ])
-        view.addSubviews([logoImageView, signUpDescriptionLabel, verticalStackView, lineView, backToLoginButton])
+        view.addSubviews([logoImageView, signUpDescriptionLabel, halpLabel, verticalStackView, lineView, backToLoginButton])
         
         backToLoginButton.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width, height: 45, centerX: nil, centerY: nil)
         
         lineView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.backToLoginButton.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width, height: 1, centerX: nil, centerY: nil)
         
-        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/5, width: view.frame.width-20, height: view.frame.height/4, centerX: view.centerXAnchor, centerY: nil)
-        signUpDescriptionLabel.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: 20, width: view.frame.width-20, height: 50, centerX: view.centerXAnchor, centerY: nil)
+        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/3.7, width: view.frame.width-20, height: view.frame.height/4, centerX: view.centerXAnchor, centerY: nil)
         
-        logoImageView.anchor(top: nil, left: nil, right: nil, bottom: self.signUpDescriptionLabel.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 10, width: view.frame.width/3, height: view.frame.width/3, centerX: view.centerXAnchor, centerY: nil)
-
+        signUpDescriptionLabel.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant:0, leftConstant: 10, rightConstant: 10, bottomConstant: 10, width: view.frame.width-20, height: 30, centerX: view.centerXAnchor, centerY: nil)
         
-//        logoImageView.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 50, width: view.frame.width/3, height: view.frame.width/3, centerX: view.centerXAnchor, centerY: nil)
+        halpLabel.anchor(top: nil, left: nil, right: nil, bottom: signUpDescriptionLabel.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: 0, width: view.frame.width-20, height: 30, centerX: view.centerXAnchor, centerY: nil)
+        
+        logoImageView.anchor(top: nil, left: nil, right: nil, bottom: self.halpLabel.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width/3, height: view.frame.width/3, centerX: view.centerXAnchor, centerY: nil)
+        
+        passwordTextField.rightView = hidePasswordButton
+        passwordTextField.rightViewMode = .whileEditing
     }
     
     fileprivate func observeKeyboardNotifications() {
@@ -234,6 +266,19 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
             self.view.frame = CGRect(x: 0, y: y, width: self.view.frame.width, height: self.view.frame.height)
             
         }, completion: nil)
+    }
+    
+    @objc func hidePasswordButtonHandler()
+    {
+        hidePasswordButton.isSelected = !hidePasswordButton.isSelected
+        if hidePasswordButton.isSelected
+        {
+            passwordTextField.isSecureTextEntry = false
+            
+        }else
+        {
+            passwordTextField.isSecureTextEntry = true
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
