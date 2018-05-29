@@ -381,14 +381,14 @@
 		ED6C2A3E209302640063B4AC = {
 			isa = PBXGroup;
 			children = (
-				414E301B20BBD62300F05637 /* Firebase */,
 				ED6C2A7C2093052E0063B4AC /* README.md */,
 				ED6C2A49209302640063B4AC /* HALP */,
 				ED6C2A62209302660063B4AC /* HALPTests */,
-				EDB4987320BD160D00A52839 /* Deprecated */,
 				ED6C2A6D209302660063B4AC /* HALPUITests */,
-				ED6C2A48209302640063B4AC /* Products */,
+				414E301B20BBD62300F05637 /* Firebase */,
+				EDB4987320BD160D00A52839 /* Deprecated */,
 				414E304420BBD67F00F05637 /* Frameworks */,
+				ED6C2A48209302640063B4AC /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -405,18 +405,18 @@
 		ED6C2A49209302640063B4AC /* HALP */ = {
 			isa = PBXGroup;
 			children = (
-				EDB498C420BD3C1E00A52839 /* List View */,
-				EDB498B220BD3B8700A52839 /* Task Edit */,
 				414E304E20BBD71000F05637 /* Header.h */,
-				ED6C2A5A209302660063B4AC /* Info.plist */,
-				ED6C2A55209302660063B4AC /* Assets.xcassets */,
-				EDF4C04A20BD14D30034FBC1 /* ClockView */,
 				ED432364209FADD000F11140 /* Core */,
 				ED432363209FAD7D00F11140 /* Data Classes */,
+				ED432362209FAD3E00F11140 /* View Classes */,
+				EDF4C04A20BD14D30034FBC1 /* ClockView */,
+				EDB498C420BD3C1E00A52839 /* List View */,
+				EDB498B220BD3B8700A52839 /* Task Edit */,
 				8379928220A7B73E005784AE /* Extensions */,
 				ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */,
 				ED6C2A52209302650063B4AC /* Main.storyboard */,
-				ED432362209FAD3E00F11140 /* View Classes */,
+				ED6C2A5A209302660063B4AC /* Info.plist */,
+				ED6C2A55209302660063B4AC /* Assets.xcassets */,
 			);
 			path = HALP;
 			sourceTree = "<group>";
