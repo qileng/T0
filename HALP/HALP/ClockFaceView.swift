@@ -19,16 +19,18 @@ class ClockFaceView: UIView {
         let arcWidth: CGFloat = 0
         let startAngle: CGFloat = 0
         let endAngle: CGFloat = 2*π
-        
+            
+        //circle path - don't delete
         let path = UIBezierPath(arcCenter: center, radius: radius-(bounds.height * 0.083),startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        
+
         let strokeColor: UIColor = UIColor.clear
         path.lineWidth = arcWidth
         strokeColor.setStroke()
         path.lineWidth = (bounds.height * 0.01)
         path.stroke()
         
-        let fillColor: UIColor = UIColor.white
+        //let fillColor: UIColor = UIColor.white
+        let fillColor: UIColor = UIColor(patternImage: #imageLiteral(resourceName: "pastel"))
         fillColor.setFill()
         path.fill()
     }
@@ -47,7 +49,7 @@ class ClockFaceView: UIView {
             path.addArc(withCenter: center, radius: radius, startAngle: (startAngle+(CGFloat(index)*endAngle)), endAngle: (endAngle+(CGFloat(index)*endAngle)), clockwise: true)
             path.close()
             
-            let strokeColor: UIColor = UIColor.clear
+            let strokeColor: UIColor = UIColor.white
             path.lineWidth = arcWidth
             strokeColor.setStroke()
             path.lineWidth = (bounds.height * 0.01)
@@ -56,9 +58,11 @@ class ClockFaceView: UIView {
             
             let fillColor: UIColor
             if (index%2 == 0) {
-                fillColor = UIColor(hex: 0x59262F, alpha: 0.5)
+                fillColor = UIColor(patternImage: #imageLiteral(resourceName: "space1"))
+                //fillColor = UIColor(hex: 0x59262F, alpha: 0.5)
             } else {
-                fillColor = UIColor(hex: 0xCE8964, alpha: 0.5)
+                fillColor = UIColor(patternImage: #imageLiteral(resourceName: "space1"))
+                //fillColor = UIColor(hex: 0xCE8964, alpha: 0.5)
             }
             fillColor.setFill()
             path.fill()

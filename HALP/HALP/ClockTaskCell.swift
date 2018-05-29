@@ -18,9 +18,16 @@ class ClockTaskCell: UICollectionViewCell {
         taskName = UILabel()
         
         super.init(frame: frame)
-        self.backgroundColor = UIColor(hex: 0x59262f)
+        //self.backgroundColor = UIColor(hex: 0x59262f)
+        self.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "browns-1"))
         self.layer.cornerRadius = 30
-        self.clipsToBounds = true
+        //Experiment shadow
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 1
+        self.layer.shadowOffset = CGSize.zero
+        self.layer.shadowRadius = 10
+        self.layer.shouldRasterize = true
+
     }
     
     func displayContent(task:Task) {

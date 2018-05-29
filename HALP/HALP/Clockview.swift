@@ -29,6 +29,7 @@ extension ClockViewController: UICollectionViewDataSource, UICollectionViewDeleg
     
 }
 
+//ClockViewController class begins here
 class ClockViewController: UIViewController, CAAnimationDelegate {
 
     var clockTasks = Array(repeating: [Task](), count: 12)
@@ -40,6 +41,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet var timeButtons: [UIButton]!
     
     @IBAction func onTap(_ sender: UIButton) {
+        //The clock buttons are labeled in such a way that 0th index is at current time interval
         var offset = Int(Date().timeIntervalSince1970)
         offset = offset - (offset%3600)
         let cal = Calendar.current
@@ -54,39 +56,50 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         if taskCollection != nil {
             taskCollection.removeFromSuperview()
         }
-        
-        //Layout setup
-        let padding = CGFloat(10.0)
-        var layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = padding
-        layout.minimumInteritemSpacing = padding
-        layout.itemSize = CGSize(width: ((displayLabel.frame.width-padding)-(3*padding))/2, height: ((displayLabel.frame.height-padding)-(3*padding))/2)
-        let insets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        layout.sectionInset = insets
-        
-        taskCollection = UICollectionView(frame: displayLabel.frame, collectionViewLayout: layout)
-        taskCollection.register(ClockTaskCell.self, forCellWithReuseIdentifier: "clockTaskCell")
-        taskCollection.dataSource = self
-        taskCollection.delegate = self
-        
-        taskCollection.backgroundColor = UIColor(hex: 0xce8964) //Needs to be color coded by category
-        
-        self.view.addSubview(taskCollection)
-        taskCollection.anchor(top: nil, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: displayLabel.frame.width - 10, height: displayLabel.frame.height - 10, centerX: displayLabel.centerXAnchor, centerY: displayLabel.centerYAnchor)
-        
-        //print("index is ",idx, " offset is ", offset)
-        /*if (clockTasks[idx].count == 0) {
-           // message.text = "No Tasks"
-        } else {
-            for tasks in clockTasks[idx] {
-                //print("Task: " + tasks.getTitle())
-                //message.text = "Task: " + tasks.getTitle()
+        //If no tasks within selected hour, return label with message
+        if clockTasks[currentIndex].count == 0 {
+            if taskCollection != nil {
+                taskCollection.removeFromSuperview()
             }
-        }*/
+            displayLabel.text = "No tasks at this hour!"
+            displayLabel.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "sky1"))
+            displayLabel.alpha = 0.75;
+            //displayLabel.layer.shadowOpacity
+        } else {
+            //If tasks exist within selected hour, create collection view
+            //Layout setup for collection
+            let padding = CGFloat(10.0)
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            layout.minimumLineSpacing = padding
+            layout.minimumInteritemSpacing = padding
+            layout.itemSize = CGSize(width: ((displayLabel.frame.width-padding)-(3*padding))/2, height: ((displayLabel.frame.height-padding)-(3*padding))/2)
+            let insets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+            layout.sectionInset = insets
+            
+            //Adds cells to collectionView to display tasks below
+            taskCollection = UICollectionView(frame: displayLabel.frame, collectionViewLayout: layout)
+            taskCollection.register(ClockTaskCell.self, forCellWithReuseIdentifier: "clockTaskCell")
+            taskCollection.dataSource = self
+            taskCollection.delegate = self
+            
+            taskCollection.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "sky1"))
+            //taskCollection.backgroundColor = UIColor(hex: 0xce8964)
+            
+            self.view.addSubview(taskCollection)
+            taskCollection.anchor(top: nil, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: displayLabel.frame.width - 10, height: displayLabel.frame.height - 10, centerX: displayLabel.centerXAnchor, centerY: displayLabel.centerYAnchor)
+            
+            //print("index is ",idx, " offset is ", offset)
+            /*if (clockTasks[idx].count == 0) {
+               // message.text = "No Tasks"
+            } else {
+                for tasks in clockTasks[idx] {
+                    //print("Task: " + tasks.getTitle())
+                    //message.text = "Task: " + tasks.getTitle()
+                }
+            }*/
+        }
     }
-    
-    
     
     //The following commented code is for reference
     /*
@@ -241,11 +254,11 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         
         let hourHandPath = UIBezierPath()
         let minuteHandPath = UIBezierPath()
-        let secondHandPath = UIBezierPath()
+        //let secondHandPath = UIBezierPath()
         
         hourHandPath.move(to: CGPoint(x: containerView.bounds.minX, y:containerView.bounds.minY ))
         minuteHandPath.move(to: CGPoint(x: containerView.bounds.minX, y:containerView.bounds.minY ))
-        secondHandPath.move(to: CGPoint(x: containerView.bounds.minX, y:containerView.bounds.minY ))
+        //secondHandPath.move(to: CGPoint(x: containerView.bounds.minX, y:containerView.bounds.minY ))
         
         hourHandPath.addLine(to: CGPoint(x: time.h.x, y: time.h.y))
         hourHandPath.lineWidth = hourHandWidth
@@ -271,7 +284,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         containerView.layer.addSublayer(minuteLayer)
         rotateLayer(minuteLayer,dur: 3600)
         
-        secondHandPath.addLine(to: CGPoint(x: time.s.x, y: time.s.y))
+        /*secondHandPath.addLine(to: CGPoint(x: time.s.x, y: time.s.y))
         secondHandPath.lineWidth = secondHandWidth
         let secondLayer = CAShapeLayer()
         secondLayer.path = secondHandPath.cgPath
@@ -281,7 +294,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         secondLayer.rasterizationScale = UIScreen.main.scale;
         secondLayer.shouldRasterize = true
         containerView.layer.addSublayer(secondLayer)
-        rotateLayer(secondLayer,dur: 60)
+        rotateLayer(secondLayer,dur: 60)*/
         
         let endAngle = CGFloat(2*M_PI)
         let circle = UIBezierPath(arcCenter: CGPoint(x: containerView.bounds.origin.x, y:containerView.bounds.origin.y), radius: myClock.bounds.height/2 * 0.03, startAngle: 0, endAngle: endAngle, clockwise: true)
