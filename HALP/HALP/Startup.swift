@@ -271,6 +271,13 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
                                           endTime: end, user: settingId)
                 
                 TaskManager.sharedTaskManager.setUp(new: guest, setting: userSetting, caller: self as UIViewController)
+             
+                // Example usage
+//                dbSync(userId: 878442598476046, completion: {(flag) in
+//                    if flag {
+//                        print("Done")
+//                    }
+//                })
                 
             }catch {
                 print("Error")
@@ -398,6 +405,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             // UserData table
+            // sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
                 "(user_id INTEGER PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
             // Initialize guest account
@@ -420,7 +428,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate, UIGestureRec
             sqlite3_exec(dbpointer, "INSERT INTO SettingData (setting_id, notification, default_view, default_sort, theme, avaliable_days, start_time, end_time , last_update) " + "VALUES(0, 1, 0, 0, 0, 127, 0, 0, 0)", nil, nil, nil)
             
             sqlite3_close(dbpointer)
-            print(dbPath)
+             print(dbPath)
         }
         else {
             print("fail to open database")

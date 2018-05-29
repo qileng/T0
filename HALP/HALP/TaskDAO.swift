@@ -188,14 +188,14 @@ final class TaskDAO: Task {
         var taskTitleQueryString = ""
         if taskTitle != nil {
             taskTitleQueryString = " task_title = ?,"
-            argumentManager.append(taskTitle! + "`txt")
+            argumentManager.append(taskTitle! + " `txt")
         }
         
         // If one wants to change task description
         var taskDescQueryString = ""
         if taskDesc != nil {
             taskDescQueryString = " task_desc = ?,"
-            argumentManager.append(taskDesc! + "`txt")
+            argumentManager.append(taskDesc! + " `txt")
         }
         
         // If one wants to change category

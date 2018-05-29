@@ -9,6 +9,7 @@
 import XCTest
 @testable import HALP
 import SQLite3
+import FirebaseCore
 
 class HALPTests: XCTestCase {
     
@@ -297,7 +298,6 @@ class HALPTests: XCTestCase {
 			print("Unexpected Error!")
 		}
 	}
-    
     
 	/*
 	func testSettingDAO() {

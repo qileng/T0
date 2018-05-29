@@ -125,7 +125,6 @@ final class SettingDAO: Setting {
             defaultSortQueryString + themeQueryString + availableDaysQueryString + startTimeQueryString +
             endTimeQueryString + lastUpdateQueryString + " WHERE setting_id=" + String(settingId)
         
-        print(updateQueryString)
         var stmt: OpaquePointer?
         if sqlite3_prepare(dbpointer, updateQueryString, -1, &stmt, nil) != SQLITE_OK {
             print("cannot prepare statements")

@@ -205,13 +205,74 @@ final class UserDAO: UserData {
         }
     }
 	
-	// TODO
-	func readFromDatabase() -> [String] {
-		return []
-	}
-	
-	// TODO
-	func writeToDatabase() {
-	}
+    func updateUserInfoInLocalDB(userId: Int64, username: String? = nil, password: String? = nil, email: String? = nil) -> Bool {
+        // Default local database path
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+        var dbpointer: OpaquePointer?
+        
+        if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+            print("fail to establish databse connection")
+            sqlite3_close(dbpointer)
+            return false
+        }
+        
+        var argumentManager = [String]()
+        
+        var usernameQueryString = ""
+        if username != nil {
+            usernameQueryString = " user_name = ?,"
+            argumentManager.append(username! + "`txt")
+        }
+        
+        var passwordQueryString = ""
+        if password != nil {
+            passwordQueryString = " password = ?,"
+            argumentManager.append(password! + "`txt")
+        }
+        
+        var emailQueryString = ""
+        if email != nil {
+            emailQueryString = " email = ?,"
+            argumentManager.append(email! + "`txt")
+        }
+        
+        // last_update will always be updated
+        let lastUpdateQueryString = " last_update = ?"
+        
+        let updateQueryString = "UPDATE UserData SET" + usernameQueryString + passwordQueryString
+            + emailQueryString + lastUpdateQueryString + " WHERE user_id=" + String(userId)
+        
+        var stmt: OpaquePointer?
+        if sqlite3_prepare(dbpointer, updateQueryString, -1, &stmt, nil) != SQLITE_OK {
+            print("cannot prepare statements")
+            sqlite3_close(dbpointer)
+            return false
+        }
+        
+        // Initialize sql statement
+        if(argumentManager.count > 0) {
+            for index in 0...argumentManager.count-1 {
+                var infoAndType = argumentManager[index].split(separator: "`")
+                // Array index starts at 0
+                // Binding index starts at 1
+                if infoAndType[1] == "txt" {
+                    sqlite3_bind_text(stmt, Int32(index + 1), (infoAndType[0] as NSString).utf8String, -1, nil)
+                }
+            }
+        }
+        
+        // Bind the last argument
+        let lastIndex = argumentManager.count + 1
+        sqlite3_bind_int(stmt, Int32(lastIndex), Int32(Date().timeIntervalSince1970))
+        
+        if sqlite3_step(stmt) != SQLITE_DONE {
+            sqlite3_finalize(stmt)
+            sqlite3_close(dbpointer)
+            return false
+        }
+        sqlite3_finalize(stmt)
+        sqlite3_close(dbpointer)
+        return true
+    }
 }
 
