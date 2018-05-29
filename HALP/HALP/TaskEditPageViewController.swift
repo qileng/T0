@@ -138,6 +138,9 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             if isEditMode
             {
                 self.titleTextFieldCell?.textFieldOutlet.text = taskToEdit?.getTitle()
+                self.titleTextFieldCell?.valueChanged = {
+                    self.taskToEdit?.setTitle((self.titleTextFieldCell?.textFieldOutlet.text)!)
+                }
                 return titleTextFieldCell!
             }
             if (titleTextFieldCell?.textFieldOutlet.text?.isEmpty)!
@@ -170,8 +173,14 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                 if descriptionStr == ""
                 {
                     descriptionStr = "Description"
+                }else
+                {
+                    descriptionTextViewCell?.textViewOutlet.textColor = .black
                 }
                 descriptionTextViewCell?.textViewOutlet.text = descriptionStr
+                descriptionTextViewCell?.valueChanged = {
+                    self.taskToEdit?.setDescription((self.descriptionTextViewCell?.textViewOutlet.text)!)
+                }
             }
             return cell
         default:
