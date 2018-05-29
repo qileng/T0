@@ -96,7 +96,8 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         
         if description.isEmpty
         {
-            let startDate = Date(timeIntervalSince1970: TimeInterval((eventStartTime)))
+            let startDate = Date(timeIntervalSinceNow: TimeInterval(eventStartTime))
+            
             let timeStr = "from " + dateFormatter.string(from: startDate)
             
             let attributedStr = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14, weight: .thin), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])

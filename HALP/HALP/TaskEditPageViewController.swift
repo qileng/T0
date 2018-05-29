@@ -25,7 +25,9 @@ struct CellData {
     var date:Date?
 }
 
-// Todo: code cleaning
+let StartTimeModeKey = "StartTimeMode"
+
+
 class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var buttonStackView: UIStackView!
@@ -37,6 +39,9 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     var dateFormatter = DateFormatter()
     var titleTextFieldCell:TextFieldTableViewCell?
     var descriptionTextViewCell: TextViewTableViewCell?
+    var isStartTimeMode:Bool = UserDefaults.standard.bool(forKey: StartTimeModeKey)
+//   UserDefaults.standard.set(true, forKey: StartTimeModeKey))
+    //UserDefaults.standard.bool(forKey: StartTimeModeKey)
 
     var isEditMode:Bool = false
     var taskToEdit:Task?
@@ -97,7 +102,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func Cancel(_ sender: UIButton) {
-//        self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -116,7 +120,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell:UITableViewCell?
         if datePickerIndexPath != nil && datePickerIndexPath?.section == indexPath.section
                                     && datePickerIndexPath!.row == indexPath.row
         {
@@ -148,6 +151,14 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                 titleTextFieldCell?.textFieldOutlet.becomeFirstResponder()
             }
             return titleTextFieldCell!
+        case .toggle:
+            let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath) as! SwitchTableViewCell
+            cell.titleLabel.text = fieldData[indexPath.section][indexPath.row].title
+            cell.valueChanged = {
+                self.tableViewOutlet.reloadData()
+            }
+            
+            return cell
         case .dateDetail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
             cell.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
@@ -199,7 +210,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        var rowHeight = tableView.rowHeight
         var rowHeight = UITableViewAutomaticDimension
         if indexPath.section == 1
         {
@@ -227,7 +237,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         2) the tapped is under the shown date picker
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.view.endEditing(true)
         if indexPath.section == 1 // the selected row is in section 1
         {
             let selectedCell = tableViewOutlet.cellForRow(at: indexPath)
@@ -308,6 +317,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         dateCell?.detailTextLabel?.textColor = UIColor.HalpColors.pastelRed
         dateCell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
     }
+    
     func shakeTitleInput()
     {
         UIView.animate(withDuration: 0.05, animations: { self.titleTextFieldCell?.textFieldOutlet.frame.origin.x -= 5 }, completion: { _ in
@@ -415,15 +425,38 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.addButtonOutlet.setTitle("Add", for: .normal)
             
             let section0 = [CellData(cellType: .textField, title: "Title", detail: "", date: nil)]
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             let section1 =
-                [CellData(cellType: .dateDetail, title: "Starts", detail: dateFormatter.string(from: Date()), date: Date()),
+                [CellData(cellType: .toggle, title: "StartTime", detail: "", date: nil),
+                CellData(cellType: .dateDetail, title: "Starts", detail: dateFormatter.string(from: Date()), date: Date()),
                  CellData(cellType: .dateDetail, title: "Deadline", detail: dateFormatter.string(from: date), date: date)]
+            ////////////////////////////////////////////////////////////////////////////////////////////////
             let section2 =
                 [CellData(cellType: .detail, title: "Category", detail: "", date: nil),
                  CellData(cellType: .detail, title: "Alarm", detail: "", date: nil)]
             let section3 = [CellData(cellType: .textView, title: "Description", detail: "", date: nil)]
             fieldData = [ section0, section1, section2, section3 ]
         }
+    }
+    
+    func startOrDurationToggle(isStartTimeMode: Bool) -> CellData
+    {
+        if self.isStartTimeMode
+        {
+            if self.isEditMode{
+                let startDate = Date(timeIntervalSince1970: TimeInterval((taskToEdit?.getScheduleStart())!))
+                let startDateStr = dateFormatter.string(from: startDate)
+                return CellData(cellType: .dateDetail, title: "Starts", detail: startDateStr, date: startDate)
+
+            }
+            return CellData(cellType: .dateDetail, title: "Starts", detail: dateFormatter.string(from: Date()), date: Date())
+        }
+        // Duration mode
+        if isEditMode
+        {
+            
+        }//
+        return CellData(cellType: .dateDetail, title: "Duration", detail: "", date: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {

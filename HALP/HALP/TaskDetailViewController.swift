@@ -33,6 +33,7 @@ class TaskDetailViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(EditButtonHandler))
         self.navigationItem.title = "Event Details"
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.tableViewOutlet.reloadData()
     }
@@ -187,7 +188,8 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
                 //            mainDetailCell?.eventTimeLabel2.textColor = .gray
             }
             
-            mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: Do what you want😜"
+            //WHERE TO PUT HALP SUGGESTION
+            mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: 😜"
             mainDetailCell?.halpSuggestionLabel.textColor = UIColor.placeholderGray
             return self.mainDetailCell!
         }else //Alarm cell
