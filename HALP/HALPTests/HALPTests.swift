@@ -22,7 +22,7 @@ class HALPTests: XCTestCase {
 		let dbPath = documentsPath + db
 		print(dbPath)
 		var dbpointer: OpaquePointer? = nil
-		
+	
 		if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
 			// UserData table
 			sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
@@ -51,6 +51,40 @@ class HALPTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
 		super.tearDown()
 	}
+	
+	/*
+    func testIntializerDict() {
+      let t0 =  Task(["title":"t0","scheduled_start":(Int32)(36000),"duration":(Int32)(7200),"deadline":(Int32)(100800),"task_Priority":1])
+      let t1 = Task(["title":"t2","scheduled_start":(Int32)(122400),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]);
+        print("t0 is \(t0.getScheduleStart())");
+    }
+	*/
+	
+	/*
+	func testScheduleKeyGetter() {
+        let TaskM = TaskManager.sharedTaskManager;
+        var testDic = Dictionary<Date,[String]>();
+        let key0 = TaskM.scheduleKeyGetter(item: Task(["title":"t0","scheduled_start":(Int32)(36000),"duration":(Int32)(7200),"deadline":(Int32)(100800),"task_Priority":1]));//day1
+        let key1 = TaskM.scheduleKeyGetter(item: Task(["title":"t1","scheduled_start":(Int32)(57600),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]));//day1
+        let key2 = TaskM.scheduleKeyGetter(item: Task(["title":"t2","scheduled_start":(Int32)(122400),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]));//day2
+        let key3 = TaskM.scheduleKeyGetter(item: Task(["title":"t2","scheduled_start":(Int32)(140400),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]))//day2
+        let key4 = TaskM.scheduleKeyGetter(item: Task(["title":"t3","scheduled_start":(Int32)(295200),"duration":(Int32)(10800),"deadline":(Int32)(100800),"task_Priority":1]))//day3
+        testDic[key0!] = [String]();
+        testDic[key2!] = [String]();
+        testDic[key4!] = [String]();
+        //print("key0 information \(Calendar.current.component(Calendar.Component.year, from: key2!))")
+        testDic[key0!]!.append("day1Task0");
+        testDic[key1!]!.append("day1Task1");
+        testDic[key2!]!.append("day2Task0");
+        testDic[key3!]!.append("day2Task1");
+        testDic[key4!]!.append("day3Task0");
+        
+    
+        XCTAssertEqual(testDic[key0!]! == ["day1Task0","day1Task1"],true);
+        XCTAssertEqual(testDic[key2!]! == ["day2Task0","day2Task1"],true);
+        XCTAssertEqual(testDic[key4!]! == ["day3Task0"],true);
+    }
+	*/
     
     func testa_SaveUserInfoToLocalDB() {
         // This is an example of a functional test case.
@@ -298,46 +332,81 @@ class HALPTests: XCTestCase {
 			print("Unexpected Error!")
 		}
 	}
-    
-	/*
-	func testSettingDAO() {
-		print("Testing SettingDAO write.\n")
-		let testUser = UserData(true)
-		let testSettingDAO = SettingDAO(user: testUser.getUserID(), notification: false, suggestion: false, fontSize: 15, defaultView: .list)
-		testSettingDAO.writeToDisk()
-		print("Testing SettingDAO read.\n")
-		let testSetting = Setting(true)
-		print(testSetting.getSettingID())
-		print(testSetting.getUserID())
-		print(testSetting.isNotificationOn())
-		print(testSetting.isSuggestionOn())
-		print(testSetting.getFontSize())
-		print(testSetting.getDefaultView().rawValue)
+
+	func testScheduleHelper() {
+		print("Testing Schedule Helper!")
+		let calendar = Calendar.current
+		var taskFixed : [DateInterval] = []
+		let current = Date()
+		var start1 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		start1.hour = 8
+		start1.minute = 0
+		start1.second = 0
+		var end1 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		end1.hour = 9
+		end1.minute = 0
+		end1.second = 0
+		var start2 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		start2.hour = 10
+		start2.minute = 0
+		start2.second = 0
+		var end2 = calendar.dateComponents([.day, .month, .year, .hour, .minute, .second], from: current)
+		end2.hour = 11
+		end2.minute = 0
+		end2.second = 0
+		let dateInt1 = DateInterval(start: calendar.date(from: start1)!, end:calendar.date(from:end1)!)
+		let dateInt2 = DateInterval(start: calendar.date(from: start2)!, end:calendar.date(from:end2)!)
+		taskFixed.append(dateInt1)
+		taskFixed.append(dateInt2)
+        var taskfloat = TaskManager.sharedTaskManager.scheduleHelper(taskFixed: taskFixed, startTime: nil, changeStartTime: false );
+		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].start), 9)
+		XCTAssertEqual(calendar.component(.hour, from:taskfloat[0].end), 10)
+		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].start), 11)
+        if (TaskManager.sharedTaskManager.getSetting().getEndTime() == 24){
+            XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), 23)
+        }
+        else {
+		XCTAssertEqual(calendar.component(.hour, from:taskfloat[1].end), (Int)(TaskManager.sharedTaskManager.getSetting().getEndTime()))
+        }
 	}
-*/
-	
     
-    /*
-    * Why is there a initializer taking date as argument
-    * all date should be stored as time interval since 1970
-	func testz_AddTask() {
-		let inputTask = TaskForm(Title: "Input task1", Description: "User input task", Category: .Relationship, Alarm: 1800, Deadline: Date(timeIntervalSinceNow: 3600), SoftDeadline: Date(timeIntervalSinceNow: 1800), Schedule: nil, Duration: 3600, UserID: 0)
-		let writeDAO = TaskDAO(inputTask)
-		XCTAssertEqual(writeDAO.saveTaskInfoToLocalDB(), true)
-		
-		let readDAO = TaskDAO()
-		do {
-			let dict = try readDAO.fetchTaskInfoFromLocalDB(taskId: inputTask.getTaskId())
-			for (key,values) in dict {
-				print(key + " : " ,values)
-				print("\n")
-			}
-		}
-		catch {
-			print("error")
-		}
-	}
- */
+    func testPropertySetter() {
+    	print("Testing Property Setter!")
+    	var tasks: [Task] = []
+    	var task1 = Task()
+        let double:Double = 1;
+    	tasks.append(task1)
+     	let one: Int32 = 1;
+    	var dict1:[String: Any] = 
+    	["title": "Title1",
+    	 "taskDescription":"description1",
+         "taskPriority":double,
+    	 "alarm":one,
+    	 "deadline":one,
+    	 "schedule":one,
+    	 "duration":one,
+    	 "category":Category.Study_Work,
+    	 "softDeadline":one,
+    	 "scheduled_start":one]
+
+    	 do {
+    	 	try tasks[0].propertySetter(dict1)
+
+	    	XCTAssertEqual(tasks[0].getTitle(), "Title1")
+   	 	 	XCTAssertEqual(tasks[0].getDescription(), "description1")
+    	 	XCTAssertEqual(tasks[0].getPriority(), double)
+    	 	XCTAssertEqual(tasks[0].getAlarm(), one)
+    	 	XCTAssertEqual(tasks[0].getDeadline(), one)
+    	 	XCTAssertEqual(tasks[0].getSchedule(), one)
+    	 	XCTAssertEqual(tasks[0].getDuration(), one)
+    	 	XCTAssertEqual(tasks[0].getCategory(), Category.Study_Work)
+    	 	XCTAssertEqual(tasks[0].getSoftDeadline(), one)
+    	 	XCTAssertEqual(tasks[0].getScheduleStart(), one)
+    	 }
+    	 catch {
+    	 	print("Error")
+    	 }
+    }
 	
 	func testCalculateTimeSpan() {
 		print("Testing Calculate time span!")
@@ -358,6 +427,39 @@ class HALPTests: XCTestCase {
         }
     }
 	
+	func testSchedule() {
+		// TODO: add more scenarios
+		// Scenario 1
+		// Generate testing user&settings. Timespan is default 8-24 daily.
+		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let testSetting1 = Setting(userId: testUser1.getUserID())
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		// Calculate the available timespan in Tomorrow.
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		var start = TaskManager.sharedTaskManager.getTimespan().0
+		var end = TaskManager.sharedTaskManager.getTimespan().1
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		// Generate tasks to be tested.
+		// Two fixed tasks with single dynamic task to be scheduled in between
+		// Task1: fixed task starting 8am tomorrow, ends in 1 hour
+		let task1 = Task(Title: "task1", Deadline: start+3600, Schedule: start , TaskID: 1, UserID: 1)
+		// Task2: fixed task starting 23pm tomorrow, ends in 1 hour
+		let task2 = Task(Title: "task2", Deadline: end, Schedule: end-3600, TaskID: 2, UserID: 1)
+		// Task3: dynamic task with duration of 1 hour and deadline 24pm tomorrow
+		let task3 = Task(Title: "task3", Deadline: end, Duration: 3600, TaskID: 3, UserID: 1)
+		for task in [task1,task2,task3] {
+			let DAO = TaskDAO(task)
+			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
+		}
+		// Load up tasks to be tested. This automatically shedule tasks by time.
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		let tasks = TaskManager.sharedTaskManager.getTasks()
+		for task in tasks {
+			print("Title: ", task.getTitle(), " starting: ", Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart())).description(with: .current), " duration: ", task.getDuration() / 60, "minutes.")
+		}
+	}
+	
 	override class func tearDown() {
 		super.tearDown()
 		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
@@ -368,6 +470,5 @@ class HALPTests: XCTestCase {
         sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
         sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
         sqlite3_close(dbpointer)
-		
 	}
 }

@@ -96,7 +96,7 @@ class Task {
 		self.deadline = deadline
 		self.softDeadline = softDeadline
 		self.schedule = schedule
-		self.duration = duration
+		self.duration = (schedule == 0 || deadline == 0) ? duration : (deadline - schedule)
 		self.scheduled_start = (schedule == 0) ? scheduled_start : schedule
         self.notification = notification
 		self.taskID = (tid == 0) ? IDGenerator.generateID(name: title, type: .task) : tid
