@@ -317,6 +317,7 @@
                     <navigationItem key="navigationItem" id="ISD-hr-8cQ"/>
                     <connections>
                         <outlet property="addButtonOutlet" destination="gzE-Gd-Iuc" id="u3g-ps-3GJ"/>
+                        <outlet property="buttonStackView" destination="K0Z-xO-bWV" id="yo4-BX-Rb7"/>
                         <outlet property="cancelButtonOutlet" destination="fuR-sv-RIS" id="Xt5-Nc-Ouf"/>
                         <outlet property="tableViewOutlet" destination="Csd-yw-YVr" id="xRs-KP-gKf"/>
                     </connections>

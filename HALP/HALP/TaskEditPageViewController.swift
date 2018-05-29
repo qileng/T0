@@ -28,6 +28,7 @@ struct CellData {
 // Todo: code cleaning
 class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var buttonStackView: UIStackView!
     @IBOutlet weak var cancelButtonOutlet: UIButton!
     @IBOutlet weak var tableViewOutlet: UITableView!
     @IBOutlet weak var addButtonOutlet: UIButton!
@@ -36,7 +37,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     var dateFormatter = DateFormatter()
     var titleTextFieldCell:TextFieldTableViewCell?
     var descriptionTextViewCell: TextViewTableViewCell?
-    
+
     var isEditMode:Bool = false
     var taskToEdit:Task?
     var indexForTaskToEdit:Int?
@@ -49,7 +50,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.shakeTitleInput()
             return
         }
-//        let task:Task?
         let description:String
         if self.descriptionTextViewCell?.textViewOutlet.text != "Description" {
             description = (self.descriptionTextViewCell?.textViewOutlet.text)!
@@ -59,7 +59,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         let startDate = Int32((fieldData[1][0].date?.timeIntervalSince1970)!)
         let deadlineDate = Int32((fieldData[1][1].date?.timeIntervalSince1970)!)
         
-        let categoryStr = fieldData[2][0].detail // why is detail type Any?
+        let categoryStr = fieldData[2][0].detail
 //        let alarm = fieldData[2][1].detail
         var category: Category
         switch categoryStr {
@@ -85,7 +85,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.taskToEdit?.setCategory(category)
             self.taskToEdit?.setDescription(description)
         }else {
-            let form = TaskForm(Title: title, Description: description ?? "", Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+            let form = TaskForm(Title: title, Description: description, Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             
             //         Todo: validate
             //         Todo: exception handling
@@ -97,6 +97,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func Cancel(_ sender: UIButton) {
+//        self.view.endEditing(true)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -137,7 +138,9 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             if isEditMode
             {
                 self.titleTextFieldCell?.textFieldOutlet.text = taskToEdit?.getTitle()
-            }else
+                return titleTextFieldCell!
+            }
+            if (titleTextFieldCell?.textFieldOutlet.text?.isEmpty)!
             {
                 titleTextFieldCell?.textFieldOutlet.becomeFirstResponder()
             }
@@ -215,7 +218,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         2) the tapped is under the shown date picker
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+//        self.view.endEditing(true)
         if indexPath.section == 1 // the selected row is in section 1
         {
             let selectedCell = tableViewOutlet.cellForRow(at: indexPath)
@@ -289,7 +292,11 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 
         fieldData[parentIndexPath.section][parentIndexPath.row].date = sender.date
         fieldData[parentIndexPath.section][parentIndexPath.row].detail = dateFormatter.string(from: sender.date)
-        dateCell?.detailTextLabel?.text = dateFormatter.string(from: sender.date)
+
+        let detailStr = dateFormatter.string(from: sender.date)
+        let attributedStr = NSMutableAttributedString(string: detailStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+        dateCell?.detailTextLabel?.attributedText = attributedStr
+        dateCell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
     }
     func shakeTitleInput()
     {
@@ -305,11 +312,43 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             })
         })
     }
-
+    
+    @objc func keyboardHide() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            
+            let y = self.view.frame.height - self.buttonStackView.frame.height
+            self.buttonStackView.frame = CGRect(x: 0, y: y, width: self.buttonStackView.frame.width, height: self.buttonStackView.frame.height)
+            
+        }, completion: nil)
+    }
+    
+    @objc func keyboardShow(notification: Notification) {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+                let keyboardHeight:CGFloat = CGFloat(keyboardSize.height)
+                print("keyboardHeight",keyboardHeight)
+                let y: CGFloat = self.view.frame.height - keyboardHeight - self.buttonStackView.frame.height//UIDevice.current.orientation.isLandscape ? -150 : -80
+                    self.buttonStackView.frame = CGRect(x: 0, y: y, width: self.buttonStackView.frame.width, height: self.buttonStackView.frame.height)
+            }
+            
+        }, completion: nil)
+    }
+    
+    fileprivate func observeKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: .UIKeyboardWillHide, object: nil)
+    }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        self.view.endEditing(true)
+//    }
+    
     // Initialize page
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        observeKeyboardNotifications()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         
@@ -346,8 +385,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                     categoryStr = "Chore"
                 case Category.Relationship:
                     categoryStr = "Social"
-                default:
-                    categoryStr = ""
                 }
             }
 //            let alarmStr =
@@ -387,6 +424,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        self.view.endEditing(true)
     }
 }
 
