@@ -184,6 +184,10 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                 self.isStartTimeMode = UserDefaults.standard.bool(forKey: StartTimeModeKey)
                 self.fieldData[1][1] = self.startOrDurationToggle()
                 DispatchQueue.main.async {
+                    if self.datePickerIndexPath != nil
+                    {
+                        self.datePickerIndexPath = nil
+                    }
                     self.tableViewOutlet.reloadData()
                 }
             }
@@ -194,7 +198,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             let detailStr = fieldData[indexPath.section][indexPath.row].detail
             let attributedStr = NSMutableAttributedString(string: detailStr!, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
             cell.detailTextLabel?.attributedText = attributedStr
-            
+            cell.detailTextLabel?.adjustsFontSizeToFitWidth = true
             return cell
         case .detail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
@@ -341,10 +345,10 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         {
             let durationCell = tableViewOutlet.cellForRow(at: parentIndexPath)
             fieldData[parentIndexPath.section][parentIndexPath.row].countDownDuration = sender.countDownDuration
-            fieldData[parentIndexPath.section][parentIndexPath.row].detail = String(sender.countDownDuration)
+            fieldData[parentIndexPath.section][parentIndexPath.row].detail = getTimeStr(from: sender.countDownDuration)//String(sender.countDownDuration)
             
             print("sender.countDownDuration: ", sender.countDownDuration)
-            let detailStr = fieldData[parentIndexPath.section][parentIndexPath.row].detail ?? String(sender.countDownDuration)
+            let detailStr = fieldData[parentIndexPath.section][parentIndexPath.row].detail ?? getTimeStr(from: sender.countDownDuration)
 //            DispatchQueue.main.async {
                 let attributedStr = NSMutableAttributedString(string: detailStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
                 durationCell?.detailTextLabel?.attributedText = attributedStr
@@ -363,6 +367,18 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             dateCell?.detailTextLabel?.attributedText = attributedStr
             dateCell?.detailTextLabel?.textColor = UIColor.HalpColors.pastelRed
             dateCell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
+        }
+    }
+    
+    func getTimeStr(from countDownInterval:TimeInterval) -> String
+    {
+        let hours = Int(countDownInterval) / 3600
+        let minutes = Int(countDownInterval) / 60 % 60
+        if hours > 0
+        {
+            return String(format:"%02i hours %02i minutes", hours, minutes)
+        }else{
+            return String(format:"%02i minutes", minutes)
         }
     }
     
@@ -505,8 +521,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         if isEditMode
         {
             let countDownDuration = TimeInterval((taskToEdit?.getDuration())!)
-            //need to make funtion for converting countDownDuration to string.
-            let durationStr = String(countDownDuration)
+            let durationStr = getTimeStr(from: countDownDuration)//String(countDownDuration)
             return CellData(cellType: .dateDetail, title: "Duration", detail: durationStr, date: nil, countDownDuration: countDownDuration)
         }//Duration mode && Add new task page
         return CellData(cellType: .dateDetail, title: "Duration", detail: "0", date: nil, countDownDuration: 0)
