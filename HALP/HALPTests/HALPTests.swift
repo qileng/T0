@@ -23,6 +23,12 @@ class HALPTests: XCTestCase {
 		print(dbPath)
 		var dbpointer: OpaquePointer? = nil
 		
+		sqlite3_open(dbPath, &dbpointer)
+		sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
+		sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
+		sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
+		sqlite3_close(dbpointer)
+		
 		if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
 			// UserData table
 			sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
@@ -349,6 +355,264 @@ class HALPTests: XCTestCase {
 		print("Next available is ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().0)).description(with:.current), " to ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().1)).description(with:.current))
 		TaskManager.sharedTaskManager.calculateTimeSpan()
 		print("Next available is ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().0)).description(with:.current), " to ", Date(timeIntervalSince1970: TimeInterval(TaskManager.sharedTaskManager.getTimespan().1)).description(with:.current))
+	}
+	
+	func testScheduleScenario1() {
+		// Scenario 1: 2 fixed tasks: one starting at 8am tomorrow and one starting 23pm tomorrow.
+		// 			   2 dynamic tasks: one with duration 1 hour due end of tomorrow and one with duration 2 hours due tomorrow at noon.
+		//			   Available time: 8am to 12am starting tomorrow
+		// Expected Result: Tasks Scheduled to start at: 8am, 9am, 11am, 11pm tomorrow.
+		
+		// Generate testing user&settings.
+		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let testSetting1 = Setting(userId: testUser1.getUserID())
+		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
+		let mask = 0b1 << dayOfWeek
+		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
+		// Calculate the available timespan tomorrow.
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		let start = TaskManager.sharedTaskManager.getTimespan().0
+		let end = TaskManager.sharedTaskManager.getTimespan().1
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		// Generate tasks to be tested.
+		// Two fixed tasks with single dynamic task to be scheduled in between
+		// Task1: fixed task starting tomorrow 8am, ends in 1 hour
+		let task1 = Task(Title: "task1", Deadline: start+3600, Schedule: start , TaskID: 1, UserID: 1)
+		// Task2: fixed task starting 11pm tomorrow, ends in 1 hour
+		let task2 = Task(Title: "task2", Deadline: end, Schedule: end-3600, TaskID: 2, UserID: 1)
+		// Task3: dynamic task with duration of 1 hour and deadline end of tomorrow
+		let task3 = Task(Title: "task3", Deadline: end, Duration: 3600, TaskID: 3, UserID: 1)
+		// Task4: dynamic task with duration of 2 hour and deadline 12pm tomorrow, so higher priority then task3.
+		let task4 = Task(Title: "task4", Deadline: start + 4*3600, Duration: 7200, TaskID: 4, UserID: 1)
+		for task in [task1,task2,task3, task4] {
+			let DAO = TaskDAO(task)
+			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
+		}
+		// Load up tasks to be tested. This automatically shedule tasks by time.
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		let tasks = TaskManager.sharedTaskManager.getTasks()
+		for task in tasks {
+			print("Title: ", task.getTitle(), " starting: ", Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart())).description(with: .current), " duration: ", task.getDuration() / 60, "minutes.")
+		}
+		
+		XCTAssertEqual(tasks[0].getScheduleStart(), start)
+		XCTAssertEqual(tasks[1].getScheduleStart(), start + 3600)
+		XCTAssertEqual(tasks[2].getScheduleStart(), start + 3600*3)
+		XCTAssertEqual(tasks[3].getScheduleStart(), end - 3600)
+		XCTAssertEqual(tasks[0].getTitle(), "task1")
+		XCTAssertEqual(tasks[1].getTitle(), "task4")
+		XCTAssertEqual(tasks[2].getTitle(), "task3")
+		XCTAssertEqual(tasks[3].getTitle(), "task2")
+	}
+	
+	func testScheduleScenario2() {
+		// Scenario 2: 2 fixed tasks: one starting at 4pm tomorrow and one starting 9pm tomorrow.
+		// 			   2 dynamic tasks: one with duration 1 hour due end of tomorrow and one with duration 2 hours due end of tomorrow.
+		//			   Available time: 4pm to 10pm starting tomorrow.
+		// Expected Result: Tasks Scheduled to start at: 4pm, 5pm, 7pm, 9pm tomorrow.
+		
+		// Generate testing user&settings.
+		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let testSetting1 = Setting(userId: testUser1.getUserID())
+		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
+		let mask = 0b1 << dayOfWeek
+		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
+		testSetting1.setEndTime(22)
+		testSetting1.setStartTime(16)
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		// Calculate the available timespan tomorrow.
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		let start = TaskManager.sharedTaskManager.getTimespan().0
+		let end = TaskManager.sharedTaskManager.getTimespan().1
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		// Generate tasks to be tested.
+		// Two fixed tasks with single dynamic task to be scheduled in between
+		// Task1: fixed task starting 4pm tomorrow, ends in 1 hour
+		let task1 = Task(Title: "task1", Deadline: start+3600, Schedule: start , TaskID: 1, UserID: 1)
+		// Task2: fixed task starting 9pm tomorrow, ends in 1 hour
+		let task2 = Task(Title: "task2", Deadline: end, Schedule: end-3600, TaskID: 2, UserID: 1)
+		// Task3: dynamic task with duration of 1 hour and deadline end of tomorrow
+		let task3 = Task(Title: "task3", Deadline: end, Duration: 3600, TaskID: 3, UserID: 1)
+		// Task4: dynamic task with duration of 2 hour and deadline end of tomorrow, so higher priority then task3.
+		let task4 = Task(Title: "task4", Deadline: end, Duration: 7200, TaskID: 4, UserID: 1)
+		for task in [task1,task2,task3, task4] {
+			let DAO = TaskDAO(task)
+			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
+		}
+		// Load up tasks to be tested. This automatically shedule tasks by time.
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		let tasks = TaskManager.sharedTaskManager.getTasks()
+		for task in tasks {
+			print("Title: ", task.getTitle(), " starting: ", Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart())).description(with: .current), " duration: ", task.getDuration() / 60, "minutes.")
+		}
+		
+		XCTAssertEqual(tasks[0].getScheduleStart(), start)
+		XCTAssertEqual(tasks[1].getScheduleStart(), start + 3600)
+		XCTAssertEqual(tasks[2].getScheduleStart(), start + 3600*3)
+		XCTAssertEqual(tasks[3].getScheduleStart(), end - 3600)
+		XCTAssertEqual(tasks[0].getTitle(), "task1")
+		XCTAssertEqual(tasks[1].getTitle(), "task4")
+		XCTAssertEqual(tasks[2].getTitle(), "task3")
+		XCTAssertEqual(tasks[3].getTitle(), "task2")
+	}
+	
+	func testScheduleScenario3() {
+		// Scenario 3: 2 fixed tasks: one starting at 9am tomorrow and one starting 11pm tomorrow.
+		// 			   2 dynamic tasks: one with duration 1 hour due end of tomorrow and one with duration 2 hours due end of tomorrow.
+		//			   Available Time: 8am to 12am starting tomorrow
+		// Expected Result: Tasks Scheduled to start at: 8am, 9am, 10am, 11pm tomorrow.
+		
+		// Generate testing user&settings.
+		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let testSetting1 = Setting(userId: testUser1.getUserID())
+		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
+		let mask = 0b1 << dayOfWeek
+		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		// Calculate the available timespan tomorrow.
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		let start = TaskManager.sharedTaskManager.getTimespan().0
+		let end = TaskManager.sharedTaskManager.getTimespan().1
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		// Generate tasks to be tested.
+		// Two fixed tasks with single dynamic task to be scheduled in between
+		// Task1: fixed task starting 9am tomorrow, ends in 1 hour
+		let task1 = Task(Title: "task1", Deadline: start+3600*2, Schedule: start+3600, TaskID: 1, UserID: 1)
+		// Task2: fixed task starting 11pm tomorrow, ends in 1 hour
+		let task2 = Task(Title: "task2", Deadline: end, Schedule: end-3600, TaskID: 2, UserID: 1)
+		// Task3: dynamic task with duration of 1 hour and deadline end of tomorrow
+		let task3 = Task(Title: "task3", Deadline: end, Duration: 3600, TaskID: 3, UserID: 1)
+		// Task4: dynamic task with duration of 2 hour and deadline end of tomorrow, so higher priority then task3.
+		let task4 = Task(Title: "task4", Deadline: end, Duration: 7200, TaskID: 4, UserID: 1)
+		for task in [task1,task2,task3, task4] {
+			let DAO = TaskDAO(task)
+			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
+		}
+		// Load up tasks to be tested. This automatically shedule tasks by time.
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		let tasks = TaskManager.sharedTaskManager.getTasks()
+		for task in tasks {
+			print("Title: ", task.getTitle(), " starting: ", Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart())).description(with: .current), " duration: ", task.getDuration() / 60, "minutes.")
+		}
+		
+		XCTAssertEqual(tasks[0].getScheduleStart(), start)
+		XCTAssertEqual(tasks[1].getScheduleStart(), start + 3600)
+		XCTAssertEqual(tasks[2].getScheduleStart(), start + 3600*2)
+		XCTAssertEqual(tasks[3].getScheduleStart(), end - 3600)
+		XCTAssertEqual(tasks[0].getTitle(), "task3")
+		XCTAssertEqual(tasks[1].getTitle(), "task1")
+		XCTAssertEqual(tasks[2].getTitle(), "task4")
+		XCTAssertEqual(tasks[3].getTitle(), "task2")
+	}
+	
+	func testScheduleScenario4() {
+		// Scenario 4: 2 fixed tasks: one starting at 7pm tomorrow and one starting 8:30pm tomorrow.
+		// 			   2 dynamic tasks: one with duration 0.5 hour due end of tomorrow and one with duration 2 hours due end of tomorrow.
+		//			   Available Time: 7pm to 12am starting tomorrow
+		// Expected Result: Tasks Scheduled to start at: 7pm, 8pm, 8:30pm, 9:30pm tomorrow.
+		
+		// Generate testing user&settings.
+		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let testSetting1 = Setting(userId: testUser1.getUserID())
+		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
+		let mask = 0b1 << dayOfWeek
+		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
+		testSetting1.setStartTime(19)
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		// Calculate the available timespan tomorrow.
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		let start = TaskManager.sharedTaskManager.getTimespan().0
+		let end = TaskManager.sharedTaskManager.getTimespan().1
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		// Generate tasks to be tested.
+		// Two fixed tasks with single dynamic task to be scheduled in between
+		// Task1: fixed task starting 9am tomorrow, ends in 1 hour
+		let task1 = Task(Title: "task1", Deadline: start+3600, Schedule: start, TaskID: 1, UserID: 1)
+		// Task2: fixed task starting 11pm tomorrow, ends in 1 hour
+		let task2 = Task(Title: "task2", Deadline: start+9000, Schedule: start+5400, TaskID: 2, UserID: 1)
+		// Task3: dynamic task with duration of 1 hour and deadline end of tomorrow
+		let task3 = Task(Title: "task3", Deadline: end, Duration: 1800, TaskID: 3, UserID: 1)
+		// Task4: dynamic task with duration of 2 hour and deadline end of tomorrow, so higher priority then task3.
+		let task4 = Task(Title: "task4", Deadline: end, Duration: 7200, TaskID: 4, UserID: 1)
+		for task in [task1,task2,task3, task4] {
+			let DAO = TaskDAO(task)
+			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
+		}
+		// Load up tasks to be tested. This automatically shedule tasks by time.
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		let tasks = TaskManager.sharedTaskManager.getTasks()
+		for task in tasks {
+			print("Title: ", task.getTitle(), " starting: ", Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart())).description(with: .current), " duration: ", task.getDuration() / 60, "minutes.")
+		}
+		
+		XCTAssertEqual(tasks[0].getScheduleStart(), start)
+		XCTAssertEqual(tasks[1].getScheduleStart(), start + 3600)
+		XCTAssertEqual(tasks[2].getScheduleStart(), start + 5400)
+		XCTAssertEqual(tasks[3].getScheduleStart(), start + 9000)
+		XCTAssertEqual(tasks[0].getTitle(), "task1")
+		XCTAssertEqual(tasks[1].getTitle(), "task3")
+		XCTAssertEqual(tasks[2].getTitle(), "task2")
+		XCTAssertEqual(tasks[3].getTitle(), "task4")
+	}
+	
+	func testScheduleScenario5() {
+		// Scenario 5: 0 fixed task
+		// 			   4 dynamic tasks: one with duration 0.75 hour, one with duration 2.5 hours, one with duration 4 hours&category relationship,
+		//								one with duration 1 hour&category entertainment with deadline by 3 days later.
+		//			   Priority would be: 2.5hrs > 0.75hrs > 4hrs > 1hr
+		//			   Available Time: 7pm to 11pm starting tomorrow
+		// Expected Result: Tasks Scheduled to start at: 7pm, 9:30pm tomorrow, 7pm the day after tomorrow, 7pm one more day after
+		
+		// Generate testing user&settings.
+		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let testSetting1 = Setting(userId: testUser1.getUserID())
+		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
+		let mask = 0b1 << dayOfWeek
+		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
+		testSetting1.setStartTime(19)
+		testSetting1.setEndTime(23)
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		// Calculate the available timespan tomorrow.
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		TaskManager.sharedTaskManager.calculateTimeSpan()
+		let start = TaskManager.sharedTaskManager.getTimespan().0
+		let end = TaskManager.sharedTaskManager.getTimespan().1
+		TaskManager.sharedTaskManager.clearTimeSpan()
+		// Generate tasks to be tested.
+		// Two fixed tasks with single dynamic task to be scheduled in between
+		// Task1: fixed task starting 9am tomorrow, ends in 1 hour
+		let task1 = Task(Title: "task1", Deadline: end+3600*72, Duration: Int32(0.75*3600), TaskID: 1, UserID: 1)
+		// Task2: fixed task starting 11pm tomorrow, ends in 1 hour
+		let task2 = Task(Title: "task2", Deadline: end+3600*72, Duration: Int32(2.5*3600), TaskID: 2, UserID: 1)
+		// Task3: dynamic task with duration of 1 hour and deadline end of tomorrow
+		let task3 = Task(Title: "task3", Category: .Relationship, Deadline: end+3600*72, Duration: 4*3600, TaskID: 3, UserID: 1)
+		// Task4: dynamic task with duration of 2 hour and deadline end of tomorrow, so higher priority then task3.
+		let task4 = Task(Title: "task4", Category: .Entertainment, Deadline: end+3600*72, Duration: 3600, TaskID: 4, UserID: 1)
+		for task in [task1,task2,task3, task4] {
+			let DAO = TaskDAO(task)
+			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
+		}
+		// Load up tasks to be tested. This automatically shedule tasks by time.
+		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+		let tasks = TaskManager.sharedTaskManager.getTasks()
+		for task in tasks {
+			print("Title: ", task.getTitle(), " starting: ", Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart())).description(with: .current), " duration: ", task.getDuration() / 60, "minutes.")
+		}
+		
+		
+		XCTAssertEqual(tasks[0].getScheduleStart(), start)
+		XCTAssertEqual(tasks[1].getScheduleStart(), start + 9000)
+		XCTAssertEqual(tasks[2].getScheduleStart(), start + 3600*24)
+		XCTAssertEqual(tasks[3].getScheduleStart(), start + 3600*48)
+		XCTAssertEqual(tasks[0].getTitle(), "task2")
+		XCTAssertEqual(tasks[1].getTitle(), "task1")
+		XCTAssertEqual(tasks[2].getTitle(), "task3")
+		XCTAssertEqual(tasks[3].getTitle(), "task4")
 	}
 	
     func testPerformanceExample() {

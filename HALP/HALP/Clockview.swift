@@ -43,6 +43,8 @@ extension ClockViewController: UICollectionViewDataSource, UICollectionViewDeleg
 		// Setup tap recognizer
 		let TapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTapWhileDetailDisplayed))
 		self.view.addGestureRecognizer(TapRecognizer)
+		// set up cog button handler
+		Detail.setting.addTarget(self, action: #selector(onCogTap(_:)), for: .touchUpInside)
 	}
 	
 	func calculateFrame(_ collectionView: UICollectionView, _ cell: UICollectionViewCell) -> CGRect {
@@ -166,6 +168,19 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 			animator.startAnimation()
 		}
 	}
+	
+	// Event handler to task editing when cog is clicked
+	@objc func onCogTap(_ sender: UIButton) {
+		// Create an animation for Task Editing page.
+		// Cog rotating animation stops in 0.5 sec, so Task Editing page should not take over until .5 sec.
+		DispatchQueue.main.asyncAfter(deadline: (.now() + .milliseconds(300)), execute: {
+			let taskEditVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskEditPageViewController") as! TaskEditPageViewController
+			taskEditVC.isEditMode = true
+			taskEditVC.taskToEdit = (self.view.subviews.last! as! UITaskDetail).task!
+			let taskEditNC: UINavigationController = UINavigationController(rootViewController: taskEditVC)
+			self.present(taskEditNC, animated: true, completion: nil)
+		})
+	}
     
     //The following commented code is for reference
     /*
@@ -249,6 +264,8 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     //ADD HERE !!
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		
+		TaskManager.sharedTaskManager.refreshTaskManager()
 
         self.removeContainerView()
         self.addHandsAndCenterPiece()
@@ -267,11 +284,14 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         
         for curr in currTasks {
             let startTime = curr.getScheduleStart()
-            let endTime = curr.getDeadline()
+            let endTime = curr.getScheduleStart() + curr.getDuration()
             //If beyond 12 hours, return
             if startTime >= sysTime+(12*3600) {
                 break
-            }
+			} else if startTime == 0 {
+				// Not scheduled yet. To avoid runtime error.
+				break
+			}
             
             //at this point, task is within 12 hours
             //Start index
@@ -298,8 +318,20 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 
 	}
 	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		// Dismiss detail page
+		if type(of: self.view.subviews.last!) == UITaskDetail.self {
+			self.view.subviews.last!.removeFromSuperview()
+			_ = self.view.gestureRecognizers?.popLast()
+		}
+	}
+	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		
+		// Prompt past tasks alerts
+		TaskManager.sharedTaskManager.promptNextAlert(self)
 	}
     
     func addHandsAndCenterPiece() {

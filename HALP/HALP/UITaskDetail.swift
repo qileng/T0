@@ -25,6 +25,7 @@ class UITaskDetail: UIView {
 	
 	var task: Task?
 	var originFrame: CGRect?
+	let setting = UIButton()
 
 	// Deprecated
 	/*
@@ -123,12 +124,10 @@ class UITaskDetail: UIView {
 		deadline.numberOfLines = 0
 		//deadline.font = UIFont(name: "AmericanTypewriter", size: UIFont.systemFontSize)
 		
-		let setting = UIButton()
 		let img = #imageLiteral(resourceName: "Cog")
 		setting.setImage(img, for: .normal)
 		setting.imageView!.tintColor = TaskManager.sharedTaskManager.getTheme().text		
 		setting.imageView!.transform = CGAffineTransform(rotationAngle: .pi / 2.0)
-		setting.addTarget(self, action: #selector(self.onCogTap), for: .touchUpInside)
 		setting.addTarget(setting, action: #selector(setting.rotate), for: .touchUpInside)
 		
 		// Adding subviews.

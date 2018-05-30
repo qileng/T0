@@ -87,13 +87,13 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             let updateForm = TaskForm(Title: title, Description: description, Category: category,
                                       Alarm: (taskToEdit?.getAlarm())!, Deadline: deadlineDate,
                                       SoftDeadline: (taskToEdit?.getSoftDeadline())!,
-                                      Schedule: (taskToEdit?.getSchedule())!, Duration: (taskToEdit?.getDuration())!,
-                                      Priority: (taskToEdit?.getPriority())!, Schedule_start: startDate,
+                                      Schedule: startDate, Duration: (taskToEdit?.getDuration())!,
+                                      Priority: (taskToEdit?.getPriority())!, Schedule_start: (taskToEdit?.getScheduleStart())!,
                                       Notification: (taskToEdit?.getNotification())!, TaskID: (taskToEdit?.getTaskId())!,
                                       UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             TaskManager.sharedTaskManager.updateTask(form: updateForm)
         }else {
-            let form = TaskForm(Title: title, Description: description, Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+            let form = TaskForm(Title: title, Description: description, Category: category, Deadline: deadlineDate, Schedule: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             
             //         Todo: validate
             //         Todo: exception handling

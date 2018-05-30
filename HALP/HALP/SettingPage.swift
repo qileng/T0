@@ -35,9 +35,15 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     @IBOutlet weak var startTimeNum: UILabel!
     @IBOutlet weak var endTimeNum: UILabel!
-    
+
     override func viewDidLoad() {
 		super.viewDidLoad()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		// Prompt past task alerts
+		TaskManager.sharedTaskManager.promptNextAlert(self)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -46,6 +52,9 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
+		TaskManager.sharedTaskManager.refreshTaskManager()
+		
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
         //initialize databse settings
