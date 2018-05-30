@@ -37,8 +37,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 		self.pageViewController!.view.frame = pageViewRect
 
 		self.pageViewController!.didMove(toParentViewController: self)
-        
-
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -98,8 +96,11 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		TaskManager.sharedTaskManager.promptNextAlert(self)
 	}
-
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		//TaskManager.sharedTaskManager.refreshTaskManager()
+	}
 }
 

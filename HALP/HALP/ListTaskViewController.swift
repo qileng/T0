@@ -45,8 +45,16 @@ class ListTaskViewController: UIViewController {
 //        return .lightContent
 //    }
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		// Prompt past tasks alerts
+		TaskManager.sharedTaskManager.promptNextAlert(self)
+	}
+	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+		TaskManager.sharedTaskManager.refreshTaskManager()
         tableViewOutlet.reloadData()
     }
     
