@@ -119,32 +119,33 @@ class HALPTests: XCTestCase {
         XCTAssertEqual(true, result1)
     }
     
-    func testa_SaveTaskInfoToLocalDB() {
-        
-        print("Testing saveTaskInfoToLocalDB.\n")
-        let task1 = Task(Title: "Test1", Description: "blahblah", Category: Category.Relationship, Alarm: 852, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, Notification: true, TaskID: 0000, UserID: 123456)
-        let task2 = Task(Title: "Test2", Description: "blahblah", Category: Category.Relationship, Alarm: 00, Deadline: 1234, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, Notification: false, TaskID: 7777, UserID: 123456)
-		let task3 = Task(Title: "Test3", Description: "blahblah", Category: Category.Relationship, Alarm: 22, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, TaskID: 1234, UserID: 123456)
-		let task4 = Task(Title: "Test4", Description: "blahblah", Category: Category.Relationship, Alarm: 8512, Deadline: 0, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 4321, UserID: 7890)
-		let task5 = Task(Title: "Test5", Description: "blahblah", Category: Category.Relationship, Alarm: 8522, Deadline: 4, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 2048, UserID: 78122)
-         
-         let taskDAO1 = TaskDAO(task1)
-         let taskDAO2 = TaskDAO(task2)
-         let taskDAO3 = TaskDAO(task3)
-         let taskDAO4 = TaskDAO(task4)
-         let taskDAO5 = TaskDAO(task5)
-        
-        //Duplicate insertion not allowed
-        XCTAssertEqual(taskDAO1.saveTaskInfoToLocalDB(), true)
-        XCTAssertEqual(taskDAO1.saveTaskInfoToLocalDB(), false)
-        
-        // Have to delete all the tasks if you want to re-run this test
-        // or else the methond will try to insert duplicat tasks which will fail
-        XCTAssertEqual(taskDAO2.saveTaskInfoToLocalDB(), true)
-        XCTAssertEqual(taskDAO3.saveTaskInfoToLocalDB(), true)
-        XCTAssertEqual(taskDAO4.saveTaskInfoToLocalDB(), true)
-        XCTAssertEqual(taskDAO5.saveTaskInfoToLocalDB(), true)
-    }
+    // Deprecated
+//    func testa_SaveTaskInfoToLocalDB() {
+//
+//        print("Testing saveTaskInfoToLocalDB.\n")
+//        let task1 = Task(Title: "Test1", Description: "blahblah", Category: Category.Relationship, Alarm: 852, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, Notification: true, TaskID: 0000, UserID: 123456)
+//        let task2 = Task(Title: "Test2", Description: "blahblah", Category: Category.Relationship, Alarm: 00, Deadline: 1234, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, Notification: false, TaskID: 7777, UserID: 123456)
+//        let task3 = Task(Title: "Test3", Description: "blahblah", Category: Category.Relationship, Alarm: 22, Deadline: 13462, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 0.00, Schedule_start: 111, TaskID: 1234, UserID: 123456)
+//        let task4 = Task(Title: "Test4", Description: "blahblah", Category: Category.Relationship, Alarm: 8512, Deadline: 0, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 4321, UserID: 7890)
+//        let task5 = Task(Title: "Test5", Description: "blahblah", Category: Category.Relationship, Alarm: 8522, Deadline: 4, SoftDeadline: 134, Schedule: 93, Duration: 123, Priority: 33.33, Schedule_start: 111, TaskID: 2048, UserID: 78122)
+//
+//         let taskDAO1 = TaskDAO(task1)
+//         let taskDAO2 = TaskDAO(task2)
+//         let taskDAO3 = TaskDAO(task3)
+//         let taskDAO4 = TaskDAO(task4)
+//         let taskDAO5 = TaskDAO(task5)
+//
+//        //Duplicate insertion not allowed
+//        XCTAssertEqual(taskDAO1.saveTaskInfoToLocalDB(), true)
+//        XCTAssertEqual(taskDAO1.saveTaskInfoToLocalDB(), false)
+//
+//        // Have to delete all the tasks if you want to re-run this test
+//        // or else the methond will try to insert duplicat tasks which will fail
+//        XCTAssertEqual(taskDAO2.saveTaskInfoToLocalDB(), true)
+//        XCTAssertEqual(taskDAO3.saveTaskInfoToLocalDB(), true)
+//        XCTAssertEqual(taskDAO4.saveTaskInfoToLocalDB(), true)
+//        XCTAssertEqual(taskDAO5.saveTaskInfoToLocalDB(), true)
+//    }
     
     func testFetchTaskInfoFromLocalDB() {
         print("Testing fetchTaskInfoFromLocalDB.\n")
@@ -178,36 +179,38 @@ class HALPTests: XCTestCase {
         }
     }
     
-    func testUpdateTaskInfoInLocalDB() {
-        
-        print("Testing updateTaskInfoInLocalDB.\n")
-        let testDAO = TaskDAO()
-        
-        //Testing update all entries
-        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 0000, taskTitle: "update1", taskDesc: "success1", category: 1, alarm: 0, deadline: 1, softDeadline: 2, schedule: 5, duration: 123, taskPriority: 0.5, scheduleStart: 9, notification: false), true)
-        
-        //Testing not updating any thing
-        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 1234), true)
-        
-        //Testing updating some entries
-        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 2048, taskTitle: "update2", taskDesc: "success2", category: 0.25, duration: 314159, notification: true), true)
-        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 4321, taskTitle: "update3", category: 0.25, duration: 314159, notification: true), true)
-        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 7777, taskDesc: "success3", category: 0.25, alarm: 2018, duration: 314159, notification: true), true)
+    // Deprecated
+//    func testUpdateTaskInfoInLocalDB() {
+//
+//        print("Testing updateTaskInfoInLocalDB.\n")
+//        let testDAO = TaskDAO()
+//
+//        //Testing update all entries
+//        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 0000, taskTitle: "update1", taskDesc: "success1", category: 1, alarm: 0, deadline: 1, softDeadline: 2, schedule: 5, duration: 123, taskPriority: 0.5, scheduleStart: 9, notification: false), true)
+//
+//        //Testing not updating any thing
+//        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 1234), true)
+//
+//        //Testing updating some entries
+//        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 2048, taskTitle: "update2", taskDesc: "success2", category: 0.25, duration: 314159, notification: true), true)
+//        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 4321, taskTitle: "update3", category: 0.25, duration: 314159, notification: true), true)
+//        XCTAssertEqual(testDAO.updateTaskInfoInLocalDB(taskId: 7777, taskDesc: "success3", category: 0.25, alarm: 2018, duration: 314159, notification: true), true)
+//
+//
+//    }
     
-
-    }
-    
-    func testz_DeleteTaskFromLocalDB() {
-        
-        print("Testing deleteTaskFromLocalDB.\n")
-        
-        let testDAO = TaskDAO()
-        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 0000), true)
-        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 7777), true)
-        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 1234), true)
-        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 4321), true)
-        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 2048), true)
-    }
+    // Deprecated
+//    func testz_DeleteTaskFromLocalDB() {
+//
+//        print("Testing deleteTaskFromLocalDB.\n")
+//
+//        let testDAO = TaskDAO()
+//        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 0000), true)
+//        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 7777), true)
+//        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 1234), true)
+//        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 4321), true)
+//        XCTAssertEqual(testDAO.deleteTaskFromLocalDB(taskId: 2048), true)
+//    }
 	
 	func testTaskComparison() {
 		print("Testing Task Comparison.")
@@ -276,34 +279,35 @@ class HALPTests: XCTestCase {
 		}
 	}
 	
-	func testRemoveTask() {
-		print("Testing Remove Task!")
-		let testTask = TaskForm(TaskID: 12345, UserID: 12345)
-		TaskManager.sharedTaskManager.addTask(testTask)
-		let DAO = TaskDAO()
-		var	result: [Int64]
-		do {
-			result = try DAO.fetchTaskIdListFromLocalDB(userId: 12345)
-			XCTAssertEqual(result.contains(12345), true)
-		} catch RuntimeError.DBError(let errorMessage) {
-			print(errorMessage)
-		} catch RuntimeError.InternalError(let errorMessage) {
-			print(errorMessage)
-		} catch {
-			print("Unexpected Error!")
-		}
-		TaskManager.sharedTaskManager.removeTask(taskID: 12345)
-		do {
-			result = try DAO.fetchTaskIdListFromLocalDB(userId: 12345)
-			XCTAssertEqual(result.contains(12345), false)
-		} catch RuntimeError.DBError(let errorMessage) {
-			print(errorMessage)
-		} catch RuntimeError.InternalError(let errorMessage) {
-			print(errorMessage)
-		} catch {
-			print("Unexpected Error!")
-		}
-	}
+    // Deprecated
+//    func testRemoveTask() {
+//        print("Testing Remove Task!")
+//        let testTask = TaskForm(TaskID: 12345, UserID: 12345)
+//        TaskManager.sharedTaskManager.addTask(testTask)
+//        let DAO = TaskDAO()
+//        var    result: [Int64]
+//        do {
+//            result = try DAO.fetchTaskIdListFromLocalDB(userId: 12345)
+//            XCTAssertEqual(result.contains(12345), true)
+//        } catch RuntimeError.DBError(let errorMessage) {
+//            print(errorMessage)
+//        } catch RuntimeError.InternalError(let errorMessage) {
+//            print(errorMessage)
+//        } catch {
+//            print("Unexpected Error!")
+//        }
+//        TaskManager.sharedTaskManager.removeTask(taskID: 12345)
+//        do {
+//            result = try DAO.fetchTaskIdListFromLocalDB(userId: 12345)
+//            XCTAssertEqual(result.contains(12345), false)
+//        } catch RuntimeError.DBError(let errorMessage) {
+//            print(errorMessage)
+//        } catch RuntimeError.InternalError(let errorMessage) {
+//            print(errorMessage)
+//        } catch {
+//            print("Unexpected Error!")
+//        }
+//    }
     
 	/*
 	func testSettingDAO() {
@@ -365,6 +369,8 @@ class HALPTests: XCTestCase {
 		
 		// Generate testing user&settings.
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let DAO = UserDAO(testUser1)
+		_ = DAO.saveUserInfoToLocalDB()
 		let testSetting1 = Setting(userId: testUser1.getUserID())
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek
@@ -415,6 +421,8 @@ class HALPTests: XCTestCase {
 		
 		// Generate testing user&settings.
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let DAO = UserDAO(testUser1)
+		_ = DAO.saveUserInfoToLocalDB()
 		let testSetting1 = Setting(userId: testUser1.getUserID())
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek
@@ -468,6 +476,8 @@ class HALPTests: XCTestCase {
 		// Generate testing user&settings.
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
 		let testSetting1 = Setting(userId: testUser1.getUserID())
+		let DAO = UserDAO(testUser1)
+		_ = DAO.saveUserInfoToLocalDB()
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek
 		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
@@ -517,6 +527,8 @@ class HALPTests: XCTestCase {
 		
 		// Generate testing user&settings.
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let DAO = UserDAO(testUser1)
+		_ = DAO.saveUserInfoToLocalDB()
 		let testSetting1 = Setting(userId: testUser1.getUserID())
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek
@@ -570,6 +582,8 @@ class HALPTests: XCTestCase {
 		
 		// Generate testing user&settings.
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
+		let DAO = UserDAO(testUser1)
+		_ = DAO.saveUserInfoToLocalDB()
 		let testSetting1 = Setting(userId: testUser1.getUserID())
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek

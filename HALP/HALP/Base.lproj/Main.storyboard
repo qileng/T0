@@ -754,6 +754,14 @@
                                                 <action selector="reset:" destination="PiT-cf-OIt" eventType="touchUpInside" id="fWV-pl-IrP"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6An-3q-Ivd">
+                                            <rect key="frame" x="171" y="528" width="34" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Sync"/>
+                                            <connections>
+                                                <action selector="sync:" destination="PiT-cf-OIt" eventType="touchUpInside" id="pwu-CS-6yB"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <blurEffect style="extraLight"/>
@@ -1123,7 +1131,6 @@
     </scenes>
     <resources>
         <image name="sky1" width="372" height="696"/>
-        <image name="space1" width="372" height="696"/>
         <image name="wooder" width="480" height="699"/>
     </resources>
 </document>

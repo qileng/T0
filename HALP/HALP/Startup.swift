@@ -314,15 +314,12 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                                           endTime: end, user: settingId)
                 
                 TaskManager.sharedTaskManager.setUp(new: guest, setting: userSetting, caller: self as UIViewController)
-             
-                // Example usage
-				/*
-                dbSync(userId: 0, completion: {(flag) in
-                    if flag {
-                        print("Done")
-                    }
-                })
-				*/
+                
+//                syncDatabase(userId: 0, completion: { (flag) in
+//                    if flag {
+//                        print("Done")
+//                    }
+//                })
                 
             }catch {
                 print("Error")
