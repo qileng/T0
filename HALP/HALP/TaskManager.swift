@@ -140,14 +140,14 @@ class TaskManager {
 			print("Loading ", loadedTask.getTitle(), " with ", loadedTask.getScheduleStart())
 			// Set a current time.
 			let current = Int32(Date().timeIntervalSince1970)
-			// The loaded task has passed its scheduled start time.
-			if loadedTask.getScheduleStart() < current && loadedTask.getScheduleStart() != 0 && self.viewController != nil {
+			// The loaded task has passed its scheduled end time.
+			if loadedTask.getScheduleStart()+loadedTask.getDuration() < current && loadedTask.getScheduleStart() != 0 && self.viewController != nil {
 				pastTasks.append(loadedTask)
 				// TaskManager shall proceed to ask the user if they has completed the task.
-//                let completionAlert = UIAlertController(title: loadedTask.getTitle(), message: "Have you completed this task?", preferredStyle: .alert)
-//                completionAlert.addAction(UIAlertAction(title: "Yes!", style: .cancel, handler: promptNextAlert))
-//                completionAlert.addAction(UIAlertAction(title: "No!", style: .destructive, handler: promptReschedule))
-//                alerts.append(completionAlert)
+                let completionAlert = UIAlertController(title: loadedTask.getTitle(), message: "Have you completed this task?", preferredStyle: .alert)
+                completionAlert.addAction(UIAlertAction(title: "Yes!", style: .cancel, handler: promptNextAlert))
+                completionAlert.addAction(UIAlertAction(title: "No!", style: .destructive, handler: promptReschedule))
+                alerts.append(completionAlert)
 				continue
 			}
 			tasks.append(loadedTask)
@@ -181,8 +181,7 @@ class TaskManager {
 		//TODO: update Database
         let removeDAO = TaskDAO();
         //test this part in particular
-        removeDAO.deleteTaskFromLocalDB(taskId: id);
-        
+        _ = removeDAO.deleteTaskFromLocalDB(taskId: id);
 	}
 	
 	
@@ -191,7 +190,7 @@ class TaskManager {
 		//TODO
         let taskDAO = TaskDAO()
         print(form.getTaskId())
-        taskDAO.updateTaskInfoInLocalDB(taskId: form.getTaskId(), taskTitle: form.getTitle(),
+        _ = taskDAO.updateTaskInfoInLocalDB(taskId: form.getTaskId(), taskTitle: form.getTitle(),
                                         taskDesc: form.getDescription(), category: form.getCategory().rawValue,
                                         alarm: Int(form.getAlarm()), deadline: Int(form.getDeadline()),
                                         softDeadline: Int(form.getSoftDeadline()), schedule: Int(form.getSchedule()),
@@ -223,6 +222,8 @@ class TaskManager {
 			let alert = alerts[0]
 			viewController?.present(alert, animated: true, completion: {()->() in
 				self.alerts.remove(at: 0)
+				let removeDAO = TaskDAO()
+				_ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
 				self.pastTasks.remove(at: 0)
 			})
 		}
