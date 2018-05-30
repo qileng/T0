@@ -20,6 +20,7 @@ class SwitchTableViewCell: UITableViewCell {
         // Initialization code
         switchOutlet.isOn = UserDefaults.standard.bool(forKey: StartTimeModeKey)
         switchOutlet.tintColor = taskColorTheme
+        switchOutlet.onTintColor = taskColorTheme
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -28,6 +29,7 @@ class SwitchTableViewCell: UITableViewCell {
     }    
     @IBAction func switchValueChanged(_ sender: UISwitch) {
         print(sender.isOn)
+        UserDefaults.standard.set(sender.isOn, forKey: StartTimeModeKey)
         valueChanged?()
     }
     
