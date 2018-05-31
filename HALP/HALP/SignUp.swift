@@ -200,28 +200,39 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         let defaultSettingDAO = SettingDAO(defaultSetting)
         
         // check databse for duplicate email address
-        if(!_DAO.validateUserEmailOnline(email: form.getUserEmail(), onlineDB: false)) {
-            let alert = UIAlertController(title: "Email already taken!", message: "Please try again", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
-        }
-        else {
-            if(!_DAO.saveUserInfoToLocalDB()) {
-                let alert = UIAlertController(title: "Unexpected Error :(", message: "Cannnot establish database connection", preferredStyle: .alert)
+        
+        _DAO.validateUserEmail(email: form.getUserEmail(), flag: { (uniqueEmail) in
+            print("unique email", uniqueEmail)
+            if uniqueEmail {
+                if(!_DAO.saveUserInfoToLocalDB()) {
+                    let alert = UIAlertController(title: "Unexpected Error :(", message: "Cannnot establish database connection", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                }
+                else {
+                    defaultSettingDAO.saveSettingIntoLocalDB()
+                    let alert = UIAlertController(title: "Success!", message: "You can now sign in with your account", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) -> Void in
+                        
+                        let startupVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+                        self.navigationController?.pushViewController(startupVC, animated: true)
+                        
+                    }))
+                    
+                    syncDatabase(userId: form.getUserID(), completion: {(flag) in
+                        if flag {
+                        }
+                    })
+                    
+                    self.present(alert, animated: true)
+                }
+            }
+            else {
+                let alert = UIAlertController(title: "Email already taken!", message: "Please try again", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                 self.present(alert, animated: true)
             }
-            else {
-                defaultSettingDAO.saveSettingIntoLocalDB()
-                let alert = UIAlertController(title: "Success!", message: "You can now sign in with your account", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) -> Void in
-                    let signupVC:SignupViewController = self.storyboard?.instantiateViewController(withIdentifier: "SignupViewController") as! SignupViewController
-                    self.navigationController?.pushViewController(signupVC, animated: true)
-                }))
-                self.present(alert, animated: true)
-            }
-        }
-        
+        })
     }
 
     fileprivate func setUpSubViewsLayout()

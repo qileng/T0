@@ -226,28 +226,28 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                     // Set up task manager
                     
                     let settingDAO = SettingDAO()
-                    do {
-                            
-                    let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: user.getUserID())
-                        
-                        let settingId = settingArray[0] as! Int64
-                        let notification = settingArray[1] as! Int32 == 1 ? true : false
-                        let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                        let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
-                        let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
-                        let avaliableDays = settingArray[5] as! Int32
-                        let start = settingArray[6] as! Int32
-                        let end = settingArray[7] as! Int32
-                        
-                        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                            defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
-                            endTime: end, user: settingId)
-                        
-                        TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
-                        
-                    }catch {
-                        print("Error")
-                    }
+                      
+                        syncDatabase(userId: user.getUserID(), completion: { (flag) in
+                            do {
+                                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: user.getUserID())
+                                let settingId = settingArray[0] as! Int64
+                                let notification = settingArray[1] as! Int32 == 1 ? true : false
+                                let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                                let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
+                                let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
+                                let avaliableDays = settingArray[5] as! Int32
+                                let start = settingArray[6] as! Int32
+                                let end = settingArray[7] as! Int32
+                                
+                                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                                          defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                                          endTime: end, user: settingId)
+                                
+                                TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+                            } catch {
+                                print("error")
+                            }
+                        })
                     
         
                     // Bring up rootViewController
@@ -285,53 +285,32 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
     
     // Guest login
     @objc func guestLoginActionHandler() {
-        //Dummy password and email for guest account
-        let guestForm = UserForm(password: "GUEST", email: "GUEST@GUEST.com")
         
-        let guest: UserData
+        let settingDAO = SettingDAO()
         do {
-            guest = try guestForm.onlineValidateExistingUser()
-            // TODO: retrieve guest setting
-            // Set up task manager
-			
-            let settingDAO = SettingDAO()
-            do {
                 
-                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: guest.getUserID())
+            let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: 0)
                 
-                let settingId = settingArray[0] as! Int64
-                let notification = settingArray[1] as! Int32 == 1 ? true : false
-                let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
-                let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
-                let avaliableDays = settingArray[5] as! Int32
-                let start = settingArray[6] as! Int32
-                let end = settingArray[7] as! Int32
+            let settingId = settingArray[0] as! Int64
+            let notification = settingArray[1] as! Int32 == 1 ? true : false
+            let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+            let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
+            let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
+            let avaliableDays = settingArray[5] as! Int32
+            let start = settingArray[6] as! Int32
+            let end = settingArray[7] as! Int32
                 
                 
-                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+            let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
                                           defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
                                           endTime: end, user: settingId)
                 
-                TaskManager.sharedTaskManager.setUp(new: guest, setting: userSetting, caller: self as UIViewController)
-                
-//                syncDatabase(userId: 0, completion: { (flag) in
-//                    if flag {
-//                        print("Done")
-//                    }
-//                })
+            TaskManager.sharedTaskManager.setUp(new: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0), setting: userSetting, caller: self as UIViewController)
                 
             }catch {
                 print("Error")
             }
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-        } catch {
-            //There should not be any authentication error with guest login
-            //All error should be directed here
-            let alert = UIAlertController(title: "Oops!", message: "Unexpected Error!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
-        }
     }
     
     
@@ -428,51 +407,6 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         observeKeyboardNotifications()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        
-        // Initialize local database
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let dbPath = documentsPath + "/appData.sqlite"
-        print(dbPath)
-        var dbpointer: OpaquePointer? = nil
-        
-        //Comment this out later
-//        sqlite3_open(dbPath, &dbpointer)
-//        sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
-//        sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
-//        sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
-//        sqlite3_close(dbpointer)
-        
-        if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
-            // UserData table
-            // sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
-            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
-                "(user_id INTEGER PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
-            // Initialize guest account
-            sqlite3_exec(dbpointer, "INSERT INTO UserData (user_id, user_name, password, email, last_update) " +
-                "VALUES (0, 'GUEST', 'GUEST', 'GUEST@GUEST.com', 0)", nil , nil, nil)
-            
-            // TaskData table
-            // sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
-            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
-                "(task_id INTEGER PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
-                "category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
-                "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
-            
-            // SettingData table not yet implemented
-            // sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
-            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
-                "(setting_id INTEGER PRIMARY KEY, notification INTEGER, default_view INTEGER, default_sort INTEGER, theme INTEGER, avaliable_days INTEGER, start_time INTEGER, end_time INTEGER, last_update INTEGER)", nil, nil, nil)
-            
-            //Create a default setting for guest login
-            sqlite3_exec(dbpointer, "INSERT INTO SettingData (setting_id, notification, default_view, default_sort, theme, avaliable_days, start_time, end_time , last_update) " + "VALUES(0, 1, 0, 0, 0, 127, 0, 0, 0)", nil, nil, nil)
-            
-            sqlite3_close(dbpointer)
-             print(dbPath)
-        }
-        else {
-            print("fail to open database")
-        }
-        
         
         // Testing data
         //        var tasks: [Task] = []
