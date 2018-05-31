@@ -13,9 +13,9 @@ import FirebaseCore
 // New sync function
 // Take an user id as argument
 func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
-    
-    // Establish connection to both local and online database
     let firebaseRef = Database.database().reference()
+    // Establish connection to both local and online database
+    
     let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
     var dbpointer: OpaquePointer?
     if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
@@ -101,7 +101,7 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                     userValue[4] = Int32(Date().timeIntervalSince1970)
                 }
                 UserData = Dictionary(uniqueKeysWithValues: zip(userKey, userValue))
-                
+                print("user local to online")
                 // Overwrite online user
                 firebaseRef.child("UserData").child(String(userId)).setValue(UserData)
                 
@@ -192,15 +192,16 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                                                                          scheduleStart: (dict["scheduled_start"] as! Int),
                                                                          notification: (dict["notification"] as! Int) == 1 ? true : false)
                             }
+//                            print("local counter", counter, taskCount)
                             counter = counter + 1
                             if counter == taskCount {
                                 completion(true)
                             }
                         }
+                        completion(true)
                     })
                 })
             }
-            completion(true)
         })
     })
 }

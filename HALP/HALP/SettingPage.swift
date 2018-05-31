@@ -336,20 +336,23 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     @IBAction func sync(_ sender: UIButton) {
-        syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
-            if flag {
-                TaskManager.sharedTaskManager.clear()
-                do {
-                     try TaskManager.sharedTaskManager.loadTasks()
-                } catch {
-                    print("Error")
+        if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
+            print("cannot sync guest user")
+        } else {
+            syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+                if flag {
+                    TaskManager.sharedTaskManager.clear()
+                    do {
+                        try TaskManager.sharedTaskManager.loadTasks()
+                    } catch {
+                        print("Error")
+                    }
                 }
-                print("Done")
-            }
-            else {
-                print("Success")
-            }
-        })
+                else {
+                   
+                }
+            })
+        }
     }
     
     func createLogoutWarning (title:String, message:String){
@@ -357,15 +360,39 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         
         logoutWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
             logoutWarning.dismiss(animated: true, completion: nil)
-            let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
-            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
-            self.present(loginSignUpNC, animated: true, completion: nil)
+            if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
+                let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+                let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+                self.present(loginSignUpNC, animated: true, completion: nil)
+                
+            } else {
+                let firebaseRef = Database.database().reference()
+                firebaseRef.child(".info/connected").observe(.value, with: { (data) in
+                    if(data.value as! Int32 == 0)
+                    {
+                        print("no internet!")
+                        let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+                        let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+                        self.present(loginSignUpNC, animated: true, completion: nil)
+                    }
+                    else{
+                        print("internnet ")
+                        syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+                            print(flag)
+                            let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+                            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+                            self.present(loginSignUpNC, animated: true, completion: nil)
+                        })
+                    }
+                })
+                
+            }
         }))
-        
         logoutWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
             logoutWarning.dismiss(animated: true, completion: nil)
         }))
         self.present(logoutWarning, animated:true, completion: nil)
+       
     }
 }
 
