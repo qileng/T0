@@ -84,7 +84,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         let category = task.getCategory()
         let title = task.getTitle()
         let description = task.getDescription()
-        let eventStartTime = task.getSchedule()
+        let eventStartTime = task.getScheduleStart()
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskListCell", for: indexPath) as! ListTaskTableViewCell
         
         let image:UIImage
@@ -104,7 +104,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         
         if description.isEmpty
         {
-            let startDate = Date(timeIntervalSinceNow: TimeInterval(eventStartTime))
+            let startDate = Date(timeIntervalSince1970: TimeInterval(eventStartTime))
             
             let timeStr = "from " + dateFormatter.string(from: startDate)
             

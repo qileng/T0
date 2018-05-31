@@ -99,6 +99,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.taskToEdit?.setDeadline(deadlineDate)
             self.taskToEdit?.setCategory(category)
             self.taskToEdit?.setDescription(description)
+			// Potential problem: Duration cannot be changed.
             let updateForm = TaskForm(Title: title, Description: description, Category: category,
                                       Alarm: (taskToEdit?.getAlarm())!, Deadline: deadlineDate,
                                       SoftDeadline: (taskToEdit?.getSoftDeadline())!,
@@ -108,8 +109,8 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                                       UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             TaskManager.sharedTaskManager.updateTask(form: updateForm)
         }else {
-//            let form = TaskForm(Title: title, Description: description, Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
-            let form = TaskForm.init(Title: title, Description: description, Category: category, Deadline: deadlineDate, Duration: duration, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+            let form = TaskForm(Title: title, Description: description, Category: category, Deadline: deadlineDate, Schedule: startDate, Duration: duration, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+			
             //         Todo: validate
             //         Todo: exception handling
             TaskManager.sharedTaskManager.addTask(form)

@@ -99,7 +99,8 @@ class UITaskDetail: UIView {
 		
 		let duration = UIPaddedLabel(frame: self.frame)
 		duration.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
-		duration.text = String(self.task!.getDuration() / 3600) + " Hours "
+		duration.text = "Duration: "
+		duration.text! += String(self.task!.getDuration() / 3600) + " Hours "
 		duration.text! += String(self.task!.getDuration() % 3600 / 60) + " Minutes"
 		duration.textColor = TaskManager.sharedTaskManager.getTheme().text
 		duration.drawText(in: duration.frame)
@@ -108,7 +109,7 @@ class UITaskDetail: UIView {
 		
 		// Date Formatter
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "HH:mm a MMMM dd, yyyy"
+		dateFormatter.dateFormat = "HH:mm a EEEE MMMM dd, yyyy"
 		dateFormatter.timeZone = .current
 		
 		let scheduled = UIPaddedLabel(frame: self.frame)
