@@ -38,13 +38,13 @@ extension ClockViewController: UICollectionViewDataSource, UICollectionViewDeleg
 		// Calculate frame position since cell.frame is so dumb that it won't give me the correct position
 		let originFrame = self.calculateFrame(collectionView, cell)
 		let targetFrame = CGRect(x: self.view.frame.width*0.1, y: self.view.frame.width*0.1, width: self.view.frame.width*0.8, height: self.view.frame.height*0.8)
-		let Detail = UITaskDetail(origin: originFrame, target: targetFrame, task: task)
-		self.view.addSubview(Detail)
+		self.taskDetail = UITaskDetail(origin: originFrame, target: targetFrame, task: task)
+		self.view.addSubview(self.taskDetail!)
 		// Setup tap recognizer
 		let TapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onTapWhileDetailDisplayed))
 		self.view.addGestureRecognizer(TapRecognizer)
 		// set up cog button handler
-		Detail.setting.addTarget(self, action: #selector(onCogTap(_:)), for: .touchUpInside)
+		self.taskDetail!.setting.addTarget(self, action: #selector(onCogTap(_:)), for: .touchUpInside)
 	}
 	
 	func calculateFrame(_ collectionView: UICollectionView, _ cell: UICollectionViewCell) -> CGRect {
@@ -96,6 +96,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     var currentIndex = 0
     
     var taskCollection: UICollectionView!
+	var taskDetail: UITaskDetail? = nil
     
     @IBOutlet var displayLabel: UILabel!
     @IBOutlet var timeButtons: [UIButton]!
@@ -164,6 +165,8 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 				self.addHandsAndCenterPiece()
 				// Remove the gesture recognizer
 				_ = self.view.gestureRecognizers!.popLast()
+				// Remove detail page variable
+				self.taskDetail = nil
 			})
 			animator.startAnimation()
 		}
@@ -250,12 +253,14 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         }
         
 	}
-    /*
+	
     override func viewDidLayoutSubviews() {
-        self.removeContainerView()
-        self.addHandsAndCenterPiece()
+		if self.taskDetail == nil && self.containerView == nil {
+        	self.removeContainerView()
+        	self.addHandsAndCenterPiece()
+		}
     }
-    */
+
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -472,6 +477,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     func removeContainerView() {
         if (containerView != nil) {
             containerView.removeFromSuperview()
+			containerView = nil
         }
     }
 }
