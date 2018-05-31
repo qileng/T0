@@ -95,6 +95,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 //            let form = TaskForm(Title: title, Description: description, Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             let form = TaskForm.init(Title: title, Description: description, Category: category, Deadline: deadlineDate, Duration: duration, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             
+            print("countdownDuration to be added: ",fieldData[1][1].countDownDuration)
             print(form)
             
             //         Todo: validate
@@ -194,11 +195,12 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             return cell
         case .dateDetail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
+//            let cell = UITableViewCell(style: .value1, reuseIdentifier: celltype.rawValue)
             cell.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
             let detailStr = fieldData[indexPath.section][indexPath.row].detail
             let attributedStr = NSMutableAttributedString(string: detailStr!, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
             cell.detailTextLabel?.attributedText = attributedStr
-            cell.detailTextLabel?.adjustsFontSizeToFitWidth = true
+//            cell.detailTextLabel?.adjustsFontSizeToFitWidth = true
             return cell
         case .detail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
@@ -345,17 +347,14 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         {
             let durationCell = tableViewOutlet.cellForRow(at: parentIndexPath)
             fieldData[parentIndexPath.section][parentIndexPath.row].countDownDuration = sender.countDownDuration
-            fieldData[parentIndexPath.section][parentIndexPath.row].detail = getTimeStr(from: sender.countDownDuration)//String(sender.countDownDuration)
+            fieldData[parentIndexPath.section][parentIndexPath.row].detail = getTimeStr(from: sender.countDownDuration)
             
             print("sender.countDownDuration: ", sender.countDownDuration)
             let detailStr = fieldData[parentIndexPath.section][parentIndexPath.row].detail ?? getTimeStr(from: sender.countDownDuration)
-//            DispatchQueue.main.async {
-                let attributedStr = NSMutableAttributedString(string: detailStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
-                durationCell?.detailTextLabel?.attributedText = attributedStr
-                durationCell?.detailTextLabel?.textColor = UIColor.HalpColors.pastelRed
-                durationCell?.detailTextLabel?.textAlignment = .left
-//                durationCell?.detailTextLabel?.adjustsFontSizeToFitWidth = true
-//            }
+            let attributedStr = NSMutableAttributedString(string: detailStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.HalpColors.pastelRed ])
+            self.tableViewOutlet.beginUpdates()
+            durationCell?.detailTextLabel?.attributedText = attributedStr
+            self.tableViewOutlet.endUpdates()
         }else
         { //datepicker date mode
             let dateCell = tableViewOutlet.cellForRow(at: parentIndexPath)
@@ -376,7 +375,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         let minutes = Int(countDownInterval) / 60 % 60
         if hours > 0
         {
-            return String(format:"%02i hours %02i minutes", hours, minutes)
+            return String(format:"%2i hours %02i minutes", hours, minutes)
         }else{
             return String(format:"%02i minutes", minutes)
         }
@@ -424,34 +423,16 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 //        self.view.endEditing(true)
 //    }
-    
-    // Initialize page
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        observeKeyboardNotifications()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        
-        self.cancelButtonOutlet.backgroundColor = taskColorTheme
-        self.addButtonOutlet.backgroundColor = taskColorTheme
-        
-        self.cancelButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        self.addButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-
-        //remove empty cells in tableview
-        tableViewOutlet.tableFooterView = UIView()
-        dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm a"
-        
+    func setTableViewDateSource()
+    {
         guard let date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) else{return}
-        
         if isEditMode //when it is EditMode
         {
             
-//            let startDate = Date(timeIntervalSince1970: TimeInterval((taskToEdit?.getScheduleStart())!))
+            //            let startDate = Date(timeIntervalSince1970: TimeInterval((taskToEdit?.getScheduleStart())!))
             let deadlineDate = Date(timeIntervalSince1970: TimeInterval((taskToEdit?.getDeadline())!))
             
-//            let startDateStr = dateFormatter.string(from: startDate)
+            //            let startDateStr = dateFormatter.string(from: startDate)
             let deadlineDateStr = dateFormatter.string(from: deadlineDate)
             
             var categoryStr:String = ""
@@ -468,15 +449,15 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                     categoryStr = "Social"
                 }
             }
-//            let alarmStr =
-
+            //            let alarmStr =
+            
             self.navigationItem.title = "Edit Task"
             self.addButtonOutlet.setTitle("Done", for: .normal)
             
             let section0 = [CellData(cellType: .textField, title: "Title", detail: "", date: nil, countDownDuration: nil)]
             let section1 =
                 [CellData(cellType: .toggle, title: "Start Time", detail: "", date: nil, countDownDuration: nil),
-//                 CellData(cellType: .dateDetail, title: "Starts", detail: startDateStr, date: startDate),
+                 //                 CellData(cellType: .dateDetail, title: "Starts", detail: startDateStr, date: startDate),
                     startOrDurationToggle(),
                     CellData(cellType: .dateDetail, title: "Deadline", detail: deadlineDateStr, date: deadlineDate, countDownDuration: nil)]
             let section2 =
@@ -494,7 +475,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             ////////////////////////////////////////////////////////////////////////////////////////////////
             let section1 =
                 [CellData(cellType: .toggle, title: "Start Time", detail: "", date: nil, countDownDuration: nil),
-//                CellData(cellType: .dateDetail, title: "Starts", detail: dateFormatter.string(from: Date()), date: Date()),
+                 //                CellData(cellType: .dateDetail, title: "Starts", detail: dateFormatter.string(from: Date()), date: Date()),
                     startOrDurationToggle(),
                     CellData(cellType: .dateDetail, title: "Deadline", detail: dateFormatter.string(from: date), date: date, countDownDuration: nil)]
             ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -524,8 +505,30 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             let durationStr = getTimeStr(from: countDownDuration)//String(countDownDuration)
             return CellData(cellType: .dateDetail, title: "Duration", detail: durationStr, date: nil, countDownDuration: countDownDuration)
         }//Duration mode && Add new task page
-        return CellData(cellType: .dateDetail, title: "Duration", detail: "0", date: nil, countDownDuration: 0)
+        return CellData(cellType: .dateDetail, title: "Duration", detail: "", date: nil, countDownDuration: 0)
     }
+    
+    // Initialize page
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        observeKeyboardNotifications()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        
+        self.cancelButtonOutlet.backgroundColor = taskColorTheme
+        self.addButtonOutlet.backgroundColor = taskColorTheme
+        
+        self.cancelButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        self.addButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+
+        //remove empty cells in tableview
+        tableViewOutlet.tableFooterView = UIView()
+        dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm a"
+        
+        setTableViewDateSource()
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         self.tableViewOutlet.reloadData()
