@@ -206,7 +206,8 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
 				mainDetailCell?.eventTimeLabel2.attributedText = attributedStr1
 				
 				mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: Start on "
-				mainDetailCell?.halpSuggestionLabel.text! += generalDateFormatter.string(from:  Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart())))
+				// Date formatter
+				mainDetailCell?.halpSuggestionLabel.text! += generalDateFormatter.string(from:  Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart()))) + " " + timeDateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart())))
 				mainDetailCell?.halpSuggestionLabel.textColor = UIColor.black
 				mainDetailCell?.halpSuggestionLabel.numberOfLines = 0
 			}
