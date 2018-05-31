@@ -335,6 +335,23 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         self.present(resetWarning, animated:true, completion: nil)
     }
     
+    @IBAction func sync(_ sender: UIButton) {
+        syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+            if flag {
+                TaskManager.sharedTaskManager.clear()
+                do {
+                     try TaskManager.sharedTaskManager.loadTasks()
+                } catch {
+                    print("Error")
+                }
+                print("Done")
+            }
+            else {
+                print("Success")
+            }
+        })
+    }
+    
     func createLogoutWarning (title:String, message:String){
         let logoutWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         

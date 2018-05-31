@@ -67,6 +67,30 @@ final class TaskDAO: Task {
         
         // Close database connection to prevent database from locking
         if sqlite3_step(stmt) == SQLITE_DONE {
+            
+            // update user last_update timestamp
+            do {
+                let DAO = TaskDAO()
+                let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
+                if userInfo["user_id"] == nil {
+                    print("Fake task id is no longer supported")
+                    return false
+                }
+                let userId = userInfo["user_id"] as! Int64
+                let userDAO = UserDAO()
+                let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
+                if updateuser.count != 5 {
+                    print("Invalid user id")
+                    print("Fake user id is no longer supported")
+                    return false
+                }
+                _ = userDAO.updateUserInfoInLocalDB(userId: userId, username: (updateuser[1] as! String),
+                                                    password: (updateuser[2] as! String), email: (updateuser[3] as! String))
+            } catch {
+                print("update_user fail")
+                return false
+            }
+            
             sqlite3_close(dbpointer)
             return true
         } else {
@@ -310,6 +334,32 @@ final class TaskDAO: Task {
             return false
         }
         sqlite3_finalize(stmt)
+        
+        // update user last_update timestamp
+        do {
+            let DAO = TaskDAO()
+            
+            let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
+            if userInfo["user_id"] == nil {
+                print("Fake task id is no longer supported")
+                return false
+            }
+            let userId = userInfo["user_id"] as! Int64
+            
+            let userDAO = UserDAO()
+            let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
+            if updateuser.count != 5 {
+                print("Invalid user id")
+                print("Fake user id is no longer supported")
+                return false
+            }
+            _ = userDAO.updateUserInfoInLocalDB(userId: userId, username: (updateuser[1] as! String),
+                                                password: (updateuser[2] as! String), email: (updateuser[3] as! String))
+        } catch {
+            print("update_user fail")
+            return false
+        }
+        
         sqlite3_close(dbpointer)
         return true
     }
@@ -327,7 +377,30 @@ final class TaskDAO: Task {
             return false
         }
         
-        // SQL command for deleting a row from database base on taskId
+        // update user last_update timestamp
+        do {
+            let DAO = TaskDAO()
+            let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
+            if userInfo["user_id"] == nil {
+                print("Fake task id is no longer supported")
+                return false
+            }
+            let userId = userInfo["user_id"] as! Int64
+            let userDAO = UserDAO()
+            let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
+            if updateuser.count != 5 {
+                print("Invalid user id")
+                print("Fake user id is no longer supported")
+                return false
+            }
+            _ = userDAO.updateUserInfoInLocalDB(userId: userId, username: (updateuser[1] as! String),
+                                                password: (updateuser[2] as! String), email: (updateuser[3] as! String))
+        } catch {
+            print("update_user fail")
+            return false
+        }
+        
+        // SQL statement for deleting a row from database base on taskId
         let deleteQueryString = "DELETE FROM TaskData WHERE task_id=" + String(taskId)
         
         if sqlite3_exec(dbpointer, deleteQueryString, nil, nil, nil) == SQLITE_OK {
