@@ -221,6 +221,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                     
                     syncDatabase(userId: form.getUserID(), completion: {(flag) in
                         if flag {
+                            print("Done","\n","\n","\n","\n")
                         }
                     })
                     

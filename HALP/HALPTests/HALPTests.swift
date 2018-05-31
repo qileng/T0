@@ -69,55 +69,55 @@ class HALPTests: XCTestCase {
 		
     }
 	
-	func testFetchUserInfoFromLocalDB() {
-		print("Testing UserDAO read.\n")
-		// test exiting user
-		do {
-			let testUser2 = try UserData(true, email: "gary@gillespie.com", password: "something")
-			print(testUser2.getUsername())
-			print(testUser2.getPassword())
-			print(testUser2.getUserEmail())
-			print(String(testUser2.getUserID(), radix: 16))
-		} catch RuntimeError.DBError(let errorMessage){
-			print(errorMessage)
-		} catch RuntimeError.InternalError(let errorMessage) {
-			print(errorMessage)
-		} catch {
-			print("Unexpected error!")
-		}
-
-		// testing non-existing user
-		do {
-			let testUser3 = try UserData(true, email: "GUEST1@GUEST1.com", password: "GUEST")
-			print(testUser3.getUsername())
-			print(testUser3.getPassword())
-			print(testUser3.getUserEmail())
-			print(String(testUser3.getUserID(), radix: 16))
-		} catch {
-			print("Authentification failed!")
-		}
-	}
+//    func testFetchUserInfoFromLocalDB() {
+//        print("Testing UserDAO read.\n")
+//        // test exiting user
+//        do {
+//            let testUser2 = try UserData(true, email: "gary@gillespie.com", password: "something")
+//            print(testUser2.getUsername())
+//            print(testUser2.getPassword())
+//            print(testUser2.getUserEmail())
+//            print(String(testUser2.getUserID(), radix: 16))
+//        } catch RuntimeError.DBError(let errorMessage){
+//            print(errorMessage)
+//        } catch RuntimeError.InternalError(let errorMessage) {
+//            print(errorMessage)
+//        } catch {
+//            print("Unexpected error!")
+//        }
+//
+//        // testing non-existing user
+//        do {
+//            let testUser3 = try UserData(true, email: "GUEST1@GUEST1.com", password: "GUEST")
+//            print(testUser3.getUsername())
+//            print(testUser3.getPassword())
+//            print(testUser3.getUserEmail())
+//            print(String(testUser3.getUserID(), radix: 16))
+//        } catch {
+//            print("Authentification failed!")
+//        }
+//    }
     
-    func testValidateUserEmail () {
-        print("Testing validateUserEmail.\n")
-        
-        //Add a user to database
-        let testUser = UserData(username: "test", password: "test", email: "test@test.com")
-        let testDAO = UserDAO(testUser)
-        testDAO.saveUserInfoToLocalDB()
-        
-        //Testing duplicate email
-        let UserWithDuplicateEmail = UserData(username: "randomuser", password: "12345", email: "test@test.com")
-        let DAO = UserDAO(UserWithDuplicateEmail)
-        let result = DAO.validateUserEmailOnline(email: DAO.getUserEmail(), onlineDB: false)
-        XCTAssertEqual(false, result)
-        
-        //Testing valid email
-        let validUser = UserData(username: "randomuser", password: "12345", email: "test@est.com")
-        let DAO1 = UserDAO(validUser)
-        let result1 = DAO.validateUserEmailOnline(email: DAO1.getUserEmail(), onlineDB: false)
-        XCTAssertEqual(true, result1)
-    }
+//    func testValidateUserEmail () {
+//        print("Testing validateUserEmail.\n")
+//
+//        //Add a user to database
+//        let testUser = UserData(username: "test", password: "test", email: "test@test.com")
+//        let testDAO = UserDAO(testUser)
+//        testDAO.saveUserInfoToLocalDB()
+//
+//        //Testing duplicate email
+//        let UserWithDuplicateEmail = UserData(username: "randomuser", password: "12345", email: "test@test.com")
+//        let DAO = UserDAO(UserWithDuplicateEmail)
+//        let result = DAO.validateUserEmailOnline(email: DAO.getUserEmail(), onlineDB: false)
+//        XCTAssertEqual(false, result)
+//
+//        //Testing valid email
+//        let validUser = UserData(username: "randomuser", password: "12345", email: "test@est.com")
+//        let DAO1 = UserDAO(validUser)
+//        let result1 = DAO.validateUserEmailOnline(email: DAO1.getUserEmail(), onlineDB: false)
+//        XCTAssertEqual(true, result1)
+//    }
     
     // Deprecated
 //    func testa_SaveTaskInfoToLocalDB() {
@@ -224,45 +224,45 @@ class HALPTests: XCTestCase {
 		XCTAssertEqual(task3 < task1, true)
 	}
 	
-	func testTaskManagerLoad() {
-		print("Testing TaskManager Load.")
-		
-		let testUser: UserData
-		do {
-			testUser = try UserData(true, email: "GUEST@GUEST.com", password: "GUEST")
-		} catch RuntimeError.DBError(let errorMessage) {
-			print(errorMessage)
-			return
-		} catch {
-			print("Unexpected Error")
-			return
-		}
-		
-		var tasks: [Task] = []
-		let current = Int32(Date().timeIntervalSince1970)
-		tasks.append(Task(Title: "Task1", Priority: 3, Schedule_start: current + 60,UserID: 0))
-		tasks.append(Task(Title: "Task2", Schedule: current + 120, Priority: 2, UserID: 0))
-		tasks.append(Task(Title: "Task3", Schedule: current + 180, Priority: 2, UserID: 0))
-		tasks.append(Task(Title: "Task4", Priority: 0.5, Schedule_start: current + 240, UserID: 0))
-		tasks.append(Task(Title: "Task5", Priority: 0.24, Schedule_start: current + 300, UserID: 0))
-		tasks.append(Task(Title: "Task6", Priority: 0.34, Schedule_start: current + 360, UserID: 0))
-		tasks.append(Task(Title: "Task7", Priority: 0.32, Schedule_start: current + 480, UserID: 0))
-		tasks.append(Task(Title: "Task8", Priority: 0.44, Schedule_start: current + 420, UserID: 0))
-		
-		for task in tasks {
-			let DAO = TaskDAO(task)
-			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
-		}
-		print("Total of ", TaskManager.sharedTaskManager.getTasks().count, " tasks!")
-
-		TaskManager.sharedTaskManager.setUp(new: testUser, setting: Setting())
-		print("Total of ", TaskManager.sharedTaskManager.getTasks().count, " tasks!")
-		
-		for task in TaskManager.sharedTaskManager.getTasks() {
-			print(task.getTitle())
-			print(task.getTaskId())
-		}
-	}
+//    func testTaskManagerLoad() {
+//        print("Testing TaskManager Load.")
+//        
+//        let testUser: UserData
+//        do {
+//            testUser = try UserData(true, email: "GUEST@GUEST.com", password: "GUEST")
+//        } catch RuntimeError.DBError(let errorMessage) {
+//            print(errorMessage)
+//            return
+//        } catch {
+//            print("Unexpected Error")
+//            return
+//        }
+//        
+//        var tasks: [Task] = []
+//        let current = Int32(Date().timeIntervalSince1970)
+//        tasks.append(Task(Title: "Task1", Priority: 3, Schedule_start: current + 60,UserID: 0))
+//        tasks.append(Task(Title: "Task2", Schedule: current + 120, Priority: 2, UserID: 0))
+//        tasks.append(Task(Title: "Task3", Schedule: current + 180, Priority: 2, UserID: 0))
+//        tasks.append(Task(Title: "Task4", Priority: 0.5, Schedule_start: current + 240, UserID: 0))
+//        tasks.append(Task(Title: "Task5", Priority: 0.24, Schedule_start: current + 300, UserID: 0))
+//        tasks.append(Task(Title: "Task6", Priority: 0.34, Schedule_start: current + 360, UserID: 0))
+//        tasks.append(Task(Title: "Task7", Priority: 0.32, Schedule_start: current + 480, UserID: 0))
+//        tasks.append(Task(Title: "Task8", Priority: 0.44, Schedule_start: current + 420, UserID: 0))
+//        
+//        for task in tasks {
+//            let DAO = TaskDAO(task)
+//            XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
+//        }
+//        print("Total of ", TaskManager.sharedTaskManager.getTasks().count, " tasks!")
+//
+//        TaskManager.sharedTaskManager.setUp(new: testUser, setting: Setting())
+//        print("Total of ", TaskManager.sharedTaskManager.getTasks().count, " tasks!")
+//        
+//        for task in TaskManager.sharedTaskManager.getTasks() {
+//            print(task.getTitle())
+//            print(task.getTaskId())
+//        }
+//    }
 	
 	func testTaskManagerSort() {
 		print("Testing TaskManager Sort by pririty.")

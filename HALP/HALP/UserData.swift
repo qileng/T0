@@ -78,7 +78,7 @@ class UserData {
 	// Passing true will read from disk, passing false will read from Azure.
 	// TODO: Azure part.
 	// Note: This initializer throws, you have to handle to error.
-	convenience init (_ disk: Bool, email e: String, password p: String) throws {
+//    convenience init (_ disk: Bool, email e: String, password p: String) throws {
 //        let DAO = UserDAO()
 //        let authFlag = DAO.userAuthentication(email: e, password: p)
 //        let userInfo: [Any]
@@ -88,8 +88,8 @@ class UserData {
 //        } else {
 //            throw RuntimeError.DBError("This email password combination does not exist!")
 //        }
-        self.init()
-	}
+//        self.init()
+//    }
  
     
     

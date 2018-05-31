@@ -219,54 +219,44 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                 // TODO: Currently, actual online authentication is not implemented. So authentication is in
                 // SQLite as a template. To enable authentication from Azure, implement
                 // UserData.init(Bool:email:password).
-                let user: UserData
-                do {
-                    user = try form.onlineValidateExistingUser()
-                    // TODO: retrieve settting using userID
-                    // Set up task manager
-                    
-                    let settingDAO = SettingDAO()
-                      
-                        syncDatabase(userId: user.getUserID(), completion: { (flag) in
-                            do {
-                                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: user.getUserID())
-                                let settingId = settingArray[0] as! Int64
-                                let notification = settingArray[1] as! Int32 == 1 ? true : false
-                                let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                                let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
-                                let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
-                                let avaliableDays = settingArray[5] as! Int32
-                                let start = settingArray[6] as! Int32
-                                let end = settingArray[7] as! Int32
-                                
-                                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                                                          defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
-                                                          endTime: end, user: settingId)
-                                
-                                TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
-                            } catch {
-                                print("error")
+        
+                form.onlineValidateExistingUser(completion: { (userId) in
+                    if userId != -1 {
+                        syncDatabase(userId: userId, completion: { (flag) in
+                            if flag {
+                                do {
+                                    let settingDAO = SettingDAO()
+                                    let userDAO = UserDAO()
+                                    let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: userId)
+                                    let settingId = settingArray[0] as! Int64
+                                    let notification = settingArray[1] as! Int32 == 1 ? true : false
+                                    let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                                    let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
+                                    let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
+                                    let avaliableDays = settingArray[5] as! Int32
+                                    let start = settingArray[6] as! Int32
+                                    let end = settingArray[7] as! Int32
+                                    
+                                    let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                                              defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                                              endTime: end, user: settingId)
+                                    
+                                    let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
+                                    let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
+                                    TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+                                } catch {
+                                    print("error")
+                                }
+                                // Bring up rootViewController
+                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
                             }
                         })
-                    
-        
-                    // Bring up rootViewController
-                    self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-                } catch RuntimeError.DBError(let errorMessage) {
-                    let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
-        
-                } catch RuntimeError.InternalError(let errorMessage) {
-                    let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
-        
-                } catch {
-                    let alert = UIAlertController(title: "Oops!", message: "Unexpected Error!", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-                    self.present(alert, animated: true)
-                }
+                    } else {
+                        let alert = UIAlertController(title: "Oops!", message: "This email password combination does not exist", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                        self.present(alert, animated: true)
+                    }
+                })
     }
     
     // Sign up function
