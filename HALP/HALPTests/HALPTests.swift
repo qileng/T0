@@ -447,17 +447,24 @@ class HALPTests: XCTestCase {
 		// Task2: fixed task starting 23pm tomorrow, ends in 1 hour
 		let task2 = Task(Title: "task2", Deadline: end, Schedule: end-3600, TaskID: 2, UserID: 1)
 		// Task3: dynamic task with duration of 1 hour and deadline 24pm tomorrow
+        
 		let task3 = Task(Title: "task3", Deadline: end, Duration: 3600, TaskID: 3, UserID: 1)
+        
+        
+        
 		for task in [task1,task2,task3] {
 			let DAO = TaskDAO(task)
 			XCTAssertEqual(DAO.saveTaskInfoToLocalDB(), true)
 		}
+ 
 		// Load up tasks to be tested. This automatically shedule tasks by time.
 		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
 		let tasks = TaskManager.sharedTaskManager.getTasks()
 		for task in tasks {
 			print("Title: ", task.getTitle(), " starting: ", Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart())).description(with: .current), " duration: ", task.getDuration() / 60, "minutes.")
 		}
+        
+        print("fuck you")
 	}
 	
 	override class func tearDown() {

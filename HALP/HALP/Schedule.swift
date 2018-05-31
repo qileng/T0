@@ -101,6 +101,22 @@ extension TaskManager {
 		// taskDate.append((interval:DateInterval(start: Date(timeIntervalSince1970:(Double)(item.getSchedule())), duration: item.getDuration()) ,priority:item.getPriority()));
 		
 		for item in self.getTasks() {
+            if (item.getSchedule() == 0 || item.getScheduleStart() == 0) {
+                if (Calendar.current.component(Calendar.Component.hour, from: Date()) >= self.getSetting().getStartTime()) {
+                    
+                    item.setScheduleStart((Int32)(Date().timeIntervalSince1970));
+                }
+            }
+            else {
+                var component1:DateComponents = DateComponents();
+                component1.year = Calendar.current.component(Calendar.Component.year, from: Date());
+                component1.month = Calendar.current.component(Calendar.Component.month, from: Date());
+                component1.day = Calendar.current.component(Calendar.Component.day, from: Date());
+                component1.hour = (Int)(self.getSetting().getStartTime());
+                component1.minute = 0;
+                component1.second = 0;
+                item.setScheduleStart((Int32)(Calendar.current.date(from: component1)!.timeIntervalSince1970));
+            }
 			if (item.getPriority() < 2) {
 				let itemStart = Date(timeIntervalSince1970: (Double)(item.getSchedule()));
 				let itemEnd = Date(timeIntervalSince1970: (Double)(item.getDeadline()));
