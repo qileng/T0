@@ -350,8 +350,8 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         
-        self.cancelButtonOutlet.backgroundColor = taskColorTheme
-        self.addButtonOutlet.backgroundColor = taskColorTheme
+        self.cancelButtonOutlet.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+        self.addButtonOutlet.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
         
         self.cancelButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         self.addButtonOutlet.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)

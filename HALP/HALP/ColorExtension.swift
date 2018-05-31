@@ -58,16 +58,16 @@ class ColorTheme {
 	var background: UIColor
 	var padding: UIColor
 	
-	init(text: Int, task: Int, taskBackground: Int, background: Int, padding: Int) {
+	init(text: Int, task: Int, taskBackground: Int, background: UIColor, padding: Int) {
 		self.text = UIColor(hex: text)
 		self.taskBackground = UIColor(hex: taskBackground)
-		self.background = UIColor(hex: background)
+		self.background = background
 		self.task = UIColor(hex: task)
 		self.padding = UIColor(hex: padding)
 	}
 	
-	static let regular = ColorTheme(text: 0xffffff, task: 0x59262f, taskBackground: 0x59262f, background: 0xffffff, padding: 0xffffff)
-	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffff, background: 0x0, padding: 0x0)
+	static let regular = ColorTheme(text: 0xffffff, task: 0x59262f, taskBackground: 0x59262f, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")).withAlphaComponent(0.5), padding: 0xffffff)
+	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffff, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")).withAlphaComponent(1.0), padding: 0x0)
 	
 	//TODO: Add more themes
 }

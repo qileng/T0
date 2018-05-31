@@ -8,7 +8,8 @@
 
 import UIKit
 
-let taskColorTheme = UIColor.HalpColors.fuzzyWuzzy
+let taskColorTheme = TaskManager.sharedTaskManager.getTheme().background
+//let taskColorTheme = UIColor.HalpColors.fuzzyWuzzy
 class ListTaskViewController: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
@@ -47,6 +48,8 @@ class ListTaskViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+        //print(TaskManager.sharedTaskManager.getTheme() === ColorTheme.regular)
         tableViewOutlet.reloadData()
     }
     

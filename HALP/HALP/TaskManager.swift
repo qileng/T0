@@ -70,6 +70,12 @@ class TaskManager {
                                        defaultView: newSetting.getDefaultView(), defaultSort: newSetting.getDefaultSort(),
                                        theme: newSetting.getTheme(), availableDays: newSetting.getAvailableDays(),
                                        startTime: newSetting.getStartTime(), endTime: newSetting.getEndTime())
+        switch self.setting!.getTheme() {
+        case .dark:
+            self.theme = ColorTheme.dark
+        default:
+            self.theme = ColorTheme.regular
+        }
         
 	}
 	
