@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CFNetwork
 
 
 
@@ -366,26 +367,22 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                 self.present(loginSignUpNC, animated: true, completion: nil)
                 
             } else {
-                let firebaseRef = Database.database().reference()
-                firebaseRef.child(".info/connected").observe(.value, with: { (data) in
-                    if(data.value as! Int32 == 0)
-                    {
-                        print("no internet!")
-                        let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
-                        let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
-                        self.present(loginSignUpNC, animated: true, completion: nil)
-                    }
-                    else{
-                        print("internnet ")
-                        syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
-                            print(flag)
-                            let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
-                            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
-                            self.present(loginSignUpNC, animated: true, completion: nil)
-                        })
-                    }
-                })
-                
+				let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+				let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+				self.present(loginSignUpNC, animated: true, completion: nil)
+				
+				let url = URL(string: Database.database().reference().description())
+				
+				let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+					print( "Request: ", error == nil )
+					if error != nil {
+					} else {
+						syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+						})
+					}
+				}
+				
+				task.resume()
             }
         }))
         logoutWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
