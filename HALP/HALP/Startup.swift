@@ -213,37 +213,60 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
     // Login function
     @objc func loginActionHandler()
     {
-        // UserForm collects input.
-        let form = UserForm(password: self.passwordTextField.text!, email: self.emailTextField.text!)
-        // Validate with DB using via UserData.
-        // TODO: Currently, actual online authentication is not implemented. So authentication is in
-        // SQLite as a template. To enable authentication from Azure, implement
-        // UserData.init(Bool:email:password).
-        let user: UserData
-        do {
-            user = try form.onlineValidateExistingUser()
-            // TODO: retrieve settting using userID
-            // Set up task manager
-            
-            TaskManager.sharedTaskManager.setUp(new: user, setting: Setting())
-            
-            // Bring up rootViewController
-            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-        } catch RuntimeError.DBError(let errorMessage) {
-            let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
-            
-        } catch RuntimeError.InternalError(let errorMessage) {
-            let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
-            
-        } catch {
-            let alert = UIAlertController(title: "Oops!", message: "Unexpected Error!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-            self.present(alert, animated: true)
-        }
+                // UserForm collects input.
+                let form = UserForm(password: self.passwordTextField.text!, email: self.emailTextField.text!)
+                // Validate with DB using via UserData.
+                // TODO: Currently, actual online authentication is not implemented. So authentication is in
+                // SQLite as a template. To enable authentication from Azure, implement
+                // UserData.init(Bool:email:password).
+                let user: UserData
+                do {
+                    user = try form.onlineValidateExistingUser()
+                    // TODO: retrieve settting using userID
+                    // Set up task manager
+                    
+                    let settingDAO = SettingDAO()
+                    do {
+                            
+                    let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: user.getUserID())
+                        
+                        let settingId = settingArray[0] as! Int64
+                        let notification = settingArray[1] as! Int32 == 1 ? true : false
+                        let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                        let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
+                        let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
+                        let avaliableDays = settingArray[5] as! Int32
+                        let start = settingArray[6] as! Int32
+                        let end = settingArray[7] as! Int32
+                        
+                        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                            defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                            endTime: end, user: settingId)
+                        
+                        TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+                        
+                    }catch {
+                        print("Error")
+                    }
+                    
+        
+                    // Bring up rootViewController
+                    self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+                } catch RuntimeError.DBError(let errorMessage) {
+                    let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+        
+                } catch RuntimeError.InternalError(let errorMessage) {
+                    let alert = UIAlertController(title: "Oops!", message: errorMessage, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+        
+                } catch {
+                    let alert = UIAlertController(title: "Oops!", message: "Unexpected Error!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                }
     }
     
     // Sign up function
@@ -269,10 +292,37 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         do {
             guest = try guestForm.onlineValidateExistingUser()
             // TODO: retrieve guest setting
-            // Set up task manager
-            TaskManager.sharedTaskManager.setUp(new: guest, setting: Setting(), caller: self as UIViewController)
-            
-            //            self.dismiss(animated: true, completion: nil)
+            // Set up task manager		
+            let settingDAO = SettingDAO()
+            do {
+                
+                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: guest.getUserID())
+                
+                let settingId = settingArray[0] as! Int64
+                let notification = settingArray[1] as! Int32 == 1 ? true : false
+                let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
+                let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
+                let avaliableDays = settingArray[5] as! Int32
+                let start = settingArray[6] as! Int32
+                let end = settingArray[7] as! Int32
+                
+                
+                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                          defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                          endTime: end, user: settingId)
+                
+                TaskManager.sharedTaskManager.setUp(new: guest, setting: userSetting, caller: self as UIViewController)
+                
+//                syncDatabase(userId: 0, completion: { (flag) in
+//                    if flag {
+//                        print("Done")
+//                    }
+//                })
+                
+            }catch {
+                print("Error")
+            }
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
         } catch {
             //There should not be any authentication error with guest login
@@ -383,6 +433,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         let dbPath = documentsPath + "/appData.sqlite"
         print(dbPath)
         var dbpointer: OpaquePointer? = nil
+
         /*
          sqlite3_open(dbPath, &dbpointer)
          sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
@@ -393,6 +444,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         
         if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
             // UserData table
+            // sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS UserData" +
                 "(user_id INTEGER PRIMARY KEY, user_name TEXT, password TEXT, email TEXT, last_update INTEGER)", nil, nil, nil)
             // Initialize guest account
@@ -400,17 +452,22 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                 "VALUES (0, 'GUEST', 'GUEST', 'GUEST@GUEST.com', 0)", nil , nil, nil)
             
             // TaskData table
+            // sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS TaskData" +
                 "(task_id INTEGER PRIMARY KEY, task_title TEXT, task_desc TEXT, " +
                 "category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
                 "task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
             
             // SettingData table not yet implemented
+            // sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
             sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
                 "(setting_id INTEGER PRIMARY KEY, notification INTEGER, default_view INTEGER, default_sort INTEGER, theme INTEGER, avaliable_days INTEGER, start_time INTEGER, end_time INTEGER, last_update INTEGER)", nil, nil, nil)
             
+            //Create a default setting for guest login
+            sqlite3_exec(dbpointer, "INSERT INTO SettingData (setting_id, notification, default_view, default_sort, theme, avaliable_days, start_time, end_time , last_update) " + "VALUES(0, 1, 0, 0, 0, 127, 8, 24, 0)", nil, nil, nil)
+            
             sqlite3_close(dbpointer)
-            print(dbPath)
+             print(dbPath)
         }
         else {
             print("fail to open database")

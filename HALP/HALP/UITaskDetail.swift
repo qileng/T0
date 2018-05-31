@@ -25,12 +25,24 @@ class UITaskDetail: UIView {
 	
 	var task: Task?
 	var originFrame: CGRect?
+	let setting = UIButton()
 
+	// Deprecated
+	/*
 	init(frame: CGRect, task t: UITask) {
 		self.task = t.task
 		originFrame = frame
 		super.init(frame: t.frame)
-		//self.backgroundColor = TaskManager.sharedTaskManager.getTheme().padding
+		self.layer.cornerRadius = 20
+		self.clipsToBounds = true
+		self.setUp()
+	}
+	*/
+	
+	init(origin: CGRect, target: CGRect, task t: Task) {
+		self.task = t
+		originFrame = target
+		super.init(frame: origin)
 		self.layer.cornerRadius = 20
 		self.clipsToBounds = true
 		self.setUp()
@@ -72,6 +84,7 @@ class UITaskDetail: UIView {
 			cateImg = UIImageView(image: UIImage(named: "relationship"))
 		}
 		let cate = UIView(frame: self.frame)
+		cateImg.tintColor = TaskManager.sharedTaskManager.getTheme().text
 		cate.addSubview(cateImg)
 		cate.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
 		
@@ -80,7 +93,7 @@ class UITaskDetail: UIView {
 		description.text = self.task!.getDescription()
 		description.textColor = TaskManager.sharedTaskManager.getTheme().text
 		description.numberOfLines = 0
-		description.font = UIFont(name: "MarkerFelt-Thin", size: UIFont.systemFontSize)
+		//description.font = UIFont(name: "MarkerFelt-Thin", size: UIFont.systemFontSize)
 		description.drawText(in: description.frame)
 		description.sizeToFit()
 		
@@ -91,7 +104,7 @@ class UITaskDetail: UIView {
 		duration.textColor = TaskManager.sharedTaskManager.getTheme().text
 		duration.drawText(in: duration.frame)
 		duration.textAlignment = .left
-		duration.font = UIFont(name: "GillSans-LightItalic", size: UIFont.systemFontSize)
+		//duration.font = UIFont(name: "GillSans-LightItalic", size: UIFont.systemFontSize)
 		
 		let scheduled = UIPaddedLabel(frame: self.frame)
 		scheduled.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
@@ -99,7 +112,7 @@ class UITaskDetail: UIView {
 		scheduled.textColor = TaskManager.sharedTaskManager.getTheme().text
 		scheduled.drawText(in: scheduled.frame)
 		scheduled.textAlignment = .left
-		scheduled.font = UIFont(name: "Noteworthy-Bold", size: UIFont.systemFontSize)
+		//scheduled.font = UIFont(name: "Noteworthy-Bold", size: UIFont.systemFontSize)
 		scheduled.numberOfLines = 0
 		
 		let deadline = UIPaddedLabel(frame: self.frame)
@@ -109,12 +122,12 @@ class UITaskDetail: UIView {
 		deadline.drawText(in: deadline.frame)
 		deadline.textAlignment = .left
 		deadline.numberOfLines = 0
-		deadline.font = UIFont(name: "AmericanTypewriter", size: UIFont.systemFontSize)
+		//deadline.font = UIFont(name: "AmericanTypewriter", size: UIFont.systemFontSize)
 		
-		let setting = UIButton()
-		setting.setImage(UIImage(named: "Cog"), for: .normal)
+		let img = #imageLiteral(resourceName: "Cog")
+		setting.setImage(img, for: .normal)
+		setting.imageView!.tintColor = TaskManager.sharedTaskManager.getTheme().text		
 		setting.imageView!.transform = CGAffineTransform(rotationAngle: .pi / 2.0)
-		setting.addTarget(self, action: #selector(self.onCogTap), for: .touchUpInside)
 		setting.addTarget(setting, action: #selector(setting.rotate), for: .touchUpInside)
 		
 		// Adding subviews.

@@ -196,6 +196,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         
         // write to local database
         let _DAO = UserDAO(username: form.getUsername(), password: form.getPassword(), email: form.getUserEmail(), id: form.getUserID())
+        let defaultSetting = SettingForm(userId: _DAO.getUserID())
+        let defaultSettingDAO = SettingDAO(defaultSetting)
+        
         // check databse for duplicate email address
         if(!_DAO.validateUserEmailOnline(email: form.getUserEmail(), onlineDB: false)) {
             let alert = UIAlertController(title: "Email already taken!", message: "Please try again", preferredStyle: .alert)
@@ -209,6 +212,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                 self.present(alert, animated: true)
             }
             else {
+                defaultSettingDAO.saveSettingIntoLocalDB()
                 let alert = UIAlertController(title: "Success!", message: "You can now sign in with your account", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) -> Void in
                     let signupVC:SignupViewController = self.storyboard?.instantiateViewController(withIdentifier: "SignupViewController") as! SignupViewController
@@ -234,7 +238,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         signUpDescriptionLabel.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant:0, leftConstant: 10, rightConstant: 10, bottomConstant: 10, width: view.frame.width-20, height: 30, centerX: view.centerXAnchor, centerY: nil)
         
         halpLabel.anchor(top: nil, left: nil, right: nil, bottom: signUpDescriptionLabel.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: 0, width: view.frame.width-20, height: 30, centerX: view.centerXAnchor, centerY: nil)
-        
+    
         logoImageView.anchor(top: nil, left: nil, right: nil, bottom: self.halpLabel.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width/3, height: view.frame.width/3, centerX: view.centerXAnchor, centerY: nil)
         
         passwordTextField.rightView = hidePasswordButton

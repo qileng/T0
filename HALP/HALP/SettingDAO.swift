@@ -121,9 +121,9 @@ final class SettingDAO: Setting {
         // last_update will always be updated
         let lastUpdateQueryString = " last_update = ?"
         
-        let updateQueryString = "UPDATE TaskData SET" + notificationStartQueryString + defaultViewQueryString +
+        let updateQueryString = "UPDATE SettingData SET" + notificationStartQueryString + defaultViewQueryString +
             defaultSortQueryString + themeQueryString + availableDaysQueryString + startTimeQueryString +
-            endTimeQueryString + lastUpdateQueryString + " WHERE task_id=" + String(settingId)
+            endTimeQueryString + lastUpdateQueryString + " WHERE setting_id=" + String(settingId)
         
         var stmt: OpaquePointer?
         if sqlite3_prepare(dbpointer, updateQueryString, -1, &stmt, nil) != SQLITE_OK {

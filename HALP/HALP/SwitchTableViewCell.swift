@@ -12,7 +12,7 @@ class SwitchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var switchOutlet: UISwitch!
     @IBOutlet weak var titleLabel: UILabel!
-    
+  
     var valueChanged: (() -> Void)?
     
     override func awakeFromNib() {
@@ -33,5 +33,4 @@ class SwitchTableViewCell: UITableViewCell {
         UserDefaults.standard.set(sender.isOn, forKey: StartTimeModeKey)
         valueChanged?()
     }
-    
 }

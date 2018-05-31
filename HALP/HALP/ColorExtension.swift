@@ -23,6 +23,18 @@ extension UIColor {
 		self.init(red: CGred, green: CGgreen, blue: CGblue, alpha: CGFloat(1.0))
 	}
     
+    convenience init (hex: Int, alpha: CGFloat) {
+        let red = hex & 0xff0000
+        let green = hex & 0x00ff00
+        let blue = hex & 0x0000ff
+        
+        let CGred = CGFloat(red >> 16) / 255.0
+        let CGgreen = CGFloat(green >> 8) / 255.0
+        let CGblue = CGFloat(blue) / 255.0
+        
+        self.init(red: CGred, green: CGgreen, blue: CGblue, alpha: alpha)
+    }
+    
     struct HalpColors {
         //rgb(255,90,95)
         static let pastelRed = UIColor.rgbColor(255, 90, 95)
@@ -54,7 +66,7 @@ class ColorTheme {
 		self.padding = UIColor(hex: padding)
 	}
 	
-	static let regular = ColorTheme(text: 0x0, task: 0x00b0ff, taskBackground: 0xf8de7e, background: 0xffffff, padding: 0xffffff)
+	static let regular = ColorTheme(text: 0xffffff, task: 0x59262f, taskBackground: 0x59262f, background: 0xffffff, padding: 0xffffff)
 	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffff, background: 0x0, padding: 0x0)
 	
 	//TODO: Add more themes

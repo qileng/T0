@@ -45,7 +45,7 @@ class Setting {
 		 defaultView v: View = .clock, defaultSort sort: SortingType = .time , availableDays d: Int32 = 0b1111111, startTime s: Int32 = 8,
 		 endTime e: Int32 = 24, user uid: Int64) {
 		self.userID = uid
-		self.settingID = (sid == 0) ? IDGenerator.generateID(name: String(uid), type: .setting) : sid
+		self.settingID = sid
 		self.notificationOn = n
 		self.theme = t
 		self.defaultView = v
@@ -60,6 +60,12 @@ class Setting {
 		self.userID = 0
 		self.settingID = 0
 	}
+    
+    // Default setting initializer for first time user
+    init(userId: Int64) {
+        self.userID = userId
+        self.settingID = userId
+    }
 	
 	// Alternative initializer. Same fashion as the convenience initializer in UserData.
 	convenience init(_ disk: Bool) {
