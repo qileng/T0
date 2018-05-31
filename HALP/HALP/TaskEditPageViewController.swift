@@ -27,7 +27,15 @@ struct CellData {
 }
 
 let StartTimeModeKey = "StartTimeMode"
-
+private let datepickerTag = 99
+private let deadlineDatePickerRow = 3
+private let countDownTimerMinuteInterval = 5
+private let textViewCellHeight:CGFloat = 128
+private let regularCellHeight:CGFloat = 44
+private let textFieldCellSection = 0
+private let datePickerCellSection = 1
+private let categoryAndAlarmSection = 2
+private let textViewCellSection = 3
 
 class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -94,10 +102,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         }else {
 //            let form = TaskForm(Title: title, Description: description, Category: category, Deadline: deadlineDate, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             let form = TaskForm.init(Title: title, Description: description, Category: category, Deadline: deadlineDate, Duration: duration, Schedule_start: startDate, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
-            
-            print("countdownDuration to be added: ",fieldData[1][1].countDownDuration)
-            print(form)
-            
+
             //         Todo: validate
             //         Todo: exception handling
             TaskManager.sharedTaskManager.addTask(form)
@@ -131,9 +136,14 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                                     && datePickerIndexPath!.row == indexPath.row
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: CellTypes.datePicker.rawValue, for: indexPath)
-            let datePicker = cell.viewWithTag(99) as! UIDatePicker
+            let datePicker = cell.viewWithTag(datepickerTag) as! UIDatePicker
             if self.isStartTimeMode
             {
+                if indexPath.row == deadlineDatePickerRow // deadline picker
+                {
+                    let atLeastdeadlineDate = Calendar.current.date(byAdding: .minute, value: 10, to: fieldData[indexPath.section][1].date!) //?? fieldData[indexPath.section][1].date
+                    datePicker.minimumDate = atLeastdeadlineDate
+                }
                 if let date = fieldData[indexPath.section][indexPath.row-1].date
                 {
                     datePicker.setDate(date, animated: true)
@@ -145,7 +155,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             {
                 DispatchQueue.main.async {
                     datePicker.datePickerMode = .countDownTimer
-                    datePicker.minuteInterval = 5
+                    datePicker.minuteInterval = countDownTimerMinuteInterval
                     datePicker.countDownDuration = self.fieldData[indexPath.section][indexPath.row-1].countDownDuration ?? 0
                 }
             }else //duration mode && deadline datepicker cell
@@ -246,19 +256,19 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var rowHeight = UITableViewAutomaticDimension
-        if indexPath.section == 1
+        if indexPath.section == datePickerCellSection
         {
             if datePickerIndexPath != nil && datePickerIndexPath!.row == indexPath.row
             {
                 rowHeight = tableView.dequeueReusableCell(withIdentifier: CellTypes.datePicker.rawValue)?.frame.height ?? rowHeight
                 return rowHeight
             }
-        }else if (indexPath.section == 0) || (indexPath.section == 2)
+        }else if (indexPath.section == textFieldCellSection) || (indexPath.section == categoryAndAlarmSection)
         {
-            rowHeight = 44
-        }else if indexPath.section == 3
+            rowHeight = regularCellHeight
+        }else if indexPath.section == textViewCellSection
         {
-            rowHeight = 128
+            rowHeight = textViewCellHeight
         }
         return rowHeight
     }
@@ -272,7 +282,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         2) the tapped is under the shown date picker
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 && indexPath.row != 0// the selected row is in section 1, but not first row in that section
+        if indexPath.section == datePickerCellSection && indexPath.row != 0// the selected row is in section 1, but not first row in that section
         {
             let selectedCell = tableViewOutlet.cellForRow(at: indexPath)
             tableView.beginUpdates()
@@ -298,7 +308,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             tableView.endUpdates()
 
             
-        }else if indexPath.section == 2 // the selected row is in section 2
+        }else if indexPath.section == categoryAndAlarmSection // the selected row is in section 2
         {
             if datePickerIndexPath != nil
             {
@@ -357,6 +367,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.tableViewOutlet.endUpdates()
         }else
         { //datepicker date mode
+            //check if date picker is
             let dateCell = tableViewOutlet.cellForRow(at: parentIndexPath)
             fieldData[parentIndexPath.section][parentIndexPath.row].date = sender.date
             fieldData[parentIndexPath.section][parentIndexPath.row].detail = dateFormatter.string(from: sender.date)
