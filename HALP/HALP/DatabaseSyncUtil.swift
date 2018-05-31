@@ -121,6 +121,7 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                     }
                     
                     if associatedTasks.count != 0 {
+                        print("task local to online")
                         for index in 0...associatedTasks.count-1 {
                             var task: Dictionary<String, Any> = ["":""]
                             do {
@@ -130,7 +131,7 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                             }
                             
                             // Overwrite online tasks
-                            print("task local to online")
+                            
                             task["last_update"] = Int32(Date().timeIntervalSince1970)
                             firebaseRef.child("TaskData").child(String(associatedTasks[index])).setValue(task)
                         }
@@ -167,12 +168,11 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                     }
                     
                     firebaseRef.child("TaskData").queryOrdered(byChild: "user_id").queryEqual(toValue: userId).observeSingleEvent(of: .value, with: { (data) in
-                        
+                        print("task online to local")
                         let taskCount = data.childrenCount
                         var counter = 0
                         for child in data.children.allObjects as! [DataSnapshot] {
                             let dict = child.value as! [String : Any]
-                            print("task online to local")
                             let taskQueryDAO = TaskDAO(dict)
                             
                             // Don't know if the tasks exist in local database
