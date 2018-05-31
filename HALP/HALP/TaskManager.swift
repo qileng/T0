@@ -59,15 +59,15 @@ class TaskManager {
 	func updateUser(new user: UserData) {
 		self.userInfo = user
 		// TODO: After user information is changed, use UserDAO to store data.
-        let userDAO = UserDAO();
-        userDAO.saveUserInfoToLocalDB()
+        let userDAO = UserDAO()
+        _ = userDAO.saveUserInfoToLocalDB()
 	}
 	
 	// Update user setting
 	func updateSetting(setting: Setting) {
 		self.setting = setting
         let newSetting = SettingDAO(self.setting!)
-        newSetting.updateSettingInLocalDB(settingId: newSetting.getSettingID(), notification: newSetting.isNotificationOn(),
+        _ = newSetting.updateSettingInLocalDB(settingId: newSetting.getSettingID(), notification: newSetting.isNotificationOn(),
                                        defaultView: newSetting.getDefaultView(), defaultSort: newSetting.getDefaultSort(),
                                        theme: newSetting.getTheme(), availableDays: newSetting.getAvailableDays(),
                                        startTime: newSetting.getStartTime(), endTime: newSetting.getEndTime())
@@ -171,7 +171,7 @@ class TaskManager {
 		//TODO: update Database
         let removeDAO = TaskDAO();
         //test this part in particular
-        removeDAO.deleteTaskFromLocalDB(taskId: id);
+        _ = removeDAO.deleteTaskFromLocalDB(taskId: id);
         
         self.refresh();
         self.sortTasks(by: .priority);
