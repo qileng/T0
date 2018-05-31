@@ -531,7 +531,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     // Initialize page
-    override func viewDiDLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         observeKeyboardNotifications()
