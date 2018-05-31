@@ -27,12 +27,12 @@ final class UserDAO: UserData {
     // PLEASE ENCODE ALL DATA IN UTF-8 OR YOU WILL GET GARBLED DATABASE ENTRIES!!!
 	// Save new user data to the local database
     // Return true for success, false otherwise
-	func saveUserInfoToLocalDB() -> Bool{
+    func saveUserInfoToLocalDB() -> Bool{
             let userId = self.getUserID()
             let username = self.getUsername() as NSString
             let password = self.getPassword() as NSString
             let email = self.getUserEmail() as NSString
-            let last_update = Date().timeIntervalSince1970
+            let last_update = Int32(Date().timeIntervalSince1970)
         
             let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
             var dbpointer: OpaquePointer?
@@ -113,96 +113,41 @@ final class UserDAO: UserData {
     }
     
     // login authentication function, taking username and password as input
+    // Require internet connection
     // Return corresponding user_id if success, "-1" otherwise
-    func userAuthentication(email: String, password: String ) -> Int64 {
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
-        var dbpointer: OpaquePointer?
-        
-        //Establish database connection
-        if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
-            print("fail to establish database connection")
-			sqlite3_close(dbpointer)
-            return -1
-        }
-        let emailString = email.split(separator: "@")
-        if emailString.count != 2 {
-            sqlite3_close(dbpointer)
-            return -1
-        }
-    
-        //SQL command for fecting a row from database base on id
-        var selectQueryString = "SELECT user_id, email FROM UserData WHERE password=\'" + password + "\' AND " +
-            "email LIKE " + "\'%" + emailString[0] + "%\'"
-        selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
-
-        var stmt: OpaquePointer?
-        sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
-        //Query the specific usermane + password combination
-        if sqlite3_step(stmt) == SQLITE_ROW {
-            let id = sqlite3_column_int64(stmt, 0)
-            let email_verify = String(cString: sqlite3_column_text(stmt, 1))
+    func userAuthentication(email: String, password: String, authFlag: @escaping (Int64) -> Void) { 
+        var userId: Int64 = -1
+        let firebaseRef = Database.database().reference()
+        firebaseRef.child("UserData").queryOrdered(byChild: "email").queryEqual(toValue: email).observeSingleEvent(of: .value, with: {(data) in
             
-            if(email == email_verify) {
-                sqlite3_finalize(stmt)
-                sqlite3_close(dbpointer)
-                return id
+            for child in data.children.allObjects as! [DataSnapshot] {
+                let dict = child.value as! [String : Any]
+                if dict["password"] as! String == password {
+                    userId = dict["user_id"] as! Int64
+                    break
+                }
             }
-            sqlite3_finalize(stmt)
-            sqlite3_close(dbpointer)
-            return -1
-        }
-            sqlite3_finalize(stmt)
-            sqlite3_close(dbpointer)
-            return -1
+            authFlag(userId)
+        })
     }
     
     
     //Email address should be unique
     //This function query the database to maksure that user do not signup with duplicated email
-    //Take two parameters: the input email and boolean flag for querying online or local database
+    //Take one parameter: the input email 
     //Return true if the input email is valid(no duplicate), false otherwise
-    func validateUserEmailOnline(email: String, onlineDB: Bool) -> Bool {
-        if(onlineDB) {
-            // TODO
-            return true
-        }
-        else {
-            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
-            var dbpointer: OpaquePointer?
-            
-            //Establish database connection
-            if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
-                print("fail to establish database connection")
-				sqlite3_close(dbpointer)
-                return false
+    func validateUserEmail(email: String, flag: @escaping (Bool) -> Void) {
+        let firebaseRef = Database.database().reference()
+        var unique: Bool = false
+        firebaseRef.child("UserData").queryOrdered(byChild: "email").queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (data) in
+            if data.value is NSNull {
+                unique = true
             }
-            let emailString = email.split(separator: "@")
-            if emailString.count != 2 {
-				sqlite3_close(dbpointer)
-                return false
+            else {
+                unique = false
             }
-            
-            //SQL command for fecting a row from database base on id
-            var selectQueryString = "SELECT email FROM UserData WHERE email LIKE " + "\'%" + emailString[0] + "%\'"
-            selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
-            
-            var stmt: OpaquePointer?
-            sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
-            //Check if the email address exists
-            while sqlite3_step(stmt) == SQLITE_ROW {
-                let email_verify = String(cString: sqlite3_column_text(stmt, 0))
-                
-                if(email == email_verify) {
-                    //Finialize statement to prevent database from locking
-                    sqlite3_finalize(stmt)
-                    sqlite3_close(dbpointer)
-                    return false
-                }
-            }
-            sqlite3_finalize(stmt)
-            sqlite3_close(dbpointer)
-            return true
-        }
+            flag(unique)
+        })
     }
 	
     func updateUserInfoInLocalDB(userId: Int64, username: String? = nil, password: String? = nil, email: String? = nil) -> Bool {

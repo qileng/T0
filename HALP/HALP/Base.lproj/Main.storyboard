@@ -46,7 +46,7 @@
         <!--Navigation Controller-->
         <scene sceneID="DhI-TY-tat">
             <objects>
-                <navigationController id="ru0-5M-Ump" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Startup" id="ru0-5M-Ump" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="92d-1P-2Ph">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
