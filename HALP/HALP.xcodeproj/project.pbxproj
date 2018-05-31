@@ -347,9 +347,9 @@
 			isa = PBXGroup;
 			children = (
 				ED6C2A50209302650063B4AC /* ModelController.swift */,
-				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
 				8379928520A93787005784AE /* SignUp.swift */,
 				EDDEE2502097CA730078827A /* Startup.swift */,
+				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
 			);
 			name = "View Classes";
