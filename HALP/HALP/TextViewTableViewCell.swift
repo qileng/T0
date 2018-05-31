@@ -48,7 +48,8 @@ class TextViewTableViewCell: UITableViewCell, UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text == ""
+        valueChanged?()
+        if textView.text.isEmpty
         {
             textView.text = "Description"
             textView.textColor = UIColor.placeholderGray

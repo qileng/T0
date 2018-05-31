@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ru0-5M-Ump">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ru0-5M-Ump">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -95,9 +95,12 @@
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hCC-Sz-gj5">
                                                     <rect key="frame" x="306" y="6.5" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="switchValueChanged:" destination="68q-r7-ynv" eventType="valueChanged" id="5m3-Wf-vgS"/>
+                                                    </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45t-qk-qcv">
-                                                    <rect key="frame" x="15" y="11.5" width="42" height="21"/>
+                                                    <rect key="frame" x="20" y="11.5" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -105,7 +108,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="45t-qk-qcv" firstAttribute="centerY" secondItem="Uyr-8C-qhd" secondAttribute="centerY" id="LdN-il-nPW"/>
-                                                <constraint firstItem="45t-qk-qcv" firstAttribute="leading" secondItem="Uyr-8C-qhd" secondAttribute="leading" constant="15" id="dwb-Mn-RDS"/>
+                                                <constraint firstItem="45t-qk-qcv" firstAttribute="leading" secondItem="Uyr-8C-qhd" secondAttribute="leading" constant="20" id="dwb-Mn-RDS"/>
                                                 <constraint firstAttribute="trailing" secondItem="hCC-Sz-gj5" secondAttribute="trailing" constant="20" id="ktI-jC-fS5"/>
                                                 <constraint firstItem="hCC-Sz-gj5" firstAttribute="centerY" secondItem="Uyr-8C-qhd" secondAttribute="centerY" id="ynf-co-C06"/>
                                             </constraints>
@@ -129,11 +132,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JST-Ry-2yr">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JST-Ry-2yr">
                                                     <rect key="frame" x="316" y="12" width="44" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <attributedString key="attributedText"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1130,6 +1132,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Traditional" width="120" height="212"/>
         <image name="sky1" width="372" height="696"/>
         <image name="wooder" width="480" height="699"/>
     </resources>

@@ -250,7 +250,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         signUpDescriptionLabel.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant:0, leftConstant: 10, rightConstant: 10, bottomConstant: 10, width: view.frame.width-20, height: 30, centerX: view.centerXAnchor, centerY: nil)
         
         halpLabel.anchor(top: nil, left: nil, right: nil, bottom: signUpDescriptionLabel.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: 0, width: view.frame.width-20, height: 30, centerX: view.centerXAnchor, centerY: nil)
-        
+    
         logoImageView.anchor(top: nil, left: nil, right: nil, bottom: self.halpLabel.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width/3, height: view.frame.width/3, centerX: view.centerXAnchor, centerY: nil)
         
         passwordTextField.rightView = hidePasswordButton

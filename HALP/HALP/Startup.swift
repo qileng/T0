@@ -397,7 +397,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         observeKeyboardNotifications()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        
+       
         // Testing data
         //        var tasks: [Task] = []
         //        let current = Int32(Date().timeIntervalSince1970)
