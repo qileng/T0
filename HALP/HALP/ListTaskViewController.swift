@@ -46,10 +46,16 @@ class ListTaskViewController: UIViewController {
 //        return .lightContent
 //    }
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		// Prompt past tasks alerts
+		TaskManager.sharedTaskManager.promptNextAlert(self)
+	}
+	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-        //print(TaskManager.sharedTaskManager.getTheme() === ColorTheme.regular)
+
+		TaskManager.sharedTaskManager.refreshTaskManager()
         tableViewOutlet.reloadData()
     }
     
@@ -99,7 +105,8 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         
         if description.isEmpty
         {
-            let startDate = Date(timeIntervalSince1970: TimeInterval((task.getScheduleStart())))
+            let startDate = Date(timeIntervalSinceNow: TimeInterval(eventStartTime))
+            
             let timeStr = "from " + dateFormatter.string(from: startDate)
             
             let attributedStr = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14, weight: .thin), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
@@ -124,10 +131,9 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
             // delete item at indexPath
-            
-//           .remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//            TaskManager.sharedTaskManager.
+            let taskId = TaskManager.sharedTaskManager.getTasks()[indexPath.row].getTaskId()
+            TaskManager.sharedTaskManager.removeTask(taskID: taskId)
+            tableView.reloadData()
             print("Task Deleted")
         }
 //

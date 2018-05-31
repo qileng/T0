@@ -12,15 +12,25 @@ class SwitchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var switchOutlet: UISwitch!
     @IBOutlet weak var titleLabel: UILabel!
+  
+    var valueChanged: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        switchOutlet.isOn = UserDefaults.standard.bool(forKey: StartTimeModeKey)
+        switchOutlet.tintColor = taskColorTheme
+        switchOutlet.onTintColor = taskColorTheme
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func switchValueChanged(_ sender: UISwitch) {
+        print(sender.isOn)
+        UserDefaults.standard.set(sender.isOn, forKey: StartTimeModeKey)
+        valueChanged?()
+    }
 }

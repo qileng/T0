@@ -38,7 +38,6 @@ class TaskManager {
 	func setUp(new user: UserData, setting: Setting, caller vc: UIViewController? = nil) {
 		self.userInfo = user
 		self.setting = setting
-        print("settingId is: ",setting.getSettingID())
 		self.viewController = vc
 		switch self.setting!.getTheme() {
         case .dark:
@@ -60,13 +59,15 @@ class TaskManager {
 	func updateUser(new user: UserData) {
 		self.userInfo = user
 		// TODO: After user information is changed, use UserDAO to store data.
+        let userDAO = UserDAO()
+        _ = userDAO.saveUserInfoToLocalDB()
 	}
 	
 	// Update user setting
 	func updateSetting(setting: Setting) {
 		self.setting = setting
         let newSetting = SettingDAO(self.setting!)
-        newSetting.updateSettingInLocalDB(settingId: newSetting.getSettingID(), notification: newSetting.isNotificationOn(),
+        _ = newSetting.updateSettingInLocalDB(settingId: newSetting.getSettingID(), notification: newSetting.isNotificationOn(),
                                        defaultView: newSetting.getDefaultView(), defaultSort: newSetting.getDefaultSort(),
                                        theme: newSetting.getTheme(), availableDays: newSetting.getAvailableDays(),
                                        startTime: newSetting.getStartTime(), endTime: newSetting.getEndTime())
@@ -104,20 +105,9 @@ class TaskManager {
 		}
 		self.refresh()
 		self.sortTasks(by: .priority)
-		//self.schedule()
-		self.sortTasks(by: .time)
-	}
-	
-	// Schedule all tasks
-	func schedule() {
-        for item in tasks {
-            
-        }
-        
-        
-        
-		// TODO:
-		// Follow DUC#15 exactly.
+		self.schedule()
+        let sortType = self.setting!.getDefaultSort();
+        self.sortTasks(by: sortType);
 	}
 	
 	// Refresh priority of all tasks
@@ -128,6 +118,14 @@ class TaskManager {
 	}
 	
 	// Load tasks from disk
+	func createCompletionAlert(_ task: Task) {
+		// TaskManager shall proceed to ask the user if they has completed the task.
+		let completionAlert = UIAlertController(title: task.getTitle(), message: "Have you completed this task?", preferredStyle: .alert)
+		completionAlert.addAction(UIAlertAction(title: "Yes!", style: .cancel, handler: promptNextAlert))
+		completionAlert.addAction(UIAlertAction(title: "No!", style: .destructive, handler: promptReschedule))
+		alerts.append(completionAlert)
+	}
+	
 	func loadTasks() throws {
 		// Step 1: get user ID.
 		let foreign_key = self.userInfo?.getUserID()
@@ -143,17 +141,12 @@ class TaskManager {
 		for taskID in primary_key {
 			// load task by primary_key.
 			let loadedTask = try Task(true, TaskID: taskID, UserID: foreign_key!)
-			print("Loading ", loadedTask.getTitle(), " with ", loadedTask.getScheduleStart())
 			// Set a current time.
 			let current = Int32(Date().timeIntervalSince1970)
-			// The loaded task has passed its scheduled start time.
-			if loadedTask.getScheduleStart() < current && loadedTask.getScheduleStart() != 0 && self.viewController != nil {
+			// The loaded task has passed its scheduled end time.
+			if loadedTask.getScheduleStart()+loadedTask.getDuration() < current && loadedTask.getScheduleStart() != 0 && self.viewController != nil {
 				pastTasks.append(loadedTask)
-				// TaskManager shall proceed to ask the user if they has completed the task.
-//                let completionAlert = UIAlertController(title: loadedTask.getTitle(), message: "Have you completed this task?", preferredStyle: .alert)
-//                completionAlert.addAction(UIAlertAction(title: "Yes!", style: .cancel, handler: promptNextAlert))
-//                completionAlert.addAction(UIAlertAction(title: "No!", style: .destructive, handler: promptReschedule))
-//                alerts.append(completionAlert)
+				createCompletionAlert(loadedTask)
 				continue
 			}
 			tasks.append(loadedTask)
@@ -187,20 +180,47 @@ class TaskManager {
 		//TODO: update Database
         let removeDAO = TaskDAO();
         //test this part in particular
-        removeDAO.deleteTaskFromLocalDB(taskId: id);
-        
+        _ = removeDAO.deleteTaskFromLocalDB(taskId: id);
+        self.refresh();
+        self.sortTasks(by: .priority);
+        self.schedule();
+        let sortType = self.setting!.getDefaultSort();
+        self.sortTasks(by: sortType);
 	}
 	
 	
 	// Update task
-    func updateTask(TaskID: Int64, property:Dictionary<String,Any>) {
+    func updateTask(form: TaskForm) {
 		//TODO
+        let taskDAO = TaskDAO()
+        print(form.getTaskId())
+        _ = taskDAO.updateTaskInfoInLocalDB(taskId: form.getTaskId(), taskTitle: form.getTitle(),
+                                        taskDesc: form.getDescription(), category: form.getCategory().rawValue,
+                                        alarm: Int(form.getAlarm()), deadline: Int(form.getDeadline()),
+                                        softDeadline: Int(form.getSoftDeadline()), schedule: Int(form.getSchedule()),
+                                        duration: Int(form.getDuration()), taskPriority: form.getPriority(),
+                                        scheduleStart: Int(form.getScheduleStart()), notification: form.getNotification())
 	}
 	
-	// Sort tasks by priority
+	// Sort tasks by priority or time
 	func sortTasks(by t: SortingType) {
 		//TODO: write tests. I wrote this based on memory.
 		tasks.quickSort(0, tasks.count-1, by: t)
+	}
+	
+	// Refresh TaskManager. In particular, check if any past task is in current collection.
+	func refreshTaskManager() {
+		for (index,task) in self.tasks.enumerated() {
+			if task.getScheduleStart() != 0 && task.getScheduleStart() + task.getDuration()	<= Int32(Date().timeIntervalSince1970) {
+				self.tasks.remove(at: index)
+				pastTasks.append(task)
+				self.createCompletionAlert(task)
+			}
+		}
+		self.refresh()
+		self.sortTasks(by: .priority)
+		self.schedule()
+		self.sortTasks(by: self.setting!.getDefaultSort())
 	}
 	
 	// Callback function used in UIViewController.present(::completion:)
@@ -221,8 +241,14 @@ class TaskManager {
 			let alert = alerts[0]
 			viewController?.present(alert, animated: true, completion: {()->() in
 				self.alerts.remove(at: 0)
+				let removeDAO = TaskDAO()
+				_ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
 				self.pastTasks.remove(at: 0)
 			})
+		} else {
+			let removeDAO = TaskDAO()
+			_ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
+			self.pastTasks.remove(at: 0)
 		}
 	}
 	
@@ -252,6 +278,7 @@ class TaskManager {
 		tasks.removeAll()
 		alerts.removeAll()
 		pastTasks.removeAll()
+		self.clearTimeSpan()
 	}
 	
 	// Calculate next avaible timespan.
@@ -275,7 +302,15 @@ class TaskManager {
 		// start = 12a.m. of first available day + the start hour converted into seconds
 		let startTime = Int32(startOfDay.timeIntervalSince1970) + self.setting!.getStartTime() * 60 * 60
 		let endTime = Int32(startOfDay.timeIntervalSince1970) + self.setting!.getEndTime() * 60 * 60
-		self.timespan = (startTime, endTime)
+		if startTime > Int32(Date().timeIntervalSince1970) {
+			self.timespan = (startTime, endTime)
+		} else {
+			self.timespan = (Int32(Date().timeIntervalSince1970), endTime)
+		}
+	}
+	
+	func clearTimeSpan() {
+		self.timespan = (0,0)
 	}
 	
 	// Getters

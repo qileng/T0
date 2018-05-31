@@ -35,9 +35,15 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     @IBOutlet weak var startTimeNum: UILabel!
     @IBOutlet weak var endTimeNum: UILabel!
-    
+
     override func viewDidLoad() {
 		super.viewDidLoad()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		// Prompt past task alerts
+		TaskManager.sharedTaskManager.promptNextAlert(self)
 	}
 	
 	override func didReceiveMemoryWarning() {
@@ -46,6 +52,9 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+
+		TaskManager.sharedTaskManager.refreshTaskManager()
+		
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
         //initialize databse settings
@@ -327,20 +336,64 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         self.present(resetWarning, animated:true, completion: nil)
     }
     
+    @IBAction func sync(_ sender: UIButton) {
+        if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
+            print("cannot sync guest user")
+        } else {
+            syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+                if flag {
+                    TaskManager.sharedTaskManager.clear()
+                    do {
+                        try TaskManager.sharedTaskManager.loadTasks()
+                    } catch {
+                        print("Error")
+                    }
+                }
+                else {
+                   
+                }
+            })
+        }
+    }
+    
     func createLogoutWarning (title:String, message:String){
         let logoutWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         
         logoutWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
             logoutWarning.dismiss(animated: true, completion: nil)
-            let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
-            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
-            self.present(loginSignUpNC, animated: true, completion: nil)
+            if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
+                let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+                let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+                self.present(loginSignUpNC, animated: true, completion: nil)
+                
+            } else {
+                let firebaseRef = Database.database().reference()
+                firebaseRef.child(".info/connected").observe(.value, with: { (data) in
+                    if(data.value as! Int32 == 0)
+                    {
+                        print("no internet!")
+                        let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+                        let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+                        self.present(loginSignUpNC, animated: true, completion: nil)
+                    }
+                    else{
+                        print("internnet ")
+                        syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+                            print(flag)
+                            let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+                            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+                            self.present(loginSignUpNC, animated: true, completion: nil)
+                        })
+                    }
+                })
+                
+            }
         }))
-        
         logoutWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
             logoutWarning.dismiss(animated: true, completion: nil)
         }))
         self.present(logoutWarning, animated:true, completion: nil)
+       
     }
 }
 

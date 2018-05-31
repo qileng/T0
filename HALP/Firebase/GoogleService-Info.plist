@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>798253709178-nndhvpl2iqror73q53rg8on0dbdoobb8.apps.googleusercontent.com</string>
+	<string>820730600659-pl3mpbfevmh2fmv6eb8j1v4ag90vonqn.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.798253709178-nndhvpl2iqror73q53rg8on0dbdoobb8</string>
+	<string>com.googleusercontent.apps.820730600659-pl3mpbfevmh2fmv6eb8j1v4ag90vonqn</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCLySQInlSPyAjQpZt4TwpMu2-ZPkpv5Sc</string>
+	<string>AIzaSyCOdKuyUxIZ43MeGW1GkwO2mlhabzQ8AJI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>798253709178</string>
+	<string>820730600659</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>T0.HALP</string>
 	<key>PROJECT_ID</key>
-	<string>halp-c98f4</string>
+	<string>halp-dfa39</string>
 	<key>STORAGE_BUCKET</key>
-	<string>halp-c98f4.appspot.com</string>
+	<string>halp-dfa39.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:798253709178:ios:43be192ad2ee28fc</string>
+	<string>1:820730600659:ios:43be192ad2ee28fc</string>
 	<key>DATABASE_URL</key>
-	<string>https://halp-c98f4.firebaseio.com</string>
+	<string>https://halp-dfa39.firebaseio.com</string>
 </dict>
 </plist>
