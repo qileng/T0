@@ -32,7 +32,7 @@ class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellTypes.basic.rawValue, for: indexPath)
         cell.textLabel?.text = cellData?[indexPath.row]
         return cell
     }

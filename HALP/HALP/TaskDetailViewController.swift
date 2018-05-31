@@ -33,6 +33,7 @@ class TaskDetailViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(EditButtonHandler))
         self.navigationItem.title = "Event Details"
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.tableViewOutlet.reloadData()
     }
@@ -42,7 +43,6 @@ class TaskDetailViewController: UIViewController {
     
     @objc func EditButtonHandler()
     {
-        print("Edit button touched")
         let taskEditVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskEditPageViewController") as! TaskEditPageViewController
         taskEditVC.isEditMode = true
         taskEditVC.taskToEdit = self.task
@@ -137,15 +137,22 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
             
             //setting task title
             mainDetailCell?.taskTitle.text = self.task?.getTitle()
-            if !((task?.getDescription().isEmpty)!)
+            //setting description label
+            let descriptionStr:String = task?.getDescription() ?? ""
+            if descriptionStr.isEmpty
             {
-                mainDetailCell?.taskDescriptionLabel.text = task?.getDescription()
+                mainDetailCell?.taskDescriptionLabel.text = "Description"
+                mainDetailCell?.taskDescriptionLabel.textColor = UIColor.placeholderGray
+            }else
+            {
+                mainDetailCell?.taskDescriptionLabel.text = descriptionStr
                 mainDetailCell?.taskDescriptionLabel.textColor = .black
             }
             
             //setting event duration
             let startDate = Date(timeIntervalSince1970: TimeInterval((task?.getScheduleStart())!))
             let deadlineDate = Date(timeIntervalSince1970: TimeInterval((task?.getDeadline())!))
+          
             let startDateTimeStr = timeDateFormatter.string(from: startDate)
             let deadlineDateTimeStr = timeDateFormatter.string(from: deadlineDate)
             
@@ -182,7 +189,9 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
                 //            mainDetailCell?.eventTimeLabel2.textColor = .gray
             }
             
-            //        mainDetailCell?.halpSuggestionLabel.text = "Halp suggests that you just do it"
+            //WHERE TO PUT HALP SUGGESTION
+            mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: 😜"
+            mainDetailCell?.halpSuggestionLabel.textColor = UIColor.placeholderGray
             return self.mainDetailCell!
         }else //Alarm cell
         {

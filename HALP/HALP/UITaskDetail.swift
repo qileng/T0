@@ -100,15 +100,21 @@ class UITaskDetail: UIView {
 		let duration = UIPaddedLabel(frame: self.frame)
 		duration.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
 		duration.text = String(self.task!.getDuration() / 3600) + " Hours "
-		duration.text! += String(self.task!.getDuration() / 60) + " Minutes"
+		duration.text! += String(self.task!.getDuration() % 3600 / 60) + " Minutes"
 		duration.textColor = TaskManager.sharedTaskManager.getTheme().text
 		duration.drawText(in: duration.frame)
 		duration.textAlignment = .left
 		//duration.font = UIFont(name: "GillSans-LightItalic", size: UIFont.systemFontSize)
 		
+		// Date Formatter
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "HH:mm a MMMM dd, yyyy"
+		dateFormatter.timeZone = .current
+		
 		let scheduled = UIPaddedLabel(frame: self.frame)
 		scheduled.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
-		scheduled.text = "Halp suggests: Begin before " + Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart())).description(with: .current)
+		(task!.getSchedule() == 0) ? (scheduled.text = "Halp suggests: Start on ") : (scheduled.text = "From ")
+		scheduled.text! += dateFormatter.string(from:  Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart())))
 		scheduled.textColor = TaskManager.sharedTaskManager.getTheme().text
 		scheduled.drawText(in: scheduled.frame)
 		scheduled.textAlignment = .left
@@ -117,7 +123,8 @@ class UITaskDetail: UIView {
 		
 		let deadline = UIPaddedLabel(frame: self.frame)
 		deadline.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
-		deadline.text = "Due on: " + Date(timeIntervalSince1970: TimeInterval(self.task!.getDeadline())).description(with: .current)
+		(task!.getSchedule() == 0) ? (deadline.text = "Due on: ") : (deadline.text = "To ")
+		deadline.text! += dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(self.task!.getDeadline())))
 		deadline.textColor = TaskManager.sharedTaskManager.getTheme().text
 		deadline.drawText(in: deadline.frame)
 		deadline.textAlignment = .left
@@ -163,5 +170,6 @@ class UITaskDetail: UIView {
 	func dimiss() {
 		// Dismissing animation
 		self.frame = self.originFrame!
+		self.alpha = 0
 	}
 }

@@ -20,11 +20,6 @@ class MainDetailTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-//        halpSuggestionLabel.sizeToFit()
-//        halpSuggestionLabel.numberOfLines = 0
-//        halpSuggestionLabel.baselineAdjustment = .alignCenters
-//        halpSuggestionLabel.minimumScaleFactor = 0.5
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
