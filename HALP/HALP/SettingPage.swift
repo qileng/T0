@@ -61,7 +61,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         print(settingForm.getEndTime())*/
         
         if (!(settingForm.isNotificationOn())){
-            notificationSwitch.setOn(false, animated: true)
+            notificationSwitch.setOn(false, animated: false)
         }
         
         if (settingForm.getDefaultView().rawValue == 1){
@@ -85,28 +85,31 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         }
 
         if ((settingForm.getAvailableDays()) & 0b1 == 0){
-            sunSwitch.setOn(false, animated: true)
+            sunSwitch.setOn(false, animated: false)
         }
         if (((settingForm.getAvailableDays()) >> 1) & 0b1 == 0){
-            monSwitch.setOn(false, animated: true)
+            monSwitch.setOn(false, animated: false)
         }
         if (((settingForm.getAvailableDays()) >> 2) & 0b1 == 0){
-            tueSwitch.setOn(false, animated: true)
+            tueSwitch.setOn(false, animated: false)
         }
         if (((settingForm.getAvailableDays()) >> 3) & 0b1 == 0){
-            wedSwitch.setOn(false, animated: true)
+            wedSwitch.setOn(false, animated: false)
         }
         if (((settingForm.getAvailableDays()) >> 4) & 0b1 == 0){
-            thuSwitch.setOn(false, animated: true)
+            thuSwitch.setOn(false, animated: false)
         }
         if (((settingForm.getAvailableDays()) >> 5) & 0b1 == 0){
-            friSwitch.setOn(false, animated: true)
+            friSwitch.setOn(false, animated: false)
         }
         if (((settingForm.getAvailableDays()) >> 6) & 0b1 == 0){
-            satSwitch.setOn(false, animated: true)
+            satSwitch.setOn(false, animated: false)
         }
         startTimeNum.text = String(settingForm.getStartTime())
         endTimeNum.text = String(settingForm.getEndTime())
+        
+        startTimePicker.selectRow(Int(settingForm.getStartTime()), inComponent: 0, animated: false)
+        endTimePicker.selectRow(Int(24 - settingForm.getEndTime()), inComponent: 0, animated:false)
 	}
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -316,7 +319,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<4)
             self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<5)
             self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<6)
-            self.settingForm.setStartTime(0)
+            self.settingForm.setStartTime(24)
             self.settingForm.setEndTime(0)
         }))
         
