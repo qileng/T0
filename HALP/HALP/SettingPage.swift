@@ -366,18 +366,33 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                 self.present(loginSignUpNC, animated: true, completion: nil)
                 
             } else {
-                syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+                let firebaseRef = Database.database().reference()
+                firebaseRef.child(".info/connected").observe(.value, with: { (data) in
+                    if(data.value as! Int32 == 0)
+                    {
+                        print("no internet!")
                         let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
                         let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
                         self.present(loginSignUpNC, animated: true, completion: nil)
+                    }
+                    else{
+                        print("internnet ")
+                        syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+                            print(flag)
+                            let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+                            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+                            self.present(loginSignUpNC, animated: true, completion: nil)
+                        })
+                    }
                 })
+                
             }
         }))
-        
         logoutWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
             logoutWarning.dismiss(animated: true, completion: nil)
         }))
         self.present(logoutWarning, animated:true, completion: nil)
+       
     }
 }
 

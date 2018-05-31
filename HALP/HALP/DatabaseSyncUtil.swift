@@ -13,9 +13,9 @@ import FirebaseCore
 // New sync function
 // Take an user id as argument
 func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
-    
-    // Establish connection to both local and online database
     let firebaseRef = Database.database().reference()
+    // Establish connection to both local and online database
+    
     let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
     var dbpointer: OpaquePointer?
     if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
