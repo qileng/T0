@@ -123,9 +123,10 @@ class TaskManager {
     // Load tasks from disk
     func createCompletionAlert(_ task: Task) {
         // TaskManager shall proceed to ask the user if they has completed the task.
-        let completionAlert = UIAlertController(title: task.getTitle(), message: "Have you completed this task?", preferredStyle: .alert)
-        completionAlert.addAction(UIAlertAction(title: "Yes!", style: .cancel, handler: promptNextAlert))
-        completionAlert.addAction(UIAlertAction(title: "No!", style: .destructive, handler: promptReschedule))
+		let nickName = self.userInfo!.getUsername()
+        let completionAlert = UIAlertController(title: task.getTitle(), message: "Have you completed this task, " + nickName + "?", preferredStyle: .alert)
+        completionAlert.addAction(UIAlertAction(title: "Yes", style: .cancel, handler: promptNextAlert))
+        completionAlert.addAction(UIAlertAction(title: "No", style: .destructive, handler: promptReschedule))
         alerts.append(completionAlert)
     }
     
@@ -269,10 +270,10 @@ class TaskManager {
     // Callaback funtion used in UIAlertAction(::handler:)
     // Called by action on "No" from completionAlert.
     func promptReschedule(_: UIAlertAction) -> () {
-        print("proceed to prompt Reschedule!")
-        let rescheduleAlert = UIAlertController(title: "", message: "Do you want to reschedule it?", preferredStyle: .alert)
-        rescheduleAlert.addAction(UIAlertAction(title: "Yes!", style: .default, handler: reschedule))
-        rescheduleAlert.addAction(UIAlertAction(title: "No!", style: .cancel, handler: promptNextAlert))
+        let nickName = self.userInfo!.getUsername()
+        let rescheduleAlert = UIAlertController(title: "", message: "Do you want to reschedule it, " + nickName + "?", preferredStyle: .alert)
+        rescheduleAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: reschedule))
+        rescheduleAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: promptNextAlert))
         viewController?.present(rescheduleAlert, animated: true, completion: nil)
     }
     

@@ -14,7 +14,7 @@ class LaunchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(hex: 0xefefef)
+        self.view.backgroundColor = UIColor.HalpColors.lessLightGray
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         activityIndicator.color = UIColor.black
         self.view.addSubview(activityIndicator)

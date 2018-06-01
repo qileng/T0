@@ -402,6 +402,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         // view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector( ) ))
+		
+		self.view.backgroundColor = UIColor.HalpColors.lessLightGray
         
         self.navigationController?.isNavigationBarHidden = true
         setUpSubViewsLayout()

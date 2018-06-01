@@ -37,7 +37,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     
     let userNameTextField:LeftPaddedTextField = {
         let textField = LeftPaddedTextField()
-        textField.attributedPlaceholder = NSAttributedString(string: "Username", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15)])
+        textField.attributedPlaceholder = NSAttributedString(string: "Nickname", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15)])
         textField.backgroundColor = .white
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
@@ -135,6 +135,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.view.backgroundColor = UIColor.HalpColors.lessLightGray
         self.navigationController?.isNavigationBarHidden = true
         setUpSubViewsLayout()
         setUpSubViewsLayout()

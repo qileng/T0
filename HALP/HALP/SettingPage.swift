@@ -129,7 +129,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	}
 	
 	@IBAction func Logout(_ sender: Any) {
-        createLogoutWarning(title: "Are you sure?", message: "Do you want to logout?")
+        createLogoutWarning(title: "Do you want to logout?", message: "You will lose all changes." )
     }
     
     @IBAction func notificationSwitch(_ sender: UISwitch) {
@@ -290,7 +290,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	func createDiscardWarning (title: String, message: String) {
 		let discardWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
 		
-		discardWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+		discardWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
 			discardWarning.dismiss(animated: true, completion: nil)
 			
 			//change the states of toggles displayed
@@ -352,7 +352,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	func createResetWarning (title:String, message: String) {
         let resetWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         
-        resetWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+        resetWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
             resetWarning.dismiss(animated: true, completion: nil)
             
             //change the states of toggles displayed
@@ -424,10 +424,10 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     func createLogoutWarning (title:String, message:String){
         
-        clearSavedUser()
+        _ = clearSavedUser()
         let logoutWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         
-        logoutWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+        logoutWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
             logoutWarning.dismiss(animated: true, completion: nil)
             if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
                 let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
