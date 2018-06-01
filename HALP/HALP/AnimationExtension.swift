@@ -14,8 +14,17 @@ extension UIButton {
 	}
 }
 
-extension UILabel {
+class UIBar: UILabel {
+	var size = 0.0 as CGFloat
+	
 	func grow() {
-		self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.width, height: -100)
+		//self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.width, height: -100)
+		self.transform = CGAffineTransform(scaleX: 1.0, y: CGFloat(size) / 2)
+		//self.layer.transform = CATransform3DScale(CATransform3DIdentity, 1.0, 50.0, 1.1)
+	}
+	
+	func shrink() {
+		//self.transform = CGAffineTransform(scaleX: 1.0, y: 0.02)
+		self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.width, height: -2)
 	}
 }
