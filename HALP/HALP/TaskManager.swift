@@ -71,7 +71,9 @@ class TaskManager {
                                        defaultView: newSetting.getDefaultView(), defaultSort: newSetting.getDefaultSort(),
                                        theme: newSetting.getTheme(), availableDays: newSetting.getAvailableDays(),
                                        startTime: newSetting.getStartTime(), endTime: newSetting.getEndTime())
-        
+		
+		let navigationBarAppearace = UINavigationBar.appearance()
+		navigationBarAppearace.barTintColor = self.getTheme().background
 	}
 	
 	// Add Task
