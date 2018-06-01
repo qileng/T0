@@ -47,6 +47,8 @@ extension UIColor {
         //blue colors
         //rgb(53,142,252)
         static let brilliantAzure = UIColor.rgbColor(53, 142, 252)
+        //brown for the icons in task views
+        static let woodBrown = UIColor(hex: 0x745f4f)
     }
 }
 
@@ -56,22 +58,25 @@ class ColorTheme {
 	var task: UIColor
 	var taskBackground: UIColor
 	var background: UIColor
+    var clockBackground: UIColor        //New variable to set clock background
 	var padding: UIColor
 	
-	init(text: Int, task: Int, taskBackground: Int, background: Int, padding: Int) {
+    init(text: Int, task: Int, taskBackground: Int, background: UIColor, clockBackground: UIColor, padding: Int) {
 		self.text = UIColor(hex: text)
 		self.taskBackground = UIColor(hex: taskBackground)
-		self.background = UIColor(hex: background)
+		self.background = background
+        self.clockBackground = clockBackground
 		self.task = UIColor(hex: task)
 		self.padding = UIColor(hex: padding)
 	}
 	
-	static let regular = ColorTheme(text: 0xffffff, task: 0x59262f, taskBackground: 0x59262f, background: 0xffffff, padding: 0xffffff)
-	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffff, background: 0x0, padding: 0x0)
+    static let regular = ColorTheme(text: 0xffffff, task: 0x59262f, taskBackground: 0x59262f, background: UIColor(patternImage: #imageLiteral(resourceName: "goldpine")).withAlphaComponent(1.0), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "daySky")), padding: 0xffffff)
+    static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffff, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")).withAlphaComponent(1.0), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "space2")), padding: 0x0)
 	
 	//TODO: Add more themes
 }
 
+//Sets regular or dark themes based on enum 1 or 0 values for accessibility
 enum Theme: Int {
 	case regular = 0
 	case dark = 1
