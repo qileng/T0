@@ -234,7 +234,8 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
             
             //at this point, task is within 12 hours
             //Start index
-            let startIdx = (startTime-sysTime)/3600
+			//set it to 0 to ignore the part before current time to avoid error.
+			let startIdx = (startTime >= sysTime) ? ((startTime-sysTime)/3600) : 0
             //clockTasks[Int(startIdx)].append(curr)
             
             //End index
