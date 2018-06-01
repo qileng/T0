@@ -219,6 +219,12 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                 // TODO: Currently, actual online authentication is not implemented. So authentication is in
                 // SQLite as a template. To enable authentication from Azure, implement
                 // UserData.init(Bool:email:password).
+		
+				let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+				self.view.addSubview(activityIndicator)
+				activityIndicator.anchor(top: nil, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: 50, height: 50, centerX: loginButton.centerXAnchor, centerY: loginButton.centerYAnchor)
+				loginButton.setTitleColor(loginButton.backgroundColor, for: .normal)
+				activityIndicator.startAnimating()
         
                 form.onlineValidateExistingUser(completion: { (userId) in
                     if userId != -1 {
@@ -248,10 +254,14 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                                     print("error")
                                 }
                                 // Bring up rootViewController
+									activityIndicator.removeFromSuperview()
                                 self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
                             }
                         })
                     } else {
+						activityIndicator.removeFromSuperview()
+						self.loginButton.setTitleColor(.white, for: .normal)
+						self.passwordTextField.text = ""
                         let alert = UIAlertController(title: "Oops!", message: "This email password combination does not exist", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
                         self.present(alert, animated: true)
