@@ -8,17 +8,21 @@
 
 import UIKit
 
-let taskColorTheme = TaskManager.sharedTaskManager.getTheme().background
 //let taskColorTheme = UIColor.HalpColors.fuzzyWuzzy
 class ListTaskViewController: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     let dateFormatter = DateFormatter()
+	var tasks = [Task]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		
         self.navigationItem.title = "My Tasks"
+		self.tableViewOutlet.backgroundColor = TaskManager.sharedTaskManager.getTheme().tableBackground
+		let navigationBarAppearance = UINavigationBar.appearance()
+		navigationBarAppearance.barTintColor = TaskManager.sharedTaskManager.getTheme().background
     
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "plus2"), for: .normal)
@@ -54,10 +58,18 @@ class ListTaskViewController: UIViewController {
 	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+		
+		let navigationBarAppearance = UINavigationBar.appearance()
+		navigationBarAppearance.barTintColor = TaskManager.sharedTaskManager.getTheme().background
 
 		TaskManager.sharedTaskManager.refreshTaskManager()
-        tableViewOutlet.reloadData()
+		self.tasks = TaskManager.sharedTaskManager.getTasks()
+		self.tableViewOutlet.reloadData()
     }
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+	}
     
 //    @IBAction func addButtonTouched(_ sender: UIButton) {
 //        let taskEditVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskEditPageViewController") as! TaskEditPageViewController
@@ -76,16 +88,16 @@ class ListTaskViewController: UIViewController {
 extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("task count:" ,TaskManager.sharedTaskManager.getTasks().count)
-        return TaskManager.sharedTaskManager.getTasks().count
+        print("task count:" ,tasks.count)
+        return self.tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let task = TaskManager.sharedTaskManager.getTasks()[indexPath.row]
+        let task = tasks[indexPath.row]
         let category = task.getCategory()
         let title = task.getTitle()
         let description = task.getDescription()
-        let eventStartTime = task.getSchedule()
+        let eventStartTime = task.getScheduleStart()
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskListCell", for: indexPath) as! ListTaskTableViewCell
         
         let image:UIImage
@@ -102,10 +114,12 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         cell.taskImageView.image = image
         cell.titleLabel.text = title
         cell.titleLabel.font = cell.titleLabel.font.withSize(19)
+		cell.titleLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
+		cell.taskImageView.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
         
         if description.isEmpty
         {
-            let startDate = Date(timeIntervalSinceNow: TimeInterval(eventStartTime))
+            let startDate = Date(timeIntervalSince1970: TimeInterval(eventStartTime))
             
             let timeStr = "from " + dateFormatter.string(from: startDate)
             
@@ -123,7 +137,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
 
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailViewController") as! TaskDetailViewController
-        detailVC.task = TaskManager.sharedTaskManager.getTasks()[indexPath.row]
+        detailVC.task = self.tasks[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
         
     }

@@ -132,7 +132,6 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
                 }
                 mainDetailCell?.taskImageView.image = image
                 mainDetailCell?.taskImageView.contentMode = .scaleAspectFit
-                mainDetailCell?.taskImageView.tintColor = TaskManager.sharedTaskManager.getTheme().background
             }
             
             //setting task title
@@ -151,7 +150,7 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
             
             //setting event duration
             let startDate = Date(timeIntervalSince1970: TimeInterval((task?.getScheduleStart())!))
-            let deadlineDate = Date(timeIntervalSince1970: TimeInterval((task?.getDeadline())!))
+			let deadlineDate = Date(timeIntervalSince1970: TimeInterval(((task?.getScheduleStart())! + (task?.getDuration())!)))
           
             let startDateTimeStr = timeDateFormatter.string(from: startDate)
             let deadlineDateTimeStr = timeDateFormatter.string(from: deadlineDate)
@@ -160,38 +159,58 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
             mainDetailCell?.eventTimeLabel2.textColor = .black
             mainDetailCell?.eventTimeLabel1.adjustsFontSizeToFitWidth = true
             mainDetailCell?.eventTimeLabel2.adjustsFontSizeToFitWidth = true
-            
-            if Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .month) == .orderedSame && Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .day) == .orderedSame
-            {
-                //case1: event takes place on the same day
+			
+			// Display "from.. to.." if task is fixed
+			print(task!.getSchedule())
+			if task!.getSchedule() != 0 {
+            	if Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .month) == .orderedSame && Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .day) == .orderedSame
+            	{
+                	//case1: event takes place on the same day
                 
-                let sameDayStr = generalDateFormatter.string(from: startDate)
-                let attributedStr1 = NSMutableAttributedString(string: sameDayStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
-                let timeStr = "from " + startDateTimeStr + " to " + deadlineDateTimeStr
-                let attributedStr2 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                	let sameDayStr = generalDateFormatter.string(from: startDate)
+                	let attributedStr1 = NSMutableAttributedString(string: sameDayStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                	let timeStr = "from " + startDateTimeStr + " to " + deadlineDateTimeStr
+                	let attributedStr2 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
                 
-                mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
-                mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
-            }else{
-                //case2: event takes places on the different day
-                let startDayStr = generalDateFormatter.string(from: startDate)
-                let deadlineDayStr = generalDateFormatter.string(from: deadlineDate)
+                	mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
+                	mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
+					
+					mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: 😜 Follow your schedule."
+					mainDetailCell?.halpSuggestionLabel.textColor = UIColor.black
+            	}else{
+                	//case2: event takes places on the different day
+                	let startDayStr = generalDateFormatter.string(from: startDate)
+                	let deadlineDayStr = generalDateFormatter.string(from: deadlineDate)
                 
-                let timeStr1 = "from " + startDateTimeStr + ", " + startDayStr
-                let timeStr2 = "to " + deadlineDateTimeStr + ", " + deadlineDayStr
-                let attributedStr1 = NSMutableAttributedString(string: timeStr1, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
-                let attributedStr2 = NSMutableAttributedString(string: timeStr2, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                	let timeStr1 = "from " + startDateTimeStr + ", " + startDayStr
+                	let timeStr2 = "to " + deadlineDateTimeStr + ", " + deadlineDayStr
+                	let attributedStr1 = NSMutableAttributedString(string: timeStr1, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                	let attributedStr2 = NSMutableAttributedString(string: timeStr2, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
                 
-                mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
-                mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
-                
-                //            mainDetailCell?.eventTimeLabel1.textColor = .gray
-                //            mainDetailCell?.eventTimeLabel2.textColor = .gray
-            }
-            
-            //WHERE TO PUT HALP SUGGESTION
-            mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: 😜"
-            mainDetailCell?.halpSuggestionLabel.textColor = UIColor.placeholderGray
+                	mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
+                	mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
+					
+					mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: 😜 Follow your schedule."
+					mainDetailCell?.halpSuggestionLabel.textColor = UIColor.black
+            	}
+			} else {
+				// Display Deadline with Duration.
+				let timeStr = "Due on " + deadlineDateTimeStr
+				let attributedStr1 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+				var durationStr = "Duration: "
+				durationStr += String(self.task!.getDuration() / 3600) + " Hours "
+				durationStr += String(self.task!.getDuration() % 3600 / 60) + " Minutes"
+				let attributedStr2 = NSMutableAttributedString(string: durationStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+				mainDetailCell?.eventTimeLabel1.attributedText = attributedStr2
+				mainDetailCell?.eventTimeLabel2.attributedText = attributedStr1
+				
+				mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: Start on "
+				// Date formatter
+				mainDetailCell?.halpSuggestionLabel.text! += generalDateFormatter.string(from:  Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart()))) + " " + timeDateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart())))
+				mainDetailCell?.halpSuggestionLabel.textColor = UIColor.black
+				mainDetailCell?.halpSuggestionLabel.numberOfLines = 0
+			}
+			
             return self.mainDetailCell!
         }else //Alarm cell
         {

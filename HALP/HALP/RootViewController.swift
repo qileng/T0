@@ -101,6 +101,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		//TaskManager.sharedTaskManager.refreshTaskManager()
+		let navigationBarAppearance = UINavigationBar.appearance()
+		navigationBarAppearance.barTintColor = TaskManager.sharedTaskManager.getTheme().background
 	}
 }
 

@@ -206,6 +206,94 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
     })
 }
 
+// Call after sign in
+func saveUser() -> Bool {
+    // Default local database path
+    let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+    var dbpointer: OpaquePointer?
+    
+    if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+        print("fail to establish databse connection")
+        sqlite3_close(dbpointer)
+        return false
+    }
+    
+    let insertQueryString = "INSERT INTO ActiveUser (user_id) VALUES ( " + String(TaskManager.sharedTaskManager.getUser().getUserID()) + " )"
+    sqlite3_exec(dbpointer, insertQueryString, nil, nil, nil)
+    
+    return true
+}
+
+// Call if user clicks log out
+func clearSavedUser() -> Bool {
+    let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+    var dbpointer: OpaquePointer?
+    
+    if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+        print("fail to establish databse connection")
+        sqlite3_close(dbpointer)
+        return false
+    }
+    
+    sqlite3_exec(dbpointer, "DELETE FROM ActiveUser", nil, nil, nil)
+    return true
+}
+
+// Auto login at launch screen
+func loadSavedUser(completion: @escaping (Bool) -> Void) {
+    let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+    var dbpointer: OpaquePointer?
+    
+    if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+        print("fail to establish databse connection")
+        sqlite3_close(dbpointer)
+    }
+    
+    let selectQueryString = "SELECT * FROM ActiveUser"
+    
+    var stmt: OpaquePointer?
+    sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
+    
+    var id: Int64 = -1
+    if sqlite3_step(stmt) == SQLITE_ROW {
+        id = sqlite3_column_int64(stmt, 0)
+    } else {
+        completion(false)
+    }
+    sqlite3_finalize(stmt)
+    sqlite3_close(dbpointer)
+    
+    syncDatabase(userId: id, completion: { (flag) in
+        if flag {
+            do {
+                let settingDAO = SettingDAO()
+                let userDAO = UserDAO()
+                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: id)
+                let settingId = settingArray[0] as! Int64
+                let notification = settingArray[1] as! Int32 == 1 ? true : false
+                let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
+                let sort = settingArray[4] as! Int32 == 0 ? SortingType.time : SortingType.priority
+                let avaliableDays = settingArray[5] as! Int32
+                let start = settingArray[6] as! Int32
+                let end = settingArray[7] as! Int32
+                
+                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                          defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                          endTime: end, user: settingId)
+                
+                let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: id)
+                let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
+                TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+            } catch {
+                completion(false)
+            }
+            completion(true)
+        }
+    })
+    
+}
+
 // Generic helper function
 // compare last_update
 // tableFlag indicates which table the comparison should occur

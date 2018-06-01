@@ -47,31 +47,38 @@ extension UIColor {
         //blue colors
         //rgb(53,142,252)
         static let brilliantAzure = UIColor.rgbColor(53, 142, 252)
+        //brown for the icons in task views
+        static let woodBrown = UIColor(hex: 0x745f4f)
+		//yellow for the icons
+		static let goldPineYellow = UIColor(hex: 0xe4ad4e)
+		//ligh grey for table background
+		static let lightGrey = UIColor(hex: 0xf2f2f2)
     }
 }
 
 
 class ColorTheme {
-	var text: UIColor
-	var task: UIColor
-	var taskBackground: UIColor
+	var tableBackground: UIColor
 	var background: UIColor
-	var padding: UIColor
+    var clockBackground: UIColor        //New variable to set clock background
+	var collectionBackground: UIColor
+	var imgTint: UIColor
 	
-	init(text: Int, task: Int, taskBackground: Int, background: UIColor, padding: Int) {
-		self.text = UIColor(hex: text)
-		self.taskBackground = UIColor(hex: taskBackground)
+	init(tableBackground: UIColor, background: UIColor, clockBackground: UIColor, collectionBackground: UIColor, imgTint: UIColor) {
+		self.tableBackground = tableBackground
 		self.background = background
-		self.task = UIColor(hex: task)
-		self.padding = UIColor(hex: padding)
+        self.clockBackground = clockBackground
+		self.collectionBackground = collectionBackground
+		self.imgTint = imgTint
 	}
 	
-	static let regular = ColorTheme(text: 0xffffff, task: 0x59262f, taskBackground: 0x59262f, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")).withAlphaComponent(0.5), padding: 0xffffff)
-	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffff, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")).withAlphaComponent(1.0), padding: 0x0)
+	static let regular = ColorTheme(tableBackground: UIColor.HalpColors.lightGrey, background: UIColor(patternImage: #imageLiteral(resourceName: "goldpine")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "daySky")), collectionBackground: UIColor(hex: 0xce8964), imgTint: UIColor.HalpColors.goldPineYellow)
+	static let dark = ColorTheme(tableBackground: UIColor.HalpColors.lightGrey, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "space2")), collectionBackground: UIColor(hex: 0xce8964), imgTint: UIColor.HalpColors.woodBrown)
 	
 	//TODO: Add more themes
 }
 
+//Sets regular or dark themes based on enum 1 or 0 values for accessibility
 enum Theme: Int {
 	case regular = 0
 	case dark = 1
