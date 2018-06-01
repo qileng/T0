@@ -423,6 +423,8 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     func createLogoutWarning (title:String, message:String){
+        
+        clearSavedUser()
         let logoutWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         
         logoutWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
