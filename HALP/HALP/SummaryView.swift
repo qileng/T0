@@ -52,6 +52,8 @@ class SummaryViewController: UIViewController {
 		
 		// Set image colors
 		studyIcon.tintColor = TaskManager.sharedTaskManager.getTheme().background
-		
+		choreIcon.tintColor = TaskManager.sharedTaskManager.getTheme().background
+		socialIcon.tintColor = TaskManager.sharedTaskManager.getTheme().background
+		entertainmentIcon.tintColor = TaskManager.sharedTaskManager.getTheme().background
 	}
 }
