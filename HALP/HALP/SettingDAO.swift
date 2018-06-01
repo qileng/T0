@@ -25,7 +25,7 @@ final class SettingDAO: Setting {
         
         let settingId = self.getSettingID()
         let notification = self.isNotificationOn() == true ? 1 : 0
-        let defaultView = self.getDefaultView().rawValue
+        let summary = self.getSummary() as NSString
         let defaultSort = self.getDefaultSort().rawValue
         let theme = self.getTheme().rawValue
         let avaliableDays = self.getAvailableDays()
@@ -40,7 +40,7 @@ final class SettingDAO: Setting {
         sqlite3_prepare(dbpointer, saveQueryString, -1, &stmt, nil)
         sqlite3_bind_int64(stmt, 1, settingId)
         sqlite3_bind_int(stmt, 2, Int32(notification))
-        sqlite3_bind_int(stmt, 3, Int32(defaultView))
+        sqlite3_bind_text(stmt, 3, summary.utf8String, -1, nil)
         sqlite3_bind_int(stmt, 4, Int32(defaultSort))
         sqlite3_bind_int(stmt, 5, Int32(theme))
         sqlite3_bind_int(stmt, 6, avaliableDays)
@@ -61,7 +61,7 @@ final class SettingDAO: Setting {
     }
     
     // Update
-    func updateSettingInLocalDB(settingId: Int64, notification: Bool? = nil, defaultView: View? = nil, defaultSort: SortingType? = nil,
+    func updateSettingInLocalDB(settingId: Int64, notification: Bool? = nil, Summary: String? = nil, defaultSort: SortingType? = nil,
                                 theme: Theme? = nil, availableDays: Int32? = nil, startTime: Int32? = nil, endTime: Int32? = nil) -> Bool {
         // Default local database path
         let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
@@ -83,9 +83,9 @@ final class SettingDAO: Setting {
         }
         
         var defaultViewQueryString = ""
-        if defaultView != nil {
+        if Summary != nil {
             defaultViewQueryString = " default_view = ?,"
-            argumentManager.append(String(defaultView!.rawValue) + "`int")
+            argumentManager.append(Summary! + "`txt")
         }
         
         var defaultSortQueryString = ""
@@ -186,13 +186,14 @@ final class SettingDAO: Setting {
         if sqlite3_step(stmt) == SQLITE_ROW {
             queryResult.append(sqlite3_column_int64(stmt, 0))
             queryResult.append(sqlite3_column_int(stmt, 1))
-            queryResult.append(sqlite3_column_int(stmt, 2))
+            queryResult.append(String(cString: sqlite3_column_text(stmt, 2)))
             queryResult.append(sqlite3_column_int(stmt, 3))
             queryResult.append(sqlite3_column_int(stmt, 4))
             queryResult.append(sqlite3_column_int(stmt, 5))
             queryResult.append(sqlite3_column_int(stmt, 6))
             queryResult.append(sqlite3_column_int(stmt, 7))
             queryResult.append(sqlite3_column_int(stmt, 8))
+            print(queryResult)
         }
         sqlite3_finalize(stmt)
         sqlite3_close(dbpointer)

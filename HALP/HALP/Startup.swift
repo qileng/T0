@@ -230,30 +230,16 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                     if userId != -1 {
                         syncDatabase(userId: userId, completion: { (flag) in
                             if flag {
+                                var user: UserData? = nil
                                 do {
-                                    let settingDAO = SettingDAO()
                                     let userDAO = UserDAO()
-                                    let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: userId)
-                                    let settingId = settingArray[0] as! Int64
-                                    let notification = settingArray[1] as! Int32 == 1 ? true : false
-                                    let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                                    let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
-                                    let sort = settingArray[4] as! Int32 == 0 ? SortingType.time : SortingType.priority
-                                    let avaliableDays = settingArray[5] as! Int32
-                                    let start = settingArray[6] as! Int32
-                                    let end = settingArray[7] as! Int32
-                                    
-                                    let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                                                              defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
-                                                              endTime: end, user: settingId)
-                                    
                                     let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
-                                    let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
-                                    TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
-                                    saveUser()
+                                    user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
                                 } catch {
                                     print("error")
                                 }
+                                
+                                loadSetting(user: user!)
                                 // Bring up rootViewController
 									activityIndicator.removeFromSuperview()
                                 self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
@@ -286,31 +272,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
     
     // Guest login
     @objc func guestLoginActionHandler() {
-        
-        let settingDAO = SettingDAO()
-        do {
-                
-            let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: 0)
-                
-            let settingId = settingArray[0] as! Int64
-            let notification = settingArray[1] as! Int32 == 1 ? true : false
-            let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-            let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
-            let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
-            let avaliableDays = settingArray[5] as! Int32
-            let start = settingArray[6] as! Int32
-            let end = settingArray[7] as! Int32
-                
-                
-            let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                                          defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
-                                          endTime: end, user: settingId)
-                
-            TaskManager.sharedTaskManager.setUp(new: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0), setting: userSetting, caller: self as UIViewController)
-                
-            }catch {
-                print("Error")
-            }
+            loadSetting(user: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0))
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
     }
     

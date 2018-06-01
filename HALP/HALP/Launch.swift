@@ -40,14 +40,14 @@ class LaunchViewController: UIViewController {
                         let settingId = settingArray[0] as! Int64
                         let notification = settingArray[1] as! Int32 == 1 ? true : false
                         let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                        let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
+                        let summary = settingArray[3] as! String
                         let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
                         let avaliableDays = settingArray[5] as! Int32
                         let start = settingArray[6] as! Int32
                         let end = settingArray[7] as! Int32
                         
                         let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                                                  defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                                  summary: summary, defaultSort: sort, availableDays: avaliableDays, startTime: start,
                                                   endTime: end, user: settingId)
                         TaskManager.sharedTaskManager.setUp(new: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0), setting: userSetting, caller: self as UIViewController)
                         

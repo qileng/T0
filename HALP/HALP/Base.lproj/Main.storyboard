@@ -899,24 +899,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Default View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVr-qv-HAu">
-                                <rect key="frame" x="16" y="100" width="288" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="CxL-9a-2Km">
-                                <rect key="frame" x="243" y="103" width="117" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Clock"/>
-                                    <segment title="List"/>
-                                </segments>
-                                <connections>
-                                    <action selector="defaultViewSegControl:" destination="PiT-cf-OIt" eventType="valueChanged" id="pUq-SH-rk2"/>
-                                </connections>
-                            </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Glg-vL-BA4">
                                 <rect key="frame" x="243" y="145" width="117" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1133,7 +1115,6 @@
                         <outlet property="themeSeg" destination="mgj-nL-uxE" id="5E8-pv-iO2"/>
                         <outlet property="thuSwitch" destination="ovy-kI-x64" id="AIi-fi-Pr2"/>
                         <outlet property="tueSwitch" destination="MEQ-ia-4kd" id="n5T-vk-IRQ"/>
-                        <outlet property="viewSeg" destination="CxL-9a-2Km" id="K7d-IQ-wGA"/>
                         <outlet property="wedSwitch" destination="D2f-q0-bJy" id="lgt-RI-slf"/>
                     </connections>
                 </viewController>

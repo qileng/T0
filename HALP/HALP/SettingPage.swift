@@ -76,12 +76,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         print(settingForm.getEndTime())*/
         
         self.notificationSwitch.setOn((!(self.settingForm.isNotificationOn())), animated: true)
-        
-        if (settingForm.getDefaultView().rawValue == 1){
-            viewSeg.selectedSegmentIndex = 1
-        } else {
-            viewSeg.selectedSegmentIndex = 0
-        }
+    
         
         if (settingForm.getDefaultSort().rawValue == 1){
             sortingMethodSeg.selectedSegmentIndex = 1
@@ -114,7 +109,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         super.viewWillDisappear(animated)
         
         let newSetting = Setting(setting: settingForm.getSettingID(), notification: settingForm.isNotificationOn(),
-                                 theme: settingForm.getTheme(), defaultView: settingForm.getDefaultView(),
+                                 theme: settingForm.getTheme(), summary: settingForm.getSummary(),
                                  defaultSort: settingForm.getDefaultSort(), availableDays: settingForm.getAvailableDays(),
                                  startTime: settingForm.getStartTime(), endTime: settingForm.getEndTime(),
                                  user: settingForm.getUserID())
@@ -134,16 +129,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     @IBAction func notificationSwitch(_ sender: UISwitch) {
         settingForm.toggleNotification()
-    }
-    
-    @IBAction func defaultViewSegControl(_ sender: UISegmentedControl) {
-        if (sender.selectedSegmentIndex == 0){
-            //Switch to Clock View
-            settingForm.setDefaultView(View(rawValue: 0)!)
-        } else if (sender.selectedSegmentIndex == 1) {
-            //Switch to List View
-            settingForm.setDefaultView(View(rawValue: 1)!)
-        }
     }
     
     @IBAction func defaultSortingMethodSegControl(_ sender: UISegmentedControl) {
@@ -309,12 +294,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 			print(self.settingForm.getEndTime())
 			*/
 			self.notificationSwitch.setOn((!(self.settingForm.isNotificationOn())), animated: true)
-			
-			if (self.settingForm.getDefaultView().rawValue == 1){
-				self.viewSeg.selectedSegmentIndex = 1
-			} else {
-				self.viewSeg.selectedSegmentIndex = 0
-			}
 			
 			if (self.settingForm.getDefaultSort().rawValue == 1){
 				self.sortingMethodSeg.selectedSegmentIndex = 1
