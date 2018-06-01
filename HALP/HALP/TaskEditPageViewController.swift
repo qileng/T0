@@ -427,7 +427,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc func keyboardShow(notification: Notification) {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
             {
                 let keyboardHeight:CGFloat = CGFloat(keyboardSize.height)
                 let y: CGFloat = self.view.frame.height - keyboardHeight - self.buttonStackView.frame.height
@@ -439,6 +439,20 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     fileprivate func observeKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardShow), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardHide), name: .UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboarFrameChange), name: .UIKeyboardWillChangeFrame, object: nil)
+
+    }
+    
+    @objc func keyboarFrameChange(notification: Notification)
+    {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            {
+                let keyboardHeight:CGFloat = CGFloat(keyboardSize.height)
+                let y: CGFloat = self.view.frame.height - keyboardHeight - self.buttonStackView.frame.height
+                self.buttonStackView.frame = CGRect(x: 0, y: y, width: self.buttonStackView.frame.width, height: self.buttonStackView.frame.height)
+            }
+        }, completion: nil)
     }
     
 //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
