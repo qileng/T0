@@ -204,13 +204,24 @@ class TaskManager {
 	
 	// Refresh TaskManager. In particular, check if any past task is in current collection.
 	func refreshTaskManager() {
+		var indexs = [Int]()
 		for (index,task) in self.tasks.enumerated() {
+			print(index)
 			if task.getScheduleStart() != 0 && task.getScheduleStart() + task.getDuration()	<= Int32(Date().timeIntervalSince1970) {
-				self.tasks.remove(at: index)
+				indexs.append(index)
 				pastTasks.append(task)
 				self.createCompletionAlert(task)
 			}
 		}
+		
+		indexs = indexs.sorted()
+		indexs = indexs.reversed()
+		
+		for index in indexs {
+			print(index)
+			self.tasks.remove(at: index)
+		}
+		
 		self.refresh()
 		self.sortTasks(by: .priority)
 		self.schedule()

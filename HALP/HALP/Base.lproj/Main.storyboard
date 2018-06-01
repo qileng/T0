@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ru0-5M-Ump">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ru0-5M-Ump">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -745,13 +745,13 @@
                                                 <action selector="Logout:" destination="PiT-cf-OIt" eventType="touchUpInside" id="pRg-LF-CgK"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="af5-y8-PEp">
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="af5-y8-PEp">
                                             <rect key="frame" x="143" y="630" width="90" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <state key="normal" title="Reset"/>
+                                            <state key="normal" title="Reset to default"/>
                                             <connections>
                                                 <action selector="reset:" destination="PiT-cf-OIt" eventType="touchUpInside" id="fWV-pl-IrP"/>
                                             </connections>
@@ -762,6 +762,18 @@
                                             <state key="normal" title="Sync"/>
                                             <connections>
                                                 <action selector="sync:" destination="PiT-cf-OIt" eventType="touchUpInside" id="pwu-CS-6yB"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="8sX-iJ-GaV">
+                                            <rect key="frame" x="0.0" y="630" width="90" height="40"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" title="Discard changes"/>
+                                            <connections>
+                                                <action selector="Discard:" destination="PiT-cf-OIt" eventType="touchUpInside" id="lZ9-R0-65O"/>
+                                                <action selector="reset:" destination="PiT-cf-OIt" eventType="touchUpInside" id="nXl-ah-0Me"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -1008,6 +1020,8 @@
                         <viewLayoutGuide key="safeArea" id="NYq-1U-oGf"/>
                     </view>
                     <connections>
+                        <outlet property="Discard" destination="8sX-iJ-GaV" id="SAF-Zf-NA0"/>
+                        <outlet property="Reset" destination="af5-y8-PEp" id="AAd-ia-hbz"/>
                         <outlet property="endTimeNum" destination="u1G-cP-edT" id="RE7-Jy-p47"/>
                         <outlet property="endTimePicker" destination="Q1g-MK-v9C" id="guY-Ef-Krk"/>
                         <outlet property="friSwitch" destination="4mc-Aa-HWN" id="vSb-GC-Qwc"/>
@@ -1132,7 +1146,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Traditional" width="120" height="212"/>
         <image name="sky1" width="372" height="696"/>
         <image name="wooder" width="480" height="699"/>
     </resources>
