@@ -291,7 +291,10 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         2) the tapped is under the shown date picker
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        if indexPath.section != textFieldCellSection || indexPath.section != textViewCellSection
+        {
+            self.view.endEditing(true)
+        }
         if indexPath.section == datePickerCellSection && indexPath.row != 0// the selected row is in section 1, but not first row in that section
         {
             let selectedCell = tableViewOutlet.cellForRow(at: indexPath)
