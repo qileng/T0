@@ -19,8 +19,8 @@ class SwitchTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         switchOutlet.isOn = UserDefaults.standard.bool(forKey: StartTimeModeKey)
-        switchOutlet.tintColor = taskColorTheme
-        switchOutlet.onTintColor = taskColorTheme
+        switchOutlet.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        switchOutlet.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

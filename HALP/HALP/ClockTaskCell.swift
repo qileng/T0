@@ -16,7 +16,7 @@ class ClockTaskCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = TaskManager.sharedTaskManager.getTheme().task
+        self.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
         self.layer.cornerRadius = 30
         //self.clipsToBounds = true
         
@@ -40,11 +40,11 @@ class ClockTaskCell: UICollectionViewCell {
         case .Relationship:
             taskImage = UIImageView(image: #imageLiteral(resourceName: "relationship"))
         }
-        taskImage.tintColor = TaskManager.sharedTaskManager.getTheme().text
+        taskImage.tintColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		
 		// Set up Title
 		taskName = UILabel()
-		taskName.textColor = TaskManager.sharedTaskManager.getTheme().text
+		taskName.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
         taskName.text = task.getTitle()
 		taskName.textAlignment = .center
 		
