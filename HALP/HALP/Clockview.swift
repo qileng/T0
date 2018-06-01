@@ -106,13 +106,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     @IBOutlet var timeButtons: [UIButton]!
     
 	// Listener to the buttons
-	@IBAction func onTap(_ sender: UIButton) {
-        let offset = calculateOffset()
-        
-        return offset
-    }
-    
-	// Listener to the buttons
     @IBAction func onTap(_ sender: UIButton) {
         let offset = calculateOffset()
         
