@@ -97,13 +97,13 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             themeSeg.selectedSegmentIndex = 0
         }
 
-		self.sunSwitch.setOn(((self.settingForm.getAvailableDays()) & 0b1 == 0), animated: true)
-		self.monSwitch.setOn((((self.settingForm.getAvailableDays()) >> 1) & 0b1 == 0), animated: true)
-		self.tueSwitch.setOn((((self.settingForm.getAvailableDays()) >> 2) & 0b1 == 0), animated: true)
-		self.wedSwitch.setOn((((self.settingForm.getAvailableDays()) >> 3) & 0b1 == 0), animated: true)
-		self.thuSwitch.setOn((((self.settingForm.getAvailableDays()) >> 4) & 0b1 == 0), animated: true)
-		self.friSwitch.setOn((((self.settingForm.getAvailableDays()) >> 5) & 0b1 == 0), animated: true)
-		self.satSwitch.setOn((((self.settingForm.getAvailableDays()) >> 6) & 0b1 == 0), animated: true)
+		self.sunSwitch.setOn(((self.settingForm.getAvailableDays()) & 0b1 == 1), animated: true)
+		self.monSwitch.setOn((((self.settingForm.getAvailableDays()) >> 1) & 0b1 == 1), animated: true)
+		self.tueSwitch.setOn((((self.settingForm.getAvailableDays()) >> 2) & 0b1 == 1), animated: true)
+		self.wedSwitch.setOn((((self.settingForm.getAvailableDays()) >> 3) & 0b1 == 1), animated: true)
+		self.thuSwitch.setOn((((self.settingForm.getAvailableDays()) >> 4) & 0b1 == 1), animated: true)
+		self.friSwitch.setOn((((self.settingForm.getAvailableDays()) >> 5) & 0b1 == 1), animated: true)
+		self.satSwitch.setOn((((self.settingForm.getAvailableDays()) >> 6) & 0b1 == 1), animated: true)
         startTimeNum.text = String(settingForm.getStartTime())
         endTimeNum.text = String(settingForm.getEndTime())
 		self.startTimePicker.selectRow(Int(self.settingForm.getStartTime()), inComponent: 0, animated: true)
@@ -330,13 +330,13 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 				self.themeSeg.selectedSegmentIndex = 0
 			}
 			
-			self.sunSwitch.setOn(((self.settingForm.getAvailableDays()) & 0b1 == 0), animated: true)
-			self.monSwitch.setOn((((self.settingForm.getAvailableDays()) >> 1) & 0b1 == 0), animated: true)
-			self.tueSwitch.setOn((((self.settingForm.getAvailableDays()) >> 2) & 0b1 == 0), animated: true)
-			self.wedSwitch.setOn((((self.settingForm.getAvailableDays()) >> 3) & 0b1 == 0), animated: true)
-			self.thuSwitch.setOn((((self.settingForm.getAvailableDays()) >> 4) & 0b1 == 0), animated: true)
-			self.friSwitch.setOn((((self.settingForm.getAvailableDays()) >> 5) & 0b1 == 0), animated: true)
-			self.satSwitch.setOn((((self.settingForm.getAvailableDays()) >> 6) & 0b1 == 0), animated: true)
+			self.sunSwitch.setOn(((self.settingForm.getAvailableDays()) & 0b1 == 1), animated: true)
+			self.monSwitch.setOn((((self.settingForm.getAvailableDays()) >> 1) & 0b1 == 1), animated: true)
+			self.tueSwitch.setOn((((self.settingForm.getAvailableDays()) >> 2) & 0b1 == 1), animated: true)
+			self.wedSwitch.setOn((((self.settingForm.getAvailableDays()) >> 3) & 0b1 == 1), animated: true)
+			self.thuSwitch.setOn((((self.settingForm.getAvailableDays()) >> 4) & 0b1 == 1), animated: true)
+			self.friSwitch.setOn((((self.settingForm.getAvailableDays()) >> 5) & 0b1 == 1), animated: true)
+			self.satSwitch.setOn((((self.settingForm.getAvailableDays()) >> 6) & 0b1 == 1), animated: true)
 			self.startTimeNum.text = String(self.settingForm.getStartTime())
 			self.endTimeNum.text = String(self.settingForm.getEndTime())
 			self.startTimePicker.selectRow(Int(self.settingForm.getStartTime()), inComponent: 0, animated: true)
