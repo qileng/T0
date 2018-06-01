@@ -34,6 +34,15 @@ extension UIColor {
         
         self.init(red: CGred, green: CGgreen, blue: CGblue, alpha: alpha)
     }
+	
+	func getHex() -> Int {
+		let components = self.cgColor.components!
+		var hex = 0
+		for (index, component) in components.enumerated() {
+			hex += Int(component*255) << ((2 - index)*8)
+		}
+		return hex
+	}
     
     struct HalpColors {
         //rgb(255,90,95)
