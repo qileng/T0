@@ -68,8 +68,8 @@ class UITaskDetail: UIView {
 		let title = UILabel(frame: self.frame)
 		title.textAlignment = .center
 		title.text = self.task?.getTitle()
-		title.textColor = TaskManager.sharedTaskManager.getTheme().text
-		title.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
+		title.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
+		title.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
 		title.font = (UIFont.preferredFont(forTextStyle: .headline)).withSize(20.0)
 		
 		let cateImg: UIImageView
@@ -84,25 +84,25 @@ class UITaskDetail: UIView {
 			cateImg = UIImageView(image: UIImage(named: "relationship"))
 		}
 		let cate = UIView(frame: self.frame)
-		cateImg.tintColor = TaskManager.sharedTaskManager.getTheme().text
+		cateImg.tintColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		cate.addSubview(cateImg)
-		cate.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
+		cate.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
 		
 		let description = UIPaddedLabel(frame: self.frame)
-		description.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
+		description.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
 		description.text = self.task!.getDescription()
-		description.textColor = TaskManager.sharedTaskManager.getTheme().text
+		description.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		description.numberOfLines = 0
 		//description.font = UIFont(name: "MarkerFelt-Thin", size: UIFont.systemFontSize)
 		description.drawText(in: description.frame)
 		description.sizeToFit()
 		
 		let duration = UIPaddedLabel(frame: self.frame)
-		duration.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
+		duration.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
 		duration.text = "Duration: "
 		duration.text! += String(self.task!.getDuration() / 3600) + " Hours "
 		duration.text! += String(self.task!.getDuration() % 3600 / 60) + " Minutes"
-		duration.textColor = TaskManager.sharedTaskManager.getTheme().text
+		duration.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		duration.drawText(in: duration.frame)
 		duration.textAlignment = .left
 		//duration.font = UIFont(name: "GillSans-LightItalic", size: UIFont.systemFontSize)
@@ -113,20 +113,20 @@ class UITaskDetail: UIView {
 		dateFormatter.timeZone = .current
 		
 		let scheduled = UIPaddedLabel(frame: self.frame)
-		scheduled.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
+		scheduled.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
 		(task!.getSchedule() == 0) ? (scheduled.text = "Halp suggests: Start on ") : (scheduled.text = "From ")
 		scheduled.text! += dateFormatter.string(from:  Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart())))
-		scheduled.textColor = TaskManager.sharedTaskManager.getTheme().text
+		scheduled.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		scheduled.drawText(in: scheduled.frame)
 		scheduled.textAlignment = .left
 		//scheduled.font = UIFont(name: "Noteworthy-Bold", size: UIFont.systemFontSize)
 		scheduled.numberOfLines = 0
 		
 		let deadline = UIPaddedLabel(frame: self.frame)
-		deadline.backgroundColor = TaskManager.sharedTaskManager.getTheme().taskBackground
+		deadline.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
 		(task!.getSchedule() == 0) ? (deadline.text = "Due on: ") : (deadline.text = "To ")
 		deadline.text! += dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(self.task!.getDeadline())))
-		deadline.textColor = TaskManager.sharedTaskManager.getTheme().text
+		deadline.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		deadline.drawText(in: deadline.frame)
 		deadline.textAlignment = .left
 		deadline.numberOfLines = 0
@@ -134,7 +134,7 @@ class UITaskDetail: UIView {
 		
 		let img = #imageLiteral(resourceName: "Cog")
 		setting.setImage(img, for: .normal)
-		setting.imageView!.tintColor = TaskManager.sharedTaskManager.getTheme().text		
+		setting.imageView!.tintColor = TaskManager.sharedTaskManager.getTheme().background
 		setting.imageView!.transform = CGAffineTransform(rotationAngle: .pi / 2.0)
 		setting.addTarget(setting, action: #selector(setting.rotate), for: .touchUpInside)
 		
