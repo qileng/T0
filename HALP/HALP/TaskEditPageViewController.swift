@@ -49,8 +49,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     var titleTextFieldCell:TextFieldTableViewCell?
     var descriptionTextViewCell: TextViewTableViewCell?
     var isStartTimeMode:Bool = UserDefaults.standard.bool(forKey: StartTimeModeKey)
-//   UserDefaults.standard.set(true, forKey: StartTimeModeKey))
-    //UserDefaults.standard.bool(forKey: StartTimeModeKey)
 
     var isEditMode:Bool = false
     var taskToEdit:Task?
