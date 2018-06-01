@@ -19,7 +19,11 @@ class UIBar: UILabel {
 	
 	func grow() {
 		//self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.width, height: -100)
-		self.transform = CGAffineTransform(scaleX: 1.0, y: CGFloat(size) / 2)
+		if size == 0 {
+			return
+		} else {
+			self.transform = CGAffineTransform(scaleX: 1.0, y: CGFloat(size) / 2)
+		}
 		//self.layer.transform = CATransform3DScale(CATransform3DIdentity, 1.0, 50.0, 1.1)
 	}
 	
