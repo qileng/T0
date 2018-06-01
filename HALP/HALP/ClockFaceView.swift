@@ -40,12 +40,16 @@ class ClockFaceView: UIView {
 		let arcWidth: CGFloat = 0
 		let startAngle: CGFloat = 0
 		let endAngle: CGFloat = π/6
+		// Calculate current hour
+		let current = Calendar.current.component(.hour, from: Date()) % 12
+		print("Current Hour: ", current)
+		let offset = current - 3 	// Seems like 0 degree is pointing EAST
 		
 		//Draws sectors behind clock
 		for index in 0...11 {
 			let path = UIBezierPath()
 			path.move(to: center)
-			path.addArc(withCenter: center, radius: radius-(bounds.height * 0.083), startAngle: (startAngle+(CGFloat(index)*endAngle)), endAngle: (endAngle+(CGFloat(index)*endAngle)), clockwise: true)
+			path.addArc(withCenter: center, radius: radius-(bounds.height * 0.083), startAngle: (startAngle+(CGFloat(index+offset)*endAngle)), endAngle: (endAngle+(CGFloat(index+offset)*endAngle)), clockwise: true)
 			path.close()
 			
 			let hex = TaskManager.sharedTaskManager.getTheme().tableBackground.getHex()
