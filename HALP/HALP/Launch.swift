@@ -32,28 +32,7 @@ class LaunchViewController: UIViewController {
             if error != nil {
                 let alert = UIAlertController(title: "No internet connection!", message: "Please connect to internet and restart the app or procced as guest", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Proceed as guest", style: .cancel, handler: { (action) in
-                    
-                    let settingDAO = SettingDAO()
-                    do {
-                        let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: 0)
-                        
-                        let settingId = settingArray[0] as! Int64
-                        let notification = settingArray[1] as! Int32 == 1 ? true : false
-                        let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                        let summary = settingArray[3] as! String
-                        let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
-                        let avaliableDays = settingArray[5] as! Int32
-                        let start = settingArray[6] as! Int32
-                        let end = settingArray[7] as! Int32
-                        
-                        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                                                  summary: summary, defaultSort: sort, availableDays: avaliableDays, startTime: start,
-                                                  endTime: end, user: settingId)
-                        TaskManager.sharedTaskManager.setUp(new: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0), setting: userSetting, caller: self as UIViewController)
-                        
-                    }catch {
-                        print("Error")
-                    }
+                    loadSetting(user: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0))
                     DispatchQueue.global().async {
                         DispatchQueue.main.sync {
                             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
@@ -73,7 +52,7 @@ class LaunchViewController: UIViewController {
                     } else {
                         DispatchQueue.global().async {
                             DispatchQueue.main.sync {
-                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController"))!, animated: true, completion: nil)
+                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "Startup"))!, animated: true, completion: nil)
                             }
                         }
                     }
