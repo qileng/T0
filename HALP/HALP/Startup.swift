@@ -240,6 +240,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                                 }
                                 
                                 loadSetting(user: user!)
+								_ = saveUser()
                                 // Bring up rootViewController
 									activityIndicator.removeFromSuperview()
                                 self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)

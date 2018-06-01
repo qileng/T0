@@ -161,7 +161,7 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                     do {
                         let oldTasks = try taskQueryDAO.fetchTaskIdListFromLocalDB(userId: userId)
                         for taskId in oldTasks {
-                            taskQueryDAO.deleteTaskFromLocalDB(taskId: taskId)
+                            _ = taskQueryDAO.deleteTaskFromLocalDB(taskId: taskId)
                         }
                     } catch {
                         print("cannot delete task")
@@ -266,13 +266,17 @@ func loadSavedUser(completion: @escaping (Bool) -> Void) {
     syncDatabase(userId: id, completion: { (flag) in
         if flag {
             do {
-                let settingDAO = SettingDAO()
+                //let settingDAO = SettingDAO()
                 let userDAO = UserDAO()
+				let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: id)
+				let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
+				loadSetting(user: user)
+				/*
                 let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: id)
                 let settingId = settingArray[0] as! Int64
                 let notification = settingArray[1] as! Int32 == 1 ? true : false
-                let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                let summary = settingArray[3] as! String
+                let theme = settingArray[3] as! Int32 == 1 ? Theme.dark : Theme.regular
+                let summary = settingArray[2] as! String
                 let sort = settingArray[4] as! Int32 == 0 ? SortingType.time : SortingType.priority
                 let avaliableDays = settingArray[5] as! Int32
                 let start = settingArray[6] as! Int32
@@ -285,6 +289,7 @@ func loadSavedUser(completion: @escaping (Bool) -> Void) {
                 let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: id)
                 let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
                 TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+				*/
             } catch {
                 completion(false)
             }
