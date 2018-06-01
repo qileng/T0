@@ -25,13 +25,63 @@ class LaunchViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        loadSavedUser(completion: { (flag) in
-            if flag {
-                self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+        let url = URL(string: Database.database().reference().description())
+        
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            print( "Request: ", error == nil )
+            if error != nil {
+                let alert = UIAlertController(title: "No internet connection!", message: "Please connect to internet and restart the app or procced as guest", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Proceed as guest", style: .cancel, handler: { (action) in
+                    
+                    let settingDAO = SettingDAO()
+                    do {
+                        let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: 0)
+                        
+                        let settingId = settingArray[0] as! Int64
+                        let notification = settingArray[1] as! Int32 == 1 ? true : false
+                        let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
+                        let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
+                        let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
+                        let avaliableDays = settingArray[5] as! Int32
+                        let start = settingArray[6] as! Int32
+                        let end = settingArray[7] as! Int32
+                        
+                        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                                  defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                                  endTime: end, user: settingId)
+                        TaskManager.sharedTaskManager.setUp(new: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0), setting: userSetting, caller: self as UIViewController)
+                        
+                    }catch {
+                        print("Error")
+                    }
+					DispatchQueue.global().async {
+						DispatchQueue.main.sync {
+							self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+						}
+					}
+                }))
+                self.present(alert, animated: true)
+                
             } else {
-                self.present((self.storyboard?.instantiateViewController(withIdentifier: "Startup"))!, animated: true, completion: nil)
+                loadSavedUser(completion: { (flag) in
+                    if flag {
+						DispatchQueue.global().async {
+							DispatchQueue.main.sync {
+								self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+							}
+						}
+					} else {
+						DispatchQueue.global().async {
+							DispatchQueue.main.sync {
+								self.present((self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController"))!, animated: true, completion: nil)
+							}
+						}
+                    }
+                })
             }
-        })
+        }
+        
+        task.resume()
     }
     
     
