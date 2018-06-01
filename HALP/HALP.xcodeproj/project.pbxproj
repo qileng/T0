@@ -1,10 +1,10 @@
 // !$*UTF8*$!
 {
-    archiveVersion = 1;
-    classes = {
-    };
-    objectVersion = 50;
-    objects = {
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
 
 /* Begin PBXBuildFile section */
 		414E302A20BBD62400F05637 /* leveldb-library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E301D20BBD62300F05637 /* leveldb-library.framework */; };
@@ -117,6 +117,9 @@
 		ED6C2A59209302660063B4AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */; };
 		ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A63209302660063B4AC /* HALPTests.swift */; };
 		ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A6E209302660063B4AC /* HALPUITests.swift */; };
+		ED91AC4920C0EFB800757038 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91AC4820C0EFB800757038 /* SummaryView.swift */; };
+		ED91AC4A20C0EFB800757038 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91AC4820C0EFB800757038 /* SummaryView.swift */; };
+		ED91AC4B20C0EFB800757038 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91AC4820C0EFB800757038 /* SummaryView.swift */; };
 		ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE994209AB14B00F0DB56 /* UserData.swift */; };
 		ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
 		EDB498A320BD3B7D00A52839 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4989E20BD3B7D00A52839 /* SwitchTableViewCell.swift */; };
@@ -155,20 +158,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-        ED6C2A60209302660063B4AC /* PBXContainerItemProxy */ = {
-            isa = PBXContainerItemProxy;
-            containerPortal = ED6C2A3F209302640063B4AC /* Project object */;
-            proxyType = 1;
-            remoteGlobalIDString = ED6C2A46209302640063B4AC;
-            remoteInfo = HALP;
-        };
-        ED6C2A6B209302660063B4AC /* PBXContainerItemProxy */ = {
-            isa = PBXContainerItemProxy;
-            containerPortal = ED6C2A3F209302640063B4AC /* Project object */;
-            proxyType = 1;
-            remoteGlobalIDString = ED6C2A46209302640063B4AC;
-            remoteInfo = HALP;
-        };
+		ED6C2A60209302660063B4AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED6C2A3F209302640063B4AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED6C2A46209302640063B4AC;
+			remoteInfo = HALP;
+		};
+		ED6C2A6B209302660063B4AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED6C2A3F209302640063B4AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED6C2A46209302640063B4AC;
+			remoteInfo = HALP;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -219,6 +222,7 @@
 		ED6C2A6E209302660063B4AC /* HALPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HALPUITests.swift; sourceTree = "<group>"; };
 		ED6C2A70209302660063B4AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED6C2A7C2093052E0063B4AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		ED91AC4820C0EFB800757038 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		ED9FE994209AB14B00F0DB56 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		ED9FE995209AB14B00F0DB56 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
 		EDB4989E20BD3B7D00A52839 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
@@ -351,6 +355,7 @@
 				EDDEE2502097CA730078827A /* Startup.swift */,
 				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
+				ED91AC4820C0EFB800757038 /* SummaryView.swift */,
 			);
 			name = "View Classes";
 			sourceTree = "<group>";
@@ -492,100 +497,100 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-        ED6C2A46209302640063B4AC /* HALP */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = ED6C2A73209302660063B4AC /* Build configuration list for PBXNativeTarget "HALP" */;
-            buildPhases = (
-                ED6C2A43209302640063B4AC /* Sources */,
-                ED6C2A44209302640063B4AC /* Frameworks */,
-                ED6C2A45209302640063B4AC /* Resources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-            );
-            name = HALP;
-            productName = HALP;
-            productReference = ED6C2A47209302640063B4AC /* HALP.app */;
-            productType = "com.apple.product-type.application";
-        };
-        ED6C2A5E209302660063B4AC /* HALPTests */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = ED6C2A76209302660063B4AC /* Build configuration list for PBXNativeTarget "HALPTests" */;
-            buildPhases = (
-                ED6C2A5B209302660063B4AC /* Sources */,
-                ED6C2A5C209302660063B4AC /* Frameworks */,
-                ED6C2A5D209302660063B4AC /* Resources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-                ED6C2A61209302660063B4AC /* PBXTargetDependency */,
-            );
-            name = HALPTests;
-            productName = HALPTests;
-            productReference = ED6C2A5F209302660063B4AC /* HALPTests.xctest */;
-            productType = "com.apple.product-type.bundle.unit-test";
-        };
-        ED6C2A69209302660063B4AC /* HALPUITests */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = ED6C2A79209302660063B4AC /* Build configuration list for PBXNativeTarget "HALPUITests" */;
-            buildPhases = (
-                ED6C2A66209302660063B4AC /* Sources */,
-                ED6C2A67209302660063B4AC /* Frameworks */,
-                ED6C2A68209302660063B4AC /* Resources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-                ED6C2A6C209302660063B4AC /* PBXTargetDependency */,
-            );
-            name = HALPUITests;
-            productName = HALPUITests;
-            productReference = ED6C2A6A209302660063B4AC /* HALPUITests.xctest */;
-            productType = "com.apple.product-type.bundle.ui-testing";
-        };
+		ED6C2A46209302640063B4AC /* HALP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED6C2A73209302660063B4AC /* Build configuration list for PBXNativeTarget "HALP" */;
+			buildPhases = (
+				ED6C2A43209302640063B4AC /* Sources */,
+				ED6C2A44209302640063B4AC /* Frameworks */,
+				ED6C2A45209302640063B4AC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HALP;
+			productName = HALP;
+			productReference = ED6C2A47209302640063B4AC /* HALP.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ED6C2A5E209302660063B4AC /* HALPTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED6C2A76209302660063B4AC /* Build configuration list for PBXNativeTarget "HALPTests" */;
+			buildPhases = (
+				ED6C2A5B209302660063B4AC /* Sources */,
+				ED6C2A5C209302660063B4AC /* Frameworks */,
+				ED6C2A5D209302660063B4AC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ED6C2A61209302660063B4AC /* PBXTargetDependency */,
+			);
+			name = HALPTests;
+			productName = HALPTests;
+			productReference = ED6C2A5F209302660063B4AC /* HALPTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		ED6C2A69209302660063B4AC /* HALPUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED6C2A79209302660063B4AC /* Build configuration list for PBXNativeTarget "HALPUITests" */;
+			buildPhases = (
+				ED6C2A66209302660063B4AC /* Sources */,
+				ED6C2A67209302660063B4AC /* Frameworks */,
+				ED6C2A68209302660063B4AC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ED6C2A6C209302660063B4AC /* PBXTargetDependency */,
+			);
+			name = HALPUITests;
+			productName = HALPUITests;
+			productReference = ED6C2A6A209302660063B4AC /* HALPUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-        ED6C2A3F209302640063B4AC /* Project object */ = {
-            isa = PBXProject;
-            attributes = {
-                LastSwiftUpdateCheck = 0930;
-                LastUpgradeCheck = 0930;
-                ORGANIZATIONNAME = "Team Zero";
-                TargetAttributes = {
-                    ED6C2A46209302640063B4AC = {
-                        CreatedOnToolsVersion = 9.3;
-                    };
-                    ED6C2A5E209302660063B4AC = {
-                        CreatedOnToolsVersion = 9.3;
-                        TestTargetID = ED6C2A46209302640063B4AC;
-                    };
-                    ED6C2A69209302660063B4AC = {
-                        CreatedOnToolsVersion = 9.3;
-                        TestTargetID = ED6C2A46209302640063B4AC;
-                    };
-                };
-            };
-            buildConfigurationList = ED6C2A42209302640063B4AC /* Build configuration list for PBXProject "HALP" */;
-            compatibilityVersion = "Xcode 9.3";
-            developmentRegion = en;
-            hasScannedForEncodings = 0;
-            knownRegions = (
-                en,
-                Base,
-            );
-            mainGroup = ED6C2A3E209302640063B4AC;
-            productRefGroup = ED6C2A48209302640063B4AC /* Products */;
-            projectDirPath = "";
-            projectRoot = "";
-            targets = (
-                ED6C2A46209302640063B4AC /* HALP */,
-                ED6C2A5E209302660063B4AC /* HALPTests */,
-                ED6C2A69209302660063B4AC /* HALPUITests */,
-            );
-        };
+		ED6C2A3F209302640063B4AC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Team Zero";
+				TargetAttributes = {
+					ED6C2A46209302640063B4AC = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					ED6C2A5E209302660063B4AC = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = ED6C2A46209302640063B4AC;
+					};
+					ED6C2A69209302660063B4AC = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = ED6C2A46209302640063B4AC;
+					};
+				};
+			};
+			buildConfigurationList = ED6C2A42209302640063B4AC /* Build configuration list for PBXProject "HALP" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ED6C2A3E209302640063B4AC;
+			productRefGroup = ED6C2A48209302640063B4AC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ED6C2A46209302640063B4AC /* HALP */,
+				ED6C2A5E209302660063B4AC /* HALPTests */,
+				ED6C2A69209302660063B4AC /* HALPUITests */,
+			);
+		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -652,6 +657,7 @@
 				EDB498A620BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */,
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
+				ED91AC4920C0EFB800757038 /* SummaryView.swift in Sources */,
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
 				4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
@@ -679,6 +685,7 @@
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
 				EDB498BC20BD3C0D00A52839 /* ListTaskViewController.swift in Sources */,
 				ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */,
+				ED91AC4A20C0EFB800757038 /* SummaryView.swift in Sources */,
 				ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */,
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
@@ -723,6 +730,7 @@
 				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,
 				EDB498BD20BD3C0D00A52839 /* ListTaskViewController.swift in Sources */,
 				ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */,
+				ED91AC4B20C0EFB800757038 /* SummaryView.swift in Sources */,
 				ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */,
 				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
@@ -755,35 +763,35 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-        ED6C2A61209302660063B4AC /* PBXTargetDependency */ = {
-            isa = PBXTargetDependency;
-            target = ED6C2A46209302640063B4AC /* HALP */;
-            targetProxy = ED6C2A60209302660063B4AC /* PBXContainerItemProxy */;
-        };
-        ED6C2A6C209302660063B4AC /* PBXTargetDependency */ = {
-            isa = PBXTargetDependency;
-            target = ED6C2A46209302640063B4AC /* HALP */;
-            targetProxy = ED6C2A6B209302660063B4AC /* PBXContainerItemProxy */;
-        };
+		ED6C2A61209302660063B4AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED6C2A46209302640063B4AC /* HALP */;
+			targetProxy = ED6C2A60209302660063B4AC /* PBXContainerItemProxy */;
+		};
+		ED6C2A6C209302660063B4AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED6C2A46209302640063B4AC /* HALP */;
+			targetProxy = ED6C2A6B209302660063B4AC /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-        ED6C2A52209302650063B4AC /* Main.storyboard */ = {
-            isa = PBXVariantGroup;
-            children = (
-                ED6C2A53209302650063B4AC /* Base */,
-            );
-            name = Main.storyboard;
-            sourceTree = "<group>";
-        };
-        ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */ = {
-            isa = PBXVariantGroup;
-            children = (
-                ED6C2A58209302660063B4AC /* Base */,
-            );
-            name = LaunchScreen.storyboard;
-            sourceTree = "<group>";
-        };
+		ED6C2A52209302650063B4AC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED6C2A53209302650063B4AC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED6C2A58209302660063B4AC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1058,43 +1066,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-        ED6C2A42209302640063B4AC /* Build configuration list for PBXProject "HALP" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                ED6C2A71209302660063B4AC /* Debug */,
-                ED6C2A72209302660063B4AC /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
-        ED6C2A73209302660063B4AC /* Build configuration list for PBXNativeTarget "HALP" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                ED6C2A74209302660063B4AC /* Debug */,
-                ED6C2A75209302660063B4AC /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
-        ED6C2A76209302660063B4AC /* Build configuration list for PBXNativeTarget "HALPTests" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                ED6C2A77209302660063B4AC /* Debug */,
-                ED6C2A78209302660063B4AC /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
-        ED6C2A79209302660063B4AC /* Build configuration list for PBXNativeTarget "HALPUITests" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                ED6C2A7A209302660063B4AC /* Debug */,
-                ED6C2A7B209302660063B4AC /* Release */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
+		ED6C2A42209302640063B4AC /* Build configuration list for PBXProject "HALP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED6C2A71209302660063B4AC /* Debug */,
+				ED6C2A72209302660063B4AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED6C2A73209302660063B4AC /* Build configuration list for PBXNativeTarget "HALP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED6C2A74209302660063B4AC /* Debug */,
+				ED6C2A75209302660063B4AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED6C2A76209302660063B4AC /* Build configuration list for PBXNativeTarget "HALPTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED6C2A77209302660063B4AC /* Debug */,
+				ED6C2A78209302660063B4AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED6C2A79209302660063B4AC /* Build configuration list for PBXNativeTarget "HALPUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED6C2A7A209302660063B4AC /* Debug */,
+				ED6C2A7B209302660063B4AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
-    };
-    rootObject = ED6C2A3F209302640063B4AC /* Project object */;
+	};
+	rootObject = ED6C2A3F209302640063B4AC /* Project object */;
 }
