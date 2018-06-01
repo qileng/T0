@@ -12,11 +12,6 @@ import Foundation
 // This class is also the parent class of SettingDAO and SettingForm.
 // This class is in Business Logic Layer.
 
-enum View: Int{
-	case clock = 0
-	case list = 1
-}
-
 class Setting {
 	
 	// Primary key for this object in database
@@ -31,7 +26,7 @@ class Setting {
 	//	Add it as a optional paramter in the main initializer with a default value. Then add a getter
 	//	and a setter.
 	private var notificationOn: Bool = true
-	private var defaultView: View = .clock
+	private var summary = "0,0,0,0,0,0,0,0"
 	private var defaultSort: SortingType = .time
 	private var theme: Theme = .regular
 	// By default available 7 days a week. Format: SatFriThuWedTuesMonSun
@@ -42,13 +37,13 @@ class Setting {
 	// Main Initializer.
 	// Everything is option except userID. Setting should not be created without a user.
 	init(setting sid: Int64 = 0, notification n: Bool = true, theme t: Theme = .regular,
-		 defaultView v: View = .clock, defaultSort sort: SortingType = .time , availableDays d: Int32 = 0b1111111, startTime s: Int32 = 8,
+		 summary sum: String = "0,0,0,0,0,0,0,0", defaultSort sort: SortingType = .time , availableDays d: Int32 = 0b1111111, startTime s: Int32 = 8,
 		 endTime e: Int32 = 24, user uid: Int64) {
 		self.userID = uid
 		self.settingID = sid
 		self.notificationOn = n
 		self.theme = t
-		self.defaultView = v
+		self.summary = sum
 		self.defaultSort = sort
 		self.startTime = s
 		self.availableDays = d
@@ -78,7 +73,7 @@ class Setting {
 		self.userID = origin.getUserID()
 		self.settingID = origin.getSettingID()
 		self.notificationOn = origin.isNotificationOn()
-		self.defaultView = origin.getDefaultView()
+		self.summary = origin.getSummary()
 		self.theme = origin.getTheme()
 		self.startTime = origin.getStartTime()
 		self.endTime = origin.getEndTime()
@@ -99,8 +94,8 @@ class Setting {
 		return self.userID
 	}
 	
-	func getDefaultView() -> (View) {
-		return self.defaultView
+	func getSummary() -> (String) {
+		return self.summary
 	}
 	
 	func getTheme() -> (Theme) {
@@ -128,8 +123,8 @@ class Setting {
 		self.notificationOn = !self.notificationOn
 	}
 
-	func setDefaultView(_ v: View) {
-		self.defaultView = v
+	func setSummary(_ s: String) {
+		self.summary = s
 	}
 	
 	func setTheme(_ t: Theme) {

@@ -126,8 +126,16 @@ class SummaryViewController: UIViewController {
 		super.viewDidAppear(animated)
 		
 		updateColor()
-		
-		self.populateDate("100,85,60,30,80,55,150,120")
+		let settingDAO = SettingDAO()
+        var summaryString: String = "0,0,0,0,0,0,0,0"
+        do {
+            let setting = try settingDAO.fetchSettingFromLocalDB(settingId: TaskManager.sharedTaskManager.getUser().getUserID())
+            summaryString = setting[2] as! String
+        } catch {
+            print("cannot initialize summary report")
+        }
+        
+		self.populateDate(summaryString)
 		let scale = chartView.frame.height * 0.75 / CGFloat(data.max()!)
 		maxY.text = String(data.max()!, radix: 10)
 		maxY.textAlignment = .center

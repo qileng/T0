@@ -68,7 +68,7 @@ class TaskManager {
         self.setting = setting
         let newSetting = SettingDAO(self.setting!)
         _ = newSetting.updateSettingInLocalDB(settingId: newSetting.getSettingID(), notification: newSetting.isNotificationOn(),
-                                       defaultView: newSetting.getDefaultView(), defaultSort: newSetting.getDefaultSort(),
+                                              Summary: newSetting.getSummary(), defaultSort: newSetting.getDefaultSort(),
                                        theme: newSetting.getTheme(), availableDays: newSetting.getAvailableDays(),
                                        startTime: newSetting.getStartTime(), endTime: newSetting.getEndTime())
         switch self.setting!.getTheme() {
