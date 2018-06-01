@@ -13,12 +13,12 @@ import CFNetwork
 
 class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-	var viewName = "Setting Page"
+    var viewName = "Setting Page"
     var settingForm: SettingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
     
-	@IBOutlet weak var Discard: UIButton!
-	@IBOutlet weak var Reset: UIButton!
-	@IBOutlet weak var notificationSwitch: UISwitch!
+    @IBOutlet weak var Discard: UIButton!
+    @IBOutlet weak var Reset: UIButton!
+    @IBOutlet weak var notificationSwitch: UISwitch!
     @IBOutlet weak var viewSeg: UISegmentedControl!
     @IBOutlet weak var sortingMethodSeg: UISegmentedControl!
     @IBOutlet weak var themeSeg: UISegmentedControl!
@@ -40,27 +40,27 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var endTimeNum: UILabel!
 
     override func viewDidLoad() {
-		super.viewDidLoad()
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		// Prompt past task alerts
-		TaskManager.sharedTaskManager.promptNextAlert(self)
-	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		Discard.titleLabel!.textAlignment = .center
-		Reset.titleLabel!.textAlignment = .center
+        super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Prompt past task alerts
+        TaskManager.sharedTaskManager.promptNextAlert(self)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Discard.titleLabel!.textAlignment = .center
+        Reset.titleLabel!.textAlignment = .center
 
-		TaskManager.sharedTaskManager.refreshTaskManager()
-		
+        TaskManager.sharedTaskManager.refreshTaskManager()
+        
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
         //initialize databse settings
@@ -75,7 +75,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         print(settingForm.getStartTime())
         print(settingForm.getEndTime())*/
         
-		self.notificationSwitch.setOn((!(self.settingForm.isNotificationOn())), animated: true)
+        self.notificationSwitch.setOn((!(self.settingForm.isNotificationOn())), animated: true)
         
         if (settingForm.getDefaultView().rawValue == 1){
             viewSeg.selectedSegmentIndex = 1

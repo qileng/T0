@@ -54,28 +54,28 @@ class LaunchViewController: UIViewController {
                     }catch {
                         print("Error")
                     }
-					DispatchQueue.global().async {
-						DispatchQueue.main.sync {
-							self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-						}
-					}
+                    DispatchQueue.global().async {
+                        DispatchQueue.main.sync {
+                            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+                        }
+                    }
                 }))
                 self.present(alert, animated: true)
                 
             } else {
                 loadSavedUser(completion: { (flag) in
                     if flag {
-						DispatchQueue.global().async {
-							DispatchQueue.main.sync {
-								self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-							}
-						}
-					} else {
-						DispatchQueue.global().async {
-							DispatchQueue.main.sync {
-								self.present((self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController"))!, animated: true, completion: nil)
-							}
-						}
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.sync {
+                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+                            }
+                        }
+                    } else {
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.sync {
+                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController"))!, animated: true, completion: nil)
+                            }
+                        }
                     }
                 })
             }

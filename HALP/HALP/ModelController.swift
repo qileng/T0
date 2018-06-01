@@ -20,6 +20,8 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 //    let listView: ListTaskViewController
     let listNavVC: UINavigationController
 	let settingPage: SettingViewController
+	let summaryNVC: UINavigationController
+	let summaryVC: SummaryViewController
 	var page: [UIViewController]
 
 
@@ -33,11 +35,13 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 //        let listView = storyboard.instantiateViewController(withIdentifier: "ListTaskViewController") as! ListTaskViewController
         listNavVC = UINavigationController(rootViewController: listView)
 //        listNavVC.isNavigationBarHidden = true
+		summaryVC = SummaryViewController()
+		summaryNVC = UINavigationController(rootViewController: summaryVC)
         
         
         
 		// initialize page switching array
-		self.page = [listNavVC, clockView, settingPage]
+		self.page = [listNavVC, clockView, settingPage, summaryNVC]
 	    super.init()
 	}
 

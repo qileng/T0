@@ -147,7 +147,7 @@ class TaskManager {
             // Set a current time.
             let current = Int32(Date().timeIntervalSince1970)
             // The loaded task has passed its scheduled end time.
-            if loadedTask.getScheduleStart()+loadedTask.getDuration() < current && loadedTask.getScheduleStart() != 0 && self.viewController != nil {
+            if (loadedTask.getScheduleStart() != 0 && loadedTask.getScheduleStart() + loadedTask.getDuration() <= current) || (loadedTask.getDeadline() <= current) {
                 pastTasks.append(loadedTask)
                 createCompletionAlert(loadedTask)
                 continue
@@ -216,7 +216,7 @@ class TaskManager {
         var indexs = [Int]()
         for (index,task) in self.tasks.enumerated() {
             print(index)
-            if task.getScheduleStart() != 0 && task.getScheduleStart() + task.getDuration()    <= Int32(Date().timeIntervalSince1970) {
+			if (task.getScheduleStart() != 0 && task.getScheduleStart() + task.getDuration() <= Int32(Date().timeIntervalSince1970)) || (task.getDeadline() <= Int32(Date().timeIntervalSince1970)) {
                 indexs.append(index)
                 pastTasks.append(task)
                 self.createCompletionAlert(task)
