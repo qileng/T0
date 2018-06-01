@@ -238,7 +238,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                                     let notification = settingArray[1] as! Int32 == 1 ? true : false
                                     let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
                                     let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
-                                    let sort = settingArray[4] as! Int32 == 1 ? SortingType.time : SortingType.priority
+                                    let sort = settingArray[4] as! Int32 == 0 ? SortingType.time : SortingType.priority
                                     let avaliableDays = settingArray[5] as! Int32
                                     let start = settingArray[6] as! Int32
                                     let end = settingArray[7] as! Int32
