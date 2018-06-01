@@ -140,7 +140,7 @@ class SummaryViewController: UIViewController {
 		maxY.text = String(data.max()!, radix: 10)
 		maxY.textAlignment = .center
 		self.view.addSubview(maxY)
-		maxY.anchor(top: yAxis.topAnchor, left: nil, right: yAxis.leftAnchor, bottom: nil, topConstant: yAxis.frame.height * 0.25, leftConstant: 0, rightConstant: 3, bottomConstant: 0, width: 29, height: 19, centerX: nil, centerY: nil)
+		maxY.anchor(top: yAxis.topAnchor, left: nil, right: yAxis.leftAnchor, bottom: nil, topConstant: yAxis.frame.height * 0.25, leftConstant: 0, rightConstant: 3, bottomConstant: 0, width: 20, height: 10, centerX: nil, centerY: nil)
 		
 		// Do animation.
 		for (index,subview) in self.chartView.subviews.enumerated() {
