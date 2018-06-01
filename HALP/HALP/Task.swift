@@ -313,18 +313,36 @@ class Task {
     
 	// Comparison function overloads operator >
 	static func > (left: Task, right: Task) -> (Bool) {
+		if left.getPriority() == right.getPriority() {
+			if left.getScheduleStart() == right.getScheduleStart() {
+				return left.getTaskId() < right.getTaskId()
+			}
+			return left << right
+		}
 		return left.getPriority() > right.getPriority()
 	}
 	
 	static func < (left: Task, right: Task) -> (Bool) {
+		if left.getPriority() == right.getPriority() {
+			if left.getScheduleStart() == right.getScheduleStart() {
+				return left.getTaskId() < right.getTaskId()
+			}
+			return left >> right
+		}
 		return left.getPriority() < right.getPriority()
 	}
 	
 	static func >> (left: Task, right: Task) -> (Bool) {
+		if left.getScheduleStart() == right.getScheduleStart() {
+			return left < right
+		}
 		return left.getScheduleStart() > right.getScheduleStart()
 	}
 	
 	static func << (left: Task, right: Task) -> (Bool) {
+		if left.getScheduleStart() == right.getScheduleStart() {
+			return left > right
+		}
 		return left.getScheduleStart() < right.getScheduleStart()
 	}
 }
