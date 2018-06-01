@@ -92,6 +92,11 @@ final class TaskDAO: Task {
             }
             
             sqlite3_close(dbpointer)
+            
+            if !updateSummaryRecord(taskId: taskId, isCreate: true) {
+                return false
+            }
+            
             return true
         } else {
             let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
@@ -385,6 +390,11 @@ final class TaskDAO: Task {
                 print("Fake task id is no longer supported")
                 return false
             }
+            
+            if !updateSummaryRecord(taskId: taskId, isCreate: false) {
+                return false
+            }
+            
             let userId = userInfo["user_id"] as! Int64
             let userDAO = UserDAO()
             let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
@@ -400,6 +410,8 @@ final class TaskDAO: Task {
             return false
         }
         
+        
+        
         // SQL statement for deleting a row from database base on taskId
         let deleteQueryString = "DELETE FROM TaskData WHERE task_id=" + String(taskId)
         
@@ -414,4 +426,95 @@ final class TaskDAO: Task {
             return false
         }
     }
+}
+
+
+// Helper method
+// Record user last update timestamp
+func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
+    //Default local database path
+    let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+    var dbpointer: OpaquePointer?
+    
+    if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+        print("fail to establish databse connection")
+        sqlite3_close(dbpointer)
+        return false
+    }
+
+    do {
+        var categoryFlag: Category
+        let DAO = TaskDAO()
+        let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
+        categoryFlag = Category(rawValue: (userInfo["category"] as! Double))!
+        if userInfo["user_id"] == nil {
+            return false
+        }
+        
+        let userId = userInfo["user_id"] as! Int64
+        let settingDAO = SettingDAO()
+        let updateSummary = try settingDAO.fetchSettingFromLocalDB(settingId: userId)
+        if updateSummary.count != 9 {
+            print("Invalid setting id", userId, "at ", dbPath)
+            return false
+        }
+        
+        var summaryString = updateSummary[2] as! String
+        print(summaryString)
+        
+        if categoryFlag == Category.Study_Work {
+            if isCreate {
+                let index = summaryString.index(summaryString.startIndex, offsetBy: 0)
+                let increment = String(Int(String(summaryString[index]))! + 1)
+                summaryString = summaryString.prefix(0) + increment + summaryString.dropFirst(1)
+            }
+            else {
+                let index = summaryString.index(summaryString.startIndex, offsetBy: 2)
+                let increment = String(Int(String(summaryString[index]))! + 1)
+                summaryString = summaryString.prefix(2) + increment + summaryString.dropFirst(3)
+            }
+        } else if categoryFlag == Category.Chore {
+            if isCreate {
+                let index = summaryString.index(summaryString.startIndex, offsetBy: 4)
+                let increment = String(Int(String(summaryString[index]))! + 1)
+                summaryString = summaryString.prefix(4) + increment + summaryString.dropFirst(5)
+            }
+            else {
+                let index = summaryString.index(summaryString.startIndex, offsetBy: 6)
+                let increment = String(Int(String(summaryString[index]))! + 1)
+                summaryString = summaryString.prefix(6) + increment + summaryString.dropFirst(7)
+            }
+        } else if categoryFlag == Category.Relationship {
+            if isCreate {
+                let index = summaryString.index(summaryString.startIndex, offsetBy: 8)
+                let increment = String(Int(String(summaryString[index]))! + 1)
+                summaryString = summaryString.prefix(8) + increment + summaryString.dropFirst(9)
+            }
+            else {
+                let index = summaryString.index(summaryString.startIndex, offsetBy: 10)
+                let increment = String(Int(String(summaryString[index]))! + 1)
+                summaryString = summaryString.prefix(10) + increment + summaryString.dropFirst(11)
+            }
+        } else if categoryFlag == Category.Entertainment {
+            if isCreate {
+                let index = summaryString.index(summaryString.startIndex, offsetBy: 12)
+                let increment = String(Int(String(summaryString[index]))! + 1)
+                summaryString = summaryString.prefix(12) + increment + summaryString.dropFirst(13)
+            }
+            else {
+                let index = summaryString.index(summaryString.startIndex, offsetBy: 14)
+                let increment = String(Int(String(summaryString[index]))! + 1)
+                summaryString = summaryString.prefix(14) + increment + summaryString.dropFirst(15)
+            }
+        }
+        
+       _ = settingDAO.updateSettingInLocalDB(settingId: userId, Summary: summaryString)
+    
+    } catch {
+        print("update summary fails")
+        sqlite3_close(dbpointer)
+        return false
+    }
+    sqlite3_close(dbpointer)
+    return true
 }

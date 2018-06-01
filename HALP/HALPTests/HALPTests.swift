@@ -23,11 +23,11 @@ class HALPTests: XCTestCase {
 		print(dbPath)
 		var dbpointer: OpaquePointer? = nil
 		
-		sqlite3_open(dbPath, &dbpointer)
-		sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
-		sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
-		sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
-		sqlite3_close(dbpointer)
+        sqlite3_open(dbPath, &dbpointer)
+        sqlite3_exec(dbpointer, "DROP TABLE UserData", nil, nil, nil)
+        sqlite3_exec(dbpointer, "DROP TABLE TaskData", nil, nil, nil)
+        sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
+        sqlite3_close(dbpointer)
 		
 		if sqlite3_open(dbPath, &dbpointer) == SQLITE_OK {
 			// UserData table
@@ -43,9 +43,17 @@ class HALPTests: XCTestCase {
 				"category REAL, alarm INTEGER, deadline INTEGER, soft_deadline INTEGER, schedule INTEGER, duration INTEGER, " +
 				"task_priority REAL, schedule_start INTEGER, notification INTEGER, user_id INTEGER, last_update INTEGER)", nil, nil, nil)
 			
-			// SettingData table not yet implemented
-			sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
-				"(setting_id INTEGER PRIMARY KEY, placeholder TEXT)", nil, nil, nil)
+            // SettingData table
+            // sqlite3_exec(dbpointer, "DROP TABLE SettingData", nil, nil, nil)
+            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS SettingData" +
+                "(setting_id INTEGER PRIMARY KEY, notification INTEGER, default_view TEXT, default_sort INTEGER, theme INTEGER, avaliable_days INTEGER, start_time INTEGER, end_time INTEGER, last_update INTEGER)", nil, nil, nil)
+            
+            // Create a default setting for guest login
+            sqlite3_exec(dbpointer, "INSERT INTO SettingData (setting_id, notification, default_view, default_sort, theme, avaliable_days, start_time, end_time , last_update) " + "VALUES(0, 1, '0,0,0,0,0,0,0,0', 0, 0, 127, 8, 24, 0)", nil, nil, nil)
+            
+            // Create a table for remembering the last active user
+            sqlite3_exec(dbpointer, "CREATE TABLE IF NOT EXISTS ActiveUser" +
+                "(user_id INTEGER PRIMARY KEY)", nil, nil, nil)
 			sqlite3_close(dbpointer)
 		}
 		else {
@@ -371,11 +379,13 @@ class HALPTests: XCTestCase {
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
 		let DAO = UserDAO(testUser1)
 		_ = DAO.saveUserInfoToLocalDB()
-		let testSetting1 = Setting(userId: testUser1.getUserID())
+        let testSetting1 = Setting(setting: 1, user: testUser1.getUserID())
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek
 		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
 		// Calculate the available timespan tomorrow.
+        let sDAO = SettingDAO(testSetting1)
+        _ = sDAO.saveSettingIntoLocalDB()
 		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
 		TaskManager.sharedTaskManager.clearTimeSpan()
 		TaskManager.sharedTaskManager.calculateTimeSpan()
@@ -423,12 +433,14 @@ class HALPTests: XCTestCase {
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
 		let DAO = UserDAO(testUser1)
 		_ = DAO.saveUserInfoToLocalDB()
-		let testSetting1 = Setting(userId: testUser1.getUserID())
+        let testSetting1 = Setting(setting: 1, user: testUser1.getUserID())
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek
 		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
 		testSetting1.setEndTime(22)
 		testSetting1.setStartTime(16)
+        let sDAO = SettingDAO(testSetting1)
+        _ = sDAO.saveSettingIntoLocalDB()
 		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
 		// Calculate the available timespan tomorrow.
 		TaskManager.sharedTaskManager.clearTimeSpan()
@@ -475,12 +487,14 @@ class HALPTests: XCTestCase {
 		
 		// Generate testing user&settings.
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
-		let testSetting1 = Setting(userId: testUser1.getUserID())
+        let testSetting1 = Setting(setting: testUser1.getUserID(), user: testUser1.getUserID())
 		let DAO = UserDAO(testUser1)
 		_ = DAO.saveUserInfoToLocalDB()
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek
 		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
+        let sDAO = SettingDAO(testSetting1)
+        _ = sDAO.saveSettingIntoLocalDB()
 		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
 		// Calculate the available timespan tomorrow.
 		TaskManager.sharedTaskManager.clearTimeSpan()
@@ -529,11 +543,13 @@ class HALPTests: XCTestCase {
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
 		let DAO = UserDAO(testUser1)
 		_ = DAO.saveUserInfoToLocalDB()
-		let testSetting1 = Setting(userId: testUser1.getUserID())
+        let testSetting1 = Setting(setting: testUser1.getUserID(), user: testUser1.getUserID())
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek
 		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
 		testSetting1.setStartTime(19)
+        let sDAO = SettingDAO(testSetting1)
+        _ = sDAO.saveSettingIntoLocalDB()
 		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
 		// Calculate the available timespan tomorrow.
 		TaskManager.sharedTaskManager.clearTimeSpan()
@@ -584,13 +600,15 @@ class HALPTests: XCTestCase {
 		let testUser1 = UserData(username: "user1", password: "12345678", email: "test@test.com", id: 1)
 		let DAO = UserDAO(testUser1)
 		_ = DAO.saveUserInfoToLocalDB()
-		let testSetting1 = Setting(userId: testUser1.getUserID())
+        let testSetting1 = Setting(setting: testUser1.getUserID(), user: testUser1.getUserID())
 		let dayOfWeek = Calendar.current.dateComponents(in: .current, from: Date()).weekday! - 1
 		let mask = 0b1 << dayOfWeek
 		testSetting1.setAvailableDays(testSetting1.getAvailableDays() - Int32(mask))
 		testSetting1.setStartTime(19)
 		testSetting1.setEndTime(23)
 		TaskManager.sharedTaskManager.setUp(new: testUser1, setting: testSetting1)
+        let sDAO = SettingDAO(testSetting1)
+        _ = sDAO.saveSettingIntoLocalDB()
 		// Calculate the available timespan tomorrow.
 		TaskManager.sharedTaskManager.clearTimeSpan()
 		TaskManager.sharedTaskManager.calculateTimeSpan()

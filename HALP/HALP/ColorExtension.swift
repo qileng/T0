@@ -51,8 +51,10 @@ extension UIColor {
         static let woodBrown = UIColor(hex: 0x745f4f)
 		//yellow for the icons
 		static let goldPineYellow = UIColor(hex: 0xe4ad4e)
-		//ligh grey for table background
-		static let lightGrey = UIColor(hex: 0xf2f2f2)
+		//light gray for table background
+		static let lightGray = UIColor(hex: 0xf2f2f2)
+		//less light gray for launch and login and signup
+		static let lessLightGray = UIColor(hex: 0xefefef)
     }
 }
 
@@ -72,8 +74,8 @@ class ColorTheme {
 		self.imgTint = imgTint
 	}
 	
-	static let regular = ColorTheme(tableBackground: UIColor.HalpColors.lightGrey, background: UIColor(patternImage: #imageLiteral(resourceName: "goldpine")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "daySky")), collectionBackground: UIColor(hex: 0xce8964), imgTint: UIColor.HalpColors.goldPineYellow)
-	static let dark = ColorTheme(tableBackground: UIColor.HalpColors.lightGrey, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "space2")), collectionBackground: UIColor(hex: 0xce8964), imgTint: UIColor.HalpColors.woodBrown)
+	static let regular = ColorTheme(tableBackground: UIColor.HalpColors.lightGray, background: UIColor(patternImage: #imageLiteral(resourceName: "goldpine")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "daySky")), collectionBackground: UIColor(hex: 0xce8964), imgTint: UIColor.HalpColors.goldPineYellow)
+	static let dark = ColorTheme(tableBackground: UIColor.HalpColors.lightGray, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "space2")), collectionBackground: UIColor(hex: 0xce8964), imgTint: UIColor.HalpColors.woodBrown)
 	
 	//TODO: Add more themes
 }

@@ -14,7 +14,7 @@ class LaunchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(hex: 0xefefef)
+        self.view.backgroundColor = UIColor.HalpColors.lessLightGray
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         activityIndicator.color = UIColor.black
         self.view.addSubview(activityIndicator)
@@ -40,42 +40,42 @@ class LaunchViewController: UIViewController {
                         let settingId = settingArray[0] as! Int64
                         let notification = settingArray[1] as! Int32 == 1 ? true : false
                         let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                        let view = settingArray[3] as! Int32 == 1 ? View.list : View.clock
+                        let summary = settingArray[3] as! String
                         let sort = settingArray[4] as! Int32 == 1 ? SortingType.priority : SortingType.time
                         let avaliableDays = settingArray[5] as! Int32
                         let start = settingArray[6] as! Int32
                         let end = settingArray[7] as! Int32
                         
                         let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                                                  defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                                  summary: summary, defaultSort: sort, availableDays: avaliableDays, startTime: start,
                                                   endTime: end, user: settingId)
                         TaskManager.sharedTaskManager.setUp(new: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0), setting: userSetting, caller: self as UIViewController)
                         
                     }catch {
                         print("Error")
                     }
-					DispatchQueue.global().async {
-						DispatchQueue.main.sync {
-							self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-						}
-					}
+                    DispatchQueue.global().async {
+                        DispatchQueue.main.sync {
+                            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+                        }
+                    }
                 }))
                 self.present(alert, animated: true)
                 
             } else {
                 loadSavedUser(completion: { (flag) in
                     if flag {
-						DispatchQueue.global().async {
-							DispatchQueue.main.sync {
-								self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-							}
-						}
-					} else {
-						DispatchQueue.global().async {
-							DispatchQueue.main.sync {
-								self.present((self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController"))!, animated: true, completion: nil)
-							}
-						}
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.sync {
+                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+                            }
+                        }
+                    } else {
+                        DispatchQueue.global().async {
+                            DispatchQueue.main.sync {
+                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController"))!, animated: true, completion: nil)
+                            }
+                        }
                     }
                 })
             }

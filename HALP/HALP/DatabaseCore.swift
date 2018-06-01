@@ -58,11 +58,11 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                 print(dict)
                 let notification = dict["notification"] as! Int32 == 1 ? true : false
                 let theme = dict["theme"] as! Int32 == 1 ? Theme.dark : Theme.regular
-                let view = dict["default_view"] as! Int32 == 1 ? View.list : View.clock
+                let summary = dict["default_view"] as! String
                 let sort = dict["default_sort"] as! Int32 == 1 ? SortingType.priority : SortingType.time
             
                 let settingQueryDAO = SettingDAO(setting: dict["setting_id"] as! Int64, notification: notification,
-                                             theme: theme, defaultView: view, defaultSort: sort,
+                                                 theme: theme, summary: summary, defaultSort: sort,
                                              availableDays: dict["avaliable_days"] as! Int32,
                                              startTime: dict["start_time"] as! Int32, endTime: (dict["end_time"] as! Int32),
                                              user: dict["setting_id"] as! Int64)
@@ -73,7 +73,7 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                     // If fails (duplciate entries), use update function
                     _ = settingQueryDAO.updateSettingInLocalDB(settingId: dict["setting_id"] as! Int64,
                                                            notification: notification,
-                                                           defaultView: view,
+                                                           Summary: summary,
                                                            defaultSort: sort, theme: theme,
                                                            availableDays: (dict["avaliable_days"] as! Int32),
                                                            startTime:  (dict["start_time"] as! Int32),
@@ -272,14 +272,14 @@ func loadSavedUser(completion: @escaping (Bool) -> Void) {
                 let settingId = settingArray[0] as! Int64
                 let notification = settingArray[1] as! Int32 == 1 ? true : false
                 let theme = settingArray[2] as! Int32 == 1 ? Theme.dark : Theme.regular
-                let view = settingArray[3] as! Int32 == 1 ? View.clock : View.list
+                let summary = settingArray[3] as! String
                 let sort = settingArray[4] as! Int32 == 0 ? SortingType.time : SortingType.priority
                 let avaliableDays = settingArray[5] as! Int32
                 let start = settingArray[6] as! Int32
                 let end = settingArray[7] as! Int32
                 
                 let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                                          defaultView: view, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                          summary: summary, defaultSort: sort, availableDays: avaliableDays, startTime: start,
                                           endTime: end, user: settingId)
                 
                 let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: id)
@@ -292,6 +292,31 @@ func loadSavedUser(completion: @escaping (Bool) -> Void) {
         }
     })
     
+}
+
+// load setting for the current user
+func loadSetting(user: UserData) {
+    let settingDAO = SettingDAO()
+    do {
+        
+        let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: user.getUserID())
+        let settingId = settingArray[0] as! Int64
+        let notification = settingArray[1] as! Int32 == 1 ? true : false
+        let summary = settingArray[2] as! String
+        let sort = settingArray[3] as! Int32 == 1 ? SortingType.priority : SortingType.time
+        let theme = settingArray[4] as! Int32 == 1 ? Theme.dark : Theme.regular
+        let avaliableDays = settingArray[5] as! Int32
+        let start = settingArray[6] as! Int32
+        let end = settingArray[7] as! Int32
+        
+        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                  summary: summary, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                  endTime: end, user: settingId)
+        TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+        
+    }catch {
+        print("Error")
+    }
 }
 
 // Generic helper function

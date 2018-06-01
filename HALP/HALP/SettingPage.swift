@@ -13,12 +13,12 @@ import CFNetwork
 
 class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-	var viewName = "Setting Page"
+    var viewName = "Setting Page"
     var settingForm: SettingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
     
-	@IBOutlet weak var Discard: UIButton!
-	@IBOutlet weak var Reset: UIButton!
-	@IBOutlet weak var notificationSwitch: UISwitch!
+    @IBOutlet weak var Discard: UIButton!
+    @IBOutlet weak var Reset: UIButton!
+    @IBOutlet weak var notificationSwitch: UISwitch!
     @IBOutlet weak var viewSeg: UISegmentedControl!
     @IBOutlet weak var sortingMethodSeg: UISegmentedControl!
     @IBOutlet weak var themeSeg: UISegmentedControl!
@@ -40,27 +40,27 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var endTimeNum: UILabel!
 
     override func viewDidLoad() {
-		super.viewDidLoad()
-	}
-	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		// Prompt past task alerts
-		TaskManager.sharedTaskManager.promptNextAlert(self)
-	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		Discard.titleLabel!.textAlignment = .center
-		Reset.titleLabel!.textAlignment = .center
+        super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Prompt past task alerts
+        TaskManager.sharedTaskManager.promptNextAlert(self)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Discard.titleLabel!.textAlignment = .center
+        Reset.titleLabel!.textAlignment = .center
 
-		TaskManager.sharedTaskManager.refreshTaskManager()
-		
+        TaskManager.sharedTaskManager.refreshTaskManager()
+        
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
         //initialize databse settings
@@ -75,13 +75,8 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         print(settingForm.getStartTime())
         print(settingForm.getEndTime())*/
         
-		self.notificationSwitch.setOn((!(self.settingForm.isNotificationOn())), animated: true)
-        
-        if (settingForm.getDefaultView().rawValue == 1){
-            viewSeg.selectedSegmentIndex = 1
-        } else {
-            viewSeg.selectedSegmentIndex = 0
-        }
+        self.notificationSwitch.setOn((!(self.settingForm.isNotificationOn())), animated: true)
+    
         
         if (settingForm.getDefaultSort().rawValue == 1){
             sortingMethodSeg.selectedSegmentIndex = 1
@@ -114,7 +109,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         super.viewWillDisappear(animated)
         
         let newSetting = Setting(setting: settingForm.getSettingID(), notification: settingForm.isNotificationOn(),
-                                 theme: settingForm.getTheme(), defaultView: settingForm.getDefaultView(),
+                                 theme: settingForm.getTheme(), summary: settingForm.getSummary(),
                                  defaultSort: settingForm.getDefaultSort(), availableDays: settingForm.getAvailableDays(),
                                  startTime: settingForm.getStartTime(), endTime: settingForm.getEndTime(),
                                  user: settingForm.getUserID())
@@ -129,21 +124,11 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	}
 	
 	@IBAction func Logout(_ sender: Any) {
-        createLogoutWarning(title: "Are you sure?", message: "Do you want to logout?")
+        createLogoutWarning(title: "Do you want to logout?", message: "You will lose all changes." )
     }
     
     @IBAction func notificationSwitch(_ sender: UISwitch) {
         settingForm.toggleNotification()
-    }
-    
-    @IBAction func defaultViewSegControl(_ sender: UISegmentedControl) {
-        if (sender.selectedSegmentIndex == 0){
-            //Switch to Clock View
-            settingForm.setDefaultView(View(rawValue: 0)!)
-        } else if (sender.selectedSegmentIndex == 1) {
-            //Switch to List View
-            settingForm.setDefaultView(View(rawValue: 1)!)
-        }
     }
     
     @IBAction func defaultSortingMethodSegControl(_ sender: UISegmentedControl) {
@@ -290,7 +275,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	func createDiscardWarning (title: String, message: String) {
 		let discardWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
 		
-		discardWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+		discardWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
 			discardWarning.dismiss(animated: true, completion: nil)
 			
 			//change the states of toggles displayed
@@ -309,12 +294,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 			print(self.settingForm.getEndTime())
 			*/
 			self.notificationSwitch.setOn((!(self.settingForm.isNotificationOn())), animated: true)
-			
-			if (self.settingForm.getDefaultView().rawValue == 1){
-				self.viewSeg.selectedSegmentIndex = 1
-			} else {
-				self.viewSeg.selectedSegmentIndex = 0
-			}
 			
 			if (self.settingForm.getDefaultSort().rawValue == 1){
 				self.sortingMethodSeg.selectedSegmentIndex = 1
@@ -352,7 +331,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 	func createResetWarning (title:String, message: String) {
         let resetWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         
-        resetWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+        resetWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
             resetWarning.dismiss(animated: true, completion: nil)
             
             //change the states of toggles displayed
@@ -424,10 +403,10 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     func createLogoutWarning (title:String, message:String){
         
-        clearSavedUser()
+        _ = clearSavedUser()
         let logoutWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         
-        logoutWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+        logoutWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
             logoutWarning.dismiss(animated: true, completion: nil)
             if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
                 let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
