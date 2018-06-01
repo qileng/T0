@@ -250,6 +250,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
                                     let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
                                     let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
                                     TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
+                                    saveUser()
                                 } catch {
                                     print("error")
                                 }
