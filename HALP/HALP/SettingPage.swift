@@ -120,6 +120,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                                  user: settingForm.getUserID())
         
         TaskManager.sharedTaskManager.updateSetting(setting: newSetting)
+        print(settingForm.getAvailableDays())
         
     }
     

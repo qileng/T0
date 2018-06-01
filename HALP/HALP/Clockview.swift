@@ -10,6 +10,8 @@
 
 import UIKit
 import CoreGraphics
+
+//Extension class for the CollectionView on ClockView screen
 extension ClockViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 	// Protocal: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -25,7 +27,7 @@ extension ClockViewController: UICollectionViewDataSource, UICollectionViewDeleg
 		return cell
     }
 	
-	// Protocal: UICollectionViewDelegate
+	// Protocol: UICollectionViewDelegate
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		// Retrieve the cell selected
 		let cell = collectionView.cellForItem(at: indexPath)!
@@ -90,6 +92,7 @@ extension ClockViewController: UICollectionViewDataSource, UICollectionViewDeleg
 	}
 }
 
+//Normal ClockViewController class begins here
 class ClockViewController: UIViewController, CAAnimationDelegate {
 
     var clockTasks = Array(repeating: [Task](), count: 12)
@@ -100,15 +103,10 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     
     @IBOutlet var displayLabel: UILabel!
     @IBOutlet var timeButtons: [UIButton]!
-	
+    
 	// Listener to the buttons
     @IBAction func onTap(_ sender: UIButton) {
-        var offset = Int(Date().timeIntervalSince1970)
-        offset = offset - (offset%3600)
-        let cal = Calendar.current
-        let startOfDay = cal.startOfDay(for: Date())
-        offset = offset - Int(startOfDay.timeIntervalSince1970)
-        offset = (offset / 3600) % 12
+        let offset = calculateOffset()
         
         let idx = (12+(sender.tag - offset))%12
         currentIndex = idx
@@ -118,35 +116,32 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
             taskCollection.removeFromSuperview()
         }
         
-        //Layout setup
-        let padding = CGFloat(10.0)
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = padding
-        layout.minimumInteritemSpacing = padding
-        layout.itemSize = CGSize(width: ((displayLabel.frame.width-padding)-(3*padding))/2, height: ((displayLabel.frame.height-padding)-(3*padding))/2)
-        let insets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        layout.sectionInset = insets
-        
-        taskCollection = UICollectionView(frame: displayLabel.frame, collectionViewLayout: layout)
-        taskCollection.register(ClockTaskCell.self, forCellWithReuseIdentifier: "clockTaskCell")
-        taskCollection.dataSource = self
-        taskCollection.delegate = self
-        
-        taskCollection.backgroundColor = UIColor(hex: 0xce8964) //Needs to be color coded by category
-        
-        self.view.addSubview(taskCollection)
-        taskCollection.anchor(top: nil, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: displayLabel.frame.width - 10, height: displayLabel.frame.height - 10, centerX: displayLabel.centerXAnchor, centerY: displayLabel.centerYAnchor)
-        
-        //print("index is ",idx, " offset is ", offset)
-        /*if (clockTasks[idx].count == 0) {
-           // message.text = "No Tasks"
+        //Displays ContainerView iff tasks exist between interval
+        if clockTasks[idx].count == 0 {
+            displayLabel.text = "No tasks between this hour!"
+            displayLabel.textColor = UIColor.yellow
         } else {
-            for tasks in clockTasks[idx] {
-                //print("Task: " + tasks.getTitle())
-                //message.text = "Task: " + tasks.getTitle()
-            }
-        }*/
+            //Layout setup
+            let padding = CGFloat(10.0)
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            layout.minimumLineSpacing = padding
+            layout.minimumInteritemSpacing = padding
+            layout.itemSize = CGSize(width: ((displayLabel.frame.width-padding)-(3*padding))/2, height: ((displayLabel.frame.height-padding)-(3*padding))/2)
+            let insets = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+            layout.sectionInset = insets
+            
+            taskCollection = UICollectionView(frame: displayLabel.frame, collectionViewLayout: layout)
+            taskCollection.register(ClockTaskCell.self, forCellWithReuseIdentifier: "clockTaskCell")
+            taskCollection.dataSource = self
+            taskCollection.delegate = self
+            
+            taskCollection.backgroundColor = UIColor(hex: 0xce8964) //Needs to be color coded by category
+            
+            self.view.addSubview(taskCollection)
+            taskCollection.anchor(top: nil, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: displayLabel.frame.width - 10, height: displayLabel.frame.height - 10, centerX: displayLabel.centerXAnchor, centerY: displayLabel.centerYAnchor)
+        }
+        
     }
     
 	// Listener used when detail page is poped
@@ -185,53 +180,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		})
 	}
     
-    //The following commented code is for reference
-    /*
-    @IBOutlet var b1: UIButton! //Button for 11-12 region of clock
-    
-    @IBOutlet var b2: UIButton! //Button for 12-1 region of clock
-
-    @IBAction func circleTap(_ sender: UIButton) {
-        //THIS WORKS. DELETE THIS CIRLCE, BUT FOLLOW
-        //THIS CODE FOR FUTURE TINTS ASDF
-        
-        if self.circle.tintColor == UIColor.purple
-        {
-            self.circle.tintColor = UIColor.green
-            self.circle.showsTouchWhenHighlighted = true
-        } else {
-            //self.circle.tintColor = UIColor.purple
-            //self.circle.showsTouchWhenHighlighted = false
-        }
-    }
-    
-    //On tap, b1 button should change image
-    @IBAction func tap(_ sender: UIButton) {
-        if self.b1.currentImage == UIImage(imageLiteralResourceName: "11-12.png") {
-            self.b1.setImage(UIImage(imageLiteralResourceName: "12-1.png"), for: .normal)
-                self.b1.tintColor = UIColor.green
-        } else {
-            self.b1.setImage(UIImage(imageLiteralResourceName: "11-12.png"), for: .normal)
-                self.b1.tintColor = UIColor.red
-        }
-        
-        //remove unless fixed - animation to change opacity
-        let animation = CABasicAnimation(keyPath: "opacity")
-        animation.fromValue = 0
-        animation.toValue = 1
-        //FIGURE OUT HOW TO ANIMATE ASDF
-        //b1.add(animation, forKey: "b1")
-        //b1.tintColor = UIColor(named: "black")
-    }
-    //On tap, b2 button should change image
-    @IBAction func tap2(_ sender: UIButton) {
-        if self.b2.currentImage == UIImage(imageLiteralResourceName: "12-1.png") {
-            self.b2.setImage(UIImage(imageLiteralResourceName: "11-12.png"), for: .normal)
-        } else {
-            self.b2.setImage(UIImage(imageLiteralResourceName: "12-1.png"), for: .normal)
-        }
-    }*/
-    
     //Regular clock functions start here
     //DO NOT TOUCH
     @IBOutlet var myClock: ClockFaceView!
@@ -240,11 +188,17 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 	var count = 0
 	var viewName = "Clock View"
 
+    //When app first loads
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name:NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        
+        changeTheme()
+        //Sets background color based on theme from settings
+        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+        //myClock.drawOuterFrame()
 
         let startAngle = .pi / 12.0
         let angle = .pi / 6.0
@@ -252,6 +206,10 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
             timeButtons[index].transform = CGAffineTransform(rotationAngle: CGFloat((Double(index)*angle)+startAngle));
         }
         
+        //Sets button labels as number of tasks within that hour
+        for i in 0...11 {
+            timeButtons[i].setTitle(String(clockTasks[i].count), for: .normal)
+        }
 	}
 	
     override func viewDidLayoutSubviews() {
@@ -260,15 +218,19 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         	self.addHandsAndCenterPiece()
 		}
     }
-
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 	}
 	
-    //ADD HERE !!
+    //Whenever clockview shows up in general
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+        
+        changeTheme()
+        //Sets background color based on theme from settings
+        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+        //myClock.drawOuterFrame()
 		
 		TaskManager.sharedTaskManager.refreshTaskManager()
 
@@ -313,6 +275,24 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
             }
             
         }
+        //Sets button title as number of tasks within that hour
+        let offset = calculateOffset()
+        
+        for j in 0...11 {
+            let index = (j+offset)%12
+            let noOfTasks = clockTasks[j].count
+            
+            timeButtons[index].setTitle(String(noOfTasks), for: .normal)
+            
+            //Puts a bubble behind text if there are more than 1 tasks in interval
+            if noOfTasks > 0 {
+                timeButtons[index].setBackgroundImage(#imageLiteral(resourceName: "greyemptybubble"), for: .normal)
+                timeButtons[index].tintColor = UIColor.white
+            } else {
+                timeButtons[index].setBackgroundImage(nil, for: .normal)
+                timeButtons[index].tintColor = UIColor.clear
+            }
+        }
      
         /*for i in 0...11 {
             for task in clockTasks[i] {
@@ -334,7 +314,12 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		
+        
+        //Sets background color based on theme from settings
+        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+        //myClock.drawOuterFrame()
+		changeTheme()
+        
 		// Prompt past tasks alerts
 		TaskManager.sharedTaskManager.promptNextAlert(self)
 	}
@@ -479,5 +464,23 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
             containerView.removeFromSuperview()
 			containerView = nil
         }
+    }
+    
+    func calculateOffset() -> Int {
+        //Calculates offset based on current system time
+        var offset = Int(Date().timeIntervalSince1970)
+        offset = offset - (offset%3600)
+        let cal = Calendar.current
+        let startOfDay = cal.startOfDay(for: Date())
+        offset = offset - Int(startOfDay.timeIntervalSince1970)
+        offset = (offset / 3600) % 12
+        
+        return offset
+    }
+    
+    //Changes backgrounds based on theme in settings
+    func changeTheme() {
+        self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+        myClock.drawOuterFrame()        //Doesn't change outer circle background in runtime - FIX!!
     }
 }
