@@ -86,6 +86,61 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             , leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
         defaultSortingMethod.anchor(top: notification.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
         sortingMethodSeg.anchor(top: notificationSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        defaultTheme.anchor(top: defaultSortingMethod.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        themeSeg.anchor(top: sortingMethodSeg.bottomAnchor, left: sortingMethodSeg.leftAnchor, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        selectDaysAvailable.anchor(top: defaultTheme.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        sunday.anchor(top: selectDaysAvailable.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
+        monday.anchor(top: sunday.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
+        tuesday.anchor(top: monday.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
+        wednesday.anchor(top: tuesday.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
+        thursday.anchor(top: wednesday.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
+        friday.anchor(top: thursday.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
+        saturday.anchor(top: friday.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
+        sunSwitch.anchor(top: themeSeg.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 40, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        monSwitch.anchor(top: sunSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        tueSwitch.anchor(top: monSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        wedSwitch.anchor(top: tueSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        thuSwitch.anchor(top: wedSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        friSwitch.anchor(top: thuSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        satSwitch.anchor(top: friSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+
+        
+        
+        /*let logoutButton = UIButton(type: .custom)
+        logoutButton.setImage(#imageLiteral(resourceName: "logout"), for: .normal)
+        logoutButton.addTarget(self, action: #selector(Logout), for: .touchUpInside)
+        let logoutBarButton = UIBarButtonItem(customView: logoutButton)*/
+        //let logoutButton = UIBarButtonItem(image: #imageLiteral(resourceName: "logout"), landscapeImagePhone: nil, style: UIBarButtonItemStyle.plain, target: self, action: #selector(Logout))
+        //let negativeSpacer:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
+        //negativeSpacer.width = 2000
+        /*
+        logoutButton.width = 10
+        self.navigationItem.rightBarButtonItem = logoutButton
+        
+        let syncButton = UIBarButtonItem(image: #imageLiteral(resourceName: "sync"), landscapeImagePhone: nil, style: UIBarButtonItemStyle.plain, target: self, action: #selector(sync))
+        self.navigationItem.leftBarButtonItem = syncButton
+ */
+        let logoutButton = UIButton(type: .custom)
+        logoutButton.setImage(#imageLiteral(resourceName: "logout"), for: .normal)
+        logoutButton.imageView?.tintColor = .white
+        //logoutButton.setImage(#imageLiteral(resourceName: "plus"), for: .highlighted)
+        logoutButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        //        button.frame = CGRect(x: 0.0, y: 0.0, width: 35.0, height: 35.0)
+        logoutButton.imageView?.contentMode = .scaleAspectFit
+        logoutButton.addTarget(self, action: #selector(Logout), for: .touchUpInside)
+        let barButtonItem = UIBarButtonItem(customView: logoutButton)
+        self.navigationItem.rightBarButtonItem = barButtonItem
+        
+        let syncButton = UIButton(type: .custom)
+        syncButton.setImage(#imageLiteral(resourceName: "sync"), for: .normal)
+        syncButton.imageView?.tintColor = .white
+        //syncButton.setImage(#imageLiteral(resourceName: "plus"), for: .highlighted)
+        syncButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        //        button.frame = CGRect(x: 0.0, y: 0.0, width: 35.0, height: 35.0)
+        syncButton.imageView?.contentMode = .scaleAspectFit
+        syncButton.addTarget(self, action: #selector(sync), for: .touchUpInside)
+        let barButtonItem1 = UIBarButtonItem(customView: syncButton)
+        self.navigationItem.leftBarButtonItem = barButtonItem1
         
     }
     
@@ -187,7 +242,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 		createDiscardWarning(title: "Are you sure?", message: "Do you want to discard all changes?")
 	}
 	
-	@IBAction func Logout(_ sender: Any) {
+	@objc func Logout() {
         createLogoutWarning(title: "Do you want to logout?", message: "You will lose all changes." )
     }
     
@@ -438,7 +493,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         self.present(resetWarning, animated:true, completion: nil)
     }
     
-    @IBAction func sync(_ sender: UIButton) {
+    @objc func sync() {
         if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
             print("cannot sync guest user")
         } else {
