@@ -502,12 +502,14 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @objc func sync() {
         if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
             print("cannot sync guest user")
+            createTimeWarning(title: "Warning", message: "Cannot sync guest user")
         } else {
             syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
                 if flag {
                     TaskManager.sharedTaskManager.clear()
                     do {
                         try TaskManager.sharedTaskManager.loadTasks()
+                        self.createTimeWarning(title: "Done", message: "Sync successfully")
                     } catch {
                         print("Error")
                     }
