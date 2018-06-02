@@ -505,8 +505,24 @@ func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
             summaryString = summaryString + subString + ","
         }
         summaryString = String(summaryString.dropLast())
-        print(summaryString)
-       _ = settingDAO.updateSettingInLocalDB(settingId: userId, Summary: summaryString)
+        
+        let settingArray = updateSummary
+        let settingId = settingArray[0] as! Int64
+        let notification = settingArray[1] as! Int32 == 1 ? true : false
+        let summary = summaryString
+        let sort = settingArray[3] as! Int32 == 1 ? SortingType.priority : SortingType.time
+        let theme = settingArray[4] as! Int32 == 1 ? Theme.dark : Theme.regular
+        let avaliableDays = settingArray[5] as! Int32
+        let start = settingArray[6] as! Int32
+        let end = settingArray[7] as! Int32
+        
+        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                  summary: summary, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                  endTime: end, user: settingId)
+    
+
+        print("new summary string: ", userSetting.getSummary())
+       TaskManager.sharedTaskManager.updateSetting(setting: userSetting)
     
     } catch {
         print("update summary fails")
