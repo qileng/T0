@@ -74,6 +74,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 		print(alarmStr)
 		let result = alarmStr?.split(separator: " ")
 		var alarm: Int32
+
         if (result?.isEmpty)! {
             alarm = -1
         } else {
