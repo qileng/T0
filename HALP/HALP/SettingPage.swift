@@ -81,6 +81,9 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         Discard.backgroundColor = TaskManager.sharedTaskManager.getTheme().imgTint
         Reset.backgroundColor = TaskManager.sharedTaskManager.getTheme().imgTint
         
+        Reset.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+        Discard.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+        
         notification.anchor(top: self.view.topAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 10, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
         notificationSwitch.anchor(top: self.view.topAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10
             , leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)

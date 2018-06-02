@@ -1050,7 +1050,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Discard Changes" backgroundImage="wooder"/>
+                                        <state key="normal" title="Discard Changes"/>
                                         <connections>
                                             <action selector="Discard:" destination="PiT-cf-OIt" eventType="touchUpInside" id="lZ9-R0-65O"/>
                                             <action selector="reset:" destination="PiT-cf-OIt" eventType="touchUpInside" id="nXl-ah-0Me"/>
@@ -1064,7 +1064,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Reset to Default" backgroundImage="wooder"/>
+                                        <state key="normal" title="Reset to Default"/>
                                         <connections>
                                             <action selector="reset:" destination="PiT-cf-OIt" eventType="touchUpInside" id="fWV-pl-IrP"/>
                                         </connections>
@@ -1263,7 +1263,6 @@
     </scenes>
     <resources>
         <image name="logo" width="60" height="60"/>
-        <image name="wooder" width="480" height="699"/>
     </resources>
     <color key="tintColor" red="0.57874745130000005" green="0.32151988149999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
