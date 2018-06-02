@@ -200,6 +200,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		super.viewWillAppear(animated)
         
         changeTheme()
+		self.myClock.setNeedsDisplay()
         //Sets background color based on theme from settings
         //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
         //myClock.drawOuterFrame()
