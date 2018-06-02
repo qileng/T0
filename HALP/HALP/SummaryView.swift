@@ -30,7 +30,9 @@ class SummaryViewController: UIViewController {
 
 	let xAxis = UILabel()
 	let yAxis = UILabel()
-	
+
+    let labelCreated = UILabel()
+    let labelDone = UILabel()
 	let maxY = UILabel()
 	
 	var studyCreated = UIBar()
@@ -41,7 +43,10 @@ class SummaryViewController: UIViewController {
 	var socialCompleted = UIBar()
 	var entertainmentCreated = UIBar()
 	var entertainmentCompleted = UIBar()
-	
+    var taskCreated = UIBar()
+    var taskDone = UIBar()
+    
+	var total = [UILabel(), UILabel(),UILabel(),UILabel(),UILabel(),UILabel(),UILabel(),UILabel()]
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -60,10 +65,11 @@ class SummaryViewController: UIViewController {
 		self.view.addSubview(xAxis)
 		self.view.addSubview(yAxis)
 		self.view.addSubview(chartView)
-		
+		self.view.addSubview(labelCreated)
+        self.view.addSubview(labelDone)
+        
 		// Layout all the icons
 		let iconWidth = (safeView.frame.width - padding * 4) / 4.0
-		
 		studyIcon.anchor(top: nil, left: safeView.leftAnchor, right: nil, bottom: safeView.bottomAnchor, topConstant: 0, leftConstant: padding / 2, rightConstant: 0, bottomConstant: 0, width: iconWidth, height: iconWidth, centerX: nil, centerY: nil)
 		choreIcon.anchor(top: nil, left: studyIcon.rightAnchor, right: nil, bottom: safeView.bottomAnchor, topConstant: 0, leftConstant: padding, rightConstant: 0, bottomConstant: 0, width: iconWidth, height: iconWidth, centerX: nil, centerY: nil)
 		socialIcon.anchor(top: nil, left: choreIcon.rightAnchor, right: nil, bottom: safeView.bottomAnchor, topConstant: 0, leftConstant: padding, rightConstant: 0, bottomConstant: 0, width: iconWidth, height: iconWidth, centerX: nil, centerY: nil)
@@ -71,7 +77,10 @@ class SummaryViewController: UIViewController {
 		
 		// draw axis
 		xAxis.anchor(top: nil, left: safeView.leftAnchor, right: nil, bottom: studyIcon.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: safeFrame.width , height: 1, centerX: nil, centerY: nil)
-		yAxis.anchor(top: safeView.topAnchor, left: nil, right: safeView.leftAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: 1, height: 0, centerX: nil, centerY: nil)
+        yAxis.anchor(top: safeView.topAnchor, left: nil, right: safeView.leftAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: 1, height: 0, centerX: nil, centerY: nil)
+        yAxis.alpha = 0
+        // draw labels
+        
 	}
 	
 	// Drawing everything
@@ -104,11 +113,21 @@ class SummaryViewController: UIViewController {
 		chartView.addSubview(socialCompleted)
 		chartView.addSubview(entertainmentCreated)
 		chartView.addSubview(entertainmentCompleted)
-		
+		self.view.addSubview(taskCreated)
+        self.view.addSubview(taskDone)
 		let iconWidth = (safeView.frame.width - padding * 4) / 4.0
 		
 		// draw the bars
 		chartView.frame = CGRect(x: safeView.frame.origin.x + yAxis.frame.width, y: safeView.frame.origin.y, width: safeView.frame.width - yAxis.frame.width, height: safeView.frame.height - iconWidth - xAxis.frame.height)
+        labelCreated.text = "Tasks Created"
+        labelDone.text = "Tasks Done"
+        
+        taskCreated.anchor(top: self.view.topAnchor, left: self.studyIcon.leftAnchor, right: nil, bottom: nil, topConstant: self.view.frame.width * 0.1, leftConstant: 0, rightConstant: 0, bottomConstant: 0,  width: self.view.frame.width * 0.05, height: self.view.frame.width * 0.05, centerX: nil, centerY: nil)
+        taskDone.anchor(top: taskCreated.bottomAnchor, left: self.studyIcon.leftAnchor, right: nil, bottom: nil, topConstant: 5, leftConstant: 0, rightConstant: 0, bottomConstant: 0,  width: self.view.frame.width * 0.05, height: self.view.frame.width * 0.05, centerX: nil, centerY: nil)
+        
+        labelCreated.anchor(top: taskCreated.topAnchor, left: taskCreated.rightAnchor, right: nil, bottom: nil, topConstant: 0, leftConstant: 5, rightConstant: 0, bottomConstant: 0, width: 0, height: self.view.frame.width * 0.05, centerX: nil, centerY: nil)
+        
+        labelDone.anchor(top: taskDone.topAnchor, left: taskDone.rightAnchor, right: nil, bottom: nil, topConstant: 0, leftConstant: 5, rightConstant: 0, bottomConstant: 0, width: 0, height: self.view.frame.width * 0.05, centerX: nil, centerY: nil)
 		// All frame positions are relative to chartView
 		for (index, subview) in [studyCreated, choreCreated, socialCreated, entertainmentCreated].enumerated() {
 			subview.frame = CGRect(x: padding / 2 + (padding + iconWidth) * CGFloat(index) - CGAffineTransformOffset, y: chartView.frame.height, width: iconWidth / 2, height: -2)
@@ -124,7 +143,7 @@ class SummaryViewController: UIViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		
+		//self.view.
 		updateColor()
 		let settingDAO = SettingDAO()
         var summaryString: String = "0,0,0,0,0,0,0,0"
@@ -136,15 +155,7 @@ class SummaryViewController: UIViewController {
         }
         
 		self.populateDate(summaryString)
-		let scale = chartView.frame.height * 0.75 / CGFloat(data.max()!)
-		maxY.text = String(data.max()!, radix: 10)
-		maxY.textAlignment = .center
-		self.view.addSubview(maxY)
-		if data.max()! == 0 {
-			maxY.anchor(top: nil, left: nil, right: yAxis.leftAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 3, bottomConstant: 0, width: 30, height: 20, centerX: nil, centerY: nil)
-		} else {
-			maxY.anchor(top: yAxis.topAnchor, left: nil, right: yAxis.leftAnchor, bottom: nil, topConstant: yAxis.frame.height * 0.25, leftConstant: 0, rightConstant: 3, bottomConstant: 0, width: 30, height: 20, centerX: nil, centerY: nil)
-		}
+		let scale = chartView.frame.height * 1 / CGFloat(data.max()!)
 		
 		// Do animation.
 		for (index,subview) in self.chartView.subviews.enumerated() {
@@ -152,6 +163,45 @@ class SummaryViewController: UIViewController {
 				break
 			}
 			(subview as! UIBar).size = CGFloat(data[index]) * scale
+            
+            let total_i = total[index]
+            total_i.text = String(data[index], radix: 10)
+            if(data[index] == 0)
+            {
+                continue
+            }
+            let height = (subview as! UIBar).size
+            self.view.addSubview(total_i)
+            let offset = (safeView.frame.width - padding * 4) / 4.0 * 0.125
+            switch (index)
+            {
+            case 0:
+                total_i.anchor(top: nil, left: studyIcon.leftAnchor, right: nil, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+                
+            case 1:
+                total_i.textAlignment = .right
+                total_i.anchor(top: nil, left: nil, right: studyIcon.rightAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: offset, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+                
+            case 2:
+                total_i.anchor(top: nil, left: choreIcon.leftAnchor, right: nil, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+            case 3:
+                total_i.textAlignment = .right
+                total_i.anchor(top: nil, left: nil, right: choreIcon.rightAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: offset, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+
+            case 4:
+                total_i.anchor(top: nil, left: socialIcon.leftAnchor, right: nil, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+            case 5:
+                total_i.textAlignment = .right
+                total_i.anchor(top: nil, left: nil, right: socialIcon.rightAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: offset, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+            case 6:
+                total_i.anchor(top: nil, left: entertainmentIcon.leftAnchor, right: nil, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+            case 7:
+                total_i.textAlignment = .right
+                total_i.anchor(top: nil, left: nil, right: entertainmentIcon.rightAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: offset, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+            default:
+                print("default")
+                
+            }
 			let animator = UIViewPropertyAnimator(duration: 0.8, curve: .linear, animations: (subview as! UIBar).grow)
 			if data[index] != 0 {
 				animator.startAnimation()
@@ -190,5 +240,7 @@ class SummaryViewController: UIViewController {
 		socialCompleted.backgroundColor = TaskManager.sharedTaskManager.getTheme().background.withAlphaComponent(0.8)
 		entertainmentCreated.backgroundColor = TaskManager.sharedTaskManager.getTheme().background.withAlphaComponent(0.4)
 		entertainmentCompleted.backgroundColor = TaskManager.sharedTaskManager.getTheme().background.withAlphaComponent(0.8)
+        taskDone.backgroundColor = TaskManager.sharedTaskManager.getTheme().background.withAlphaComponent(0.8)
+        taskCreated.backgroundColor = TaskManager.sharedTaskManager.getTheme().background.withAlphaComponent(0.4)
 	}
 }
