@@ -50,7 +50,7 @@ class Task {
         self.title = ""
         self.taskDescription = ""
         self.taskPriority = 0
-        self.alarm = 0
+        self.alarm = -1
         self.category = Category.Study_Work
         self.deadline = 0
         self.softDeadline = 0
@@ -85,7 +85,7 @@ class Task {
 	// All optional based on usage. Except userid, task should not exist without a user.
 	// init() initialize everything to default value.
 	init(Title title: String = "", Description taskD: String = "", Category category: Category = Category.Study_Work,
-		 Alarm alarm: Int32 = 0, Deadline deadline: Int32 = 0, SoftDeadline softDeadline: Int32 = 0,
+		 Alarm alarm: Int32 = -1, Deadline deadline: Int32 = 0, SoftDeadline softDeadline: Int32 = 0,
 		 Schedule schedule: Int32 = 0, Duration duration: Int32 = 0, Priority taskP: Double = 0,
 		 Schedule_start scheduled_start: Int32 = 0, Notification notification: Bool = false, TaskID tid: Int64 = 0, UserID uid: Int64) {
 		self.title = title

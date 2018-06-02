@@ -72,7 +72,23 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         }
         
         let categoryStr = fieldData[2][0].detail
-//        let alarm = fieldData[2][1].detail
+        let alarmStr = fieldData[2][1].detail
+		print(alarmStr)
+		let result = alarmStr?.split(separator: " ")
+		var alarm: Int32
+		if result![0] == "None" {
+			alarm = -1
+		} else if result![0] == "At" {
+			alarm = 0
+		} else {
+			alarm = Int32(result![0])!
+			if alarm < 5 {
+				alarm = alarm * 60 * 60
+			} else {
+				alarm = alarm * 60
+			}
+		}
+		print(alarm)
         var category: Category
         switch categoryStr {
         case "Study":
@@ -101,7 +117,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.taskToEdit?.setDescription(description)
 			// Potential problem: Duration cannot be changed.
             let updateForm = TaskForm(Title: title, Description: description, Category: category,
-                                      Alarm: (taskToEdit?.getAlarm())!, Deadline: deadlineDate,
+									  Alarm: Int32(alarm), Deadline: deadlineDate,
                                       SoftDeadline: (taskToEdit?.getSoftDeadline())!,
                                       Schedule: startDate, Duration: (taskToEdit?.getDuration())!,
                                       Priority: (taskToEdit?.getPriority())!, Schedule_start: (taskToEdit?.getScheduleStart())!,
@@ -109,7 +125,8 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                                       UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             TaskManager.sharedTaskManager.updateTask(form: updateForm)
         }else {
-            let form = TaskForm(Title: title, Description: description, Category: category, Deadline: deadlineDate, Schedule: startDate, Duration: duration, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+            let form = TaskForm(Title: title, Description: description, Category: category,
+								Alarm: Int32(alarm), Deadline: deadlineDate, Schedule: startDate, Duration: duration, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
 			
             //         Todo: validate
             //         Todo: exception handling

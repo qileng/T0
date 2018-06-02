@@ -37,6 +37,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.tag = 1
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
@@ -50,6 +52,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         textField.isSecureTextEntry = true
 //        textField.rightView = hidePasswordButton
         textField.tag = 2
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()

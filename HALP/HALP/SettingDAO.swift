@@ -193,7 +193,7 @@ final class SettingDAO: Setting {
             queryResult.append(sqlite3_column_int(stmt, 6))
             queryResult.append(sqlite3_column_int(stmt, 7))
             queryResult.append(sqlite3_column_int(stmt, 8))
-            print(queryResult)
+            print("fetch setting: ", queryResult)
         }
         sqlite3_finalize(stmt)
         sqlite3_close(dbpointer)
