@@ -61,6 +61,8 @@ extension TaskManager {
 				// Exit condition: If no fixed block is before firstAvailable, just insert there.
 				if taskIndex == scheduled.count {
 					current.setScheduleStart(firstAvailable)
+					let DAO = TaskDAO()
+					_ = DAO.updateTaskInfoInLocalDB(taskId: current.getTaskId(), scheduleStart: Int(current.getScheduleStart()))
 					scheduled.append(current)
 					print("Scheduled! ", current.getTitle())
 					toSchedule.remove(at: 0)
@@ -70,6 +72,8 @@ extension TaskManager {
 				if firstAvailable + current.getDuration() <= scheduled[taskIndex].getScheduleStart() {
 					// If current fits inbetween firstAvailable and current scheduled task.
 					current.setScheduleStart(firstAvailable)
+					let DAO = TaskDAO()
+					_ = DAO.updateTaskInfoInLocalDB(taskId: current.getTaskId(), scheduleStart: Int(current.getScheduleStart()))
 					// Insert current into scheduled before the fixed block to maintain order.
 					scheduled.insert(current, at: taskIndex)
 					taskIndex += 1
