@@ -91,7 +91,7 @@ class ColorTheme {
         self.collectionCell = collectionCell
 	}
 	
-    static let regular = ColorTheme(tableBackground: UIColor.HalpColors.lightGray, background: UIColor(patternImage: #imageLiteral(resourceName: "goldpine")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "daySky")), collectionBackground: UIColor(patternImage: #imageLiteral(resourceName: "CollectionDay2")), imgTint: UIColor.HalpColors.goldPineYellow,collectionCell: UIColor(patternImage: #imageLiteral(resourceName: "metalgrey")))
+    static let regular = ColorTheme(tableBackground: UIColor.HalpColors.lightGray, background: UIColor(patternImage: #imageLiteral(resourceName: "goldpine")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "daySky")).withAlphaComponent(0.85), collectionBackground: UIColor(patternImage: #imageLiteral(resourceName: "CollectionDay2")), imgTint: UIColor.HalpColors.goldPineYellow,collectionCell: UIColor(patternImage: #imageLiteral(resourceName: "metalgrey")))
     static let dark = ColorTheme(tableBackground: UIColor.HalpColors.lightGray, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "space2")), collectionBackground: UIColor(patternImage: #imageLiteral(resourceName: "CollectionNight")), imgTint: UIColor.HalpColors.woodBrown, collectionCell: UIColor(patternImage: #imageLiteral(resourceName: "metalgrey")))
 	
 	//TODO: Add more themes
