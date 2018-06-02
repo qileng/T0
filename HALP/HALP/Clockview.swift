@@ -308,8 +308,44 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         
         //Sets background color based on theme from settings
         //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-        //myClock.drawOuterFrame()
-        
+//		let gradientView = UICircularGradient(frame: myClock.frame)
+//		self.view.addSubview(gradientView)
+//		gradientView.setNeedsDisplay()
+		let partition = 10
+		
+//		for index in 0...11 {
+//			for i in 0...(partition - 1) {
+//				let sector = UICircularGradientSector(frame: myClock.frame, partition: partition, index: index, innerIndex: i)
+//				DispatchQueue.global().sync {
+//					DispatchQueue.global().asyncAfter(deadline: (.now() + .milliseconds(1000)), execute:  {
+//						DispatchQueue.main.sync {
+//							self.view.addSubview(sector)
+//						}
+//					})
+//				}
+//			}
+//		}
+		
+		var timer = Timer()
+		var index = 0
+		var i = 0
+		timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { (_)  in
+			let sector = UICircularGradientSector(frame: self.myClock.frame, partition: partition, index: index, innerIndex: i)
+			self.view.addSubview(sector)
+			if i == partition - 1 {
+				i = 0
+				if index == 11 {
+					timer.invalidate()
+				} else {
+					index += 1
+				}
+			} else {
+				i += 1
+			}
+		}
+		
+		timer.fire()
+		
 		// Prompt past tasks alerts
 		TaskManager.sharedTaskManager.promptNextAlert(self)
 	}
@@ -530,5 +566,116 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 			self.view.addSubview(taskCollection)
 			taskCollection.anchor(top: nil, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: displayLabel.frame.width - 10, height: displayLabel.frame.height - 10, centerX: displayLabel.centerXAnchor, centerY: displayLabel.centerYAnchor)
 		}
+	}
+}
+class UICircularGradientSector: UIView {
+	let partition: Int
+	let index: Int
+	let innerIndex: Int
+	//let gradient: UIColor
+	
+	init(frame: CGRect, partition: Int, index: Int, innerIndex: Int) {
+		self.partition = partition
+		self.index = index
+		self.innerIndex = innerIndex
+		super.init(frame: frame)
+		self.backgroundColor = .clear
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	func drawSector() {
+		let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
+		let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 10
+		//let radius: CGFloat = (bounds.width/2 * 0.6) - 5
+		let arcWidth: CGFloat = 0
+		let startAngle: CGFloat = 0
+		let endAngle: CGFloat = π/6 / CGFloat(partition)
+		// Calculate current hour
+		let current = Calendar.current.component(.hour, from: Date()) % 12
+		print("Current Hour: ", current)
+		let offset = current - 3	// Seems like 0 degree is pointing EAST
+		
+		let path = UIBezierPath()
+		path.move(to: center)
+		let indexPath = (index+offset) * partition + innerIndex
+		path.addArc(withCenter: center, radius: radius-(bounds.height * 0.083), startAngle: (startAngle+(CGFloat(indexPath)*endAngle)), endAngle: (endAngle+(CGFloat(indexPath)*endAngle)), clockwise: true)
+		path.close()
+		
+		let hex = TaskManager.sharedTaskManager.getTheme().tableBackground.getHex()
+		// Calculate darkened color. Need to preserve RGB ratio.
+		// Darken to at most 50%. So divide the color space into 24 instead of 12.
+		var r = (hex & 0xff0000) >> 16
+		var g = (hex & 0x00ff00) >> 8
+		var b = (hex & 0x0000ff)
+		print("rgb: ", String(r, radix:16),String(g, radix:16),String(b, radix:16))
+		let colorPartition = partition * 24
+		r = r * (colorPartition - index*partition - innerIndex) / colorPartition
+		g = g * (colorPartition - index*partition - innerIndex) / colorPartition
+		b = b * (colorPartition - index*partition - innerIndex) / colorPartition
+		print("Darkened to: ", String(r, radix: 16), String(g, radix: 16), String(b, radix: 16))
+		let result = r << 16 + g << 8 + b
+		print("which is: ", String(result, radix: 16))
+		let darkenedColor = UIColor(hex: result)
+		path.lineWidth = arcWidth
+		darkenedColor.setStroke()
+		path.lineWidth = (bounds.height * 0.01)
+		path.stroke()
+		darkenedColor.setFill()
+		path.fill()
+	}
+	
+//	func drawInnerFrame() {
+//		let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
+//		let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 10
+//		//let radius: CGFloat = (bounds.width/2 * 0.6) - 5
+//		let arcWidth: CGFloat = 0
+//		let startAngle: CGFloat = 0
+//		let partition: Int = 10
+//		let endAngle: CGFloat = π/6 / CGFloat(partition)
+//		// Calculate current hour
+//		let current = Calendar.current.component(.hour, from: Date()) % 12
+//		print("Current Hour: ", current)
+//		let offset = current - 3 	// Seems like 0 degree is pointing EAST
+//
+//		//Draws sectors behind clock
+//		for index in 0...11 {
+//			for i in 0...(Int(partition-1)) {
+//				let path = UIBezierPath()
+//				path.move(to: center)
+//				let indexPath = (index+offset) * partition + i
+//				path.addArc(withCenter: center, radius: radius-(bounds.height * 0.083), startAngle: (startAngle+(CGFloat(indexPath)*endAngle)), endAngle: (endAngle+(CGFloat(indexPath)*endAngle)), clockwise: true)
+//				path.close()
+//
+//				let hex = TaskManager.sharedTaskManager.getTheme().tableBackground.getHex()
+//				// Calculate darkened color. Need to preserve RGB ratio.
+//				// Darken to at most 50%. So divide the color space into 24 instead of 12.
+//				var r = (hex & 0xff0000) >> 16
+//				var g = (hex & 0x00ff00) >> 8
+//				var b = (hex & 0x0000ff)
+//				print("rgb: ", String(r, radix:16),String(g, radix:16),String(b, radix:16))
+//				let colorPartition = partition * 24
+//				r = r * (colorPartition - index*partition - i) / colorPartition
+//				g = g * (colorPartition - index*partition - i) / colorPartition
+//				b = b * (colorPartition - index*partition - i) / colorPartition
+//				print("Darkened to: ", String(r, radix: 16), String(g, radix: 16), String(b, radix: 16))
+//				let result = r << 16 + g << 8 + b
+//				print("which is: ", String(result, radix: 16))
+//				let darkenedColor = UIColor(hex: result)
+//				path.lineWidth = arcWidth
+//				darkenedColor.setStroke()
+//				path.lineWidth = (bounds.height * 0.01)
+//				path.stroke()
+//				darkenedColor.setFill()
+//				path.fill()
+//			}
+//		}
+//	}
+	
+	override func draw(_ rect: CGRect) {
+		//drawInnerFrame()
+		drawSector()
 	}
 }

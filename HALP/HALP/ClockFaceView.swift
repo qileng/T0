@@ -33,6 +33,7 @@ class ClockFaceView: UIView {
         path.fill()
     }
 	
+	/*
 	func drawInnerFrame() {
 		let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
 		let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 10
@@ -79,6 +80,7 @@ class ClockFaceView: UIView {
 			}
 		}
 	}
+*/
     
     func drawOuterFrame() {
         let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
@@ -198,7 +200,7 @@ class ClockFaceView: UIView {
     override func draw(_ rect: CGRect) {
         drawOuterFrame()
         drawFrame()
-		drawInnerFrame()
+		//drawInnerFrame()
         drawTicks()
         drawHourLabels()
 		
