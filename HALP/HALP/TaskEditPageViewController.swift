@@ -4,7 +4,6 @@
 //
 //  Created by Dong Yoon Han on 5/16/18.
 //  Copyright © 2018 Team Zero. All rights reserved.
-//
 
 import UIKit
 

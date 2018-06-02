@@ -12,6 +12,7 @@ import FirebaseCore
 
 // New sync function
 // Take an user id as argument
+
 func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
     let firebaseRef = Database.database().reference()
     // Establish connection to both local and online database
@@ -223,6 +224,24 @@ func saveUser() -> Bool {
     
     return true
 }
+
+func saveTasks() -> Bool {
+    // Default local database path
+    let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+    var dbpointer: OpaquePointer?
+    
+    if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+        print("fail to establish databse connection")
+        sqlite3_close(dbpointer)
+        return false
+    }
+    
+    let insertQueryString = "INSERT INTO ActiveUser (user_id) VALUES ( " + String(TaskManager.sharedTaskManager.getUser().getUserID()) + " )"
+    sqlite3_exec(dbpointer, insertQueryString, nil, nil, nil)
+    
+    return true
+}
+
 
 // Call if user clicks log out
 func clearSavedUser() -> Bool {
