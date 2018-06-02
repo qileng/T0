@@ -19,7 +19,7 @@ class ListTaskTableViewCell: UITableViewCell {
         super.awakeFromNib()
 //            self.backgroundColor = UIColor.rgbColor(0, 122, 255)
         self.backgroundColor = TaskManager.sharedTaskManager.getTheme().tableBackground
-        self.titleLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
+//        self.titleLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
 //        self.detailLabel.textColor = UIColor.HalpColors.caputMortuum
         self.taskImageView.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
     }

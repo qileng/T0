@@ -49,8 +49,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     var titleTextFieldCell:TextFieldTableViewCell?
     var descriptionTextViewCell: TextViewTableViewCell?
     var isStartTimeMode:Bool = UserDefaults.standard.bool(forKey: StartTimeModeKey)
-//   UserDefaults.standard.set(true, forKey: StartTimeModeKey))
-    //UserDefaults.standard.bool(forKey: StartTimeModeKey)
 
     var isEditMode:Bool = false
     var taskToEdit:Task?
@@ -186,7 +184,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }else //duration mode && deadline datepicker cell
             {
-                print("durationMode indexpath.row: ",indexPath.row )
                 if let date = fieldData[indexPath.section][indexPath.row-1].date
                 {
                     datePicker.setDate(date, animated: true)
@@ -194,7 +191,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             }
             return cell
         }
-        print("indexPath: ",indexPath)
         let celltype = self.fieldData[indexPath.section][indexPath.row].cellType
         switch (celltype)
         {
@@ -389,7 +385,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             fieldData[parentIndexPath.section][parentIndexPath.row].countDownDuration = sender.countDownDuration
             fieldData[parentIndexPath.section][parentIndexPath.row].detail = getTimeStr(from: sender.countDownDuration)
             
-            print("sender.countDownDuration: ", sender.countDownDuration)
             let detailStr = fieldData[parentIndexPath.section][parentIndexPath.row].detail ?? getTimeStr(from: sender.countDownDuration)
             let attributedStr = NSMutableAttributedString(string: detailStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.HalpColors.pastelRed ])
             self.tableViewOutlet.beginUpdates()
