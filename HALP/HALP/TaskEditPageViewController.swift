@@ -76,11 +76,15 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 		print(alarmStr)
 		let result = alarmStr?.split(separator: " ")
 		var alarm: Int32
-		if result![0] == "None" {
+        if result?.count == 0 {
+            alarm = -1
+        }
+		else if result![0] == "None" {
 			alarm = -1
 		} else if result![0] == "At" {
 			alarm = 0
-		} else {
+        }
+        else {
 			alarm = Int32(result![0])!
 			if alarm < 5 {
 				alarm = alarm * 60 * 60
