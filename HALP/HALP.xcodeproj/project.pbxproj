@@ -158,6 +158,15 @@
 		EDBD2C6220BDB47D00243879 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C6120BDB47D00243879 /* Schedule.swift */; };
 		EDBD2C6320BDB47D00243879 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C6120BDB47D00243879 /* Schedule.swift */; };
 		EDBD2C6420BDB47D00243879 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C6120BDB47D00243879 /* Schedule.swift */; };
+		EDC769D320C3497D00D9B5BA /* UIClockBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */; };
+		EDC769D420C3497D00D9B5BA /* UIClockBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */; };
+		EDC769D520C3497D00D9B5BA /* UIClockBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */; };
+		EDC769D720C349B300D9B5BA /* UICircularGradientSector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */; };
+		EDC769D820C349B300D9B5BA /* UICircularGradientSector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */; };
+		EDC769D920C349B300D9B5BA /* UICircularGradientSector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */; };
+		EDC769DB20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
+		EDC769DC20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
+		EDC769DD20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
 		EDDEE2492097B3B50078827A /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
 		EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
 		EDDEE2512097CA730078827A /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2502097CA730078827A /* Startup.swift */; };
@@ -243,6 +252,9 @@
 		EDB498B620BD3C0C00A52839 /* ListTaskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTaskTableViewCell.swift; sourceTree = "<group>"; };
 		EDB498B720BD3C0D00A52839 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		EDBD2C6120BDB47D00243879 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIClockBackground.swift; sourceTree = "<group>"; };
+		EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularGradientSector.swift; sourceTree = "<group>"; };
+		EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularGradientView.swift; sourceTree = "<group>"; };
 		EDDEE2482097B3B50078827A /* Clockview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clockview.swift; sourceTree = "<group>"; };
 		EDDEE24A2097B77E0078827A /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		EDDEE24C2097C36D0078827A /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
@@ -498,7 +510,10 @@
 			children = (
 				D23C023820BB3E5E006557CD /* ClockTaskCell.swift */,
 				83927E6820B0A7A500E3D927 /* ClockFaceView.swift */,
+				EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */,
+				EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */,
 				EDDEE2482097B3B50078827A /* Clockview.swift */,
+				EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */,
 				ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */,
 			);
 			name = ClockView;
@@ -664,6 +679,8 @@
 				8318018F20C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
 				ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */,
 				ED5B5A8E20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
+				EDC769D720C349B300D9B5BA /* UICircularGradientSector.swift in Sources */,
+				EDC769DB20C355D600D9B5BA /* UICircularGradientView.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,
 				EDB498A620BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */,
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
@@ -676,6 +693,7 @@
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
 				EDB498BB20BD3C0D00A52839 /* ListTaskViewController.swift in Sources */,
 				416C1E6020C0F44900686BF6 /* Launch.swift in Sources */,
+				EDC769D320C3497D00D9B5BA /* UIClockBackground.swift in Sources */,
 				83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */,
 				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
 				4A6BDE028DF44FFAA0230AA4 /* AnimationExtension.swift in Sources */,
@@ -706,6 +724,7 @@
 				8318019020C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
 				D23C023A20BB3E5E006557CD /* ClockTaskCell.swift in Sources */,
 				EDBD2C6320BDB47D00243879 /* Schedule.swift in Sources */,
+				EDC769D420C3497D00D9B5BA /* UIClockBackground.swift in Sources */,
 				EDB498B020BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */,
 				4185636720A5621900AA7493 /* TaskDAO.swift in Sources */,
 				ED5B5AAD20AA703800E3C5F8 /* RootViewController.swift in Sources */,
@@ -721,10 +740,12 @@
 				416C1E6120C0F44900686BF6 /* Launch.swift in Sources */,
 				ED5B5AAC20AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */,
+				EDC769DC20C355D600D9B5BA /* UICircularGradientView.swift in Sources */,
 				ED5B5AAA20AA703800E3C5F8 /* Startup.swift in Sources */,
 				EDB498BF20BD3C0D00A52839 /* ListTaskTableViewCell.swift in Sources */,
 				ED5B5AC820AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
 				4A6BD493F0475AF0C647F177 /* AnimationExtension.swift in Sources */,
+				EDC769D820C349B300D9B5BA /* UICircularGradientSector.swift in Sources */,
 				EDB498A720BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -753,6 +774,7 @@
 				8318019120C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
 				ED5B5AAF20AA703800E3C5F8 /* ModelController.swift in Sources */,
 				EDBD2C6420BDB47D00243879 /* Schedule.swift in Sources */,
+				EDC769D520C3497D00D9B5BA /* UIClockBackground.swift in Sources */,
 				EDB498B120BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */,
 				ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */,
 				ED5B5AC120AA712A00E3C5F8 /* SettingForm.swift in Sources */,
@@ -768,10 +790,12 @@
 				416C1E6220C0F44900686BF6 /* Launch.swift in Sources */,
 				ED5B5AB320AA703800E3C5F8 /* Startup.swift in Sources */,
 				ED5B5A9020AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
+				EDC769DD20C355D600D9B5BA /* UICircularGradientView.swift in Sources */,
 				ED5B5ABA20AA712A00E3C5F8 /* UserDAO.swift in Sources */,
 				EDB498C020BD3C0D00A52839 /* ListTaskTableViewCell.swift in Sources */,
 				ED5B5AC920AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
 				4A6BDDAAC3A2E42D6FF9BFD7 /* AnimationExtension.swift in Sources */,
+				EDC769D920C349B300D9B5BA /* UICircularGradientSector.swift in Sources */,
 				EDB498A820BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
