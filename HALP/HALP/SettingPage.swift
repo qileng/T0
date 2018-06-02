@@ -77,13 +77,13 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         thursday.anchor(top: wednesday.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
         friday.anchor(top: thursday.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
         saturday.anchor(top: friday.bottomAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 20, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0,centerX: nil, centerY: nil)
-        sunSwitch.anchor(top: themeSeg.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 40, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
-        monSwitch.anchor(top: sunSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
-        tueSwitch.anchor(top: monSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
-        wedSwitch.anchor(top: tueSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
-        thuSwitch.anchor(top: wedSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
-        friSwitch.anchor(top: thuSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
-        satSwitch.anchor(top: friSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 13, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        sunSwitch.anchor(top: themeSeg.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 50, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        monSwitch.anchor(top: sunSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        tueSwitch.anchor(top: monSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        wedSwitch.anchor(top: tueSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        thuSwitch.anchor(top: wedSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        friSwitch.anchor(top: thuSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
+        satSwitch.anchor(top: friSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
 
         
         
