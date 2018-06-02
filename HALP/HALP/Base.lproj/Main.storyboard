@@ -571,9 +571,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Traditional" translatesAutoresizingMaskIntoConstraints="NO" id="apO-CC-Vv9">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pq2-5N-Iqt" customClass="ClockFaceView" customModule="HALP" customModuleProvider="target">
                                 <rect key="frame" x="38" y="38" width="300" height="300.5"/>
                                 <subviews>
@@ -776,8 +773,8 @@
                                     <constraint firstItem="oRl-hc-IiC" firstAttribute="leading" secondItem="Pq2-5N-Iqt" secondAttribute="leading" constant="45" id="xlJ-Hf-N5T"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap an hour to view tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0HF-ds-XaN">
-                                <rect key="frame" x="32" y="346" width="310" height="301"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap an hour to view tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0HF-ds-XaN">
+                                <rect key="frame" x="34" y="354" width="310" height="293"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -788,17 +785,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Pq2-5N-Iqt" firstAttribute="centerX" secondItem="9VK-hT-Slc" secondAttribute="centerX" id="9Wq-cE-Gzu"/>
-                            <constraint firstItem="Pq2-5N-Iqt" firstAttribute="centerY" secondItem="9VK-hT-Slc" secondAttribute="centerY" multiplier="0.55" id="BUy-rd-ULu"/>
-                            <constraint firstAttribute="trailing" secondItem="apO-CC-Vv9" secondAttribute="trailing" id="DD3-WP-vSt"/>
-                            <constraint firstItem="9VK-hT-Slc" firstAttribute="trailing" secondItem="0HF-ds-XaN" secondAttribute="trailing" constant="33" id="HeL-A6-Fji"/>
-                            <constraint firstAttribute="bottom" secondItem="apO-CC-Vv9" secondAttribute="bottom" id="On2-gK-aKF"/>
-                            <constraint firstItem="9VK-hT-Slc" firstAttribute="bottom" secondItem="0HF-ds-XaN" secondAttribute="bottom" constant="20" id="QEk-Gg-9hT"/>
-                            <constraint firstItem="0HF-ds-XaN" firstAttribute="leading" secondItem="9VK-hT-Slc" secondAttribute="leading" constant="32" id="TE6-oF-9AR"/>
-                            <constraint firstItem="apO-CC-Vv9" firstAttribute="top" secondItem="8uV-yI-2me" secondAttribute="top" id="hDn-pz-WSa"/>
-                            <constraint firstItem="Pq2-5N-Iqt" firstAttribute="width" secondItem="8uV-yI-2me" secondAttribute="width" multiplier="0.8" id="kNL-Yx-XJy"/>
-                            <constraint firstItem="0HF-ds-XaN" firstAttribute="top" secondItem="Pq2-5N-Iqt" secondAttribute="bottom" constant="7.5" id="nfO-om-Qea"/>
-                            <constraint firstItem="apO-CC-Vv9" firstAttribute="leading" secondItem="8uV-yI-2me" secondAttribute="leading" id="qG9-Rt-hWK"/>
+                            <constraint firstItem="Pq2-5N-Iqt" firstAttribute="leading" secondItem="9VK-hT-Slc" secondAttribute="leading" constant="38" id="NQb-Dn-yP1"/>
+                            <constraint firstItem="9VK-hT-Slc" firstAttribute="bottom" secondItem="0HF-ds-XaN" secondAttribute="bottom" constant="20" id="XtJ-2u-jUe"/>
+                            <constraint firstItem="Pq2-5N-Iqt" firstAttribute="top" secondItem="9VK-hT-Slc" secondAttribute="top" constant="18" id="bGN-dy-If6"/>
+                            <constraint firstItem="9VK-hT-Slc" firstAttribute="trailing" secondItem="Pq2-5N-Iqt" secondAttribute="trailing" constant="37" id="bfZ-ec-tZi"/>
+                            <constraint firstItem="0HF-ds-XaN" firstAttribute="top" secondItem="Pq2-5N-Iqt" secondAttribute="bottom" constant="15.5" id="cxb-Zs-hGN"/>
+                            <constraint firstItem="9VK-hT-Slc" firstAttribute="trailing" secondItem="0HF-ds-XaN" secondAttribute="trailing" constant="31" id="hQ2-dn-qgX"/>
+                            <constraint firstItem="0HF-ds-XaN" firstAttribute="leading" secondItem="9VK-hT-Slc" secondAttribute="leading" constant="34" id="hzD-ST-aHk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9VK-hT-Slc"/>
                     </view>
@@ -1227,7 +1220,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hg6-Kw-tNw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4215.1999999999998" y="-243.32833583208398"/>
+            <point key="canvasLocation" x="3276" y="-243"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="I0e-sC-iSY">
@@ -1289,6 +1282,7 @@
     <resources>
         <image name="Traditional" width="120" height="212"/>
         <image name="logo" width="60" height="60"/>
+        <image name="sky1" width="372" height="696"/>
     </resources>
     <color key="tintColor" red="0.57874745130000005" green="0.32151988149999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
