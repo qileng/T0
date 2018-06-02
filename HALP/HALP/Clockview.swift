@@ -168,14 +168,17 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     
 	var count = 0
 	var viewName = "Clock View"
-
+    
     //When app first loads
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+        self.myClock.setNeedsDisplay()
+        self.removeContainerView()
+        self.addHandsAndCenterPiece()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name:NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        
+        print("first time on clock")
         changeTheme()
         //Sets background color based on theme from settings
         //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
@@ -277,12 +280,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
             }
         }
      
-        /*for i in 0...11 {
-            for task in clockTasks[i] {
-                print(task.getTitle())
-            }
-            print("end")
-        }*/
 		
 		if currentIndex != nil {
 			self.populateCollectionView(currentIndex!)
@@ -315,7 +312,8 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 	}
     
     func addHandsAndCenterPiece() {
-        containerView = UIView(frame: CGRect(x: myClock.frame.midX, y: myClock.frame.midY, width: myClock.frame.width/4, height: myClock.frame.width/4))
+        containerView = UIView(frame: CGRect(x: myClock.frame.midX, y: myClock.frame.midY, width: myClock.frame.width/4, height: myClock.frame.height/4))
+        
         
         containerView.tag = 10
         self.view.addSubview(containerView)
