@@ -113,6 +113,15 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         currentIndex = idx
         
 		populateCollectionView(idx)
+        
+        var count = 0
+        for arr in clockTasks{
+            for _ in arr {
+                count+=1
+            }
+        }
+        print("Number of elements is " + String(count))
+        
     }
     
 	// Listener used when detail page is poped
@@ -327,7 +336,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         minuteHandPath.move(to: CGPoint(x: containerView.bounds.minX, y:containerView.bounds.minY ))
         secondHandPath.move(to: CGPoint(x: containerView.bounds.minX, y:containerView.bounds.minY ))
         
-        hourHandPath.addLine(to: CGPoint(x: time.h.x, y: time.h.y))
+        hourHandPath.addLine(to: CGPoint(x: time.h.x/1.5, y: time.h.y/1.5))
         hourHandPath.lineWidth = hourHandWidth
         let hourLayer = CAShapeLayer()
         hourLayer.path = hourHandPath.cgPath
@@ -345,7 +354,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         minuteLayer.path = minuteHandPath.cgPath
         minuteLayer.lineWidth = minuteHandWidth
         minuteLayer.lineCap = kCALineCapButt
-        minuteLayer.strokeColor = UIColor.gray.cgColor
+        minuteLayer.strokeColor = UIColor.black.cgColor
         minuteLayer.rasterizationScale = UIScreen.main.scale;
         minuteLayer.shouldRasterize = true
         containerView.layer.addSublayer(minuteLayer)
@@ -461,7 +470,8 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     //Changes backgrounds based on theme in settings
     func changeTheme() {
         self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-        myClock.drawOuterFrame()        //Doesn't change outer circle background in runtime - FIX!!
+        self.displayLabel.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionBackground
+        myClock.drawOuterFrame()
     }
 	
 	// Change opacity when detail page shows.
@@ -475,7 +485,11 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 	// Change opacity when detail page goes away.
 	func deTransparentizeBackground() {
 		for subview in self.view.subviews {
-			subview.alpha = 1
+            if subview == displayLabel {
+                subview.alpha = 0.8
+            } else {
+                subview.alpha = 1
+            }
 		}
 		self.view.backgroundColor = self.view.backgroundColor?.withAlphaComponent(1)
 	}
@@ -490,6 +504,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		if clockTasks[idx].count == 0 {
 			displayLabel.text = "No tasks between this hour!"
 			displayLabel.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
+            displayLabel.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionBackground
 		} else {
 			//Layout setup
 			let padding = CGFloat(10.0)
@@ -506,8 +521,11 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 			taskCollection.dataSource = self
 			taskCollection.delegate = self
 			
-			taskCollection.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionBackground //Needs to be color coded by category
-			
+			//taskCollection.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionBackground //Needs to be color coded by category
+			taskCollection.backgroundColor = UIColor.clear
+            displayLabel.text = ""
+            displayLabel.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionBackground
+            
 			self.view.addSubview(taskCollection)
 			taskCollection.anchor(top: nil, left: nil, right: nil, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: displayLabel.frame.width - 10, height: displayLabel.frame.height - 10, centerX: displayLabel.centerXAnchor, centerY: displayLabel.centerYAnchor)
 		}

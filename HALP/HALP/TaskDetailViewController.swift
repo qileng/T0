@@ -151,7 +151,7 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
             
             //setting event duration
             let startDate = Date(timeIntervalSince1970: TimeInterval((task?.getScheduleStart())!))
-			let deadlineDate = Date(timeIntervalSince1970: TimeInterval(((task?.getScheduleStart())! + (task?.getDuration())!)))
+			let deadlineDate = Date(timeIntervalSince1970: TimeInterval((task?.getDeadline())!))
           
             let startDateTimeStr = timeDateFormatter.string(from: startDate)
             let deadlineDateTimeStr = timeDateFormatter.string(from: deadlineDate)
