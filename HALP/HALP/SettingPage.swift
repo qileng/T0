@@ -79,12 +79,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             notificationSwitch.setOn(false, animated: false)
         }
         
-        if (settingForm.getDefaultView().rawValue == 1){
-            viewSeg.selectedSegmentIndex = 1
-        } else {
-            viewSeg.selectedSegmentIndex = 0
-        }
-        
         if (settingForm.getDefaultSort().rawValue == 1){
             sortingMethodSeg.selectedSegmentIndex = 1
         }
@@ -377,8 +371,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                 self.settingForm.toggleNotification()
             }
 			*/
-			/*
-            self.settingForm.setDefaultView(View(rawValue: 0)!)
+			
             self.settingForm.setDefaultSort(SortingType(rawValue: 0)!)
             self.settingForm.setTheme(Theme(rawValue: 0)!)
             self.settingForm.setAvailableDays((self.settingForm.getAvailableDays()) | 1<<0)
