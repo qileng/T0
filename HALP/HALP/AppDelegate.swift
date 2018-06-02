@@ -14,9 +14,10 @@ import UIKit
 import FirebaseCore
 import FirebaseDatabase
 import SQLite3
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     var firebaseRef: DatabaseReference?
@@ -82,6 +83,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.titleTextAttributes =  [ NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedStringKey.foregroundColor : UIColor.white ]
         
         UIBarButtonItem.appearance().setTitleTextAttributes( [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15)], for: .normal)
+		
+		if #available(iOS 10.0, *) {
+			let center = UNUserNotificationCenter.current()
+			center.delegate = self
+			center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+			}
+		}
+		
         return true
     }
 
@@ -107,7 +116,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        let url = URL(string: Database.database().reference().description())
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            print( "Request: ", error == nil )
+            if error != nil {
+                print("no internet connection")
+            }
+            else{
+                        let firebaseRef = Database.database().reference()
+                        firebaseRef.child(".info/connected").observe(.value, with: {(data) in
+                            if(data.value as! Int32 != 0)
+                            {
+                                syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+                                    if(flag){
+                                        print("saving data when enter background")}
+                                    else{
+                                        print("unabe to save data when enter background")
+                                    }
+                                })
+                            }
+                        })
+            }
+        }
+        task.resume()
     }
+    
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
@@ -130,6 +163,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
     }
 
-
+	@available(iOS 10.0, *)
+	func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+		completionHandler(.alert)
+	}
 }
 
