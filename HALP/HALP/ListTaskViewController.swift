@@ -14,42 +14,14 @@ class ListTaskViewController: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     let dateFormatter = DateFormatter()
+//    var tap: UITapGestureRecognizer?
 	var tasks = [Task]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-		
-        self.navigationItem.title = "My Tasks"
-		self.tableViewOutlet.backgroundColor = TaskManager.sharedTaskManager.getTheme().tableBackground
-		let navigationBarAppearance = UINavigationBar.appearance()
-		navigationBarAppearance.barTintColor = TaskManager.sharedTaskManager.getTheme().background
-    
-        let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "plus2"), for: .normal)
-        button.setImage(#imageLiteral(resourceName: "plus"), for: .highlighted)
-        button.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-//        button.frame = CGRect(x: 0.0, y: 0.0, width: 35.0, height: 35.0)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.addTarget(self, action: #selector(addButtonActionHandler), for: .touchUpInside)
-        let barButtonItem = UIBarButtonItem(customView: button)
-        self.navigationItem.rightBarButtonItem = barButtonItem
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus2"), style: .plain, target: self, action: #selector(addButtonActionHandler))
-        
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        
-        dateFormatter.dateFormat = "HH:mm a, EEEE, MMMM dd, yyyy"
-        
-//        self.tableViewOutlet.tableFooterView = UIView()
-
-//        UIApplication.shared.statusBarStyle = .lightContent
-//        89, 38, 47
+        setupNavigarionbaritems()
+        setupDateformat()
     }
-    
-//    override var preferredStatusBarStyle : UIStatusBarStyle {
-//        return .lightContent
-//    }
-
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		// Prompt past tasks alerts
@@ -69,20 +41,58 @@ class ListTaskViewController: UIViewController {
 	
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
+        setEditing(false, animated: true)
 	}
     
-//    @IBAction func addButtonTouched(_ sender: UIButton) {
-//        let taskEditVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskEditPageViewController") as! TaskEditPageViewController
-//        let taskEditNC: UINavigationController = UINavigationController(rootViewController: taskEditVC)
-//        self.present(taskEditNC, animated: true, completion: nil)
-//    }
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableViewOutlet.isEditing = editing
+    
+        if(editing)
+        {
+            self.editButtonItem.image = #imageLiteral(resourceName: "done")
+        }else
+        {
+            self.editButtonItem.image = #imageLiteral(resourceName: "trash")
+        }
+    }
+    
+    func setupDateformat()
+    {
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "HH:mm a, EEEE, MMMM dd, yyyy"
+    }
+    
+    func setupNavigarionbaritems()
+    {
+        self.navigationItem.title = "My Tasks"
+        self.tableViewOutlet.backgroundColor = TaskManager.sharedTaskManager.getTheme().tableBackground
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.barTintColor = TaskManager.sharedTaskManager.getTheme().background
+        
+        let rightButton = UIButton(type: .custom)
+        rightButton.setImage(#imageLiteral(resourceName: "plus2"), for: .normal)
+        rightButton.setImage(#imageLiteral(resourceName: "plus"), for: .highlighted)
+        rightButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
+        rightButton.imageView?.contentMode = .scaleAspectFit
+        rightButton.addTarget(self, action: #selector(addButtonActionHandler), for: .touchUpInside)
+        let barButtonItem = UIBarButtonItem(customView: rightButton)
+        self.navigationItem.rightBarButtonItem = barButtonItem
+        
+        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "trash")
+    }
+    @objc func deleteButtonActionHandler()
+    {
+        self.tableViewOutlet.setEditing(true, animated: true)
+    }
     @objc func addButtonActionHandler()
     {
         let taskEditVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskEditPageViewController") as! TaskEditPageViewController
         let taskEditNC: UINavigationController = UINavigationController(rootViewController: taskEditVC)
         self.present(taskEditNC, animated: true, completion: nil)
     }
-    
 }
 
 extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
@@ -117,6 +127,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
 		cell.titleLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
 		cell.taskImageView.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
         
+        
         if description.isEmpty
         {
             let startDate = Date(timeIntervalSince1970: TimeInterval(eventStartTime))
@@ -141,23 +152,21 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         self.navigationController?.pushViewController(detailVC, animated: true)
         
     }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            // delete item at indexPath
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete
+        {
+            tableView.beginUpdates()
+            self.tasks.remove(at: indexPath.row)
             let taskId = TaskManager.sharedTaskManager.getTasks()[indexPath.row].getTaskId()
             TaskManager.sharedTaskManager.removeTask(taskID: taskId)
-            tableView.reloadData()
-            print("Task Deleted")
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
         }
-//
-//        let edit = UITableViewRowAction(style: .default, title: "Edit") { (action, indexPath) in
-//            // share item at indexPath
-////            print("I want to share: \(self.tableArray[indexPath.row])")
-//        }
-//
-//        edit.backgroundColor = .lightGray
-        return [delete]
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }
 
