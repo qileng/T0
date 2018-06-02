@@ -136,15 +136,15 @@ class ClockFaceView: UIView {
         strokeColor1.setFill()
         
         // minute ticks
-        let minuteWidth:CGFloat = (bounds.height * 0.0125)
-        let minuteSize:CGFloat = (bounds.height * 0.025)
+        //let minuteWidth:CGFloat = (bounds.height * 0.0125)
+        //let minuteSize:CGFloat = (bounds.height * 0.025)
         
-        let minutePath = UIBezierPath(rect: CGRect(x: -minuteWidth/2, y: 0,
-                                                   width: minuteWidth, height: minuteSize))
+        //let minutePath = UIBezierPath(rect: CGRect(x: -minuteWidth/2, y: 0,
+        //                                           width: minuteWidth, height: minuteSize))
         
         // hour ticks
-        let hourWidth:CGFloat = (bounds.height * 0.020)
-        let hourSize:CGFloat = (bounds.height * 0.0333)
+        let hourWidth:CGFloat = (bounds.height * 0.005)
+        let hourSize:CGFloat = (bounds.height * 0.03)
         
         let hourPath = UIBezierPath(rect: CGRect(x: -hourWidth/2, y: 0, width: hourWidth,height: hourSize))
         
@@ -170,8 +170,8 @@ class ClockFaceView: UIView {
                 hourPath.fill()
             } // translate and fill with minute tick
             else {
-                context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.116)) - hourSize)
-                minutePath.fill()
+                //context?.translateBy(x: 0, y: ((bounds.height/2) - (bounds.height * 0.116)) - hourSize)
+                //minutePath.fill()
             }
             // restore the centred context for the next rotate
             context?.restoreGState()
@@ -185,7 +185,8 @@ class ClockFaceView: UIView {
         for i in 0...11 {
             numLabel.append(UILabel(frame: CGRect(x: bounds.width/2, y: bounds.height/2, width: 75, height: 75)))
             numLabel[i].textAlignment = NSTextAlignment.center
-            numLabel[i].font = UIFont(name: numLabel[i].font.fontName, size: bounds.width/2 * 0.13)
+            numLabel[i].font = UIFont(name: "Avenir-Medium", size: bounds.width/2 * 0.13)
+            //numLabel[i].font = UIFont(name: numLabel[i].font.fontName, size: bounds.width/2 * 0.13)
             numLabel[i].text = String(i+1)
             
             let angle = CGFloat((Double(i-2) * .pi) / 6)
