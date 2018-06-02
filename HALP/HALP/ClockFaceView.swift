@@ -39,7 +39,8 @@ class ClockFaceView: UIView {
 		//let radius: CGFloat = (bounds.width/2 * 0.6) - 5
 		let arcWidth: CGFloat = 0
 		let startAngle: CGFloat = 0
-		let endAngle: CGFloat = π/6
+		let partition: Int = 10
+		let endAngle: CGFloat = π/6 / CGFloat(partition)
 		// Calculate current hour
 		let current = Calendar.current.component(.hour, from: Date()) % 12
 		print("Current Hour: ", current)
@@ -47,30 +48,35 @@ class ClockFaceView: UIView {
 		
 		//Draws sectors behind clock
 		for index in 0...11 {
-			let path = UIBezierPath()
-			path.move(to: center)
-			path.addArc(withCenter: center, radius: radius-(bounds.height * 0.083), startAngle: (startAngle+(CGFloat(index+offset)*endAngle)), endAngle: (endAngle+(CGFloat(index+offset)*endAngle)), clockwise: true)
-			path.close()
+			for i in 0...(Int(partition-1)) {
+				let path = UIBezierPath()
+				path.move(to: center)
+				let indexPath = (index+offset) * partition + i
+				path.addArc(withCenter: center, radius: radius-(bounds.height * 0.083), startAngle: (startAngle+(CGFloat(indexPath)*endAngle)), endAngle: (endAngle+(CGFloat(indexPath)*endAngle)), clockwise: true)
+				path.close()
 			
-			let hex = TaskManager.sharedTaskManager.getTheme().tableBackground.getHex()
-			// Calculate darkened color. Need to preserve RGB ratio.
-			// Darken to at most 50%. So divide the color space into 24 instead of 12.
-			var r = hex & 0xff0000 >> 16
-			var g = hex & 0x00ff00 >> 8
-			var b = hex & 0x0000ff
-			r = r * (24 - index) / 24
-			g = g * (24 - index) / 24
-			b = b * (24 - index) / 24
-			print("Darkened to: ", String(r, radix: 16), String(g, radix: 16), String(b, radix: 16))
-			let result = r << 16 + g << 8 + b
-			print("which is: ", String(result, radix: 16))
-			let darkenedColor = UIColor(hex: result)
-			path.lineWidth = arcWidth
-			darkenedColor.setStroke()
-			path.lineWidth = (bounds.height * 0.01)
-			path.stroke()
-			darkenedColor.setFill()
-			path.fill()
+				let hex = TaskManager.sharedTaskManager.getTheme().tableBackground.getHex()
+				// Calculate darkened color. Need to preserve RGB ratio.
+				// Darken to at most 50%. So divide the color space into 24 instead of 12.
+				var r = (hex & 0xff0000) >> 16
+				var g = (hex & 0x00ff00) >> 8
+				var b = (hex & 0x0000ff)
+				print("rgb: ", String(r, radix:16),String(g, radix:16),String(b, radix:16))
+				let colorPartition = partition * 24
+				r = r * (colorPartition - index*partition - i) / colorPartition
+				g = g * (colorPartition - index*partition - i) / colorPartition
+				b = b * (colorPartition - index*partition - i) / colorPartition
+				print("Darkened to: ", String(r, radix: 16), String(g, radix: 16), String(b, radix: 16))
+				let result = r << 16 + g << 8 + b
+				print("which is: ", String(result, radix: 16))
+				let darkenedColor = UIColor(hex: result)
+				path.lineWidth = arcWidth
+				darkenedColor.setStroke()
+				path.lineWidth = (bounds.height * 0.01)
+				path.stroke()
+				darkenedColor.setFill()
+				path.fill()
+			}
 		}
 	}
     
