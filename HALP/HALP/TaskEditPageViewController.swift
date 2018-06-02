@@ -17,6 +17,7 @@ enum CellTypes:String {
     case textView = "textViewCell"
     case basic = "basicCell"
     case toggle = "switchCell"
+    case image = "imageCell"
 }
 struct CellData {
     var cellType:CellTypes
@@ -49,8 +50,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     var titleTextFieldCell:TextFieldTableViewCell?
     var descriptionTextViewCell: TextViewTableViewCell?
     var isStartTimeMode:Bool = UserDefaults.standard.bool(forKey: StartTimeModeKey)
-//   UserDefaults.standard.set(true, forKey: StartTimeModeKey))
-    //UserDefaults.standard.bool(forKey: StartTimeModeKey)
 
     var isEditMode:Bool = false
     var taskToEdit:Task?
@@ -76,22 +75,24 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
 		print(alarmStr)
 		let result = alarmStr?.split(separator: " ")
 		var alarm: Int32
-        if result?.count == 0 {
+
+        if (result?.isEmpty)! {
             alarm = -1
+        } else {
+            if result![0] == "None" {
+                alarm = -1
+            } else if result![0] == "At" {
+                alarm = 0
+            } else {
+                alarm = Int32(result![0])!
+                if alarm < 5 {
+                    alarm = alarm * 60 * 60
+                } else {
+                    alarm = alarm * 60
+                }
+            }
         }
-		else if result![0] == "None" {
-			alarm = -1
-		} else if result![0] == "At" {
-			alarm = 0
-        }
-        else {
-			alarm = Int32(result![0])!
-			if alarm < 5 {
-				alarm = alarm * 60 * 60
-			} else {
-				alarm = alarm * 60
-			}
-		}
+
 		print(alarm)
         var category: Category
         switch categoryStr {
@@ -121,7 +122,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.taskToEdit?.setDescription(description)
 			// Potential problem: Duration cannot be changed.
             let updateForm = TaskForm(Title: title, Description: description, Category: category,
-									  Alarm: Int32(alarm), Deadline: deadlineDate,
+                                      Alarm: Int32(alarm), Deadline: deadlineDate,
                                       SoftDeadline: (taskToEdit?.getSoftDeadline())!,
                                       Schedule: startDate, Duration: (taskToEdit?.getDuration())!,
                                       Priority: (taskToEdit?.getPriority())!, Schedule_start: (taskToEdit?.getScheduleStart())!,
@@ -130,7 +131,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             TaskManager.sharedTaskManager.updateTask(form: updateForm)
         }else {
             let form = TaskForm(Title: title, Description: description, Category: category,
-								Alarm: Int32(alarm), Deadline: deadlineDate, Schedule: startDate, Duration: duration, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+                                Alarm: Int32(alarm), Deadline: deadlineDate, Schedule: startDate, Duration: duration, UserID: TaskManager.sharedTaskManager.getUser().getUserID())
 			
             //         Todo: validate
             //         Todo: exception handling
@@ -190,7 +191,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                 }
             }else //duration mode && deadline datepicker cell
             {
-                print("durationMode indexpath.row: ",indexPath.row )
                 if let date = fieldData[indexPath.section][indexPath.row-1].date
                 {
                     datePicker.setDate(date, animated: true)
@@ -198,7 +198,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             }
             return cell
         }
-        print("indexPath: ",indexPath)
         let celltype = self.fieldData[indexPath.section][indexPath.row].cellType
         switch (celltype)
         {
@@ -393,7 +392,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             fieldData[parentIndexPath.section][parentIndexPath.row].countDownDuration = sender.countDownDuration
             fieldData[parentIndexPath.section][parentIndexPath.row].detail = getTimeStr(from: sender.countDownDuration)
             
-            print("sender.countDownDuration: ", sender.countDownDuration)
             let detailStr = fieldData[parentIndexPath.section][parentIndexPath.row].detail ?? getTimeStr(from: sender.countDownDuration)
             let attributedStr = NSMutableAttributedString(string: detailStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.HalpColors.pastelRed ])
             self.tableViewOutlet.beginUpdates()

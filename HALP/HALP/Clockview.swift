@@ -299,6 +299,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		if type(of: self.view.subviews.last!) == UITaskDetail.self {
 			self.view.subviews.last!.removeFromSuperview()
 			_ = self.view.gestureRecognizers?.popLast()
+            self.deTransparentizeBackground()
 		}
 	}
 	

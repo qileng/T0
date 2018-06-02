@@ -29,9 +29,6 @@
 		414E304620BBD67F00F05637 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302220BBD62300F05637 /* FirebaseCore.framework */; };
 		414E304720BBD67F00F05637 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302820BBD62300F05637 /* FirebaseCoreDiagnostics.framework */; };
 		414E304820BBD67F00F05637 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302720BBD62300F05637 /* FirebaseInstanceID.framework */; };
-		414E304920BBD67F00F05637 /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302620BBD62300F05637 /* FirebaseNanoPB.framework */; };
-		414E304A20BBD67F00F05637 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302420BBD62300F05637 /* GoogleToolboxForMac.framework */; };
-		414E304B20BBD67F00F05637 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302520BBD62300F05637 /* nanopb.framework */; };
 		414E304C20BBD69300F05637 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E301E20BBD62300F05637 /* FirebaseDatabase.framework */; };
 		414E304D20BBD69300F05637 /* leveldb-library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E301D20BBD62300F05637 /* leveldb-library.framework */; };
 		414E305020BBD83400F05637 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 414E304F20BBD83400F05637 /* GoogleService-Info.plist */; };
@@ -48,6 +45,9 @@
 		4A6BD493F0475AF0C647F177 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */; };
 		4A6BDDAAC3A2E42D6FF9BFD7 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */; };
 		4A6BDE028DF44FFAA0230AA4 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */; };
+		8318018F20C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */; };
+		8318019020C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */; };
+		8318019120C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */; };
 		833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
 		834A4C6D20BB31A6000F1C80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A55209302660063B4AC /* Assets.xcassets */; };
@@ -60,6 +60,9 @@
 		D23C023920BB3E5E006557CD /* ClockTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C023820BB3E5E006557CD /* ClockTaskCell.swift */; };
 		D23C023A20BB3E5E006557CD /* ClockTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C023820BB3E5E006557CD /* ClockTaskCell.swift */; };
 		D23C023B20BB3E5E006557CD /* ClockTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C023820BB3E5E006557CD /* ClockTaskCell.swift */; };
+		D29F7BD020C2650B00F36421 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302420BBD62300F05637 /* GoogleToolboxForMac.framework */; };
+		D29F7BD220C2650B00F36421 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302520BBD62300F05637 /* nanopb.framework */; };
+		D29F7BD420C2650B00F36421 /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302620BBD62300F05637 /* FirebaseNanoPB.framework */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED432360209E870B00F11140 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235F209E870B00F11140 /* Task.swift */; };
@@ -195,6 +198,7 @@
 		416C1E5F20C0F44900686BF6 /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
 		4185631720A545BB00AA7493 /* TaskDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDAO.swift; sourceTree = "<group>"; };
 		4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationExtension.swift; sourceTree = "<group>"; };
+		8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		8379928320A7B797005784AE /* AutolayoutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutExtension.swift; sourceTree = "<group>"; };
 		8379928520A93787005784AE /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		83927E6820B0A7A500E3D927 /* ClockFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceView.swift; sourceTree = "<group>"; };
@@ -254,12 +258,12 @@
 				414E304C20BBD69300F05637 /* FirebaseDatabase.framework in Frameworks */,
 				414E304D20BBD69300F05637 /* leveldb-library.framework in Frameworks */,
 				414E304520BBD67F00F05637 /* FirebaseAnalytics.framework in Frameworks */,
+				D29F7BD420C2650B00F36421 /* FirebaseNanoPB.framework in Frameworks */,
 				414E304620BBD67F00F05637 /* FirebaseCore.framework in Frameworks */,
 				414E304720BBD67F00F05637 /* FirebaseCoreDiagnostics.framework in Frameworks */,
 				414E304820BBD67F00F05637 /* FirebaseInstanceID.framework in Frameworks */,
-				414E304920BBD67F00F05637 /* FirebaseNanoPB.framework in Frameworks */,
-				414E304A20BBD67F00F05637 /* GoogleToolboxForMac.framework in Frameworks */,
-				414E304B20BBD67F00F05637 /* nanopb.framework in Frameworks */,
+				D29F7BD220C2650B00F36421 /* nanopb.framework in Frameworks */,
+				D29F7BD020C2650B00F36421 /* GoogleToolboxForMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +476,7 @@
 				EDB498A020BD3B7D00A52839 /* TaskDetailTableViewController.swift */,
 				EDB498A120BD3B7D00A52839 /* TaskEditPageViewController.swift */,
 				EDB498A220BD3B7D00A52839 /* TextFieldTableViewCell.swift */,
+				8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */,
 				EDB4989F20BD3B7D00A52839 /* TextViewTableViewCell.swift */,
 			);
 			name = "Task Edit";
@@ -656,6 +661,7 @@
 				EDB498C120BD3C0D00A52839 /* TaskDetailViewController.swift in Sources */,
 				ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */,
 				ED5B5ACB20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */,
+				8318018F20C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
 				ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */,
 				ED5B5A8E20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,
@@ -697,6 +703,7 @@
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
+				8318019020C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
 				D23C023A20BB3E5E006557CD /* ClockTaskCell.swift in Sources */,
 				EDBD2C6320BDB47D00243879 /* Schedule.swift in Sources */,
 				EDB498B020BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */,
@@ -743,6 +750,7 @@
 				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
 				ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */,
 				D23C023B20BB3E5E006557CD /* ClockTaskCell.swift in Sources */,
+				8318019120C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
 				ED5B5AAF20AA703800E3C5F8 /* ModelController.swift in Sources */,
 				EDBD2C6420BDB47D00243879 /* Schedule.swift in Sources */,
 				EDB498B120BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */,
@@ -924,7 +932,6 @@
 		ED6C2A74209302660063B4AC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 764FPJ3WFK;
@@ -949,7 +956,6 @@
 		ED6C2A75209302660063B4AC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 764FPJ3WFK;

@@ -29,7 +29,6 @@ class SwitchTableViewCell: UITableViewCell {
     }
     
     @IBAction func switchValueChanged(_ sender: UISwitch) {
-        print(sender.isOn)
         UserDefaults.standard.set(sender.isOn, forKey: StartTimeModeKey)
         valueChanged?()
     }
