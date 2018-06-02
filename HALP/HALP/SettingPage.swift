@@ -19,7 +19,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var Discard: UIButton!
     @IBOutlet weak var Reset: UIButton!
     @IBOutlet weak var notificationSwitch: UISwitch!
-    @IBOutlet weak var viewSeg: UISegmentedControl!
     @IBOutlet weak var sortingMethodSeg: UISegmentedControl!
     @IBOutlet weak var themeSeg: UISegmentedControl!
     @IBOutlet weak var sunSwitch: UISwitch!
@@ -29,6 +28,22 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var thuSwitch: UISwitch!
     @IBOutlet weak var friSwitch: UISwitch!
     @IBOutlet weak var satSwitch: UISwitch!
+    
+    @IBOutlet weak var notification: UILabel!
+    @IBOutlet weak var defaultSortingMethod: UILabel!
+    @IBOutlet weak var defaultTheme: UILabel!
+    @IBOutlet weak var selectDaysAvailable: UILabel!
+    @IBOutlet weak var sunday: UILabel!
+    @IBOutlet weak var monday: UILabel!
+    @IBOutlet weak var tuesday: UILabel!
+    @IBOutlet weak var wednesday: UILabel!
+    @IBOutlet weak var thursday: UILabel!
+    @IBOutlet weak var friday: UILabel!
+    @IBOutlet weak var saturday: UILabel!
+    @IBOutlet weak var startTime: UILabel!
+    @IBOutlet weak var startNum: UILabel!
+    @IBOutlet weak var endTime: UILabel!
+    @IBOutlet weak var endNum: UILabel!
     
     //Could have: Loop the data
     @IBOutlet weak var startTimePicker: UIPickerView!
@@ -41,12 +56,40 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.barTintColor = TaskManager.sharedTaskManager.getTheme().background
+        
+        notificationSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        notificationSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        sortingMethodSeg.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        themeSeg.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        sunSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        sunSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        monSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        monSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        tueSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        tueSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        wedSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        wedSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        thuSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        thuSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        friSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        friSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        satSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        satSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        Discard.backgroundColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        Reset.backgroundColor = TaskManager.sharedTaskManager.getTheme().imgTint
+        
+        notificationSwitch.anchor(top: self.view.topAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 10, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // Prompt past task alerts
         TaskManager.sharedTaskManager.promptNextAlert(self)
+    
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -352,7 +395,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             
             //change the states of toggles displayed
             self.notificationSwitch.setOn(true, animated: true)
-            self.viewSeg.selectedSegmentIndex = 0
             self.sortingMethodSeg.selectedSegmentIndex = 0
             self.themeSeg.selectedSegmentIndex = 0
             self.sunSwitch.setOn(true, animated: true)
