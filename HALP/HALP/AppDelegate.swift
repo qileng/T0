@@ -120,13 +120,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
             print( "Request: ", error == nil )
             if error != nil {
-                print("no internet connection")
+                    print("no internet connection")
             }
             else{
-                        let firebaseRef = Database.database().reference()
-                        firebaseRef.child(".info/connected").observe(.value, with: {(data) in
-                            if(data.value as! Int32 != 0)
-                            {
+                        if(TaskManager.sharedTaskManager.getUser().getUserID() != 0)
+                        {
                                 syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
                                     if(flag){
                                         print("saving data when enter background")}
@@ -134,11 +132,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                         print("unabe to save data when enter background")
                                     }
                                 })
-                            }
-                        })
-            }
+                        
+                        }
+                }
         }
         task.resume()
+       
     }
     
 
