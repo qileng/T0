@@ -42,6 +42,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.tag = 0
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
@@ -53,6 +55,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         textField.borderStyle = .roundedRect
         textField.clearButtonMode = .whileEditing
         textField.tag = 1
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
@@ -66,6 +70,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         textField.clearButtonMode = .whileEditing
         textField.isSecureTextEntry = true
         textField.tag = 2
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
@@ -79,6 +85,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         textField.clearButtonMode = .whileEditing
         textField.isSecureTextEntry = true
         textField.tag = 2
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
         return textField
     }()
