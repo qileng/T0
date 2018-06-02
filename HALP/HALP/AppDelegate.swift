@@ -116,7 +116,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        let url = URL(string: Database.database().reference().description())
+        let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+            print( "Request: ", error == nil )
+            if error != nil {
+                print("no internet connection")
+            }
+            else{
+                        let firebaseRef = Database.database().reference()
+                        firebaseRef.child(".info/connected").observe(.value, with: {(data) in
+                            if(data.value as! Int32 != 0)
+                            {
+                                syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+                                    if(flag){
+                                        print("saving data when enter background")}
+                                    else{
+                                        print("unabe to save data when enter background")
+                                    }
+                                })
+                            }
+                        })
+            }
+        }
+        task.resume()
     }
+    
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
