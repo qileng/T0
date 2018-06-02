@@ -275,6 +275,13 @@ class TaskManager {
     // Callaback funtion used in UIAlertAction(::handler:)
     // Called by action on "No" from completionAlert.
     func promptReschedule(_: UIAlertAction) -> () {
+		let task = pastTasks[0]
+		if task.getSchedule() != 0 {
+			let removeDAO = TaskDAO()
+			_ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
+			self.pastTasks.remove(at: 0)
+			return
+		}
         let nickName = self.userInfo!.getUsername()
         let rescheduleAlert = UIAlertController(title: "", message: "Do you want to reschedule it, " + nickName + "?", preferredStyle: .alert)
         rescheduleAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: reschedule))
@@ -289,6 +296,8 @@ class TaskManager {
         // TODO: Just put task in tasks. Leave schedule to another function so that we don't
         // perform a scheduling process for each task.
         print("Rescheduling ", task.getTitle())
+		task.setScheduleStart(0)
+		self.tasks.append(task)
         pastTasks.remove(at: 0)
         promptNextAlert(self.viewController!)
     }

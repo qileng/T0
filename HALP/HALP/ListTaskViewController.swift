@@ -162,6 +162,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
             TaskManager.sharedTaskManager.removeTask(taskID: taskId)
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
+			self.tasks = TaskManager.sharedTaskManager.getTasks()
         }
     }
 

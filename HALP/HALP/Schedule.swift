@@ -21,9 +21,11 @@ extension TaskManager {
 		var toSchedule = self.getTasks()
 		// First move all fixed tasks to scheduled
 		for task in toSchedule {
-			if task.getPriority() >= 2 {
+			if task.getPriority() >= 2 || (task.getScheduleStart() != 0 && task.getScheduleStart() < Int(Date().timeIntervalSince1970)) {
 				// It's guaranteed that fixed tasks are on top of the array, so always pop the first one from toSchedule.
 				scheduled.append(task)
+				print("Checking ", task.getTitle())
+				print("Removing ", toSchedule[0].getTitle())
 				toSchedule.remove(at: 0)
 			}
 		}
