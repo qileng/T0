@@ -14,9 +14,10 @@ import UIKit
 import FirebaseCore
 import FirebaseDatabase
 import SQLite3
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     var firebaseRef: DatabaseReference?
@@ -82,6 +83,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.titleTextAttributes =  [ NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedStringKey.foregroundColor : UIColor.white ]
         
         UIBarButtonItem.appearance().setTitleTextAttributes( [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15)], for: .normal)
+		
+		if #available(iOS 10.0, *) {
+			let center = UNUserNotificationCenter.current()
+			center.delegate = self
+			center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+			}
+		}
+		
         return true
     }
 
@@ -154,6 +163,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //
     }
 
-
+	@available(iOS 10.0, *)
+	func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+		completionHandler(.alert)
+	}
 }
 

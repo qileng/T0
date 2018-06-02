@@ -16,7 +16,7 @@ class ClockTaskCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
+        self.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionCell.withAlphaComponent(0.75)
         self.layer.cornerRadius = 30
         //self.clipsToBounds = true
         

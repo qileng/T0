@@ -132,11 +132,12 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
                 }
                 mainDetailCell?.taskImageView.image = image
                 mainDetailCell?.taskImageView.contentMode = .scaleAspectFit
-                mainDetailCell?.taskImageView.tintColor = UIColor.HalpColors.woodBrown //TaskManager.sharedTaskManager.getTheme().background
+                mainDetailCell?.taskImageView.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
             }
             
             //setting task title
             mainDetailCell?.taskTitle.text = self.task?.getTitle()
+			mainDetailCell?.taskTitle.textColor = TaskManager.sharedTaskManager.getTheme().background
             //setting description label
             let descriptionStr:String = task?.getDescription() ?? ""
             if descriptionStr.isEmpty
@@ -146,18 +147,18 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
             }else
             {
                 mainDetailCell?.taskDescriptionLabel.text = descriptionStr
-                mainDetailCell?.taskDescriptionLabel.textColor = .black
+                mainDetailCell?.taskDescriptionLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
             }
             
             //setting event duration
             let startDate = Date(timeIntervalSince1970: TimeInterval((task?.getScheduleStart())!))
-			let deadlineDate = Date(timeIntervalSince1970: TimeInterval(((task?.getScheduleStart())! + (task?.getDuration())!)))
+			let deadlineDate = Date(timeIntervalSince1970: TimeInterval((task?.getDeadline())!))
           
             let startDateTimeStr = timeDateFormatter.string(from: startDate)
             let deadlineDateTimeStr = timeDateFormatter.string(from: deadlineDate)
             
-            mainDetailCell?.eventTimeLabel1.textColor = .black
-            mainDetailCell?.eventTimeLabel2.textColor = .black
+            mainDetailCell?.eventTimeLabel1.textColor = TaskManager.sharedTaskManager.getTheme().background
+            mainDetailCell?.eventTimeLabel2.textColor = TaskManager.sharedTaskManager.getTheme().background
             mainDetailCell?.eventTimeLabel1.adjustsFontSizeToFitWidth = true
             mainDetailCell?.eventTimeLabel2.adjustsFontSizeToFitWidth = true
 			
@@ -169,15 +170,15 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
                 	//case1: event takes place on the same day
                 
                 	let sameDayStr = generalDateFormatter.string(from: startDate)
-                	let attributedStr1 = NSMutableAttributedString(string: sameDayStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                	let attributedStr1 = NSMutableAttributedString(string: sameDayStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : TaskManager.sharedTaskManager.getTheme().background ])
                 	let timeStr = "from " + startDateTimeStr + " to " + deadlineDateTimeStr
-                	let attributedStr2 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+                	let attributedStr2 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : TaskManager.sharedTaskManager.getTheme().background ])
                 
                 	mainDetailCell?.eventTimeLabel1.attributedText = attributedStr1
                 	mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
 					
-					mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: 😜 Follow your schedule."
-					mainDetailCell?.halpSuggestionLabel.textColor = UIColor.black
+					mainDetailCell?.halpSuggestionLabel.text = "⏳ suggests:  Follow your schedule."
+					mainDetailCell?.halpSuggestionLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
             	}else{
                 	//case2: event takes places on the different day
                 	let startDayStr = generalDateFormatter.string(from: startDate)
@@ -192,23 +193,23 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
                 	mainDetailCell?.eventTimeLabel2.attributedText = attributedStr2
 					
 					mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: 😜 Follow your schedule."
-					mainDetailCell?.halpSuggestionLabel.textColor = UIColor.black
+					mainDetailCell?.halpSuggestionLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
             	}
 			} else {
 				// Display Deadline with Duration.
 				let timeStr = "Due on " + deadlineDateTimeStr
-				let attributedStr1 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+				let attributedStr1 = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : TaskManager.sharedTaskManager.getTheme().background ])
 				var durationStr = "Duration: "
 				durationStr += String(self.task!.getDuration() / 3600) + " Hours "
 				durationStr += String(self.task!.getDuration() % 3600 / 60) + " Minutes"
-				let attributedStr2 = NSMutableAttributedString(string: durationStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+				let attributedStr2 = NSMutableAttributedString(string: durationStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : TaskManager.sharedTaskManager.getTheme().background ])
 				mainDetailCell?.eventTimeLabel1.attributedText = attributedStr2
 				mainDetailCell?.eventTimeLabel2.attributedText = attributedStr1
 				
 				mainDetailCell?.halpSuggestionLabel.text = "Halp suggests: Start on "
 				// Date formatter
 				mainDetailCell?.halpSuggestionLabel.text! += generalDateFormatter.string(from:  Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart()))) + " " + timeDateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(self.task!.getScheduleStart())))
-				mainDetailCell?.halpSuggestionLabel.textColor = UIColor.black
+				mainDetailCell?.halpSuggestionLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
 				mainDetailCell?.halpSuggestionLabel.numberOfLines = 0
 			}
 			
@@ -217,7 +218,7 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: CellTypes.detail.rawValue, for: indexPath)
             cell.textLabel?.text = "Alarm"
-            let attributedStr = NSMutableAttributedString(string: self.alarm, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
+            let attributedStr = NSMutableAttributedString(string: self.alarm, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : TaskManager.sharedTaskManager.getTheme().background ])
             cell.detailTextLabel?.attributedText = attributedStr
             return cell
         }

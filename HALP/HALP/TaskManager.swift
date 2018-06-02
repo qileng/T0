@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 // This class handles main functionality. Only one instacne of TaskManager should exist in runtime.
 // For implementation: follow Design use cases.
@@ -109,8 +110,9 @@ class TaskManager {
         self.refresh()
         self.sortTasks(by: .priority)
         self.schedule()
-        let sortType = self.setting!.getDefaultSort();
-        self.sortTasks(by: sortType);
+        let sortType = self.setting!.getDefaultSort()
+        self.sortTasks(by: sortType)
+		self.scheduleNotificationForAll()
     }
     
     // Refresh priority of all tasks
@@ -163,6 +165,7 @@ class TaskManager {
         } else {
             self.sortTasks(by: .priority)
         }
+		self.scheduleNotificationForAll()
     }
 
     
@@ -188,8 +191,9 @@ class TaskManager {
         self.refresh();
         self.sortTasks(by: .priority);
         self.schedule();
-        let sortType = self.setting!.getDefaultSort();
-        self.sortTasks(by: sortType);
+        let sortType = self.setting!.getDefaultSort()
+        self.sortTasks(by: sortType)
+		self.scheduleNotificationForAll()
     }
     
     
@@ -236,6 +240,7 @@ class TaskManager {
         self.sortTasks(by: .priority)
         self.schedule()
         self.sortTasks(by: self.setting!.getDefaultSort())
+		self.scheduleNotificationForAll()
     }
     
     // Callback function used in UIViewController.present(::completion:)
@@ -323,6 +328,49 @@ class TaskManager {
             self.timespan = (Int32(Date().timeIntervalSince1970), endTime)
         }
     }
+	
+	func scheduleNotification(for task: Task) {
+		if task.getNotification() || task.getScheduleStart() == 0 {
+			return
+		}
+		
+		if task.getAlarm() == -1 {
+			print("No alarm!")
+			return
+		}
+		
+		let content = UNMutableNotificationContent()
+		content.title = NSString.localizedUserNotificationString(forKey: task.getTitle(), arguments: nil)
+		var durationString = "Starts in "
+		durationString += String(task.getAlarm() / 3600) + " Hours "
+		durationString += String(task.getAlarm() % 3600 / 60) + " Minutes. "
+		durationString += "with duration "
+		durationString += String(task.getDuration() / 3600) + " Hours "
+		durationString += String(task.getDuration() % 3600 / 60) + " Minutes. "
+		content.body = NSString.localizedUserNotificationString(forKey: durationString , arguments: nil)
+		
+		let notificationTime = Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart() - task.getAlarm()))
+		let Comps = Set<Calendar.Component>([.year, .month, .day, .hour, .minute])
+		let NTComp = Calendar.current.dateComponents(Comps, from: notificationTime)
+		let trigger = UNCalendarNotificationTrigger(dateMatching: NTComp, repeats: false)
+		let request = UNNotificationRequest(identifier: "HALPAlarm", content: content, trigger: trigger)
+		// Schedule the request.
+		let center = UNUserNotificationCenter.current()
+		center.add(request) { (error : Error?) in
+			if let theError = error {
+				print(theError.localizedDescription)
+			}
+		}
+		task.toggleNotification()
+		
+		print("added request for ", task.getTitle(), " at ", Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart()-task.getAlarm())).description(with: .current))
+	}
+	
+	func scheduleNotificationForAll() {
+		for task in tasks {
+			scheduleNotification(for: task)
+		}
+	}
     
     func clearTimeSpan() {
         self.timespan = (0,0)
