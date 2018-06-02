@@ -17,6 +17,7 @@ enum CellTypes:String {
     case textView = "textViewCell"
     case basic = "basicCell"
     case toggle = "switchCell"
+    case image = "imageCell"
 }
 struct CellData {
     var cellType:CellTypes
