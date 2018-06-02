@@ -124,7 +124,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                                       Alarm: Int32(alarm), Deadline: deadlineDate,
                                       SoftDeadline: (taskToEdit?.getSoftDeadline())!,
                                       Schedule: startDate, Duration: (taskToEdit?.getDuration())!,
-                                      Priority: (taskToEdit?.getPriority())!, Schedule_start: (taskToEdit?.getScheduleStart())!,
+                                      Priority: (taskToEdit?.getPriority())!, Schedule_start: 0,
                                       Notification: (taskToEdit?.getNotification())!, TaskID: (taskToEdit?.getTaskId())!,
                                       UserID: TaskManager.sharedTaskManager.getUser().getUserID())
             TaskManager.sharedTaskManager.updateTask(form: updateForm)

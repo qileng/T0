@@ -21,9 +21,11 @@ extension TaskManager {
 		var toSchedule = self.getTasks()
 		// First move all fixed tasks to scheduled
 		for task in toSchedule {
-			if task.getPriority() >= 2 {
+			if task.getPriority() >= 2 || (task.getScheduleStart() != 0 && task.getScheduleStart() < Int(Date().timeIntervalSince1970)) {
 				// It's guaranteed that fixed tasks are on top of the array, so always pop the first one from toSchedule.
 				scheduled.append(task)
+				print("Checking ", task.getTitle())
+				print("Removing ", toSchedule[0].getTitle())
 				toSchedule.remove(at: 0)
 			}
 		}
@@ -59,6 +61,8 @@ extension TaskManager {
 				// Exit condition: If no fixed block is before firstAvailable, just insert there.
 				if taskIndex == scheduled.count {
 					current.setScheduleStart(firstAvailable)
+					let DAO = TaskDAO()
+					_ = DAO.updateTaskInfoInLocalDB(taskId: current.getTaskId(), scheduleStart: Int(current.getScheduleStart()))
 					scheduled.append(current)
 					print("Scheduled! ", current.getTitle())
 					toSchedule.remove(at: 0)
@@ -68,6 +72,8 @@ extension TaskManager {
 				if firstAvailable + current.getDuration() <= scheduled[taskIndex].getScheduleStart() {
 					// If current fits inbetween firstAvailable and current scheduled task.
 					current.setScheduleStart(firstAvailable)
+					let DAO = TaskDAO()
+					_ = DAO.updateTaskInfoInLocalDB(taskId: current.getTaskId(), scheduleStart: Int(current.getScheduleStart()))
 					// Insert current into scheduled before the fixed block to maintain order.
 					scheduled.insert(current, at: taskIndex)
 					taskIndex += 1
