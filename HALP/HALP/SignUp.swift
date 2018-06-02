@@ -70,6 +70,19 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         return textField
     }()
     
+    let passwordConfirmTextField:LeftPaddedTextField = {
+        let textField = LeftPaddedTextField()
+        //        textField.placeholder = "Password"
+        textField.attributedPlaceholder = NSAttributedString(string: "Re-enter your password", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15)])
+        textField.backgroundColor = .white
+        textField.borderStyle = .roundedRect
+        textField.clearButtonMode = .whileEditing
+        textField.isSecureTextEntry = true
+        textField.tag = 2
+        textField.addTarget(self, action: #selector(handleTextInputChange), for: .editingChanged)
+        return textField
+    }()
+    
     var hidePasswordButton:UIButton = {
         
         let button = UIButton(type: .custom)
@@ -143,6 +156,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         userNameTextField.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        passwordConfirmTextField.delegate = self
     }
 
     @objc func backToLoginButtonActionHandler()
@@ -155,7 +169,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
     
     @objc func handleTextInputChange()
     {
-        let isFormValid = (userNameTextField.text?.count ?? 0) > 0 && (emailTextField.text?.count ?? 0) > 0 && (passwordTextField.text?.count ?? 0) > 0
+        let isFormValid = (userNameTextField.text?.count ?? 0) > 0 && (emailTextField.text?.count ?? 0) > 0 && (passwordTextField.text?.count ?? 0) > 0 && (passwordConfirmTextField.text?.count ?? 0) > 0
         if isFormValid
         {
             signUpButton.isEnabled = true
@@ -167,13 +181,24 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         }
     }
     
+    
     @objc func signUpActionHandler()
     {
         //TODO: after signup button touched
         
-        guard let username = userNameTextField.text, let password = passwordTextField.text, let email = emailTextField.text else { return }
+        guard let username = userNameTextField.text, let password = passwordTextField.text, let email = emailTextField.text,
+              let confirmPassword = passwordConfirmTextField.text
+            else { return }
         
         let form = UserForm(username: username, password: password, email: email)
+        
+        if !form.confirmPassword(password: confirmPassword) {
+            let alert = UIAlertController(title: "Passwords do not match", message: "Please try again", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        
         if !form.validatePassword() {
             let alert = UIAlertController(title: "Illegal password!", message: "Please try again", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
@@ -239,14 +264,14 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
 
     fileprivate func setUpSubViewsLayout()
     {
-        verticalStackView.addArrangedSubViews([userNameTextField, emailTextField, passwordTextField, signUpButton ])
+        verticalStackView.addArrangedSubViews([userNameTextField, emailTextField, passwordTextField, passwordConfirmTextField, signUpButton ])
         view.addSubviews([logoImageView, signUpDescriptionLabel, halpLabel, verticalStackView, lineView, backToLoginButton])
         
         backToLoginButton.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width, height: 45, centerX: nil, centerY: nil)
         
         lineView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.backToLoginButton.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width, height: 1, centerX: nil, centerY: nil)
         
-        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/3.7, width: view.frame.width-20, height: view.frame.height/4, centerX: view.centerXAnchor, centerY: nil)
+        verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 20, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/5, width: view.frame.width-20, height: view.frame.height/4 + 40, centerX: view.centerXAnchor, centerY: nil)
         
         signUpDescriptionLabel.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant:0, leftConstant: 10, rightConstant: 10, bottomConstant: 10, width: view.frame.width-20, height: 30, centerX: view.centerXAnchor, centerY: nil)
         

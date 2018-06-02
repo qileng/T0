@@ -27,7 +27,14 @@ class UserForm: UserData {
 	static let SPECIAL = CharacterSet(charactersIn: "!@#$%^./")
 	static let LEGALPW = NUMBERS.union(LETTERS_LOWER.union(LETTERS_UPPER.union(SPECIAL)))
 	static let LEGALUN = NUMBERS.union(LETTERS_LOWER.union(LETTERS_UPPER))
-	
+    
+    func confirmPassword(password: String) -> Bool {
+        if self.getPassword() == password {
+            return true
+        }
+        return false
+    }
+    
 	func validatePassword() -> Bool {
 		
 		// Check password length
