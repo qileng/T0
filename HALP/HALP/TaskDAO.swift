@@ -67,7 +67,36 @@ final class TaskDAO: Task {
         
         // Close database connection to prevent database from locking
         if sqlite3_step(stmt) == SQLITE_DONE {
+            
+            // update user last_update timestamp
+            do {
+                let DAO = TaskDAO()
+                let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
+                if userInfo["user_id"] == nil {
+                    print("Fake task id is no longer supported")
+                    return false
+                }
+                let userId = userInfo["user_id"] as! Int64
+                let userDAO = UserDAO()
+                let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
+                if updateuser.count != 5 {
+                    print("Invalid user id")
+                    print("Fake user id is no longer supported")
+                    return false
+                }
+                _ = userDAO.updateUserInfoInLocalDB(userId: userId, username: (updateuser[1] as! String),
+                                                    password: (updateuser[2] as! String), email: (updateuser[3] as! String))
+            } catch {
+                print("update_user fail")
+                return false
+            }
+            
             sqlite3_close(dbpointer)
+            
+            if !updateSummaryRecord(taskId: taskId, isCreate: true) {
+                return false
+            }
+            
             return true
         } else {
             let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
@@ -188,14 +217,14 @@ final class TaskDAO: Task {
         var taskTitleQueryString = ""
         if taskTitle != nil {
             taskTitleQueryString = " task_title = ?,"
-            argumentManager.append(taskTitle! + "`txt")
+            argumentManager.append(taskTitle! + " `txt")
         }
         
         // If one wants to change task description
         var taskDescQueryString = ""
         if taskDesc != nil {
             taskDescQueryString = " task_desc = ?,"
-            argumentManager.append(taskDesc! + "`txt")
+            argumentManager.append(taskDesc! + " `txt")
         }
         
         // If one wants to change category
@@ -310,6 +339,32 @@ final class TaskDAO: Task {
             return false
         }
         sqlite3_finalize(stmt)
+        
+        // update user last_update timestamp
+        do {
+            let DAO = TaskDAO()
+            
+            let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
+            if userInfo["user_id"] == nil {
+                print("Fake task id is no longer supported")
+                return false
+            }
+            let userId = userInfo["user_id"] as! Int64
+            
+            let userDAO = UserDAO()
+            let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
+            if updateuser.count != 5 {
+                print("Invalid user id")
+                print("Fake user id is no longer supported")
+                return false
+            }
+            _ = userDAO.updateUserInfoInLocalDB(userId: userId, username: (updateuser[1] as! String),
+                                                password: (updateuser[2] as! String), email: (updateuser[3] as! String))
+        } catch {
+            print("update_user fail")
+            return false
+        }
+        
         sqlite3_close(dbpointer)
         return true
     }
@@ -327,7 +382,37 @@ final class TaskDAO: Task {
             return false
         }
         
-        // SQL command for deleting a row from database base on taskId
+        // update user last_update timestamp
+        do {
+            let DAO = TaskDAO()
+            let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
+            if userInfo["user_id"] == nil {
+                print("Fake task id is no longer supported")
+                return false
+            }
+            
+            if !updateSummaryRecord(taskId: taskId, isCreate: false) {
+                return false
+            }
+            
+            let userId = userInfo["user_id"] as! Int64
+            let userDAO = UserDAO()
+            let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
+            if updateuser.count != 5 {
+                print("Invalid user id")
+                print("Fake user id is no longer supported")
+                return false
+            }
+            _ = userDAO.updateUserInfoInLocalDB(userId: userId, username: (updateuser[1] as! String),
+                                                password: (updateuser[2] as! String), email: (updateuser[3] as! String))
+        } catch {
+            print("update_user fail")
+            return false
+        }
+        
+        
+        
+        // SQL statement for deleting a row from database base on taskId
         let deleteQueryString = "DELETE FROM TaskData WHERE task_id=" + String(taskId)
         
         if sqlite3_exec(dbpointer, deleteQueryString, nil, nil, nil) == SQLITE_OK {
@@ -341,4 +426,109 @@ final class TaskDAO: Task {
             return false
         }
     }
+}
+
+
+// Helper method
+// Record user last update timestamp
+func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
+    //Default local database path
+    let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+    var dbpointer: OpaquePointer?
+    
+    if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+        print("fail to establish databse connection")
+        sqlite3_close(dbpointer)
+        return false
+    }
+
+    do {
+        var categoryFlag: Category
+        let DAO = TaskDAO()
+        let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
+        categoryFlag = Category(rawValue: (userInfo["category"] as! Double))!
+        if userInfo["user_id"] == nil {
+            return false
+        }
+        
+        let userId = userInfo["user_id"] as! Int64
+        let settingDAO = SettingDAO()
+        let updateSummary = try settingDAO.fetchSettingFromLocalDB(settingId: userId)
+        if updateSummary.count != 9 {
+            print("Invalid setting id", userId, "at ", dbPath)
+            return false
+        }
+        
+        var summaryString = updateSummary[2] as! String
+        var summaryValueList = summaryString.split(separator: ",")
+        
+        if categoryFlag == Category.Study_Work {
+            if isCreate {
+                let increment = Int(String(summaryValueList[0]))! + 1
+                summaryValueList[0] = Substring(String(increment))
+            }
+            else {
+                let increment = Int(String(summaryValueList[1]))! + 1
+                summaryValueList[1] = Substring(String(increment))
+            }
+        } else if categoryFlag == Category.Chore {
+            if isCreate {
+                let increment = Int(String(summaryValueList[2]))! + 1
+                summaryValueList[2] = Substring(String(increment))
+            }
+            else {
+                let increment = Int(String(summaryValueList[3]))! + 1
+                summaryValueList[3] = Substring(String(increment))
+            }
+        } else if categoryFlag == Category.Relationship {
+            if isCreate {
+                let increment = Int(String(summaryValueList[4]))! + 1
+                summaryValueList[4] = Substring(String(increment))
+            }
+            else {
+                let increment = Int(String(summaryValueList[5]))! + 1
+                summaryValueList[5] = Substring(String(increment))
+            }
+        } else if categoryFlag == Category.Entertainment {
+            if isCreate {
+                let increment = Int(String(summaryValueList[6]))! + 1
+                summaryValueList[6] = Substring(String(increment))
+            }
+            else {
+                let increment = Int(String(summaryValueList[7]))! + 1
+                summaryValueList[7] = Substring(String(increment))
+            }
+        }
+        
+        summaryString = ""
+        for subString in summaryValueList {
+            summaryString = summaryString + subString + ","
+        }
+        summaryString = String(summaryString.dropLast())
+        
+        let settingArray = updateSummary
+        let settingId = settingArray[0] as! Int64
+        let notification = settingArray[1] as! Int32 == 1 ? true : false
+        let summary = summaryString
+        let sort = settingArray[3] as! Int32 == 1 ? SortingType.priority : SortingType.time
+        let theme = settingArray[4] as! Int32 == 1 ? Theme.dark : Theme.regular
+        let avaliableDays = settingArray[5] as! Int32
+        let start = settingArray[6] as! Int32
+        let end = settingArray[7] as! Int32
+        
+        let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
+                                  summary: summary, defaultSort: sort, availableDays: avaliableDays, startTime: start,
+                                  endTime: end, user: settingId)
+    
+
+        print("new summary string: ", userSetting.getSummary())
+       TaskManager.sharedTaskManager.updateSetting(setting: userSetting)
+    
+    } catch {
+        print("update summary fails")
+        sqlite3_close(dbpointer)
+        return false
+    }
+    sqlite3_close(dbpointer)
+    return true
 }

@@ -18,6 +18,7 @@ class TextViewTableViewCell: UITableViewCell, UITextViewDelegate {
         super.awakeFromNib()
         // Initialization code
         textViewOutlet.delegate = self
+        textViewOutlet.textColor = UIColor.placeholderGray
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,6 +30,10 @@ class TextViewTableViewCell: UITableViewCell, UITextViewDelegate {
         if textView.text == "Description"
         {
             textView.text = ""
+            textView.textColor = .black
+            textView.font = UIFont.systemFont(ofSize: 15)
+        }else
+        {
             textView.textColor = .black
             textView.font = UIFont.systemFont(ofSize: 15)
         }
@@ -43,10 +48,11 @@ class TextViewTableViewCell: UITableViewCell, UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text == ""
+        valueChanged?()
+        if textView.text.isEmpty
         {
             textView.text = "Description"
-            textView.textColor = .lightGray
+            textView.textColor = UIColor.placeholderGray
             textView.font = UIFont.systemFont(ofSize: 17)
         }
     }

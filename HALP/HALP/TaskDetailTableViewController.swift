@@ -14,7 +14,6 @@ protocol TaskDetailTableViewControllerDelegate{
 
 class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-
     @IBOutlet weak var tableViewOutlet: UITableView!
     var cellData:[String]?
     var delegate:TaskDetailTableViewControllerDelegate?
@@ -24,7 +23,7 @@ class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
         self.tableViewOutlet.tableFooterView = UIView()
         self.tableViewOutlet.backgroundColor = .clear
-        self.view.backgroundColor = UIColor.HalpColors.pastelRed
+        self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -33,7 +32,7 @@ class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "basicCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CellTypes.basic.rawValue, for: indexPath)
         cell.textLabel?.text = cellData?[indexPath.row]
         return cell
     }

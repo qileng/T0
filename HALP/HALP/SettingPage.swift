@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import CFNetwork
 
 
 
 class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-	var viewName = "Setting Page"
+    var viewName = "Setting Page"
     var settingForm: SettingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
     
+    @IBOutlet weak var Discard: UIButton!
+    @IBOutlet weak var Reset: UIButton!
     @IBOutlet weak var notificationSwitch: UISwitch!
     @IBOutlet weak var viewSeg: UISegmentedControl!
     @IBOutlet weak var sortingMethodSeg: UISegmentedControl!
@@ -35,17 +38,29 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     @IBOutlet weak var startTimeNum: UILabel!
     @IBOutlet weak var endTimeNum: UILabel!
-    
+
     override func viewDidLoad() {
-		super.viewDidLoad()
-	}
-	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
+        super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Prompt past task alerts
+        TaskManager.sharedTaskManager.promptNextAlert(self)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        Discard.titleLabel!.textAlignment = .center
+        Reset.titleLabel!.textAlignment = .center
+
+        TaskManager.sharedTaskManager.refreshTaskManager()
+        
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
         //initialize databse settings
@@ -116,31 +131,26 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         super.viewWillDisappear(animated)
         
         let newSetting = Setting(setting: settingForm.getSettingID(), notification: settingForm.isNotificationOn(),
-                                 theme: settingForm.getTheme(), defaultView: settingForm.getDefaultView(),
+                                 theme: settingForm.getTheme(), summary: settingForm.getSummary(),
                                  defaultSort: settingForm.getDefaultSort(), availableDays: settingForm.getAvailableDays(),
                                  startTime: settingForm.getStartTime(), endTime: settingForm.getEndTime(),
                                  user: settingForm.getUserID())
         
         TaskManager.sharedTaskManager.updateSetting(setting: newSetting)
+        print(settingForm.getAvailableDays())
         
     }
     
-    @IBAction func Logout(_ sender: Any) {
-        createLogoutWarning(title: "Are you sure?", message: "Do you want to logout?")
+	@IBAction func Discard(_ sender: Any) {
+		createDiscardWarning(title: "Are you sure?", message: "Do you want to discard all changes?")
+	}
+	
+	@IBAction func Logout(_ sender: Any) {
+        createLogoutWarning(title: "Do you want to logout?", message: "You will lose all changes." )
     }
     
     @IBAction func notificationSwitch(_ sender: UISwitch) {
         settingForm.toggleNotification()
-    }
-    
-    @IBAction func defaultViewSegControl(_ sender: UISegmentedControl) {
-        if (sender.selectedSegmentIndex == 0){
-            //Switch to Clock View
-            settingForm.setDefaultView(View(rawValue: 0)!)
-        } else if (sender.selectedSegmentIndex == 1) {
-            //Switch to List View
-            settingForm.setDefaultView(View(rawValue: 1)!)
-        }
     }
     
     @IBAction func defaultSortingMethodSegControl(_ sender: UISegmentedControl) {
@@ -281,13 +291,69 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     @IBAction func reset(_ sender: UIButton) {
-        createResetWarning(title: "Are you sure?", message: "Do you want to reset?")
+        createResetWarning(title: "Are you sure?", message: "Do you want to reset to default?")
     }
+	
+	func createDiscardWarning (title: String, message: String) {
+		let discardWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
+		
+		discardWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
+			discardWarning.dismiss(animated: true, completion: nil)
+			
+			//change the states of toggles displayed
+			//Create a settingForm object
+			self.settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
+			//initialize databse settings
+			
+			/*
+			print(self.settingForm.getSettingID())
+			print(self.settingForm.getDefaultView())
+			print(self.settingForm.getDefaultSort())
+			print(self.settingForm.getAvailableDays())
+			print(self.settingForm.isNotificationOn())
+			print(self.settingForm.getTheme())
+			print(self.settingForm.getStartTime())
+			print(self.settingForm.getEndTime())
+			*/
+			self.notificationSwitch.setOn((!(self.settingForm.isNotificationOn())), animated: true)
+			
+			if (self.settingForm.getDefaultSort().rawValue == 1){
+				self.sortingMethodSeg.selectedSegmentIndex = 1
+			}
+			else {
+				self.sortingMethodSeg.selectedSegmentIndex = 0
+			}
+			
+			if (self.settingForm.getTheme().rawValue == 1){
+				self.themeSeg.selectedSegmentIndex = 1
+			}
+			else {
+				self.themeSeg.selectedSegmentIndex = 0
+			}
+			
+			self.sunSwitch.setOn(((self.settingForm.getAvailableDays()) & 0b1 == 1), animated: true)
+			self.monSwitch.setOn((((self.settingForm.getAvailableDays()) >> 1) & 0b1 == 1), animated: true)
+			self.tueSwitch.setOn((((self.settingForm.getAvailableDays()) >> 2) & 0b1 == 1), animated: true)
+			self.wedSwitch.setOn((((self.settingForm.getAvailableDays()) >> 3) & 0b1 == 1), animated: true)
+			self.thuSwitch.setOn((((self.settingForm.getAvailableDays()) >> 4) & 0b1 == 1), animated: true)
+			self.friSwitch.setOn((((self.settingForm.getAvailableDays()) >> 5) & 0b1 == 1), animated: true)
+			self.satSwitch.setOn((((self.settingForm.getAvailableDays()) >> 6) & 0b1 == 1), animated: true)
+			self.startTimeNum.text = String(self.settingForm.getStartTime())
+			self.endTimeNum.text = String(self.settingForm.getEndTime())
+			self.startTimePicker.selectRow(Int(self.settingForm.getStartTime()), inComponent: 0, animated: true)
+			self.endTimePicker.selectRow(24 - Int(self.settingForm.getEndTime()), inComponent: 0, animated: true)
+		}))
+		discardWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
+			discardWarning.dismiss(animated: true, completion: nil)
+		}))
+		self.present(discardWarning, animated:true, completion: nil)
+	}
 
-    func createResetWarning (title:String, message: String){
+
+	func createResetWarning (title:String, message: String) {
         let resetWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         
-        resetWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+        resetWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
             resetWarning.dismiss(animated: true, completion: nil)
             
             //change the states of toggles displayed
@@ -302,13 +368,16 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             self.thuSwitch.setOn(true, animated: true)
             self.friSwitch.setOn(true, animated: true)
             self.satSwitch.setOn(true, animated:true)
-            self.startTimePicker.selectRow(0, inComponent: 0, animated: true)
+            self.startTimePicker.selectRow(8, inComponent: 0, animated: true)
             self.endTimePicker.selectRow(0, inComponent: 0, animated: true)
             
             //reset settings in database
+			/*
             if (!(self.settingForm.isNotificationOn())){
                 self.settingForm.toggleNotification()
             }
+			*/
+			/*
             self.settingForm.setDefaultView(View(rawValue: 0)!)
             self.settingForm.setDefaultSort(SortingType(rawValue: 0)!)
             self.settingForm.setTheme(Theme(rawValue: 0)!)
@@ -329,20 +398,62 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         self.present(resetWarning, animated:true, completion: nil)
     }
     
+    @IBAction func sync(_ sender: UIButton) {
+        if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
+            print("cannot sync guest user")
+        } else {
+            syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+                if flag {
+                    TaskManager.sharedTaskManager.clear()
+                    do {
+                        try TaskManager.sharedTaskManager.loadTasks()
+                    } catch {
+                        print("Error")
+                    }
+                }
+                else {
+                   
+                }
+            })
+        }
+    }
+    
     func createLogoutWarning (title:String, message:String){
+        
+        _ = clearSavedUser()
         let logoutWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         
-        logoutWarning.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { (action) in
+        logoutWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
             logoutWarning.dismiss(animated: true, completion: nil)
-            let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
-            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
-            self.present(loginSignUpNC, animated: true, completion: nil)
+            if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
+                let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+                let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+                self.present(loginSignUpNC, animated: true, completion: nil)
+                
+            } else {
+				let loginVC:StartupViewController = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
+				let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
+				self.present(loginSignUpNC, animated: true, completion: nil)
+				
+				let url = URL(string: Database.database().reference().description())
+				
+				let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
+					print( "Request: ", error == nil )
+					if error != nil {
+					} else {
+						syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
+						})
+					}
+				}
+				
+				task.resume()
+            }
         }))
-        
         logoutWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
             logoutWarning.dismiss(animated: true, completion: nil)
         }))
         self.present(logoutWarning, animated:true, completion: nil)
+       
     }
 }
 

@@ -23,6 +23,27 @@ extension UIColor {
 		self.init(red: CGred, green: CGgreen, blue: CGblue, alpha: CGFloat(1.0))
 	}
     
+    convenience init (hex: Int, alpha: CGFloat) {
+        let red = hex & 0xff0000
+        let green = hex & 0x00ff00
+        let blue = hex & 0x0000ff
+        
+        let CGred = CGFloat(red >> 16) / 255.0
+        let CGgreen = CGFloat(green >> 8) / 255.0
+        let CGblue = CGFloat(blue) / 255.0
+        
+        self.init(red: CGred, green: CGgreen, blue: CGblue, alpha: alpha)
+    }
+	
+	func getHex() -> Int {
+		let components = self.cgColor.components!
+		var hex = 0
+		for (index, component) in components.enumerated() {
+			hex += Int(component*255) << ((2 - index)*8)
+		}
+		return hex
+	}
+    
     struct HalpColors {
         //rgb(255,90,95)
         static let pastelRed = UIColor.rgbColor(255, 90, 95)
@@ -35,31 +56,40 @@ extension UIColor {
         //blue colors
         //rgb(53,142,252)
         static let brilliantAzure = UIColor.rgbColor(53, 142, 252)
+        //brown for the icons in task views
+        static let woodBrown = UIColor(hex: 0x745f4f)
+		//yellow for the icons
+		static let goldPineYellow = UIColor(hex: 0xe4ad4e)
+		//light gray for table background
+		static let lightGray = UIColor(hex: 0xf2f2f2)
+		//less light gray for launch and login and signup
+		static let lessLightGray = UIColor(hex: 0xefefef)
     }
 }
 
 
 class ColorTheme {
-	var text: UIColor
-	var task: UIColor
-	var taskBackground: UIColor
+	var tableBackground: UIColor
 	var background: UIColor
-	var padding: UIColor
+    var clockBackground: UIColor        //New variable to set clock background
+	var collectionBackground: UIColor
+	var imgTint: UIColor
 	
-	init(text: Int, task: Int, taskBackground: Int, background: Int, padding: Int) {
-		self.text = UIColor(hex: text)
-		self.taskBackground = UIColor(hex: taskBackground)
-		self.background = UIColor(hex: background)
-		self.task = UIColor(hex: task)
-		self.padding = UIColor(hex: padding)
+	init(tableBackground: UIColor, background: UIColor, clockBackground: UIColor, collectionBackground: UIColor, imgTint: UIColor) {
+		self.tableBackground = tableBackground
+		self.background = background
+        self.clockBackground = clockBackground
+		self.collectionBackground = collectionBackground
+		self.imgTint = imgTint
 	}
 	
-	static let regular = ColorTheme(text: 0x0, task: 0x00b0ff, taskBackground: 0xf8de7e, background: 0xffffff, padding: 0xffffff)
-	static let dark = ColorTheme(text:0x0, task: 0x176a90, taskBackground: 0xffffff, background: 0x0, padding: 0x0)
+	static let regular = ColorTheme(tableBackground: UIColor.HalpColors.lightGray, background: UIColor(patternImage: #imageLiteral(resourceName: "goldpine")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "daySky")), collectionBackground: UIColor(hex: 0xce8964), imgTint: UIColor.HalpColors.goldPineYellow)
+	static let dark = ColorTheme(tableBackground: UIColor.HalpColors.lightGray, background: UIColor(patternImage: #imageLiteral(resourceName: "wooder")), clockBackground: UIColor(patternImage: #imageLiteral(resourceName: "space2")), collectionBackground: UIColor(hex: 0xce8964), imgTint: UIColor.HalpColors.woodBrown)
 	
 	//TODO: Add more themes
 }
 
+//Sets regular or dark themes based on enum 1 or 0 values for accessibility
 enum Theme: Int {
 	case regular = 0
 	case dark = 1
