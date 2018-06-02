@@ -460,54 +460,52 @@ func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
         }
         
         var summaryString = updateSummary[2] as! String
-        print(summaryString)
+        var summaryValueList = summaryString.split(separator: ",")
         
         if categoryFlag == Category.Study_Work {
             if isCreate {
-                let index = summaryString.index(summaryString.startIndex, offsetBy: 0)
-                let increment = String(Int(String(summaryString[index]))! + 1)
-                summaryString = summaryString.prefix(0) + increment + summaryString.dropFirst(1)
+                let increment = Int(String(summaryValueList[0]))! + 1
+                summaryValueList[0] = Substring(String(increment))
             }
             else {
-                let index = summaryString.index(summaryString.startIndex, offsetBy: 2)
-                let increment = String(Int(String(summaryString[index]))! + 1)
-                summaryString = summaryString.prefix(2) + increment + summaryString.dropFirst(3)
+                let increment = Int(String(summaryValueList[1]))! + 1
+                summaryValueList[1] = Substring(String(increment))
             }
         } else if categoryFlag == Category.Chore {
             if isCreate {
-                let index = summaryString.index(summaryString.startIndex, offsetBy: 4)
-                let increment = String(Int(String(summaryString[index]))! + 1)
-                summaryString = summaryString.prefix(4) + increment + summaryString.dropFirst(5)
+                let increment = Int(String(summaryValueList[2]))! + 1
+                summaryValueList[2] = Substring(String(increment))
             }
             else {
-                let index = summaryString.index(summaryString.startIndex, offsetBy: 6)
-                let increment = String(Int(String(summaryString[index]))! + 1)
-                summaryString = summaryString.prefix(6) + increment + summaryString.dropFirst(7)
+                let increment = Int(String(summaryValueList[3]))! + 1
+                summaryValueList[3] = Substring(String(increment))
             }
         } else if categoryFlag == Category.Relationship {
             if isCreate {
-                let index = summaryString.index(summaryString.startIndex, offsetBy: 8)
-                let increment = String(Int(String(summaryString[index]))! + 1)
-                summaryString = summaryString.prefix(8) + increment + summaryString.dropFirst(9)
+                let increment = Int(String(summaryValueList[4]))! + 1
+                summaryValueList[4] = Substring(String(increment))
             }
             else {
-                let index = summaryString.index(summaryString.startIndex, offsetBy: 10)
-                let increment = String(Int(String(summaryString[index]))! + 1)
-                summaryString = summaryString.prefix(10) + increment + summaryString.dropFirst(11)
+                let increment = Int(String(summaryValueList[5]))! + 1
+                summaryValueList[5] = Substring(String(increment))
             }
         } else if categoryFlag == Category.Entertainment {
             if isCreate {
-                let index = summaryString.index(summaryString.startIndex, offsetBy: 12)
-                let increment = String(Int(String(summaryString[index]))! + 1)
-                summaryString = summaryString.prefix(12) + increment + summaryString.dropFirst(13)
+                let increment = Int(String(summaryValueList[6]))! + 1
+                summaryValueList[6] = Substring(String(increment))
             }
             else {
-                let index = summaryString.index(summaryString.startIndex, offsetBy: 14)
-                let increment = String(Int(String(summaryString[index]))! + 1)
-                summaryString = summaryString.prefix(14) + increment + summaryString.dropFirst(15)
+                let increment = Int(String(summaryValueList[7]))! + 1
+                summaryValueList[7] = Substring(String(increment))
             }
         }
         
+        summaryString = ""
+        for subString in summaryValueList {
+            summaryString = summaryString + subString + ","
+        }
+        summaryString = String(summaryString.dropLast())
+        print(summaryString)
        _ = settingDAO.updateSettingInLocalDB(settingId: userId, Summary: summaryString)
     
     } catch {
