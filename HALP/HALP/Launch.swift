@@ -46,13 +46,13 @@ class LaunchViewController: UIViewController {
                     if flag {
                         DispatchQueue.global().async {
                             DispatchQueue.main.sync {
-                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: false, completion: nil)
                             }
                         }
                     } else {
                         DispatchQueue.global().async {
                             DispatchQueue.main.sync {
-                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "Startup"))!, animated: true, completion: nil)
+                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "Startup"))!, animated: false, completion: nil)
                             }
                         }
                     }

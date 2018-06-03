@@ -82,28 +82,7 @@ class ListTaskViewController: UIViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "trash")
 
-//        let leftButton = UIButton(type: .custom)
-//        leftButton.setImage(#imageLiteral(resourceName: "trash"), for: .normal)
-//        leftButton.setImage(#imageLiteral(resourceName: "done"), for: .highlighted)
-//        leftButton.setImage(#imageLiteral(resourceName: "done"), for: .selected)
-////        leftButton.imageView?.contentMode = .scaleAspectFit
-////        leftButton?.isSelected = false
-//        leftButton.imageView?.contentMode = .scaleAspectFill
-//
-//        leftButton.addTarget(self, action: #selector(deleteButtonActionHandler), for: .touchUpInside)
-//        let leftBarButtonItem = UIBarButtonItem(customView: leftButton)
-//        self.navigationItem.setLeftBarButton(leftBarButtonItem, animated: true)
-//        self.navigationItem.leftBarButtonItem = leftBarButtonItem
     }
-//
-//
-//    @objc func deleteButtonActionHandler()
-//    {
-//
-//            self.tableViewOutlet.setEditing(!self.tableViewOutlet.isEditing, animated: true)
-////        }
-//    }
-    
     @objc func addButtonActionHandler()
     {
         let taskEditVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskEditPageViewController") as! TaskEditPageViewController
@@ -186,4 +165,3 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         return true
     }
 }
-

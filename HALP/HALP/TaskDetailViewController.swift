@@ -12,7 +12,7 @@ class TaskDetailViewController: UIViewController {
 
     var mainDetailCell:MainDetailTableViewCell?
     var task:Task?
-    var alarm:String = "" // temporary alarm
+    var alarmStr:String = "" // temporary alarm
     let generalDateFormatter = DateFormatter()
     let timeDateFormatter = DateFormatter()
     
@@ -49,6 +49,69 @@ class TaskDetailViewController: UIViewController {
         let taskEditNC: UINavigationController = UINavigationController(rootViewController: taskEditVC)
         self.present(taskEditNC, animated: true, completion: nil)
     }
+    
+    func alarmStr(from alarmInt32:Int32) -> String
+    {
+        let alarmStr:String
+        if alarmInt32 == -1
+        {
+            alarmStr = "None"
+        }else if alarmInt32 == 0
+        {
+            alarmStr = "At start time of Event"
+        }else
+        {
+            if(alarmInt32/3600 >= 1)
+            {
+                let hour = alarmInt32/3600
+                if hour == 1 {
+                    alarmStr = "1 Hours before"
+                }
+                else {
+                    alarmStr = "2 Hours before"
+                }
+            }else
+            {
+                let minutes = alarmInt32/60
+                switch(minutes)
+                {
+                case 5:
+                    alarmStr = "5 minutes before"
+                case 10:
+                    alarmStr = "10 minutes before"
+                case 15:
+                    alarmStr = "15 minutes before"
+                case 30:
+                    alarmStr = "30 minutes before"
+                default:
+                    alarmStr = ""
+                }
+            }
+        }
+        return alarmStr
+    }
+    func alarmInt32(from alarmStr:String) -> Int32
+    {
+        let result = alarmStr.split(separator: " ")
+        var alarm: Int32
+        if result.isEmpty {
+            alarm = -1
+        } else {
+            if result[0] == "None" {
+                alarm = -1
+            } else if result[0] == "At" {
+                alarm = 0
+            } else {
+                alarm = Int32(result[0])!
+                if alarm < 5 {
+                    alarm = alarm * 60 * 60
+                } else {
+                    alarm = alarm * 60
+                }
+            }
+        }
+        return alarm
+    }
 
 }
 
@@ -57,7 +120,16 @@ class TaskDetailViewController: UIViewController {
 extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource, TaskDetailTableViewControllerDelegate
 {
     func changeDetail(text label: String, indexPath: IndexPath) {
-        self.alarm = label
+        self.task?.setAlarm(alarmInt32(from: label))
+        let updateForm = TaskForm(Title: (self.task?.getTitle())!, Description: (self.task?.getDescription())!, Category: (self.task?.getCategory())!,
+                                  Alarm: (self.task?.getAlarm())!, Deadline: (self.task?.getDeadline())!,
+                                  SoftDeadline: (self.task?.getSoftDeadline())!,
+                                  Schedule: (self.task?.getSchedule())!, Duration: (self.task?.getDuration())!,
+                                  Priority: (self.task?.getPriority())!, Schedule_start: (self.task?.getScheduleStart())!,
+                                  Notification: (self.task?.getNotification())!, TaskID: (self.task?.getTaskId())!,
+                                  UserID: TaskManager.sharedTaskManager.getUser().getUserID())
+        TaskManager.sharedTaskManager.updateTask(form: updateForm)
+//        self.alarmStr = label
     }
     
 //    func getCategoryStr(from category:Category) -> String
@@ -218,7 +290,11 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: CellTypes.detail.rawValue, for: indexPath)
             cell.textLabel?.text = "Alarm"
-            let attributedStr = NSMutableAttributedString(string: self.alarm, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : TaskManager.sharedTaskManager.getTheme().background ])
+            
+            guard let alarmInt32 = task?.getAlarm() else {return cell}
+//            print("alarmInt32: ", alarmInt32)
+            self.alarmStr = self.alarmStr(from: alarmInt32)
+            let attributedStr = NSMutableAttributedString(string: alarmStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : TaskManager.sharedTaskManager.getTheme().background ])
             cell.detailTextLabel?.attributedText = attributedStr
             return cell
         }
