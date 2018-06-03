@@ -57,11 +57,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navigationBarAppearance = UINavigationBar.appearance()
-        navigationBarAppearance.barTintColor = TaskManager.sharedTaskManager.getTheme().background
-        
-
-        
         notification.anchor(top: self.view.topAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 10, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
         notificationSwitch.anchor(top: self.view.topAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10
             , leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
@@ -85,8 +80,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         friSwitch.anchor(top: thuSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
         satSwitch.anchor(top: friSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
 
-        
-        
         /*let logoutButton = UIButton(type: .custom)
         logoutButton.setImage(#imageLiteral(resourceName: "logout"), for: .normal)
         logoutButton.addTarget(self, action: #selector(Logout), for: .touchUpInside)
@@ -137,37 +130,45 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+	fileprivate func changeTheme(_ with: ColorTheme) {
+		notificationSwitch.tintColor = with.imgTint
+		notificationSwitch.onTintColor = with.imgTint
+		sortingMethodSeg.tintColor = with.imgTint
+		themeSeg.tintColor = with.imgTint
+		sunSwitch.tintColor = with.imgTint
+		sunSwitch.onTintColor = with.imgTint
+		monSwitch.tintColor = with.imgTint
+		monSwitch.onTintColor = with.imgTint
+		tueSwitch.tintColor = with.imgTint
+		tueSwitch.onTintColor = with.imgTint
+		wedSwitch.tintColor = with.imgTint
+		wedSwitch.onTintColor = with.imgTint
+		thuSwitch.tintColor = with.imgTint
+		thuSwitch.onTintColor = with.imgTint
+		friSwitch.tintColor = with.imgTint
+		friSwitch.onTintColor = with.imgTint
+		satSwitch.tintColor = with.imgTint
+		satSwitch.onTintColor = with.imgTint
+		Discard.backgroundColor = with.imgTint
+		Reset.backgroundColor = with.imgTint
+		
+		Reset.backgroundColor = with.background
+		Discard.backgroundColor = with.background
+		
+		self.navigationController!.navigationBar.barTintColor = with.background
+		self.navigationController!.navigationBar.setNeedsLayout()
+		self.navigationController!.navigationBar.layoutIfNeeded()
+		self.navigationController!.navigationBar.setNeedsDisplay()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         Discard.titleLabel!.textAlignment = .center
         Reset.titleLabel!.textAlignment = .center
         
-        notificationSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        notificationSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        sortingMethodSeg.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        themeSeg.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        sunSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        sunSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        monSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        monSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        tueSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        tueSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        wedSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        wedSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        thuSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        thuSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        friSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        friSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        satSwitch.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        satSwitch.onTintColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        Discard.backgroundColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        Reset.backgroundColor = TaskManager.sharedTaskManager.getTheme().imgTint
-        
-        Reset.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-        Discard.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-
-
+		changeTheme(TaskManager.sharedTaskManager.getTheme())
+		
         TaskManager.sharedTaskManager.refreshTaskManager()
         
         //Create a settingForm object
@@ -270,9 +271,11 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         if (sender.selectedSegmentIndex == 0){
             //Switch to Light Theme
             settingForm.setTheme(Theme(rawValue: 0)!)
+			changeTheme(ColorTheme.regular)
         } else if (sender.selectedSegmentIndex == 1){
             //Switch to Dark Theme
             settingForm.setTheme(Theme(rawValue: 1)!)
+			changeTheme(ColorTheme.dark)
         }
     }
     
@@ -445,6 +448,8 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 			self.endTimeNum.text = String(self.settingForm.getEndTime())
 			self.startTimePicker.selectRow(Int(self.settingForm.getStartTime()), inComponent: 0, animated: true)
 			self.endTimePicker.selectRow(24 - Int(self.settingForm.getEndTime()), inComponent: 0, animated: true)
+			
+			self.changeTheme(TaskManager.sharedTaskManager.getTheme())
 		}))
 		discardWarning.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: { (action) in
 			discardWarning.dismiss(animated: true, completion: nil)
@@ -458,6 +463,8 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         
         resetWarning.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { (action) in
             resetWarning.dismiss(animated: true, completion: nil)
+			
+			self.changeTheme(.regular)
             
             //change the states of toggles displayed
             self.notificationSwitch.setOn(true, animated: true)

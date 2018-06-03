@@ -262,15 +262,15 @@ class TaskManager {
             viewController?.present(alert, animated: true, completion: {()->() in
                 self.alerts.remove(at: 0)
                 let removeDAO = TaskDAO()
-                _ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
 				_ = updateSummaryRecord(taskId: self.pastTasks[0].getTaskId(), isCreate: false)
+                _ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
                 self.pastTasks.remove(at: 0)
             })
         } else {
             let removeDAO = TaskDAO()
-            _ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
 			_ = updateSummaryRecord(taskId: self.pastTasks[0].getTaskId(), isCreate: false)
-            self.pastTasks.remove(at: 0)
+            _ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
+			self.pastTasks.remove(at: 0)
         }
     }
     
@@ -375,8 +375,10 @@ class TaskManager {
 	}
 	
 	func scheduleNotificationForAll() {
-		for task in tasks {
-			scheduleNotification(for: task)
+		if self.getSetting().isNotificationOn() {
+			for task in tasks {
+				scheduleNotification(for: task)
+			}
 		}
 	}
     

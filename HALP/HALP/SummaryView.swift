@@ -46,7 +46,7 @@ class SummaryViewController: UIViewController {
     var taskCreated = UIBar()
     var taskDone = UIBar()
     
-	var total = [UILabel(), UILabel(),UILabel(),UILabel(),UILabel(),UILabel(),UILabel(),UILabel()]
+	var total = [UIBarLabel](repeating: UIBarLabel(), count: 8)
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -81,6 +81,14 @@ class SummaryViewController: UIViewController {
         yAxis.alpha = 0
         // draw labels
         
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		for subview in self.total {
+			subview.removeFromSuperview()
+		}
 	}
 	
 	// Drawing everything
@@ -164,47 +172,45 @@ class SummaryViewController: UIViewController {
 			}
 			(subview as! UIBar).size = CGFloat(data[index]) * scale
             
-            let total_i = total[index]
-            total_i.text = String(data[index], radix: 10)
+            let total_i = UIBarLabel()
+			total[index] = total_i
             if(data[index] == 0)
             {
                 continue
             }
-            let height = (subview as! UIBar).size
+            total_i.height = (subview as! UIBar).size
+			total_i.text = String(data[index], radix: 10)
+			let fontSize: CGFloat = 11.0
+			total_i.font = UIFont.preferredFont(forTextStyle: .headline).withSize(fontSize)
+			total_i.adjustsFontSizeToFitWidth = true
+			total_i.textAlignment = .center
             self.view.addSubview(total_i)
-            let offset = (safeView.frame.width - padding * 4) / 4.0 * 0.125
             switch (index)
             {
             case 0:
-                total_i.anchor(top: nil, left: studyIcon.leftAnchor, right: nil, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
-                
+				total_i.frame = self.chartView.convert(CGRect(x: subview.frame.origin.x, y: subview.frame.origin.y - 20 - 2, width: subview.frame.width, height: 20), to: self.view)
             case 1:
-                total_i.textAlignment = .right
-                total_i.anchor(top: nil, left: nil, right: studyIcon.rightAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: offset, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
-                
+				total_i.frame = self.chartView.convert(CGRect(x: subview.frame.origin.x, y: subview.frame.origin.y - 20 - 2, width: subview.frame.width, height: 20), to: self.view)
             case 2:
-                total_i.anchor(top: nil, left: choreIcon.leftAnchor, right: nil, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+                total_i.frame = self.chartView.convert(CGRect(x: subview.frame.origin.x, y: subview.frame.origin.y - 20 - 2, width: subview.frame.width, height: 20), to: self.view)
             case 3:
-                total_i.textAlignment = .right
-                total_i.anchor(top: nil, left: nil, right: choreIcon.rightAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: offset, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
-
+                total_i.frame = self.chartView.convert(CGRect(x: subview.frame.origin.x, y: subview.frame.origin.y - 20 - 2, width: subview.frame.width, height: 20), to: self.view)
             case 4:
-                total_i.anchor(top: nil, left: socialIcon.leftAnchor, right: nil, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+                total_i.frame = self.chartView.convert(CGRect(x: subview.frame.origin.x, y: subview.frame.origin.y - 20 - 2, width: subview.frame.width, height: 20), to: self.view)
             case 5:
-                total_i.textAlignment = .right
-                total_i.anchor(top: nil, left: nil, right: socialIcon.rightAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: offset, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+                total_i.frame = self.chartView.convert(CGRect(x: subview.frame.origin.x, y: subview.frame.origin.y - 20 - 2, width: subview.frame.width, height: 20), to: self.view)
             case 6:
-                total_i.anchor(top: nil, left: entertainmentIcon.leftAnchor, right: nil, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+                total_i.frame = self.chartView.convert(CGRect(x: subview.frame.origin.x, y: subview.frame.origin.y - 20 - 2, width: subview.frame.width, height: 20), to: self.view)
             case 7:
-                total_i.textAlignment = .right
-                total_i.anchor(top: nil, left: nil, right: entertainmentIcon.rightAnchor, bottom: xAxis.topAnchor, topConstant: 0, leftConstant: 0, rightConstant: offset, bottomConstant: height, width: 30, height: 20, centerX: nil, centerY: nil)
+                total_i.frame = self.chartView.convert(CGRect(x: subview.frame.origin.x, y: subview.frame.origin.y - 20 - 2, width: subview.frame.width, height: 20), to: self.view)
             default:
                 print("default")
-                
             }
-			let animator = UIViewPropertyAnimator(duration: 0.8, curve: .linear, animations: (subview as! UIBar).grow)
+			let barAnimator = UIViewPropertyAnimator(duration: 0.8, curve: .linear, animations: (subview as! UIBar).grow)
+			let labelAnimator = UIViewPropertyAnimator(duration: 0.8, curve: .linear, animations: total_i.move)
 			if data[index] != 0 {
-				animator.startAnimation()
+				barAnimator.startAnimation()
+				labelAnimator.startAnimation()
 			}
 		}
 	}

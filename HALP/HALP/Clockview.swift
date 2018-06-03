@@ -392,7 +392,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         minuteHandPath.move(to: CGPoint(x: containerView.bounds.minX, y:containerView.bounds.minY ))
         secondHandPath.move(to: CGPoint(x: containerView.bounds.minX, y:containerView.bounds.minY ))
         
-        hourHandPath.addLine(to: CGPoint(x: time.h.x/1.5, y: time.h.y/1.5))
+        hourHandPath.addLine(to: CGPoint(x: time.h.x/1.2, y: time.h.y/1.2))
         hourHandPath.lineWidth = hourHandWidth
         let hourLayer = CAShapeLayer()
         hourLayer.path = hourHandPath.cgPath
