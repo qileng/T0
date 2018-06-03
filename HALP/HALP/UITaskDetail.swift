@@ -169,7 +169,7 @@ class UITaskDetail: UIView {
 		self.alpha = 1
 	}
 	
-	func dimiss() {
+	func dismiss() {
 		// Dismissing animation
 		self.frame = self.originFrame!
 		self.alpha = 0

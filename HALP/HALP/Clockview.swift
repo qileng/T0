@@ -126,23 +126,20 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     
     // Listener used when detail page is poped
     @objc func onTapWhileDetailDisplayed(_ sender: UITapGestureRecognizer) {
-        // Retrieve the detail view
-        let detailView = self.view.subviews.last!
         // Determine the tapping location
-        let location = sender.location(in: detailView)
+        let location = sender.location(in: self.taskDetail!)
         // If tapped outside the detail view
-        if !detailView.point(inside: location, with: nil) {
+        if !self.taskDetail!.point(inside: location, with: nil) {
             // Dismiss the detail view with animation
-            let animator = UIViewPropertyAnimator(duration: 0.1, curve: .easeOut, animations: UITaskDetail.dimiss(detailView as! UITaskDetail))
+			let animator = UIViewPropertyAnimator(duration: 0.1, curve: .easeOut, animations: self.taskDetail!.dismiss)
             animator.addCompletion({_ in
-                self.view.subviews.last!.removeFromSuperview()
+                self.taskDetail!.removeFromSuperview()
+				self.taskDetail = nil
                 self.deTransparentizeBackground()
                 // Put clock hands back
                 self.addHandsAndCenterPiece()
                 // Remove the gesture recognizer
                 _ = self.view.gestureRecognizers!.popLast()
-                // Remove detail page variable
-                self.taskDetail = nil
             })
             animator.startAnimation()
         }
@@ -155,7 +152,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         DispatchQueue.main.asyncAfter(deadline: (.now() + .milliseconds(300)), execute: {
             let taskEditVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskEditPageViewController") as! TaskEditPageViewController
             taskEditVC.isEditMode = true
-            taskEditVC.taskToEdit = (self.view.subviews.last! as! UITaskDetail).task!
+            taskEditVC.taskToEdit = self.taskDetail!.task!
             let taskEditNC: UINavigationController = UINavigationController(rootViewController: taskEditVC)
             self.present(taskEditNC, animated: true, completion: nil)
         })
@@ -309,11 +306,13 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // Dismiss detail page
-        if type(of: self.view.subviews.last!) == UITaskDetail.self {
-            self.view.subviews.last!.removeFromSuperview()
-            _ = self.view.gestureRecognizers?.popLast()
-            self.deTransparentizeBackground()
-        }
+		if self.taskDetail != nil {
+			self.taskDetail!.removeFromSuperview()
+			self.taskDetail = nil
+		}
+		_ = self.view.gestureRecognizers?.popLast()
+		self.taskDetail = nil
+		self.deTransparentizeBackground()
 		// Dismiss gradient background
 		gradientBackground.removeFromSuperview()
     }
