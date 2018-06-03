@@ -16,7 +16,6 @@ class ListTaskViewController: UIViewController {
     let dateFormatter = DateFormatter()
 //    var tap: UITapGestureRecognizer?
 	var tasks = [Task]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigarionbaritems()
@@ -82,10 +81,7 @@ class ListTaskViewController: UIViewController {
         
         navigationItem.leftBarButtonItem = editButtonItem
         navigationItem.leftBarButtonItem?.image = #imageLiteral(resourceName: "trash")
-    }
-    @objc func deleteButtonActionHandler()
-    {
-        self.tableViewOutlet.setEditing(true, animated: true)
+
     }
     @objc func addButtonActionHandler()
     {
@@ -170,4 +166,3 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         return true
     }
 }
-

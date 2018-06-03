@@ -54,7 +54,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     var taskToEdit:Task?
     var indexForTaskToEdit:Int?
     
-    
     // Logic
     @IBAction func AddTask(_ sender: UIButton) {
         print("executed \n")
@@ -71,7 +70,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         
         let categoryStr = fieldData[2][0].detail
         let alarmStr = fieldData[2][1].detail
-		print(alarmStr)
+        print("alaram String: ", alarmStr)
 		let result = alarmStr?.split(separator: " ")
 		var alarm: Int32
 
@@ -119,6 +118,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.taskToEdit?.setDeadline(deadlineDate)
             self.taskToEdit?.setCategory(category)
             self.taskToEdit?.setDescription(description)
+//            self.taskToEdit?.setAlarm(alarm)
 			// Potential problem: Duration cannot be changed.
             let updateForm = TaskForm(Title: title, Description: description, Category: category,
                                       Alarm: Int32(alarm), Deadline: deadlineDate,
@@ -173,6 +173,9 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                 {
                     let atLeastdeadlineDate = Calendar.current.date(byAdding: .minute, value: 10, to: fieldData[indexPath.section][1].date!) //?? fieldData[indexPath.section][1].date
                     datePicker.minimumDate = atLeastdeadlineDate
+                }else
+                {
+                    datePicker.minimumDate = Date()
                 }
                 if let date = fieldData[indexPath.section][indexPath.row-1].date
                 {
@@ -383,7 +386,10 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
-        
+        if datePickerIndexPath == nil
+        {
+            return
+        }
         let parentIndexPath = IndexPath(row: datePickerIndexPath!.row-1, section: datePickerIndexPath!.section)
         if !isStartTimeMode && datePickerIndexPath!.row-1 == 1 // datepicker countdown mode
         {
@@ -507,7 +513,8 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                     categoryStr = "Social"
                 }
             }
-            //            let alarmStr =
+            let alarm = taskToEdit?.getAlarm()
+            let alarmStr = self.alarmStr(from: alarm!)
             
             self.navigationItem.title = "Edit Task"
             self.addButtonOutlet.setTitle("Done", for: .normal)
@@ -520,7 +527,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                     CellData(cellType: .dateDetail, title: "Deadline", detail: deadlineDateStr, date: deadlineDate, countDownDuration: nil)]
             let section2 =
                 [CellData(cellType: .detail, title: "Category", detail: categoryStr, date: nil, countDownDuration: nil),
-                 CellData(cellType: .detail, title: "Alarm", detail: "", date: nil, countDownDuration: nil)]
+                 CellData(cellType: .detail, title: "Alarm", detail: alarmStr, date: nil, countDownDuration: nil)]
             let section3 = [CellData(cellType: .textView, title: "Description", detail: "", date: nil, countDownDuration: nil)]
             fieldData = [ section0, section1, section2, section3 ]
             
@@ -545,6 +552,70 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    func alarmStr(from alarmInt32:Int32) -> String
+    {
+        let alarmStr:String
+        if alarmInt32 == -1
+        {
+            alarmStr = "None"
+        }else if alarmInt32 == 0
+        {
+            alarmStr = "At start time of Event"
+        }else
+        {
+            if(alarmInt32/3600 >= 1)
+            {
+                let hour = alarmInt32/3600
+                if hour == 1 {
+                    alarmStr = "1 Hours before"
+                }
+                else {
+                    alarmStr = "2 Hours before"
+                }
+            }else
+            {
+                let minutes = alarmInt32/60
+                switch(minutes)
+                {
+                case 5:
+                    alarmStr = "5 minutes before"
+                case 10:
+                    alarmStr = "10 minutes before"
+                case 15:
+                    alarmStr = "15 minutes before"
+                case 30:
+                    alarmStr = "30 minutes before"
+                default:
+                    alarmStr = ""
+                }
+            }
+        }
+        return alarmStr
+    }
+    
+    func alarmInt32(from alarmStr:String) -> Int32
+    {
+        let result = alarmStr.split(separator: " ")
+        var alarm: Int32
+        if result.isEmpty {
+            alarm = -1
+        } else {
+            if result[0] == "None" {
+                alarm = -1
+            } else if result[0] == "At" {
+                alarm = 0
+            } else {
+                alarm = Int32(result[0])!
+                if alarm < 5 {
+                    alarm = alarm * 60 * 60
+                } else {
+                    alarm = alarm * 60
+                }
+            }
+        }
+        return alarm
+    }
+    
     func startOrDurationToggle() -> CellData
     {
         if self.isStartTimeMode
@@ -563,7 +634,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             let durationStr = getTimeStr(from: countDownDuration)//String(countDownDuration)
             return CellData(cellType: .dateDetail, title: "Duration", detail: durationStr, date: nil, countDownDuration: countDownDuration)
         }//Duration mode && Add new task page
-        return CellData(cellType: .dateDetail, title: "Duration", detail: "", date: nil, countDownDuration: 0)
+        return CellData(cellType: .dateDetail, title: "Duration", detail: "05 minutes", date: nil, countDownDuration: 300)
     }
     
     // Initialize page
@@ -602,6 +673,11 @@ extension TaskEditPageViewController : TaskDetailTableViewControllerDelegate
 {
     func changeDetail(text label:String, indexPath:IndexPath)
     {
+        if isEditMode && indexPath.row == 1
+        {
+            taskToEdit?.setAlarm(self.alarmInt32(from: label))
+            print("backTOEditpageFromCategorySelection123")
+        }
         self.fieldData[indexPath.section][indexPath.row].detail = label
     }
 }
