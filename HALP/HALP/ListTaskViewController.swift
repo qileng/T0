@@ -14,6 +14,7 @@ class ListTaskViewController: UIViewController {
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     let dateFormatter = DateFormatter()
+//    var tap: UITapGestureRecognizer?
 	var tasks = [Task]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +72,6 @@ class ListTaskViewController: UIViewController {
         
         let rightButton = UIButton(type: .custom)
         rightButton.setImage(#imageLiteral(resourceName: "plus2"), for: .normal)
-        rightButton.isSelected = false
         rightButton.setImage(#imageLiteral(resourceName: "plus"), for: .highlighted)
         rightButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
         rightButton.imageView?.contentMode = .scaleAspectFit
