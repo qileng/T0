@@ -137,20 +137,28 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
 		cell.taskImageView.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
         
         
-        if description.isEmpty
-        {
-            let startDate = Date(timeIntervalSince1970: TimeInterval(eventStartTime))
-            
-            let timeStr = "from " + dateFormatter.string(from: startDate)
-            
-            let attributedStr = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14, weight: .thin), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
-            
-            cell.detailLabel.attributedText = attributedStr
-        }else {
-           let attributedStr = NSMutableAttributedString(string: description, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14, weight: .thin), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
-            cell.detailLabel.attributedText = attributedStr
-        }
-        return cell
+		if description.isEmpty
+		{
+			let startDate = Date(timeIntervalSince1970: TimeInterval(eventStartTime))
+			
+			let timeStr = "from " + dateFormatter.string(from: startDate)
+			
+			let attributedStr = NSMutableAttributedString(string: timeStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14, weight: .thin), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
+			
+			cell.detailLabel.attributedText = attributedStr
+		}else {
+			var descriptionStr = "Description: "
+			descriptionStr += description
+			let attributedStr = NSMutableAttributedString(string: descriptionStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 14, weight: .thin), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
+			cell.detailLabel.attributedText = attributedStr
+		}
+		
+		// Check for scheduling conflict
+		if task.getScheduleStart() + task.getDuration() > task.getDeadline() {
+			cell.titleLabel.textColor = UIColor.HalpColors.fuzzyWuzzy
+		}
+		
+		return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

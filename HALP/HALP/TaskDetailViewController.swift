@@ -285,6 +285,12 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
 				mainDetailCell?.halpSuggestionLabel.numberOfLines = 0
 			}
 			
+			// Check scheduling conflict
+			if task!.getScheduleStart() + task!.getDuration() > task!.getDeadline() {
+				mainDetailCell?.eventTimeLabel1.textColor = UIColor.HalpColors.fuzzyWuzzy
+				mainDetailCell?.eventTimeLabel2.textColor = UIColor.HalpColors.fuzzyWuzzy
+			}
+			
             return self.mainDetailCell!
         }else //Alarm cell
         {
