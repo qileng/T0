@@ -216,7 +216,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 		
-		myClockBackground = UIClockBackground(frame: myClock.frame)
 		gradientView = UIView(frame: myClock.frame)
 		gradientBackground = UICircularGradientView(frame: myClock.frame)
 		gradientView.backgroundColor = .clear
@@ -224,8 +223,11 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		self.view.addSubview(gradientView)
 		
         changeTheme()
+		myClockBackground.removeFromSuperview()
         self.myClock.setNeedsDisplay()
-		self.myClockBackground.setNeedsDisplay()
+		myClockBackground = UIClockBackground(frame: myClock.frame)
+		self.view.addSubview(myClockBackground)
+		//self.myClockBackground.setNeedsDisplay()
         //Sets background color based on theme from settings
         //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
         //myClock.drawOuterFrame()
@@ -526,7 +528,8 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     func changeTheme() {
         self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
         self.displayLabel.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionBackground
-        myClockBackground.drawOuterFrame()
+//        myClockBackground.drawOuterFrame()
+//		myClock.drawFrame()
     }
     
     // Change opacity when detail page shows.
