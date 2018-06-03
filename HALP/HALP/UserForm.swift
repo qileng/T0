@@ -27,7 +27,14 @@ class UserForm: UserData {
 	static let SPECIAL = CharacterSet(charactersIn: "!@#$%^./")
 	static let LEGALPW = NUMBERS.union(LETTERS_LOWER.union(LETTERS_UPPER.union(SPECIAL)))
 	static let LEGALUN = NUMBERS.union(LETTERS_LOWER.union(LETTERS_UPPER))
-	
+    
+    func confirmPassword(password: String) -> Bool {
+        if self.getPassword() == password {
+            return true
+        }
+        return false
+    }
+    
 	func validatePassword() -> Bool {
 		
 		// Check password length
@@ -99,9 +106,17 @@ class UserForm: UserData {
 		return true
 	}
 	
-	func onlineValidateExistingUser() throws -> UserData {
+    func onlineValidateExistingUser(completion: @escaping (Int64) -> Void) {
 		// TODO: Validate existing user with database, i.e. check login credentials
-		let user = try UserData(false, email: self.getUserEmail(), password: self.getPassword())
-		return user
+        let userDAO =  UserDAO()
+        var userId: Int64 = -1
+        userDAO.userAuthentication(email: self.getUserEmail(), password: self.getPassword(), authFlag: { (authFlag) in
+            if authFlag != -1 {
+                userId = authFlag
+            } else {
+                userId = -1
+            }
+            completion(authFlag)
+        })
 	}
 }

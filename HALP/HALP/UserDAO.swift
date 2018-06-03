@@ -13,6 +13,9 @@ import SQLite3
 
 let SEPERATOR = " "
 
+var db = "/appData.sqlite"					// Global variable indicates which database to use.
+
+
 // This class is used in Data Management layer.
 // This class handles all file/databse IO involving user information.
 // This class has its properties, Initializers, and Getters inherited from UserData.
@@ -24,20 +27,20 @@ final class UserDAO: UserData {
     // PLEASE ENCODE ALL DATA IN UTF-8 OR YOU WILL GET GARBLED DATABASE ENTRIES!!!
 	// Save new user data to the local database
     // Return true for success, false otherwise
-	func saveUserInfoToLocalDB() -> Bool{
+    func saveUserInfoToLocalDB() -> Bool{
             let userId = self.getUserID()
             let username = self.getUsername() as NSString
             let password = self.getPassword() as NSString
             let email = self.getUserEmail() as NSString
-            //Placeholder for last_update
-            let last_update = "" as NSString
+            let last_update = Int32(Date().timeIntervalSince1970)
         
-            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+            let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
             var dbpointer: OpaquePointer?
         
             //Establish database connection
             if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
                 print("fail to establish database connection")
+				sqlite3_close(dbpointer)
                 return false
             }
         
@@ -47,20 +50,21 @@ final class UserDAO: UserData {
             //statement for binding values into insert statement
             var stmt: OpaquePointer?
             sqlite3_prepare(dbpointer, insertQueryString, -1, &stmt, nil)
-            //Store as string for now, uint64 cannot be cast into int64
-            sqlite3_bind_text(stmt, 1, String(userId), -1, nil)
+            sqlite3_bind_int64(stmt, 1, userId)
             sqlite3_bind_text(stmt, 2, username.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 3, password.utf8String, -1, nil)
             sqlite3_bind_text(stmt, 4, email.utf8String, -1, nil)
-            sqlite3_bind_text(stmt, 5, last_update.utf8String, -1, nil)
+            sqlite3_bind_int(stmt, 5, Int32(last_update))
         
             //The operation returns SQLITE_DONE, which is an int success
             //See SQLite result codes for detail
             if sqlite3_step(stmt) == SQLITE_DONE {
+                sqlite3_close(dbpointer)
                 return true
             } else {
                 let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
                 print(errmsg)
+                sqlite3_close(dbpointer)
                 return false
             }
 	}
@@ -69,86 +73,151 @@ final class UserDAO: UserData {
     // Return user info in an array, empty array if query fails.
 	// To avoid returning empty array and cause potential runtime error, this function instead throws
 	// an error from RuntimeError Enumerator.
-    func fetchUserInfoFromLocalDB(userId: String = "" ) throws -> [String] {
-        if( userId == "" ) {
+    func fetchUserInfoFromLocalDB(userId: Int64 = -1 ) throws -> [Any] {
+        if( userId == -1 ) {
             throw RuntimeError.InternalError("fetch() called without key!")
         }
         
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
         var dbpointer: OpaquePointer?
         
         //Establish database connection
         if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+			sqlite3_close(dbpointer)
 			throw RuntimeError.DBError("Local DB does not exist!")
         }
         //SQL command for fecting a row from database base on id
-        let selectQueryString = "SELECT * FROM UserData WHERE user_id=" + userId
+        let selectQueryString = "SELECT * FROM UserData WHERE user_id=" + String(userId)
         
         var stmt: OpaquePointer?
         sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
         
-        var queryResult = [String]()
+        var queryResult = [Any]()
         
         //Traverse through the specific row
         while sqlite3_step(stmt) == SQLITE_ROW {
-            let id = String(cString: sqlite3_column_text(stmt, 0))
+            let id = sqlite3_column_int64(stmt, 0)
             let username = String(cString: sqlite3_column_text(stmt, 1))
             let password = String(cString: sqlite3_column_text(stmt, 2))
             let email = String(cString: sqlite3_column_text(stmt, 3))
-            let last_update = String(cString: sqlite3_column_text(stmt, 4))
+            let last_update = sqlite3_column_int(stmt, 4)
             queryResult.append(id)
             queryResult.append(username)
             queryResult.append(password)
             queryResult.append(email)
             queryResult.append(last_update)
         }
+        sqlite3_finalize(stmt)
+        sqlite3_close(dbpointer)
         return queryResult
     }
     
     // login authentication function, taking username and password as input
+    // Require internet connection
     // Return corresponding user_id if success, "-1" otherwise
-    func userAuthentication(email: String, password: String ) -> String {
-        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/appData.sqlite"
-        var dbpointer: OpaquePointer?
-        
-        //Establish database connection
-        if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
-            print("fail to establish database connection")
-            return "-1"
-        }
-        let emailString = email.split(separator: "@")
-        if emailString.count != 2 {
-            return "-1"
-        }
-    
-        //SQL command for fecting a row from database base on id
-        var selectQueryString = "SELECT user_id, email FROM UserData WHERE password=\'" + password + "\' AND " +
-            "email LIKE " + "\'%" + emailString[0] + "%\'"
-        
-        selectQueryString = selectQueryString + " AND " + "email LIKE " + "\'%" + emailString[1] + "%\'"
-        
-        var stmt: OpaquePointer?
-        sqlite3_prepare(dbpointer, selectQueryString, -1, &stmt, nil)
-        //Query the specific usermane + password combination
-        if sqlite3_step(stmt) == SQLITE_ROW {
-            let id = String(cString: sqlite3_column_text(stmt, 0))
-            let email_verify = String(cString: sqlite3_column_text(stmt, 1))
+    func userAuthentication(email: String, password: String, authFlag: @escaping (Int64) -> Void) { 
+        var userId: Int64 = -1
+        let firebaseRef = Database.database().reference()
+        firebaseRef.child("UserData").queryOrdered(byChild: "email").queryEqual(toValue: email).observeSingleEvent(of: .value, with: {(data) in
             
-            if(email == email_verify) {
-                return id
+            for child in data.children.allObjects as! [DataSnapshot] {
+                let dict = child.value as! [String : Any]
+                if dict["password"] as! String == password {
+                    userId = dict["user_id"] as! Int64
+                    break
+                }
             }
-            return "-1"
-        }
-            return "-1"
+            authFlag(userId)
+        })
+    }
+    
+    
+    //Email address should be unique
+    //This function query the database to maksure that user do not signup with duplicated email
+    //Take one parameter: the input email 
+    //Return true if the input email is valid(no duplicate), false otherwise
+    func validateUserEmail(email: String, flag: @escaping (Bool) -> Void) {
+        let firebaseRef = Database.database().reference()
+        var unique: Bool = false
+        firebaseRef.child("UserData").queryOrdered(byChild: "email").queryEqual(toValue: email).observeSingleEvent(of: .value, with: { (data) in
+            if data.value is NSNull {
+                unique = true
+            }
+            else {
+                unique = false
+            }
+            flag(unique)
+        })
     }
 	
-	// TODO
-	func readFromDatabase() -> [String] {
-		return []
-	}
-	
-	// TODO
-	func writeToDatabase() {
-	}
+    func updateUserInfoInLocalDB(userId: Int64, username: String? = nil, password: String? = nil, email: String? = nil) -> Bool {
+        // Default local database path
+        let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
+        var dbpointer: OpaquePointer?
+        
+        if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
+            print("fail to establish databse connection")
+            sqlite3_close(dbpointer)
+            return false
+        }
+        
+        var argumentManager = [String]()
+        
+        var usernameQueryString = ""
+        if username != nil {
+            usernameQueryString = " user_name = ?,"
+            argumentManager.append(username! + "`txt")
+        }
+        
+        var passwordQueryString = ""
+        if password != nil {
+            passwordQueryString = " password = ?,"
+            argumentManager.append(password! + "`txt")
+        }
+        
+        var emailQueryString = ""
+        if email != nil {
+            emailQueryString = " email = ?,"
+            argumentManager.append(email! + "`txt")
+        }
+        
+        // last_update will always be updated
+        let lastUpdateQueryString = " last_update = ?"
+        
+        let updateQueryString = "UPDATE UserData SET" + usernameQueryString + passwordQueryString
+            + emailQueryString + lastUpdateQueryString + " WHERE user_id=" + String(userId)
+        
+        var stmt: OpaquePointer?
+        if sqlite3_prepare(dbpointer, updateQueryString, -1, &stmt, nil) != SQLITE_OK {
+            print("cannot prepare statements")
+            sqlite3_close(dbpointer)
+            return false
+        }
+        
+        // Initialize sql statement
+        if(argumentManager.count > 0) {
+            for index in 0...argumentManager.count-1 {
+                var infoAndType = argumentManager[index].split(separator: "`")
+                // Array index starts at 0
+                // Binding index starts at 1
+                if infoAndType[1] == "txt" {
+                    sqlite3_bind_text(stmt, Int32(index + 1), (infoAndType[0] as NSString).utf8String, -1, nil)
+                }
+            }
+        }
+        
+        // Bind the last argument
+        let lastIndex = argumentManager.count + 1
+        sqlite3_bind_int(stmt, Int32(lastIndex), Int32(Date().timeIntervalSince1970))
+        
+        if sqlite3_step(stmt) != SQLITE_DONE {
+            sqlite3_finalize(stmt)
+            sqlite3_close(dbpointer)
+            return false
+        }
+        sqlite3_finalize(stmt)
+        sqlite3_close(dbpointer)
+        return true
+    }
 }
 

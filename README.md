@@ -1,4 +1,4 @@
-T0
+T0      [![Build Status](https://travis-ci.org/qileng/T0.svg?branch=TESTING)](https://travis-ci.org/qileng/T0)
 ------------------------------------------------
 https://guides.github.com/introduction/flow/<br/>
 

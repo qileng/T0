@@ -7,7 +7,62 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED37C50D209BB1C90038A7D0 /* SignUp.swift */; };
+		414E302A20BBD62400F05637 /* leveldb-library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E301D20BBD62300F05637 /* leveldb-library.framework */; };
+		414E302B20BBD62400F05637 /* leveldb-library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E301D20BBD62300F05637 /* leveldb-library.framework */; };
+		414E302D20BBD62400F05637 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E301E20BBD62300F05637 /* FirebaseDatabase.framework */; };
+		414E302E20BBD62400F05637 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E301E20BBD62300F05637 /* FirebaseDatabase.framework */; };
+		414E303020BBD62400F05637 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302220BBD62300F05637 /* FirebaseCore.framework */; };
+		414E303120BBD62400F05637 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302220BBD62300F05637 /* FirebaseCore.framework */; };
+		414E303320BBD62400F05637 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302320BBD62300F05637 /* FirebaseAnalytics.framework */; };
+		414E303420BBD62400F05637 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302320BBD62300F05637 /* FirebaseAnalytics.framework */; };
+		414E303620BBD62400F05637 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302420BBD62300F05637 /* GoogleToolboxForMac.framework */; };
+		414E303720BBD62400F05637 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302420BBD62300F05637 /* GoogleToolboxForMac.framework */; };
+		414E303920BBD62400F05637 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302520BBD62300F05637 /* nanopb.framework */; };
+		414E303A20BBD62400F05637 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302520BBD62300F05637 /* nanopb.framework */; };
+		414E303C20BBD62400F05637 /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302620BBD62300F05637 /* FirebaseNanoPB.framework */; };
+		414E303D20BBD62400F05637 /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302620BBD62300F05637 /* FirebaseNanoPB.framework */; };
+		414E303F20BBD62400F05637 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302720BBD62300F05637 /* FirebaseInstanceID.framework */; };
+		414E304020BBD62400F05637 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302720BBD62300F05637 /* FirebaseInstanceID.framework */; };
+		414E304220BBD62400F05637 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302820BBD62300F05637 /* FirebaseCoreDiagnostics.framework */; };
+		414E304320BBD62400F05637 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302820BBD62300F05637 /* FirebaseCoreDiagnostics.framework */; };
+		414E304520BBD67F00F05637 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302320BBD62300F05637 /* FirebaseAnalytics.framework */; };
+		414E304620BBD67F00F05637 /* FirebaseCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302220BBD62300F05637 /* FirebaseCore.framework */; };
+		414E304720BBD67F00F05637 /* FirebaseCoreDiagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302820BBD62300F05637 /* FirebaseCoreDiagnostics.framework */; };
+		414E304820BBD67F00F05637 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302720BBD62300F05637 /* FirebaseInstanceID.framework */; };
+		414E304C20BBD69300F05637 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E301E20BBD62300F05637 /* FirebaseDatabase.framework */; };
+		414E304D20BBD69300F05637 /* leveldb-library.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E301D20BBD62300F05637 /* leveldb-library.framework */; };
+		414E305020BBD83400F05637 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 414E304F20BBD83400F05637 /* GoogleService-Info.plist */; };
+		414E305120BBD83400F05637 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 414E304F20BBD83400F05637 /* GoogleService-Info.plist */; };
+		414E305220BBD83400F05637 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 414E304F20BBD83400F05637 /* GoogleService-Info.plist */; };
+		414E305420BBDA0E00F05637 /* DatabaseCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E305320BBDA0E00F05637 /* DatabaseCore.swift */; };
+		414E305520BBDA0E00F05637 /* DatabaseCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E305320BBDA0E00F05637 /* DatabaseCore.swift */; };
+		414E305620BBDA0E00F05637 /* DatabaseCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414E305320BBDA0E00F05637 /* DatabaseCore.swift */; };
+		416C1E6020C0F44900686BF6 /* Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416C1E5F20C0F44900686BF6 /* Launch.swift */; };
+		416C1E6120C0F44900686BF6 /* Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416C1E5F20C0F44900686BF6 /* Launch.swift */; };
+		416C1E6220C0F44900686BF6 /* Launch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416C1E5F20C0F44900686BF6 /* Launch.swift */; };
+		4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
+		4185636720A5621900AA7493 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
+		4A6BD493F0475AF0C647F177 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */; };
+		4A6BDDAAC3A2E42D6FF9BFD7 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */; };
+		4A6BDE028DF44FFAA0230AA4 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */; };
+		8318018F20C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */; };
+		8318019020C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */; };
+		8318019120C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */; };
+		833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
+		833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
+		834A4C6D20BB31A6000F1C80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A55209302660063B4AC /* Assets.xcassets */; };
+		834A4C6E20BB31A7000F1C80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A55209302660063B4AC /* Assets.xcassets */; };
+		834A4C7020BB329A000F1C80 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
+		834A4C7120BB329A000F1C80 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
+		8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
+		8379928620A93787005784AE /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
+		83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83927E6820B0A7A500E3D927 /* ClockFaceView.swift */; };
+		D23C023920BB3E5E006557CD /* ClockTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C023820BB3E5E006557CD /* ClockTaskCell.swift */; };
+		D23C023A20BB3E5E006557CD /* ClockTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C023820BB3E5E006557CD /* ClockTaskCell.swift */; };
+		D23C023B20BB3E5E006557CD /* ClockTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23C023820BB3E5E006557CD /* ClockTaskCell.swift */; };
+		D29F7BD020C2650B00F36421 /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302420BBD62300F05637 /* GoogleToolboxForMac.framework */; };
+		D29F7BD220C2650B00F36421 /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302520BBD62300F05637 /* nanopb.framework */; };
+		D29F7BD420C2650B00F36421 /* FirebaseNanoPB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 414E302620BBD62300F05637 /* FirebaseNanoPB.framework */; };
 		ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
 		ED432360209E870B00F11140 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235F209E870B00F11140 /* Task.swift */; };
@@ -20,6 +75,42 @@
 		ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */; };
 		ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
 		ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
+		ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */; };
+		ED5B5A7520A511C400E3C5F8 /* TaskForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */; };
+		ED5B5A8E20AA6AE000E3C5F8 /* QuickSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */; };
+		ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */; };
+		ED5B5A9020AA6AE000E3C5F8 /* QuickSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */; };
+		ED5B5A9220AA701A00E3C5F8 /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
+		ED5B5A9320AA701B00E3C5F8 /* AutolayoutExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928320A7B797005784AE /* AutolayoutExtension.swift */; };
+		ED5B5A9420AA701D00E3C5F8 /* TaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235C209E85EA00F11140 /* TaskManager.swift */; };
+		ED5B5A9520AA701F00E3C5F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4A209302650063B4AC /* AppDelegate.swift */; };
+		ED5B5A9620AA701F00E3C5F8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4A209302650063B4AC /* AppDelegate.swift */; };
+		ED5B5A9720AA702200E3C5F8 /* IDGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */; };
+		ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A50209302650063B4AC /* ModelController.swift */; };
+		ED5B5AA720AA703800E3C5F8 /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
+		ED5B5AA920AA703800E3C5F8 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
+		ED5B5AAA20AA703800E3C5F8 /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2502097CA730078827A /* Startup.swift */; };
+		ED5B5AAC20AA703800E3C5F8 /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
+		ED5B5AAD20AA703800E3C5F8 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4C209302650063B4AC /* RootViewController.swift */; };
+		ED5B5AAF20AA703800E3C5F8 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A50209302650063B4AC /* ModelController.swift */; };
+		ED5B5AB020AA703800E3C5F8 /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
+		ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8379928520A93787005784AE /* SignUp.swift */; };
+		ED5B5AB320AA703800E3C5F8 /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2502097CA730078827A /* Startup.swift */; };
+		ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
+		ED5B5AB620AA703800E3C5F8 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A4C209302650063B4AC /* RootViewController.swift */; };
+		ED5B5AB920AA712A00E3C5F8 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
+		ED5B5ABA20AA712A00E3C5F8 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
+		ED5B5ABB20AA712A00E3C5F8 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE994209AB14B00F0DB56 /* UserData.swift */; };
+		ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED43235F209E870B00F11140 /* Task.swift */; };
+		ED5B5ABD20AA712A00E3C5F8 /* TaskDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4185631720A545BB00AA7493 /* TaskDAO.swift */; };
+		ED5B5ABE20AA712A00E3C5F8 /* TaskForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */; };
+		ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */; };
+		ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */; };
+		ED5B5AC120AA712A00E3C5F8 /* SettingForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */; };
+		ED5B5AC720AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
+		ED5B5AC820AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
+		ED5B5AC920AA86B400E3C5F8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */; };
+		ED5B5ACB20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */; };
 		ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED681757209BB94500FEF7D7 /* UserForm.swift */; };
 		ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
@@ -32,12 +123,52 @@
 		ED6C2A59209302660063B4AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */; };
 		ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A63209302660063B4AC /* HALPTests.swift */; };
 		ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6C2A6E209302660063B4AC /* HALPUITests.swift */; };
+		ED91AC4920C0EFB800757038 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91AC4820C0EFB800757038 /* SummaryView.swift */; };
+		ED91AC4A20C0EFB800757038 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91AC4820C0EFB800757038 /* SummaryView.swift */; };
+		ED91AC4B20C0EFB800757038 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED91AC4820C0EFB800757038 /* SummaryView.swift */; };
 		ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE994209AB14B00F0DB56 /* UserData.swift */; };
 		ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9FE995209AB14B00F0DB56 /* UserDAO.swift */; };
+		EDB498A320BD3B7D00A52839 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4989E20BD3B7D00A52839 /* SwitchTableViewCell.swift */; };
+		EDB498A420BD3B7D00A52839 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4989E20BD3B7D00A52839 /* SwitchTableViewCell.swift */; };
+		EDB498A520BD3B7D00A52839 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4989E20BD3B7D00A52839 /* SwitchTableViewCell.swift */; };
+		EDB498A620BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4989F20BD3B7D00A52839 /* TextViewTableViewCell.swift */; };
+		EDB498A720BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4989F20BD3B7D00A52839 /* TextViewTableViewCell.swift */; };
+		EDB498A820BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB4989F20BD3B7D00A52839 /* TextViewTableViewCell.swift */; };
+		EDB498A920BD3B7D00A52839 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498A020BD3B7D00A52839 /* TaskDetailTableViewController.swift */; };
+		EDB498AA20BD3B7D00A52839 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498A020BD3B7D00A52839 /* TaskDetailTableViewController.swift */; };
+		EDB498AB20BD3B7D00A52839 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498A020BD3B7D00A52839 /* TaskDetailTableViewController.swift */; };
+		EDB498AC20BD3B7D00A52839 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498A120BD3B7D00A52839 /* TaskEditPageViewController.swift */; };
+		EDB498AD20BD3B7D00A52839 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498A120BD3B7D00A52839 /* TaskEditPageViewController.swift */; };
+		EDB498AE20BD3B7D00A52839 /* TaskEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498A120BD3B7D00A52839 /* TaskEditPageViewController.swift */; };
+		EDB498AF20BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498A220BD3B7D00A52839 /* TextFieldTableViewCell.swift */; };
+		EDB498B020BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498A220BD3B7D00A52839 /* TextFieldTableViewCell.swift */; };
+		EDB498B120BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498A220BD3B7D00A52839 /* TextFieldTableViewCell.swift */; };
+		EDB498B820BD3C0D00A52839 /* MainDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B420BD3C0C00A52839 /* MainDetailTableViewCell.swift */; };
+		EDB498B920BD3C0D00A52839 /* MainDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B420BD3C0C00A52839 /* MainDetailTableViewCell.swift */; };
+		EDB498BA20BD3C0D00A52839 /* MainDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B420BD3C0C00A52839 /* MainDetailTableViewCell.swift */; };
+		EDB498BB20BD3C0D00A52839 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B520BD3C0C00A52839 /* ListTaskViewController.swift */; };
+		EDB498BC20BD3C0D00A52839 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B520BD3C0C00A52839 /* ListTaskViewController.swift */; };
+		EDB498BD20BD3C0D00A52839 /* ListTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B520BD3C0C00A52839 /* ListTaskViewController.swift */; };
+		EDB498BE20BD3C0D00A52839 /* ListTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B620BD3C0C00A52839 /* ListTaskTableViewCell.swift */; };
+		EDB498BF20BD3C0D00A52839 /* ListTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B620BD3C0C00A52839 /* ListTaskTableViewCell.swift */; };
+		EDB498C020BD3C0D00A52839 /* ListTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B620BD3C0C00A52839 /* ListTaskTableViewCell.swift */; };
+		EDB498C120BD3C0D00A52839 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B720BD3C0D00A52839 /* TaskDetailViewController.swift */; };
+		EDB498C220BD3C0D00A52839 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B720BD3C0D00A52839 /* TaskDetailViewController.swift */; };
+		EDB498C320BD3C0D00A52839 /* TaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB498B720BD3C0D00A52839 /* TaskDetailViewController.swift */; };
+		EDBD2C6220BDB47D00243879 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C6120BDB47D00243879 /* Schedule.swift */; };
+		EDBD2C6320BDB47D00243879 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C6120BDB47D00243879 /* Schedule.swift */; };
+		EDBD2C6420BDB47D00243879 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBD2C6120BDB47D00243879 /* Schedule.swift */; };
+		EDC769D320C3497D00D9B5BA /* UIClockBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */; };
+		EDC769D420C3497D00D9B5BA /* UIClockBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */; };
+		EDC769D520C3497D00D9B5BA /* UIClockBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */; };
+		EDC769D720C349B300D9B5BA /* UICircularGradientSector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */; };
+		EDC769D820C349B300D9B5BA /* UICircularGradientSector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */; };
+		EDC769D920C349B300D9B5BA /* UICircularGradientSector.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */; };
+		EDC769DB20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
+		EDC769DC20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
+		EDC769DD20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
 		EDDEE2492097B3B50078827A /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
-		EDDEE24B2097B77E0078827A /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24A2097B77E0078827A /* ListView.swift */; };
 		EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
-		EDDEE24F2097C7830078827A /* UI_template.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24E2097C7830078827A /* UI_template.swift */; };
 		EDDEE2512097CA730078827A /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2502097CA730078827A /* Startup.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,13 +190,39 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		ED37C50D209BB1C90038A7D0 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		414E301D20BBD62300F05637 /* leveldb-library.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "leveldb-library.framework"; sourceTree = "<group>"; };
+		414E301E20BBD62300F05637 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseDatabase.framework; sourceTree = "<group>"; };
+		414E301F20BBD62300F05637 /* Firebase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Firebase.h; sourceTree = "<group>"; };
+		414E302020BBD62300F05637 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		414E302220BBD62300F05637 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCore.framework; sourceTree = "<group>"; };
+		414E302320BBD62300F05637 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		414E302420BBD62300F05637 /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = "<group>"; };
+		414E302520BBD62300F05637 /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nanopb.framework; sourceTree = "<group>"; };
+		414E302620BBD62300F05637 /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseNanoPB.framework; sourceTree = "<group>"; };
+		414E302720BBD62300F05637 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		414E302820BBD62300F05637 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
+		414E304E20BBD71000F05637 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
+		414E304F20BBD83400F05637 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		414E305320BBDA0E00F05637 /* DatabaseCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseCore.swift; sourceTree = "<group>"; };
+		416C1E5F20C0F44900686BF6 /* Launch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Launch.swift; sourceTree = "<group>"; };
+		4185631720A545BB00AA7493 /* TaskDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDAO.swift; sourceTree = "<group>"; };
+		4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationExtension.swift; sourceTree = "<group>"; };
+		8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
+		8379928320A7B797005784AE /* AutolayoutExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutolayoutExtension.swift; sourceTree = "<group>"; };
+		8379928520A93787005784AE /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		83927E6820B0A7A500E3D927 /* ClockFaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockFaceView.swift; sourceTree = "<group>"; };
+		D23C023820BB3E5E006557CD /* ClockTaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockTaskCell.swift; sourceTree = "<group>"; };
 		ED43235C209E85EA00F11140 /* TaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManager.swift; sourceTree = "<group>"; };
 		ED43235F209E870B00F11140 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDAO.swift; sourceTree = "<group>"; };
 		ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingForm.swift; sourceTree = "<group>"; };
 		ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDGenerator.swift; sourceTree = "<group>"; };
+		ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskForm.swift; sourceTree = "<group>"; };
+		ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickSort.swift; sourceTree = "<group>"; };
+		ED5B5AC220AA754400E3C5F8 /* UITask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITask.swift; sourceTree = "<group>"; };
+		ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITaskDetail.swift; sourceTree = "<group>"; };
 		ED681757209BB94500FEF7D7 /* UserForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserForm.swift; sourceTree = "<group>"; };
 		ED6C2A47209302640063B4AC /* HALP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HALP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6C2A4A209302650063B4AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,8 +239,22 @@
 		ED6C2A6E209302660063B4AC /* HALPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HALPUITests.swift; sourceTree = "<group>"; };
 		ED6C2A70209302660063B4AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED6C2A7C2093052E0063B4AC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		ED91AC4820C0EFB800757038 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
 		ED9FE994209AB14B00F0DB56 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		ED9FE995209AB14B00F0DB56 /* UserDAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDAO.swift; sourceTree = "<group>"; };
+		EDB4989E20BD3B7D00A52839 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		EDB4989F20BD3B7D00A52839 /* TextViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewTableViewCell.swift; sourceTree = "<group>"; };
+		EDB498A020BD3B7D00A52839 /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
+		EDB498A120BD3B7D00A52839 /* TaskEditPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskEditPageViewController.swift; sourceTree = "<group>"; };
+		EDB498A220BD3B7D00A52839 /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		EDB498B420BD3C0C00A52839 /* MainDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainDetailTableViewCell.swift; sourceTree = "<group>"; };
+		EDB498B520BD3C0C00A52839 /* ListTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTaskViewController.swift; sourceTree = "<group>"; };
+		EDB498B620BD3C0C00A52839 /* ListTaskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListTaskTableViewCell.swift; sourceTree = "<group>"; };
+		EDB498B720BD3C0D00A52839 /* TaskDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
+		EDBD2C6120BDB47D00243879 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIClockBackground.swift; sourceTree = "<group>"; };
+		EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularGradientSector.swift; sourceTree = "<group>"; };
+		EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularGradientView.swift; sourceTree = "<group>"; };
 		EDDEE2482097B3B50078827A /* Clockview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clockview.swift; sourceTree = "<group>"; };
 		EDDEE24A2097B77E0078827A /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		EDDEE24C2097C36D0078827A /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
@@ -96,6 +267,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				414E304C20BBD69300F05637 /* FirebaseDatabase.framework in Frameworks */,
+				414E304D20BBD69300F05637 /* leveldb-library.framework in Frameworks */,
+				414E304520BBD67F00F05637 /* FirebaseAnalytics.framework in Frameworks */,
+				D29F7BD420C2650B00F36421 /* FirebaseNanoPB.framework in Frameworks */,
+				414E304620BBD67F00F05637 /* FirebaseCore.framework in Frameworks */,
+				414E304720BBD67F00F05637 /* FirebaseCoreDiagnostics.framework in Frameworks */,
+				414E304820BBD67F00F05637 /* FirebaseInstanceID.framework in Frameworks */,
+				D29F7BD220C2650B00F36421 /* nanopb.framework in Frameworks */,
+				D29F7BD020C2650B00F36421 /* GoogleToolboxForMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +283,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				414E303320BBD62400F05637 /* FirebaseAnalytics.framework in Frameworks */,
+				414E302D20BBD62400F05637 /* FirebaseDatabase.framework in Frameworks */,
+				414E302A20BBD62400F05637 /* leveldb-library.framework in Frameworks */,
+				414E303F20BBD62400F05637 /* FirebaseInstanceID.framework in Frameworks */,
+				414E303020BBD62400F05637 /* FirebaseCore.framework in Frameworks */,
+				414E303920BBD62400F05637 /* nanopb.framework in Frameworks */,
+				414E304220BBD62400F05637 /* FirebaseCoreDiagnostics.framework in Frameworks */,
+				414E303C20BBD62400F05637 /* FirebaseNanoPB.framework in Frameworks */,
+				414E303620BBD62400F05637 /* GoogleToolboxForMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,23 +299,84 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				414E303420BBD62400F05637 /* FirebaseAnalytics.framework in Frameworks */,
+				414E302E20BBD62400F05637 /* FirebaseDatabase.framework in Frameworks */,
+				414E302B20BBD62400F05637 /* leveldb-library.framework in Frameworks */,
+				414E304020BBD62400F05637 /* FirebaseInstanceID.framework in Frameworks */,
+				414E303120BBD62400F05637 /* FirebaseCore.framework in Frameworks */,
+				414E303A20BBD62400F05637 /* nanopb.framework in Frameworks */,
+				414E304320BBD62400F05637 /* FirebaseCoreDiagnostics.framework in Frameworks */,
+				414E303D20BBD62400F05637 /* FirebaseNanoPB.framework in Frameworks */,
+				414E303720BBD62400F05637 /* GoogleToolboxForMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		414E301B20BBD62300F05637 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				414E301C20BBD62300F05637 /* Database */,
+				414E301F20BBD62300F05637 /* Firebase.h */,
+				414E304F20BBD83400F05637 /* GoogleService-Info.plist */,
+				414E302020BBD62300F05637 /* module.modulemap */,
+				414E302120BBD62300F05637 /* Analytics */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		414E301C20BBD62300F05637 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				414E301D20BBD62300F05637 /* leveldb-library.framework */,
+				414E301E20BBD62300F05637 /* FirebaseDatabase.framework */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		414E302120BBD62300F05637 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				414E302220BBD62300F05637 /* FirebaseCore.framework */,
+				414E302320BBD62300F05637 /* FirebaseAnalytics.framework */,
+				414E302420BBD62300F05637 /* GoogleToolboxForMac.framework */,
+				414E302520BBD62300F05637 /* nanopb.framework */,
+				414E302620BBD62300F05637 /* FirebaseNanoPB.framework */,
+				414E302720BBD62300F05637 /* FirebaseInstanceID.framework */,
+				414E302820BBD62300F05637 /* FirebaseCoreDiagnostics.framework */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		414E304420BBD67F00F05637 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8379928220A7B73E005784AE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ED5B5A8D20AA6AE000E3C5F8 /* QuickSort.swift */,
+				8379928320A7B797005784AE /* AutolayoutExtension.swift */,
+				ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */,
+				4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		ED432362209FAD3E00F11140 /* View Classes */ = {
 			isa = PBXGroup;
 			children = (
 				ED6C2A50209302650063B4AC /* ModelController.swift */,
-				EDDEE2482097B3B50078827A /* Clockview.swift */,
-				EDDEE24E2097C7830078827A /* UI_template.swift */,
-				ED37C50D209BB1C90038A7D0 /* SignUp.swift */,
+				8379928520A93787005784AE /* SignUp.swift */,
 				EDDEE2502097CA730078827A /* Startup.swift */,
-				EDDEE24A2097B77E0078827A /* ListView.swift */,
 				EDDEE24C2097C36D0078827A /* SettingPage.swift */,
 				ED6C2A4C209302650063B4AC /* RootViewController.swift */,
+				ED91AC4820C0EFB800757038 /* SummaryView.swift */,
+				416C1E5F20C0F44900686BF6 /* Launch.swift */,
 			);
 			name = "View Classes";
 			sourceTree = "<group>";
@@ -138,6 +388,8 @@
 				ED9FE995209AB14B00F0DB56 /* UserDAO.swift */,
 				ED9FE994209AB14B00F0DB56 /* UserData.swift */,
 				ED43235F209E870B00F11140 /* Task.swift */,
+				4185631720A545BB00AA7493 /* TaskDAO.swift */,
+				ED5B5A7320A511C400E3C5F8 /* TaskForm.swift */,
 				ED5B5A6720A0EA9600E3C5F8 /* Setting.swift */,
 				ED5B5A6A20A0FB7500E3C5F8 /* SettingDAO.swift */,
 				ED5B5A6D20A105D300E3C5F8 /* SettingForm.swift */,
@@ -149,8 +401,10 @@
 			isa = PBXGroup;
 			children = (
 				ED43235C209E85EA00F11140 /* TaskManager.swift */,
+				EDBD2C6120BDB47D00243879 /* Schedule.swift */,
 				ED6C2A4A209302650063B4AC /* AppDelegate.swift */,
 				ED5B5A7020A2528E00E3C5F8 /* IDGenerator.swift */,
+				414E305320BBDA0E00F05637 /* DatabaseCore.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -162,6 +416,9 @@
 				ED6C2A49209302640063B4AC /* HALP */,
 				ED6C2A62209302660063B4AC /* HALPTests */,
 				ED6C2A6D209302660063B4AC /* HALPUITests */,
+				414E301B20BBD62300F05637 /* Firebase */,
+				EDB4987320BD160D00A52839 /* Deprecated */,
+				414E304420BBD67F00F05637 /* Frameworks */,
 				ED6C2A48209302640063B4AC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -179,13 +436,18 @@
 		ED6C2A49209302640063B4AC /* HALP */ = {
 			isa = PBXGroup;
 			children = (
+				414E304E20BBD71000F05637 /* Header.h */,
 				ED432364209FADD000F11140 /* Core */,
 				ED432363209FAD7D00F11140 /* Data Classes */,
 				ED432362209FAD3E00F11140 /* View Classes */,
-				ED6C2A52209302650063B4AC /* Main.storyboard */,
-				ED6C2A55209302660063B4AC /* Assets.xcassets */,
+				EDF4C04A20BD14D30034FBC1 /* ClockView */,
+				EDB498C420BD3C1E00A52839 /* List View */,
+				EDB498B220BD3B8700A52839 /* Task Edit */,
+				8379928220A7B73E005784AE /* Extensions */,
 				ED6C2A57209302660063B4AC /* LaunchScreen.storyboard */,
+				ED6C2A52209302650063B4AC /* Main.storyboard */,
 				ED6C2A5A209302660063B4AC /* Info.plist */,
+				ED6C2A55209302660063B4AC /* Assets.xcassets */,
 			);
 			path = HALP;
 			sourceTree = "<group>";
@@ -206,6 +468,55 @@
 				ED6C2A70209302660063B4AC /* Info.plist */,
 			);
 			path = HALPUITests;
+			sourceTree = "<group>";
+		};
+		EDB4987320BD160D00A52839 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				EDDEE24A2097B77E0078827A /* ListView.swift */,
+				ED5B5AC220AA754400E3C5F8 /* UITask.swift */,
+				EDDEE24E2097C7830078827A /* UI_template.swift */,
+			);
+			name = Deprecated;
+			path = HALP;
+			sourceTree = "<group>";
+		};
+		EDB498B220BD3B8700A52839 /* Task Edit */ = {
+			isa = PBXGroup;
+			children = (
+				EDB4989E20BD3B7D00A52839 /* SwitchTableViewCell.swift */,
+				EDB498A020BD3B7D00A52839 /* TaskDetailTableViewController.swift */,
+				EDB498A120BD3B7D00A52839 /* TaskEditPageViewController.swift */,
+				EDB498A220BD3B7D00A52839 /* TextFieldTableViewCell.swift */,
+				8318018E20C27CAC0041C0E1 /* ImageTableViewCell.swift */,
+				EDB4989F20BD3B7D00A52839 /* TextViewTableViewCell.swift */,
+			);
+			name = "Task Edit";
+			sourceTree = "<group>";
+		};
+		EDB498C420BD3C1E00A52839 /* List View */ = {
+			isa = PBXGroup;
+			children = (
+				EDB498B620BD3C0C00A52839 /* ListTaskTableViewCell.swift */,
+				EDB498B520BD3C0C00A52839 /* ListTaskViewController.swift */,
+				EDB498B420BD3C0C00A52839 /* MainDetailTableViewCell.swift */,
+				EDB498B720BD3C0D00A52839 /* TaskDetailViewController.swift */,
+			);
+			name = "List View";
+			sourceTree = "<group>";
+		};
+		EDF4C04A20BD14D30034FBC1 /* ClockView */ = {
+			isa = PBXGroup;
+			children = (
+				D23C023820BB3E5E006557CD /* ClockTaskCell.swift */,
+				83927E6820B0A7A500E3D927 /* ClockFaceView.swift */,
+				EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */,
+				EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */,
+				EDDEE2482097B3B50078827A /* Clockview.swift */,
+				EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */,
+				ED5B5ACA20AA94AA00E3C5F8 /* UITaskDetail.swift */,
+			);
+			name = ClockView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +624,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED6C2A59209302660063B4AC /* LaunchScreen.storyboard in Resources */,
+				414E305020BBD83400F05637 /* GoogleService-Info.plist in Resources */,
 				ED6C2A56209302660063B4AC /* Assets.xcassets in Resources */,
 				ED6C2A54209302650063B4AC /* Main.storyboard in Resources */,
 			);
@@ -322,6 +634,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				834A4C6D20BB31A6000F1C80 /* Assets.xcassets in Resources */,
+				414E305120BBD83400F05637 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +643,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				834A4C6E20BB31A7000F1C80 /* Assets.xcassets in Resources */,
+				414E305220BBD83400F05637 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,23 +656,47 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED681758209BB94500FEF7D7 /* UserForm.swift in Sources */,
+				D23C023920BB3E5E006557CD /* ClockTaskCell.swift in Sources */,
 				EDDEE2492097B3B50078827A /* Clockview.swift in Sources */,
+				8379928620A93787005784AE /* SignUp.swift in Sources */,
+				EDB498B820BD3C0D00A52839 /* MainDetailTableViewCell.swift in Sources */,
 				ED6C2A4D209302650063B4AC /* RootViewController.swift in Sources */,
+				ED5B5AC720AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
+				EDB498BE20BD3C0D00A52839 /* ListTaskTableViewCell.swift in Sources */,
+				8379928420A7B797005784AE /* AutolayoutExtension.swift in Sources */,
+				EDB498A320BD3B7D00A52839 /* SwitchTableViewCell.swift in Sources */,
 				ED43235D209E85EA00F11140 /* TaskManager.swift in Sources */,
-				EDDEE24B2097B77E0078827A /* ListView.swift in Sources */,
+				EDB498A920BD3B7D00A52839 /* TaskDetailTableViewController.swift in Sources */,
+				EDB498AC20BD3B7D00A52839 /* TaskEditPageViewController.swift in Sources */,
 				ED5B5A6E20A105D300E3C5F8 /* SettingForm.swift in Sources */,
 				ED5B5A7120A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
+				EDB498AF20BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */,
+				414E305420BBDA0E00F05637 /* DatabaseCore.swift in Sources */,
 				ED5B5A6820A0EA9600E3C5F8 /* Setting.swift in Sources */,
-				ED37C50E209BB1C90038A7D0 /* SignUp.swift in Sources */,
+				EDB498C120BD3C0D00A52839 /* TaskDetailViewController.swift in Sources */,
 				ED9FE998209AB14B00F0DB56 /* UserDAO.swift in Sources */,
+				ED5B5ACB20AA94AA00E3C5F8 /* UITaskDetail.swift in Sources */,
+				8318018F20C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
 				ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */,
+				ED5B5A8E20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
+				EDC769D720C349B300D9B5BA /* UICircularGradientSector.swift in Sources */,
+				EDC769DB20C355D600D9B5BA /* UICircularGradientView.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,
+				EDB498A620BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */,
 				ED6C2A51209302650063B4AC /* ModelController.swift in Sources */,
 				ED6C2A4B209302650063B4AC /* AppDelegate.swift in Sources */,
+				ED91AC4920C0EFB800757038 /* SummaryView.swift in Sources */,
 				EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */,
+				4185631820A545BB00AA7493 /* TaskDAO.swift in Sources */,
 				ED5B5A6B20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
+				EDBD2C6220BDB47D00243879 /* Schedule.swift in Sources */,
 				ED432360209E870B00F11140 /* Task.swift in Sources */,
-				EDDEE24F2097C7830078827A /* UI_template.swift in Sources */,
+				EDB498BB20BD3C0D00A52839 /* ListTaskViewController.swift in Sources */,
+				416C1E6020C0F44900686BF6 /* Launch.swift in Sources */,
+				EDC769D320C3497D00D9B5BA /* UIClockBackground.swift in Sources */,
+				83927E6920B0A7A500E3D927 /* ClockFaceView.swift in Sources */,
+				ED5B5A7420A511C400E3C5F8 /* TaskForm.swift in Sources */,
+				4A6BDE028DF44FFAA0230AA4 /* AnimationExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,15 +705,48 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED681759209BB94500FEF7D7 /* UserForm.swift in Sources */,
+				EDB498B920BD3C0D00A52839 /* MainDetailTableViewCell.swift in Sources */,
+				EDB498A420BD3B7D00A52839 /* SwitchTableViewCell.swift in Sources */,
+				EDB498AA20BD3B7D00A52839 /* TaskDetailTableViewController.swift in Sources */,
 				ED68175A209BBA4E00FEF7D7 /* UserDAO.swift in Sources */,
+				EDB498C220BD3C0D00A52839 /* TaskDetailViewController.swift in Sources */,
 				ED5B5A7220A2528E00E3C5F8 /* IDGenerator.swift in Sources */,
+				ED5B5A9520AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
 				ED43235E209E85EA00F11140 /* TaskManager.swift in Sources */,
+				EDB498BC20BD3C0D00A52839 /* ListTaskViewController.swift in Sources */,
+				ED5B5AA620AA703800E3C5F8 /* ModelController.swift in Sources */,
+				ED91AC4A20C0EFB800757038 /* SummaryView.swift in Sources */,
+				ED5B5A8F20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
+				833DED8420B0BC7500CCA657 /* ClockFaceView.swift in Sources */,
 				ED68175B209BBA5100FEF7D7 /* UserData.swift in Sources */,
 				ED5B5A6920A0EA9600E3C5F8 /* Setting.swift in Sources */,
 				ED5B5A6C20A0FB7500E3C5F8 /* SettingDAO.swift in Sources */,
+				8318019020C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
+				D23C023A20BB3E5E006557CD /* ClockTaskCell.swift in Sources */,
+				EDBD2C6320BDB47D00243879 /* Schedule.swift in Sources */,
+				EDC769D420C3497D00D9B5BA /* UIClockBackground.swift in Sources */,
+				EDB498B020BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */,
+				4185636720A5621900AA7493 /* TaskDAO.swift in Sources */,
+				ED5B5AAD20AA703800E3C5F8 /* RootViewController.swift in Sources */,
 				ED432361209E870B00F11140 /* Task.swift in Sources */,
+				ED5B5A9220AA701A00E3C5F8 /* AutolayoutExtension.swift in Sources */,
 				ED6C2A64209302660063B4AC /* HALPTests.swift in Sources */,
+				414E305520BBDA0E00F05637 /* DatabaseCore.swift in Sources */,
+				EDB498AD20BD3B7D00A52839 /* TaskEditPageViewController.swift in Sources */,
+				ED5B5A7520A511C400E3C5F8 /* TaskForm.swift in Sources */,
+				ED5B5AA920AA703800E3C5F8 /* SignUp.swift in Sources */,
+				ED5B5AA720AA703800E3C5F8 /* Clockview.swift in Sources */,
+				834A4C7020BB329A000F1C80 /* UITaskDetail.swift in Sources */,
+				416C1E6120C0F44900686BF6 /* Launch.swift in Sources */,
+				ED5B5AAC20AA703800E3C5F8 /* SettingPage.swift in Sources */,
 				ED5B5A6F20A105D300E3C5F8 /* SettingForm.swift in Sources */,
+				EDC769DC20C355D600D9B5BA /* UICircularGradientView.swift in Sources */,
+				ED5B5AAA20AA703800E3C5F8 /* Startup.swift in Sources */,
+				EDB498BF20BD3C0D00A52839 /* ListTaskTableViewCell.swift in Sources */,
+				ED5B5AC820AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
+				4A6BD493F0475AF0C647F177 /* AnimationExtension.swift in Sources */,
+				EDC769D820C349B300D9B5BA /* UICircularGradientSector.swift in Sources */,
+				EDB498A720BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +754,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED5B5A9620AA701F00E3C5F8 /* AppDelegate.swift in Sources */,
+				EDB498BA20BD3C0D00A52839 /* MainDetailTableViewCell.swift in Sources */,
+				EDB498A520BD3B7D00A52839 /* SwitchTableViewCell.swift in Sources */,
+				EDB498AB20BD3B7D00A52839 /* TaskDetailTableViewController.swift in Sources */,
+				ED5B5AB020AA703800E3C5F8 /* Clockview.swift in Sources */,
+				EDB498C320BD3C0D00A52839 /* TaskDetailViewController.swift in Sources */,
+				ED5B5A9320AA701B00E3C5F8 /* AutolayoutExtension.swift in Sources */,
+				ED5B5A9720AA702200E3C5F8 /* IDGenerator.swift in Sources */,
+				ED5B5AC020AA712A00E3C5F8 /* SettingDAO.swift in Sources */,
+				EDB498BD20BD3C0D00A52839 /* ListTaskViewController.swift in Sources */,
+				ED5B5AB220AA703800E3C5F8 /* SignUp.swift in Sources */,
+				ED91AC4B20C0EFB800757038 /* SummaryView.swift in Sources */,
+				ED5B5AB520AA703800E3C5F8 /* SettingPage.swift in Sources */,
+				833DED8320B0BC7300CCA657 /* ClockFaceView.swift in Sources */,
+				ED5B5ABF20AA712A00E3C5F8 /* Setting.swift in Sources */,
+				ED5B5ABC20AA712A00E3C5F8 /* Task.swift in Sources */,
+				D23C023B20BB3E5E006557CD /* ClockTaskCell.swift in Sources */,
+				8318019120C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
+				ED5B5AAF20AA703800E3C5F8 /* ModelController.swift in Sources */,
+				EDBD2C6420BDB47D00243879 /* Schedule.swift in Sources */,
+				EDC769D520C3497D00D9B5BA /* UIClockBackground.swift in Sources */,
+				EDB498B120BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */,
 				ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */,
+				ED5B5AC120AA712A00E3C5F8 /* SettingForm.swift in Sources */,
+				ED5B5AB620AA703800E3C5F8 /* RootViewController.swift in Sources */,
+				ED5B5ABB20AA712A00E3C5F8 /* UserData.swift in Sources */,
+				414E305620BBDA0E00F05637 /* DatabaseCore.swift in Sources */,
+				ED5B5ABE20AA712A00E3C5F8 /* TaskForm.swift in Sources */,
+				EDB498AE20BD3B7D00A52839 /* TaskEditPageViewController.swift in Sources */,
+				ED5B5AB920AA712A00E3C5F8 /* UserForm.swift in Sources */,
+				ED5B5ABD20AA712A00E3C5F8 /* TaskDAO.swift in Sources */,
+				ED5B5A9420AA701D00E3C5F8 /* TaskManager.swift in Sources */,
+				834A4C7120BB329A000F1C80 /* UITaskDetail.swift in Sources */,
+				416C1E6220C0F44900686BF6 /* Launch.swift in Sources */,
+				ED5B5AB320AA703800E3C5F8 /* Startup.swift in Sources */,
+				ED5B5A9020AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
+				EDC769DD20C355D600D9B5BA /* UICircularGradientView.swift in Sources */,
+				ED5B5ABA20AA712A00E3C5F8 /* UserDAO.swift in Sources */,
+				EDB498C020BD3C0D00A52839 /* ListTaskTableViewCell.swift in Sources */,
+				ED5B5AC920AA86B400E3C5F8 /* ColorExtension.swift in Sources */,
+				4A6BDDAAC3A2E42D6FF9BFD7 /* AnimationExtension.swift in Sources */,
+				EDC769D920C349B300D9B5BA /* UICircularGradientSector.swift in Sources */,
+				EDB498A820BD3B7D00A52839 /* TextViewTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,8 +889,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = HALP/Header.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -527,8 +944,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = HALP/Header.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -540,6 +959,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 764FPJ3WFK;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Firebase/Database",
+					"$(PROJECT_DIR)/Firebase/Analytics",
+				);
 				INFOPLIST_FILE = HALP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -558,6 +983,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 764FPJ3WFK;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Firebase/Database",
+					"$(PROJECT_DIR)/Firebase/Analytics",
+				);
 				INFOPLIST_FILE = HALP/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -576,6 +1007,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 764FPJ3WFK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Firebase/Database",
+					"$(PROJECT_DIR)/Firebase/Analytics",
+				);
 				INFOPLIST_FILE = HALPTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -596,6 +1033,12 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 764FPJ3WFK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Firebase/Database",
+					"$(PROJECT_DIR)/Firebase/Analytics",
+				);
 				INFOPLIST_FILE = HALPTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -615,6 +1058,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Firebase/Database",
+					"$(PROJECT_DIR)/Firebase/Analytics",
+				);
 				INFOPLIST_FILE = HALPUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -634,6 +1082,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Firebase/Database",
+					"$(PROJECT_DIR)/Firebase/Analytics",
+				);
 				INFOPLIST_FILE = HALPUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

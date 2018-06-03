@@ -1,0 +1,6 @@
+# safelist
+  
+language: swift
+osx_image: xcode9.3
+
+script: xcodebuild clean -project HALP/HALP.xcodeproj && xcodebuild test -project HALP/HALP.xcodeproj -scheme HALP -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.3'
