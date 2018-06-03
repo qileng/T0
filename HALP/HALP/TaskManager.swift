@@ -262,13 +262,15 @@ class TaskManager {
             viewController?.present(alert, animated: true, completion: {()->() in
                 self.alerts.remove(at: 0)
                 let removeDAO = TaskDAO()
+				_ = updateSummaryRecord(taskId: self.pastTasks[0].getTaskId(), isCreate: false)
                 _ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
                 self.pastTasks.remove(at: 0)
             })
         } else {
             let removeDAO = TaskDAO()
+			_ = updateSummaryRecord(taskId: self.pastTasks[0].getTaskId(), isCreate: false)
             _ = removeDAO.deleteTaskFromLocalDB(taskId: self.pastTasks[0].getTaskId())
-            self.pastTasks.remove(at: 0)
+			self.pastTasks.remove(at: 0)
         }
     }
     
@@ -349,20 +351,19 @@ class TaskManager {
 		}
 		
 		let content = UNMutableNotificationContent()
-		content.title = NSString.localizedUserNotificationString(forKey: task.getTitle(), arguments: nil)
-		var durationString = "Starts in "
-		durationString += String(task.getAlarm() / 3600) + " Hours "
-		durationString += String(task.getAlarm() % 3600 / 60) + " Minutes. "
-		durationString += "with duration "
-		durationString += String(task.getDuration() / 3600) + " Hours "
-		durationString += String(task.getDuration() % 3600 / 60) + " Minutes. "
-		content.body = NSString.localizedUserNotificationString(forKey: durationString , arguments: nil)
+		let titleStr = task.getTitle() + " coming up!"
+		content.title = NSString.localizedUserNotificationString(forKey: titleStr, arguments: nil)
+		var notificationString = "Starts "
+		task.getDescriptionString(of: .alarm, descriptionString: &notificationString)
+//		notificationString += "with duration "
+//		task.getDescriptionString(of: .duration, descriptionString: &notificationString)
+		content.body = NSString.localizedUserNotificationString(forKey: notificationString , arguments: nil)
 		
 		let notificationTime = Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart() - task.getAlarm()))
 		let Comps = Set<Calendar.Component>([.year, .month, .day, .hour, .minute])
 		let NTComp = Calendar.current.dateComponents(Comps, from: notificationTime)
 		let trigger = UNCalendarNotificationTrigger(dateMatching: NTComp, repeats: false)
-		let request = UNNotificationRequest(identifier: "HALPAlarm", content: content, trigger: trigger)
+		let request = UNNotificationRequest(identifier: String(task.getTaskId(), radix: 16), content: content, trigger: trigger)
 		// Schedule the request.
 		let center = UNUserNotificationCenter.current()
 		center.add(request) { (error : Error?) in
@@ -371,13 +372,13 @@ class TaskManager {
 			}
 		}
 		task.toggleNotification()
-		
-		print("added request for ", task.getTitle(), " at ", Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart()-task.getAlarm())).description(with: .current))
 	}
 	
 	func scheduleNotificationForAll() {
-		for task in tasks {
-			scheduleNotification(for: task)
+		if self.getSetting().isNotificationOn() {
+			for task in tasks {
+				scheduleNotification(for: task)
+			}
 		}
 	}
     

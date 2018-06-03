@@ -32,3 +32,12 @@ class UIBar: UILabel {
 		self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.width, height: -2)
 	}
 }
+
+
+class UIBarLabel: UILabel {
+	var height = 0.0 as CGFloat
+	
+	func move() {
+		self.frame = CGRect(origin: CGPoint(x: self.frame.origin.x, y: self.frame.origin.y - height), size: self.frame.size)
+	}
+}

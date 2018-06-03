@@ -100,8 +100,9 @@ class UITaskDetail: UIView {
 		let duration = UIPaddedLabel(frame: self.frame)
 		duration.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
 		duration.text = "Duration: "
-		duration.text! += String(self.task!.getDuration() / 3600) + " Hours "
-		duration.text! += String(self.task!.getDuration() % 3600 / 60) + " Minutes"
+		self.task!.getDescriptionString(of: .duration, descriptionString: &duration.text!)
+//		duration.text! += String(self.task!.getDuration() / 3600) + " Hours "
+//		duration.text! += String(self.task!.getDuration() % 3600 / 60) + " Minutes"
 		duration.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		duration.drawText(in: duration.frame)
 		duration.textAlignment = .left

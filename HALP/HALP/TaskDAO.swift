@@ -390,11 +390,11 @@ final class TaskDAO: Task {
                 print("Fake task id is no longer supported")
                 return false
             }
-            
-            if !updateSummaryRecord(taskId: taskId, isCreate: false) {
-                return false
-            }
-            
+//
+//            if !updateSummaryRecord(taskId: taskId, isCreate: false) {
+//                return false
+//            }
+			
             let userId = userInfo["user_id"] as! Int64
             let userDAO = UserDAO()
             let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)

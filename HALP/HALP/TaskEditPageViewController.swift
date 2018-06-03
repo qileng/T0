@@ -355,7 +355,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "TaskDetailTableViewController") as! TaskDetailTableViewController
             if fieldData[indexPath.section][indexPath.row].title == "Category"
             {
-                detailVC.cellData = ["Study", "Work", "Entertainment", "Chore", "Social"]
+                detailVC.cellData = ["Study", "Entertainment", "Chore", "Social"]
             }else
                 // Might need change
             { // "Alarm"
