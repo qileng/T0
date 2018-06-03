@@ -22,6 +22,11 @@ enum Weight: Double {
     case Time = 0.7
 }
 
+enum TaskInfoType {
+	case alarm
+	case duration
+}
+
 // TODO: Add more initializer if necessary.
 // TODO: Add a comparion function that returns a Bool. True if task1.priority <= task2.priority.
 // TODO: Update getter so it returns id as well.
@@ -344,5 +349,33 @@ class Task {
 			return left > right
 		}
 		return left.getScheduleStart() < right.getScheduleStart()
+	}
+	
+	func getDescriptionString(of: TaskInfoType, descriptionString: inout String) {
+		let timeinterval = (of == TaskInfoType.alarm) ? self.getAlarm() : self.getDuration()
+		if timeinterval == 0 && of == .alarm {
+			descriptionString += "now "
+			return
+		} else if of == .alarm {
+			descriptionString += "in "
+		}
+		let hours = timeinterval / 3600
+		let minutes = timeinterval % 3600 / 60
+		if hours != 0 {
+			descriptionString += String(hours)
+			if hours != 1 {
+				descriptionString += " hours, "
+			} else {
+				descriptionString += " hour, "
+			}
+		}
+		if minutes != 0 {
+			descriptionString += String(minutes)
+			if minutes != 1 {
+				descriptionString += " minutes."
+			} else {
+				descriptionString += " minute."
+			}
+		}
 	}
 }
