@@ -55,7 +55,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     var taskToEdit:Task?
     var indexForTaskToEdit:Int?
     
-    
     // Logic
     @IBAction func AddTask(_ sender: UIButton) {
         print("executed \n")
@@ -174,6 +173,9 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
                 {
                     let atLeastdeadlineDate = Calendar.current.date(byAdding: .minute, value: 10, to: fieldData[indexPath.section][1].date!) //?? fieldData[indexPath.section][1].date
                     datePicker.minimumDate = atLeastdeadlineDate
+                }else
+                {
+                    datePicker.minimumDate = Date()
                 }
                 if let date = fieldData[indexPath.section][indexPath.row-1].date
                 {
@@ -384,7 +386,10 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
-        
+        if datePickerIndexPath == nil
+        {
+            return
+        }
         let parentIndexPath = IndexPath(row: datePickerIndexPath!.row-1, section: datePickerIndexPath!.section)
         if !isStartTimeMode && datePickerIndexPath!.row-1 == 1 // datepicker countdown mode
         {
@@ -629,7 +634,7 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             let durationStr = getTimeStr(from: countDownDuration)//String(countDownDuration)
             return CellData(cellType: .dateDetail, title: "Duration", detail: durationStr, date: nil, countDownDuration: countDownDuration)
         }//Duration mode && Add new task page
-        return CellData(cellType: .dateDetail, title: "Duration", detail: "", date: nil, countDownDuration: 0)
+        return CellData(cellType: .dateDetail, title: "Duration", detail: "05 minutes", date: nil, countDownDuration: 300)
     }
     
     // Initialize page
