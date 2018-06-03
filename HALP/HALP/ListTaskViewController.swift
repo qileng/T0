@@ -20,6 +20,7 @@ class ListTaskViewController: UIViewController {
         super.viewDidLoad()
         setupNavigarionbaritems()
         setupDateformat()
+		NotificationCenter.default.addObserver(self, selector: #selector(reloadTableView), name: NSNotification.Name(rawValue: "AlertDoneReload"), object: nil)
     }
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
@@ -62,6 +63,18 @@ class ListTaskViewController: UIViewController {
         dateFormatter.timeStyle = .short
         dateFormatter.dateFormat = "HH:mm a, EEEE, MMMM dd, yyyy"
     }
+	@objc func reloadTableView()
+	{
+		self.tasks = TaskManager.sharedTaskManager.getTasks()
+		print("hello")
+		DispatchQueue.main.async {
+			
+			self.tableViewOutlet.reloadData()
+			self.tableViewOutlet.setNeedsLayout()
+			self.tableViewOutlet.layoutIfNeeded()
+			self.tableViewOutlet.setNeedsDisplay()
+		}
+	}
     
     func setupNavigarionbaritems()
     {
@@ -160,6 +173,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
             tableView.endUpdates()
 			self.tasks = TaskManager.sharedTaskManager.getTasks()
         }
+		tableView.reloadData()
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

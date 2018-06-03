@@ -301,6 +301,11 @@ class TaskManager {
 		task.setScheduleStart(0)
 		self.tasks.append(task)
         pastTasks.remove(at: 0)
+//		if type(of: self.viewController) == ListTaskViewController.self {
+//			(self.viewController! as! ListTaskViewController).tableViewOutlet.reloadData()
+//		}
+		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AlertDoneReload"), object: nil, userInfo: nil)
+		print(type(of: self.viewController!))
         promptNextAlert(self.viewController!)
     }
     
