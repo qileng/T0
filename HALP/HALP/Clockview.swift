@@ -220,13 +220,12 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		gradientBackground = UICircularGradientView(frame: myClock.frame)
 		gradientView.backgroundColor = .clear
 		gradientBackground.backgroundColor = .clear
+		myClockBackground.removeFromSuperview()
+		myClockBackground = UIClockBackground(frame: myClock.frame)
+		self.view.addSubview(myClockBackground)
 		self.view.addSubview(gradientView)
 		
         changeTheme()
-		myClockBackground.removeFromSuperview()
-        self.myClock.setNeedsDisplay()
-		myClockBackground = UIClockBackground(frame: myClock.frame)
-		self.view.addSubview(myClockBackground)
 		//self.myClockBackground.setNeedsDisplay()
         //Sets background color based on theme from settings
         //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
