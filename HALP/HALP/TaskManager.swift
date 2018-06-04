@@ -78,7 +78,12 @@ class TaskManager {
         default:
             self.theme = ColorTheme.regular
         }
-        
+		
+		for task in tasks {
+			if task.getPriority() < 2 {
+				task.setScheduleStart(0)
+			}
+		}
 		
 		let navigationBarAppearace = UINavigationBar.appearance()
 		navigationBarAppearace.barTintColor = self.getTheme().background
@@ -235,7 +240,7 @@ class TaskManager {
             print(index)
             self.tasks.remove(at: index)
         }
-        
+        self.clearTimeSpan()
         self.refresh()
         self.sortTasks(by: .priority)
         self.schedule()
