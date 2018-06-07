@@ -129,28 +129,9 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
                                   Notification: (self.task?.getNotification())!, TaskID: (self.task?.getTaskId())!,
                                   UserID: TaskManager.sharedTaskManager.getUser().getUserID())
         TaskManager.sharedTaskManager.updateTask(form: updateForm)
-//        self.alarmStr = label
     }
     
-//    func getCategoryStr(from category:Category) -> String
-//    {
-//        var categoryStr:String = ""
-//        switch category
-//        {
-//        case Category.Study_Work:
-//            categoryStr = "Study"
-//        case Category.Entertainment:
-//            categoryStr = "Entertainment"
-//        case Category.Chore:
-//            categoryStr = "Chore"
-//        case Category.Relationship:
-//            categoryStr = "Social"
-//        }
-//        return categoryStr
-//    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //        var rowHeight = tableView.rowHeight
         var rowHeight = UITableViewAutomaticDimension
         if indexPath.row == 0
         {
@@ -235,7 +216,6 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
             mainDetailCell?.eventTimeLabel2.adjustsFontSizeToFitWidth = true
 			
 			// Display "from.. to.." if task is fixed
-			print(task!.getSchedule())
 			if task!.getSchedule() != 0 {
             	if Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .month) == .orderedSame && Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .day) == .orderedSame
             	{
@@ -298,7 +278,6 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
             cell.textLabel?.text = "Alarm"
             
             guard let alarmInt32 = task?.getAlarm() else {return cell}
-//            print("alarmInt32: ", alarmInt32)
             self.alarmStr = self.alarmStr(from: alarmInt32)
             let attributedStr = NSMutableAttributedString(string: alarmStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : TaskManager.sharedTaskManager.getTheme().background ])
             cell.detailTextLabel?.attributedText = attributedStr

@@ -39,8 +39,6 @@ class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITa
             let image = categoryImg(from: categoryStr)
             cell.imageViewOutlet.image = image
             cell.titleLabelOutlet.text = categoryStr
-            
-//            cell.titleLabelOutlet.textColor = TaskManager.sharedTaskManager.getTheme().background
             cell.imageViewOutlet.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
             return cell
         }
@@ -58,7 +56,6 @@ class TaskDetailTableViewController: UIViewController, UITableViewDelegate, UITa
     
     func categoryImg(from string:String) -> UIImage
     {
-        //["Study", "Work", "Entertainment", "Chore", "Social"]
         let image:UIImage
         switch string {
         case "Study":

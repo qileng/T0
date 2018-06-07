@@ -56,7 +56,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     
     // Logic
     @IBAction func AddTask(_ sender: UIButton) {
-        print("executed \n")
         guard let title = self.titleTextFieldCell?.textFieldOutlet.text, !title.isEmpty else {
             self.shakeTitleInput()
             return
@@ -70,7 +69,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         
         let categoryStr = fieldData[2][0].detail
         let alarmStr = fieldData[2][1].detail
-        print("alaram String: ", alarmStr)
 		let result = alarmStr?.split(separator: " ")
 		var alarm: Int32
 
@@ -91,7 +89,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
 
-		print(alarm)
         var category: Category
         switch categoryStr {
         case "Study":
@@ -118,8 +115,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             self.taskToEdit?.setDeadline(deadlineDate)
             self.taskToEdit?.setCategory(category)
             self.taskToEdit?.setDescription(description)
-//            self.taskToEdit?.setAlarm(alarm)
-			// Potential problem: Duration cannot be changed.
             let updateForm = TaskForm(Title: title, Description: description, Category: category,
                                       Alarm: Int32(alarm), Deadline: deadlineDate,
                                       SoftDeadline: (taskToEdit?.getSoftDeadline())!,
@@ -135,8 +130,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             //         Todo: validate
             //         Todo: exception handling
             TaskManager.sharedTaskManager.addTask(form)
-//            let taskDAO = TaskDAO(form)
-//            taskDAO.saveTaskInfoToLocalDB()
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -236,12 +229,10 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             return cell
         case .dateDetail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
-//            let cell = UITableViewCell(style: .value1, reuseIdentifier: celltype.rawValue)
             cell.textLabel?.text = fieldData[indexPath.section][indexPath.row].title
             let detailStr = fieldData[indexPath.section][indexPath.row].detail
             let attributedStr = NSMutableAttributedString(string: detailStr!, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : UIColor.black ])
             cell.detailTextLabel?.attributedText = attributedStr
-//            cell.detailTextLabel?.adjustsFontSizeToFitWidth = true
             return cell
         case .detail:
             let cell = tableView.dequeueReusableCell(withIdentifier: celltype.rawValue, for: indexPath)
@@ -481,10 +472,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             }
         }, completion: nil)
     }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.view.endEditing(true)
-//    }
   
     func setTableViewDateSource()
     {
@@ -492,11 +479,9 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
       
         if isEditMode //when it is EditMode
         {
-            
-            //            let startDate = Date(timeIntervalSince1970: TimeInterval((taskToEdit?.getScheduleStart())!))
+			
             let deadlineDate = Date(timeIntervalSince1970: TimeInterval((taskToEdit?.getDeadline())!))
             
-            //            let startDateStr = dateFormatter.string(from: startDate)
             let deadlineDateStr = dateFormatter.string(from: deadlineDate)
             
             var categoryStr:String = ""
@@ -676,7 +661,6 @@ extension TaskEditPageViewController : TaskDetailTableViewControllerDelegate
         if isEditMode && indexPath.row == 1
         {
             taskToEdit?.setAlarm(self.alarmInt32(from: label))
-            print("backTOEditpageFromCategorySelection123")
         }
         self.fieldData[indexPath.section][indexPath.row].detail = label
     }

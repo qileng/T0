@@ -18,7 +18,6 @@ class UserForm: UserData {
 	// 		- Username can only contain numbers and letters
 	//		- Password can only contain numbers, letters, and a limited number of special characters.
 	//		- Email is in the format of "xx@xx.xx"
-	// TODO: Improvements needed.
 	
 	// Constants represents legal characters.
 	static let NUMBERS = CharacterSet(charactersIn: "0123456789")

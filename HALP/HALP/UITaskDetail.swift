@@ -26,18 +26,6 @@ class UITaskDetail: UIView {
 	var task: Task?
 	var originFrame: CGRect?
 	let setting = UIButton()
-
-	// Deprecated
-	/*
-	init(frame: CGRect, task t: UITask) {
-		self.task = t.task
-		originFrame = frame
-		super.init(frame: t.frame)
-		self.layer.cornerRadius = 20
-		self.clipsToBounds = true
-		self.setUp()
-	}
-	*/
 	
 	init(origin: CGRect, target: CGRect, task t: Task) {
 		self.task = t
@@ -93,7 +81,6 @@ class UITaskDetail: UIView {
 		description.text = self.task!.getDescription()
 		description.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		description.numberOfLines = 0
-		//description.font = UIFont(name: "MarkerFelt-Thin", size: UIFont.systemFontSize)
 		description.drawText(in: description.frame)
 		description.sizeToFit()
 		
@@ -101,13 +88,9 @@ class UITaskDetail: UIView {
 		duration.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
 		duration.text = "Duration: "
 		self.task!.getDescriptionString(of: .duration, descriptionString: &duration.text!)
-//		duration.text! += String(self.task!.getDuration() / 3600) + " Hours "
-//		duration.text! += String(self.task!.getDuration() % 3600 / 60) + " Minutes"
 		duration.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		duration.drawText(in: duration.frame)
 		duration.textAlignment = .left
-		//duration.font = UIFont(name: "GillSans-LightItalic", size: UIFont.systemFontSize)
-		
 		// Date Formatter
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "HH:mm a EEEE MMMM dd, yyyy"
@@ -120,7 +103,6 @@ class UITaskDetail: UIView {
 		scheduled.textColor = TaskManager.sharedTaskManager.getTheme().tableBackground
 		scheduled.drawText(in: scheduled.frame)
 		scheduled.textAlignment = .left
-		//scheduled.font = UIFont(name: "Noteworthy-Bold", size: UIFont.systemFontSize)
 		scheduled.numberOfLines = 0
 		
 		let deadline = UIPaddedLabel(frame: self.frame)
@@ -131,7 +113,6 @@ class UITaskDetail: UIView {
 		deadline.drawText(in: deadline.frame)
 		deadline.textAlignment = .left
 		deadline.numberOfLines = 0
-		//deadline.font = UIFont(name: "AmericanTypewriter", size: UIFont.systemFontSize)
 		
 		let img = #imageLiteral(resourceName: "Cog")
 		setting.setImage(img, for: .normal)

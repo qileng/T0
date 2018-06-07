@@ -169,10 +169,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
 
     @objc func backToLoginButtonActionHandler()
     {
-//        let signUpViewController = SignUpViewController()
-        
         self.navigationController?.popViewController(animated: true)
-//        self.navigationController?.pushViewController(signUpViewController, animated: true)
     }
     
     @objc func handleTextInputChange()
@@ -236,7 +233,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         // check databse for duplicate email address
         
         _DAO.validateUserEmail(email: form.getUserEmail(), flag: { (uniqueEmail) in
-            print("unique email", uniqueEmail)
             if uniqueEmail {
                 if(!_DAO.saveUserInfoToLocalDB()) {
                     let alert = UIAlertController(title: "Unexpected Error :(", message: "Cannnot establish database connection", preferredStyle: .alert)
@@ -244,7 +240,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                     self.present(alert, animated: true)
                 }
                 else {
-                    defaultSettingDAO.saveSettingIntoLocalDB()
+                    _ = defaultSettingDAO.saveSettingIntoLocalDB()
                     let alert = UIAlertController(title: "Success!", message: "You can now sign in with your account", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: {(action) -> Void in
                         
@@ -255,7 +251,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                     
                     syncDatabase(userId: form.getUserID(), completion: {(flag) in
                         if flag {
-                            print("Done","\n","\n","\n","\n")
                         }
                     })
                     

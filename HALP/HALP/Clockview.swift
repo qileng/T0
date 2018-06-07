@@ -120,7 +120,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
                 count+=1
             }
         }
-        print("Number of elements is " + String(count))
         
     }
     
@@ -185,9 +184,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		self.view.addSubview(myClockBackground)
 		self.view.addSubview(gradientView)
 		changeTheme()
-        //Sets background color based on theme from settings
-        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-        //myClock.drawOuterFrame()
 
         let startAngle = .pi / 12.0
         let angle = .pi / 6.0
@@ -226,10 +222,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		self.view.addSubview(gradientView)
 		
         changeTheme()
-		//self.myClockBackground.setNeedsDisplay()
-        //Sets background color based on theme from settings
-        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-        //myClock.drawOuterFrame()
         
         TaskManager.sharedTaskManager.refreshTaskManager()
 
@@ -322,24 +314,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
         super.viewDidAppear(animated)
         
         //Sets background color based on theme from settings
-        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-//		let gradientView = UICircularGradient(frame: myClock.frame)
-//		self.view.addSubview(gradientView)
-//		gradientView.setNeedsDisplay()
 		let partition = 10
-		
-//		for index in 0...11 {
-//			for i in 0...(partition - 1) {
-//				let sector = UICircularGradientSector(frame: myClock.frame, partition: partition, index: index, innerIndex: i)
-//				DispatchQueue.global().sync {
-//					DispatchQueue.global().asyncAfter(deadline: (.now() + .milliseconds(1000)), execute:  {
-//						DispatchQueue.main.sync {
-//							self.view.addSubview(sector)
-//						}
-//					})
-//				}
-//			}
-//		}
 		
 		var timer = Timer()
 		var index = 0
@@ -527,8 +502,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
     func changeTheme() {
         self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
         self.displayLabel.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionBackground
-//        myClockBackground.drawOuterFrame()
-//		myClock.drawFrame()
     }
     
     // Change opacity when detail page shows.
@@ -577,8 +550,7 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
             taskCollection.register(ClockTaskCell.self, forCellWithReuseIdentifier: "clockTaskCell")
             taskCollection.dataSource = self
             taskCollection.delegate = self
-            
-            //taskCollection.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionBackground //Needs to be color coded by category
+			
             taskCollection.backgroundColor = UIColor.clear
             displayLabel.text = ""
             displayLabel.backgroundColor = TaskManager.sharedTaskManager.getTheme().collectionBackground

@@ -10,12 +10,15 @@ import UIKit
 import CFNetwork
 
 
-
+// The setting page, which utilizes UIPickerView
 class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     var viewName = "Setting Page"
+    
+    // Access setting data from task manager
     var settingForm: SettingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
     
+    // Connect storyboard compnents to the code
     @IBOutlet weak var Discard: UIButton!
     @IBOutlet weak var Reset: UIButton!
     @IBOutlet weak var notificationSwitch: UISwitch!
@@ -45,9 +48,11 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var endTime: UILabel!
     @IBOutlet weak var endNum: UILabel!
     
-    //Could have: Loop the data
+    // Could have: Loop the data
     @IBOutlet weak var startTimePicker: UIPickerView!
     @IBOutlet weak var endTimePicker: UIPickerView!
+    
+    // Data source for UIPickerView
     let startHoursArray: Array<Int32> = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
     let endHoursArray: Array<Int32> = [24,23,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0]
     
@@ -57,6 +62,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Anchor all the buttons to desired position
         notification.anchor(top: self.view.topAnchor, left: self.view.leftAnchor, right: nil, bottom: nil, topConstant: 10, leftConstant: 15, rightConstant: 0, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
         notificationSwitch.anchor(top: self.view.topAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10
             , leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
@@ -80,37 +86,23 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         friSwitch.anchor(top: thuSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
         satSwitch.anchor(top: friSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
 
-        /*let logoutButton = UIButton(type: .custom)
-        logoutButton.setImage(#imageLiteral(resourceName: "logout"), for: .normal)
-        logoutButton.addTarget(self, action: #selector(Logout), for: .touchUpInside)
-        let logoutBarButton = UIBarButtonItem(customView: logoutButton)*/
-        //let logoutButton = UIBarButtonItem(image: #imageLiteral(resourceName: "logout"), landscapeImagePhone: nil, style: UIBarButtonItemStyle.plain, target: self, action: #selector(Logout))
-        //let negativeSpacer:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-        //negativeSpacer.width = 2000
-        /*
-        logoutButton.width = 10
-        self.navigationItem.rightBarButtonItem = logoutButton
-        
-        let syncButton = UIBarButtonItem(image: #imageLiteral(resourceName: "sync"), landscapeImagePhone: nil, style: UIBarButtonItemStyle.plain, target: self, action: #selector(sync))
-        self.navigationItem.leftBarButtonItem = syncButton
- */
+        // Log out button
+        // The user taps on this button to log out their account
         let logoutButton = UIButton(type: .custom)
         logoutButton.setImage(#imageLiteral(resourceName: "logout"), for: .normal)
         logoutButton.imageView?.tintColor = .white
-        //logoutButton.setImage(#imageLiteral(resourceName: "plus"), for: .highlighted)
         logoutButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        //        button.frame = CGRect(x: 0.0, y: 0.0, width: 35.0, height: 35.0)
         logoutButton.imageView?.contentMode = .scaleAspectFit
         logoutButton.addTarget(self, action: #selector(Logout), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: logoutButton)
         self.navigationItem.rightBarButtonItem = barButtonItem
         
+        // Sync button
+        // The user taps on this button to sync local and online database
         let syncButton = UIButton(type: .custom)
         syncButton.setImage(#imageLiteral(resourceName: "sync"), for: .normal)
         syncButton.imageView?.tintColor = .white
-        //syncButton.setImage(#imageLiteral(resourceName: "plus"), for: .highlighted)
         syncButton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5)
-        //        button.frame = CGRect(x: 0.0, y: 0.0, width: 35.0, height: 35.0)
         syncButton.imageView?.contentMode = .scaleAspectFit
         syncButton.addTarget(self, action: #selector(sync), for: .touchUpInside)
         let barButtonItem1 = UIBarButtonItem(customView: syncButton)
@@ -122,14 +114,13 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         super.viewDidAppear(animated)
         // Prompt past task alerts
         TaskManager.sharedTaskManager.promptNextAlert(self)
-    
-
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    // Method to switch the theme between dark and light
 	fileprivate func changeTheme(_ with: ColorTheme) {
 		notificationSwitch.tintColor = with.imgTint
 		notificationSwitch.onTintColor = with.imgTint
@@ -173,18 +164,8 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
+        
         //initialize databse settings
-        
-        /* testing purpose
-        print(settingForm.getSettingID())
-        print(settingForm.getDefaultView())
-        print(settingForm.getDefaultSort())
-        print(settingForm.getAvailableDays())
-        print(settingForm.isNotificationOn())
-        print(settingForm.getTheme())
-        print(settingForm.getStartTime())
-        print(settingForm.getEndTime())*/
-        
         if (!(settingForm.isNotificationOn())){
             notificationSwitch.setOn(false, animated: false)
         }
@@ -231,6 +212,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         endTimePicker.selectRow(Int(24 - settingForm.getEndTime()), inComponent: 0, animated:false)
 	}
     
+    // Everytime the user swipe out of the setting page, we save current setting into task manager
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -241,22 +223,25 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                                  user: settingForm.getUserID())
         
         TaskManager.sharedTaskManager.updateSetting(setting: newSetting)
-        print(settingForm.getAvailableDays())
         
     }
     
+    // Discard current changes
 	@IBAction func Discard(_ sender: Any) {
 		createDiscardWarning(title: "Are you sure?", message: "Do you want to discard all changes?")
 	}
 	
+    // Logout account
 	@objc func Logout() {
         createLogoutWarning(title: "Do you want to logout?", message: "You will lose all changes." )
     }
     
+    // Turn on/off system notification
     @IBAction func notificationSwitch(_ sender: UISwitch) {
         settingForm.toggleNotification()
     }
     
+    // Default sorting method for list view
     @IBAction func defaultSortingMethodSegControl(_ sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0){
             //Switch to Time based sorting
@@ -267,6 +252,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
+    // Switch between light and dark theme
     @IBAction func themeSegControl(_ sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0){
             //Switch to Light Theme
@@ -279,7 +265,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         }
     }
     
-    //Seven toggles
+    // Seven toggles
     @IBAction func sunSwitch(_ sender: UISwitch) {
         if (sender.isOn == true){
             settingForm.setAvailableDays((settingForm.getAvailableDays()) | 1<<0)
@@ -387,6 +373,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         endTimeNum.text = String(settingForm.getEndTime())
     }
     
+    // Pops up if the user enters invalid start time and end time
     func createTimeWarning (title:String, message:String){
         let timeWarning = UIAlertController(title:title, message:message, preferredStyle: UIAlertControllerStyle.alert)
         timeWarning.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler:{ (action) in
@@ -396,10 +383,12 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 
     }
     
+    // Ask the user if they really want to reset all setting to default
     @IBAction func reset(_ sender: UIButton) {
         createResetWarning(title: "Are you sure?", message: "Do you want to reset to default?")
     }
 	
+    // Ask the user if they really want to discard all changes to setting
 	func createDiscardWarning (title: String, message: String) {
 		let discardWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
 		
@@ -410,17 +399,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 			//Create a settingForm object
 			self.settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
 			//initialize databse settings
-			
-			/*
-			print(self.settingForm.getSettingID())
-			print(self.settingForm.getDefaultView())
-			print(self.settingForm.getDefaultSort())
-			print(self.settingForm.getAvailableDays())
-			print(self.settingForm.isNotificationOn())
-			print(self.settingForm.getTheme())
-			print(self.settingForm.getStartTime())
-			print(self.settingForm.getEndTime())
-			*/
+
 			self.notificationSwitch.setOn(((self.settingForm.isNotificationOn())), animated: true)
 			
 			if (self.settingForm.getDefaultSort().rawValue == 1){
@@ -457,7 +436,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 		self.present(discardWarning, animated:true, completion: nil)
 	}
 
-
 	func createResetWarning (title:String, message: String) {
         let resetWarning = UIAlertController(title:title, message:message, preferredStyle:UIAlertControllerStyle.alert)
         
@@ -479,13 +457,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             self.satSwitch.setOn(true, animated:true)
             self.startTimePicker.selectRow(8, inComponent: 0, animated: true)
             self.endTimePicker.selectRow(0, inComponent: 0, animated: true)
-            
-            //reset settings in database
-			/*
-            if (!(self.settingForm.isNotificationOn())){
-                self.settingForm.toggleNotification()
-            }
-			*/
 			
             self.settingForm.setDefaultSort(SortingType(rawValue: 0)!)
             self.settingForm.setTheme(Theme(rawValue: 0)!)
@@ -506,9 +477,9 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         self.present(resetWarning, animated:true, completion: nil)
     }
     
+    // Sync online and local database
     @objc func sync() {
         if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
-            print("cannot sync guest user")
             createTimeWarning(title: "Warning", message: "Cannot sync guest user")
         } else {
             syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
@@ -522,12 +493,12 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                     }
                 }
                 else {
-                   
                 }
             })
         }
     }
     
+    // Ask user if they want to logout
     func createLogoutWarning (title:String, message:String){
         
         _ = clearSavedUser()
@@ -548,7 +519,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 				let url = URL(string: Database.database().reference().description())
 				
 				let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-					print( "Request: ", error == nil )
 					if error != nil {
 					} else {
 						syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in

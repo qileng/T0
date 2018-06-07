@@ -8,13 +8,11 @@
 
 import UIKit
 
-//let taskColorTheme = UIColor.HalpColors.fuzzyWuzzy
 class ListTaskViewController: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     let dateFormatter = DateFormatter()
-//    var tap: UITapGestureRecognizer?
 	var tasks = [Task]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +63,6 @@ class ListTaskViewController: UIViewController {
     }
 	@objc func reloadTableView()
 	{
-		print("hello")
 		DispatchQueue.global().async {
 			DispatchQueue.main.sync {
 				TaskManager.sharedTaskManager.refreshTaskManager()
@@ -109,7 +106,6 @@ class ListTaskViewController: UIViewController {
 extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("task count:" ,tasks.count)
         return self.tasks.count
     }
     

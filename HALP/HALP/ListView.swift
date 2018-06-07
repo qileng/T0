@@ -73,7 +73,6 @@ class ListViewController: UIViewController, UIGestureRecognizerDelegate {
 			if type(of: subview) == UITask.self && !detailDisplay {
 				let location = sender.location(in: subview)
 				if subview.point(inside: location, with: nil) {
-					print((subview as! UITask).task?.getTitle(), "tapped!")
 					self.transparentizeAllTasks()
 					subview.isHidden = true
 					let subframe = CGRect(x: self.view.frame.width*0.1,y: self.view.frame.height*0.2,width: self.view.frame.width*0.8,height: self.view.frame.height*0.6)
@@ -88,7 +87,6 @@ class ListViewController: UIViewController, UIGestureRecognizerDelegate {
 				if !subview.point(inside: location, with: nil) {
 					let animator = UIViewPropertyAnimator(duration: 0.1, curve: .easeOut, animations: UITaskDetail.dimiss(self.view.subviews.last! as! UITaskDetail))
 					animator.addCompletion({_ in
-						print("completion codes executed!")
 						self.view.subviews.last!.removeFromSuperview()
 						self.deTransparentizeAllTasks()
 						self.detailDisplay = false
