@@ -56,8 +56,7 @@ final class SettingDAO: Setting {
             return true
         } else {
             let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
-            print(errmsg)
-            print(sqlite3_close(dbpointer))
+            sqlite3_close(dbpointer)
             return false
         }
     }
@@ -197,7 +196,6 @@ final class SettingDAO: Setting {
             queryResult.append(sqlite3_column_int(stmt, 6))
             queryResult.append(sqlite3_column_int(stmt, 7))
             queryResult.append(sqlite3_column_int(stmt, 8))
-            print("fetch setting: ", queryResult)
         }
         sqlite3_finalize(stmt)
         sqlite3_close(dbpointer)

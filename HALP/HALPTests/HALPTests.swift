@@ -20,7 +20,6 @@ class HALPTests: XCTestCase {
 		// Initialize local database
 		let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
 		let dbPath = documentsPath + db
-		print(dbPath)
 		var dbpointer: OpaquePointer? = nil
 		
         sqlite3_open(dbPath, &dbpointer)
