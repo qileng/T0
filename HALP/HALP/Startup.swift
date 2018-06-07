@@ -105,16 +105,6 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
-    let forgotPasswordButton:UIButton = {
-        
-        let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Forgot password?", attributes: [ NSAttributedStringKey.font : UIFont.boldSystemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : colorTheme ])
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        button.contentHorizontalAlignment = .right
-        button.addTarget(self, action: #selector(forgotPasswordButtonHandler), for: .touchUpInside)
-        return button
-    }()
-    
     let horizontalStackView:UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -156,7 +146,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
     fileprivate func setUpSubViewsLayout()
     {
         verticalStackView.addArrangedSubViews([emailTextField, passwordTextField, loginButton, guestLoginButton])
-        view.addSubviews([logoImageView,halpLabel, verticalStackView, forgotPasswordButton, lineView, signUpButton])
+        view.addSubviews([logoImageView,halpLabel, verticalStackView, lineView, signUpButton])
         
         signUpButton.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: view.bottomAnchor, topConstant: 0, leftConstant: 0, rightConstant: 0, bottomConstant: 0, width: view.frame.width, height: 45, centerX: nil, centerY: nil)
         
@@ -164,8 +154,6 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         
         
         verticalStackView.anchor(top: nil, left: view.leftAnchor, right: view.rightAnchor, bottom: self.lineView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: view.frame.height/4, width: view.frame.width-20, height: view.frame.height/4, centerX: view.centerXAnchor, centerY: nil)
-        
-        forgotPasswordButton.anchor(top: self.verticalStackView.bottomAnchor, left: nil, right: view.rightAnchor, bottom: nil, topConstant: 0, leftConstant: 0, rightConstant: 10, bottomConstant: 0, width: view.frame.width/3, height: 40, centerX: nil, centerY: nil)
         
         halpLabel.anchor(top: nil, left: nil, right: nil, bottom: self.verticalStackView.topAnchor, topConstant: 0, leftConstant: 10, rightConstant: 10, bottomConstant: 10, width: view.frame.width-20, height: 30, centerX: view.centerXAnchor, centerY: nil)
         
@@ -231,33 +219,14 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.pushViewController(signupVC, animated: true)
     }
     
-    // Todo:
-    // reset password
-    @objc func forgotPasswordButtonHandler()
-    {
-        print("forgot password button touched")
-    }
+
     
     // Guest login
     @objc func guestLoginActionHandler() {
             loadSetting(user: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0))
             self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
     }
-    
-    
-    // UI actions
-    // Todo: comment
-    
-    //    func progressAlongAxis(_ pointOnAxis: CGFloat, _ axisLength: CGFloat) -> CGFloat {
-    //        let movementOnAxis = pointOnAxis / axisLength
-    //        let positiveMovementOnAxis = fmaxf(Float(movementOnAxis), 0.0)
-    //        let positiveMovementOnAxisPercent = fminf(positiveMovementOnAxis, 1.0)
-    //        return CGFloat(positiveMovementOnAxisPercent)
-    //    }
-    //
-    //    func ensureRange<T>(value: T, minimum: T, maximum: T) -> T where T : Comparable {
-    //        return min(max(value, minimum), maximum)
-    //    }
+
     
     @objc func handleTextInputChange()
     {

@@ -204,7 +204,7 @@ class SummaryViewController: UIViewController {
             case 7:
                 total_i.frame = self.chartView.convert(CGRect(x: subview.frame.origin.x, y: subview.frame.origin.y - 20 - 2, width: subview.frame.width, height: 20), to: self.view)
             default:
-                print("default")
+				print("default")
             }
 			let barAnimator = UIViewPropertyAnimator(duration: 0.8, curve: .linear, animations: (subview as! UIBar).grow)
 			let labelAnimator = UIViewPropertyAnimator(duration: 0.8, curve: .linear, animations: total_i.move)

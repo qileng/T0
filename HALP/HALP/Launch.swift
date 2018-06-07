@@ -28,7 +28,6 @@ class LaunchViewController: UIViewController {
         let url = URL(string: Database.database().reference().description())
         
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            print( "Request: ", error == nil )
             if error != nil {
                 let alert = UIAlertController(title: "No internet connection!", message: "Please connect to internet and restart the app or procced as guest", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Proceed as guest", style: .cancel, handler: { (action) in

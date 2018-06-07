@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Initialize local database
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbPath = documentsPath + "/appData.sqlite"
-        print(dbPath)
         var dbpointer: OpaquePointer? = nil
         
         //Comment this out later
@@ -69,7 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 "(user_id INTEGER PRIMARY KEY)", nil, nil, nil)
             
             sqlite3_close(dbpointer)
-            print(dbPath)
         }
         else {
             print("fail to open database")
@@ -104,7 +102,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         let url = URL(string: Database.database().reference().description())
         let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-            print( "Request: ", error == nil )
             if error != nil {
                     print("no internet connection")
             }

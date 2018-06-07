@@ -21,8 +21,6 @@ class UICircularGradientSector: UIView {
 		self.index = index
 		self.innerIndex = innerIndex
 		super.init(frame: frame)
-		print("Sector frame: ", self.frame)
-		print("Bounds: ", self.bounds)
 		self.backgroundColor = .clear
 	}
 	
@@ -39,7 +37,6 @@ class UICircularGradientSector: UIView {
 		let endAngle: CGFloat = π/6 / CGFloat(partition)
 		// Calculate current hour
 		let current = Calendar.current.component(.hour, from: Date()) % 12
-		print("Current Hour: ", current)
 		let offset = current - 3	// Seems like 0 degree is pointing EAST
 		
 		let path = UIBezierPath()
@@ -54,14 +51,11 @@ class UICircularGradientSector: UIView {
 		var r = (hex & 0xff0000) >> 16
 		var g = (hex & 0x00ff00) >> 8
 		var b = (hex & 0x0000ff)
-		print("rgb: ", String(r, radix:16),String(g, radix:16),String(b, radix:16))
 		let colorPartition = partition * 24
 		r = r * (colorPartition - index*partition - innerIndex) / colorPartition
 		g = g * (colorPartition - index*partition - innerIndex) / colorPartition
 		b = b * (colorPartition - index*partition - innerIndex) / colorPartition
-		print("Darkened to: ", String(r, radix: 16), String(g, radix: 16), String(b, radix: 16))
 		let result = r << 16 + g << 8 + b
-		print("which is: ", String(result, radix: 16))
 		let darkenedColor = UIColor(hex: result)
 		path.lineWidth = arcWidth
 		darkenedColor.setStroke()

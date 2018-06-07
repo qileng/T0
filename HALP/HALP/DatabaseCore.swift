@@ -56,7 +56,6 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
             firebaseRef.child("SettingData").child(String(userId)).observeSingleEvent(of: .value, with: {(data) in
                 print("settin online to local")
                 let dict = data.value as! [String : Any]
-                print(dict)
                 let notification = dict["notification"] as! Int32 == 1 ? true : false
                 let theme = dict["theme"] as! Int32 == 1 ? Theme.dark : Theme.regular
                 let summary = dict["default_view"] as! String
@@ -193,7 +192,6 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                                                                          scheduleStart: (dict["scheduled_start"] as! Int),
                                                                          notification: (dict["notification"] as! Int) == 1 ? true : false)
                             }
-//                            print("local counter", counter, taskCount)
                             counter = counter + 1
                             if counter == taskCount {
                                 completion(true)

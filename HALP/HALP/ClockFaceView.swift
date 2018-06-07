@@ -21,12 +21,6 @@ class ClockFaceView: UIView {
         let endAngle: CGFloat = 2*π
 
         let path = UIBezierPath(arcCenter: center, radius: radius-(bounds.height * 0.083),startAngle: startAngle, endAngle: endAngle, clockwise: true)
-		
-		print("Frame Radius origin: ", radius)
-		print("Frame Radius: ", radius-(bounds.height * 0.083))
-		print("Frame Height: ", bounds.height)
-		print("Frame Width: ", bounds.width)
-
 
         let strokeColor: UIColor = UIColor.clear
         path.lineWidth = arcWidth

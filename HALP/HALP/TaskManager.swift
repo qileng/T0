@@ -135,7 +135,6 @@ class TaskManager {
         // TODO: Maintain a min-heap.
         // TODO: Filter fixed time task which happens not whithin 24 hours.
         // TODO: Filter past due tasks.
-        print("Loading tasks!")
         for taskID in primary_key {
             // load task by primary_key.
             let loadedTask = try Task(true, TaskID: taskID, UserID: foreign_key!)
@@ -193,7 +192,6 @@ class TaskManager {
     func updateTask(form: TaskForm) {
         //TODO
         let taskDAO = TaskDAO()
-        print(form.getTaskId())
         _ = taskDAO.updateTaskInfoInLocalDB(taskId: form.getTaskId(), taskTitle: form.getTitle(),
                                         taskDesc: form.getDescription(), category: form.getCategory().rawValue,
                                         alarm: Int(form.getAlarm()), deadline: Int(form.getDeadline()),
@@ -212,7 +210,6 @@ class TaskManager {
     func refreshTaskManager() {
         var indexs = [Int]()
         for (index,task) in self.tasks.enumerated() {
-            print(index)
 			if (task.getScheduleStart() != 0 && task.getScheduleStart() + task.getDuration() <= Int32(Date().timeIntervalSince1970)) || (task.getDeadline() <= Int32(Date().timeIntervalSince1970)) {
                 indexs.append(index)
                 pastTasks.append(task)
@@ -224,7 +221,6 @@ class TaskManager {
         indexs = indexs.reversed()
         
         for index in indexs {
-            print(index)
             self.tasks.remove(at: index)
         }
         self.clearTimeSpan()
@@ -289,12 +285,10 @@ class TaskManager {
         let task = pastTasks[0]
         // TODO: Just put task in tasks. Leave schedule to another function so that we don't
         // perform a scheduling process for each task.
-        print("Rescheduling ", task.getTitle())
 		task.setScheduleStart(0)
 		self.tasks.append(task)
         pastTasks.remove(at: 0)
 		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AlertDoneReload"), object: nil, userInfo: nil)
-		print(type(of: self.viewController!))
         promptNextAlert(self.viewController!)
     }
     

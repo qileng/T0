@@ -56,7 +56,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
     
     // Logic
     @IBAction func AddTask(_ sender: UIButton) {
-        print("executed \n")
         guard let title = self.titleTextFieldCell?.textFieldOutlet.text, !title.isEmpty else {
             self.shakeTitleInput()
             return
@@ -90,7 +89,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
 
-		print(alarm)
         var category: Category
         switch categoryStr {
         case "Study":
@@ -663,7 +661,6 @@ extension TaskEditPageViewController : TaskDetailTableViewControllerDelegate
         if isEditMode && indexPath.row == 1
         {
             taskToEdit?.setAlarm(self.alarmInt32(from: label))
-            print("backTOEditpageFromCategorySelection123")
         }
         self.fieldData[indexPath.section][indexPath.row].detail = label
     }

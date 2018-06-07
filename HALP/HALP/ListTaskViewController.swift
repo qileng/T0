@@ -63,7 +63,6 @@ class ListTaskViewController: UIViewController {
     }
 	@objc func reloadTableView()
 	{
-		print("hello")
 		DispatchQueue.global().async {
 			DispatchQueue.main.sync {
 				TaskManager.sharedTaskManager.refreshTaskManager()
@@ -107,7 +106,6 @@ class ListTaskViewController: UIViewController {
 extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("task count:" ,tasks.count)
         return self.tasks.count
     }
     
