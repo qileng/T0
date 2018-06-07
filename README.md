@@ -33,12 +33,12 @@ Password: unX-DQ2-mA4-buZ </br>
 1. Log into the above shared Apple ID from Xcode Menu Bar: `Xcode`->`Preference`->`Account`->`+`->`Apple ID`.
 2. Connect your iPhone with your mac.
 3. From Xcode Menu Bar: `Window`->`Devices and Simulators`.
-4. If you see a yellow warning says "XXX is not paired with your computer", go ahead and clock `Trust` on your iPhone.
+4. If you see a yellow warning says "XXX is not paired with your computer", go ahead and click `Trust` on your iPhone.
 5. Enter passcode on your iPhone.
 6. You will see a yellow warning ways "Preparing debugger support for XXX". Patiently wait for around 10 minutes until the warning goes away.
 7. From the top-left corner of Xcode window, use the dropdown list to select your device. It should be right next to the run and stop button.
 8. Hit run.
-9. After Xcode installs the app, a warning will prompt. Proceed and go to Setting->General->Device Management->Some Apple ID and trust it.
+9. After Xcode installs the app, a warning will prompt. Proceed and go to `Setting`->`General`->`Device Management`->`Some Apple ID` and `Trust` it.
 10. Hit run again, app will automatically launch.
 
 #### 3. In case the App crashes, click `Run` again to restart the App.
