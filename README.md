@@ -40,3 +40,12 @@ Password: unX-DQ2-mA4-buZ </br>
 8. Hit run.
 9. After Xcode installs the app, a warning will prompt. Proceed and go to Setting->General->Device Management->Some Apple ID and trust it.
 10. Hit run again, app will automatically launch.
+
+#### 3. In case the App crashes, click `Run` again to restart the App.
+
+### Known Bugs:
+1. Animation on certain pages will mess up if swiping between pages stops before it completes. This is caused by a iOS bug which certain system functions will not be called properly. This is commonly caused by gesture lag on simulator but is very rare on actual iPhone.
+2. The circular gradient background of clock face in clock view does not go away when task detail page pops up. This bug only happens on rare occasions. The cause of this bug is unknown.
+
+#### 4. Test Accounts.
+### TODO
