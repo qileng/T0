@@ -80,20 +80,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         friSwitch.anchor(top: thuSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
         satSwitch.anchor(top: friSwitch.bottomAnchor, left: nil, right: self.view.rightAnchor, bottom: nil, topConstant: 10, leftConstant: 0, rightConstant: 15, bottomConstant: 0, width: 0, height: 0, centerX: nil, centerY: nil)
 
-        /*let logoutButton = UIButton(type: .custom)
-        logoutButton.setImage(#imageLiteral(resourceName: "logout"), for: .normal)
-        logoutButton.addTarget(self, action: #selector(Logout), for: .touchUpInside)
-        let logoutBarButton = UIBarButtonItem(customView: logoutButton)*/
-        //let logoutButton = UIBarButtonItem(image: #imageLiteral(resourceName: "logout"), landscapeImagePhone: nil, style: UIBarButtonItemStyle.plain, target: self, action: #selector(Logout))
-        //let negativeSpacer:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fixedSpace, target: nil, action: nil)
-        //negativeSpacer.width = 2000
-        /*
-        logoutButton.width = 10
-        self.navigationItem.rightBarButtonItem = logoutButton
-        
-        let syncButton = UIBarButtonItem(image: #imageLiteral(resourceName: "sync"), landscapeImagePhone: nil, style: UIBarButtonItemStyle.plain, target: self, action: #selector(sync))
-        self.navigationItem.leftBarButtonItem = syncButton
- */
         let logoutButton = UIButton(type: .custom)
         logoutButton.setImage(#imageLiteral(resourceName: "logout"), for: .normal)
         logoutButton.imageView?.tintColor = .white
@@ -174,16 +160,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
         //initialize databse settings
-        
-        /* testing purpose
-        print(settingForm.getSettingID())
-        print(settingForm.getDefaultView())
-        print(settingForm.getDefaultSort())
-        print(settingForm.getAvailableDays())
-        print(settingForm.isNotificationOn())
-        print(settingForm.getTheme())
-        print(settingForm.getStartTime())
-        print(settingForm.getEndTime())*/
         
         if (!(settingForm.isNotificationOn())){
             notificationSwitch.setOn(false, animated: false)

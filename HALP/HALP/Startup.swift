@@ -48,9 +48,7 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15)])
         textField.backgroundColor = .white
         textField.borderStyle = .roundedRect
-//        textField.clearButtonMode = .whileEditing
         textField.isSecureTextEntry = true
-//        textField.rightView = hidePasswordButton
         textField.tag = 2
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
@@ -76,18 +74,6 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
 
         return button
     }()
-    
-    //    private lazy var showHidePasswordButton: UIButton = {
-    //        let button = UIButton(type: .custom)
-    //        button.imageEdgeInsets = UIEdgeInsets(top: buttonVerticalMargin, left: 0, bottom: buttonVerticalMargin, right: buttonHorizontalMargin)
-    //        button.frame = buttonFrame
-    //        button.tintColor = .text
-    //        button.setImage(#imageLiteral(resourceName: "Password-show"), for: .normal)
-    //        button.setImage(#imageLiteral(resourceName: "Password-hide"), for: .selected)
-    //        button.addTarget(self, action: #selector(togglePasswordVisibility(_:)), for: .touchUpInside)
-    //        return button
-    //    }()
-    
     
     let loginButton:UIButton = {
         
@@ -118,27 +104,6 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         
         return button
     }()
-    
-    //    let hidePasswordButton:UIButton = {
-    //
-    //        let button = UIButton(type: .custom)
-    //        let checkedBoxImg = UIImage(named: "checkedBox")?.withRenderingMode(.alwaysTemplate)
-    //        let uncheckedBoxImg = UIImage(named: "uncheckedBox")?.withRenderingMode(.alwaysTemplate)
-    //        button.setImage(checkedBoxImg, for: .normal)
-    //        button.setImage(uncheckedBoxImg, for: .selected)
-    //
-    //        let attributedTitle = NSMutableAttributedString(string: "Hide Password", attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor : UIColor.lightGray ])
-    //        button.setAttributedTitle(attributedTitle, for: .normal)
-    //        button.tintColor = colorTheme
-    //        button.imageView?.contentMode = .scaleAspectFit
-    //
-    ////        button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, button.frame.width - button.frame.height ,0)
-    ////        button.titleEdgeInsets = UIEdgeInsetsMake(0, -23, 0, 0)
-    //        button.contentHorizontalAlignment = .left
-    //        button.addTarget(self, action: #selector(hidePasswordButtonHandler), for: .touchUpInside)
-    //
-    //        return button
-    //    }()
     
     let forgotPasswordButton:UIButton = {
         
@@ -190,8 +155,6 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
     // Setup UI components
     fileprivate func setUpSubViewsLayout()
     {
-        
-//        horizontalStackView.addArrangedSubViews([forgotPasswordButton])
         verticalStackView.addArrangedSubViews([emailTextField, passwordTextField, loginButton, guestLoginButton])
         view.addSubviews([logoImageView,halpLabel, verticalStackView, forgotPasswordButton, lineView, signUpButton])
         
@@ -367,8 +330,6 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
     // Setup the startup page
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector( ) ))
 		
 		self.view.backgroundColor = UIColor.HalpColors.lessLightGray
         
@@ -377,30 +338,8 @@ class StartupViewController: UIViewController, UITextFieldDelegate {
         observeKeyboardNotifications()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-       
-        // Testing data
-        //        var tasks: [Task] = []
-        //        let current = Int32(Date().timeIntervalSince1970)
-        //        tasks.append(Task(Title: "Task6", Description: "Testing Task 6", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 14400, UserID: 0))
-        //        tasks.append(Task(Title: "Task2", Description: "Testing Task 2", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 7200, UserID: 0))
-        //        tasks.append(Task(Title: "Task5", Description: "Testing Task 5", Category: .Entertainment,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 10800, UserID: 0))
-        //        tasks.append(Task(Title: "Task4", Description: "Testing Task 4", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 3600, UserID: 0))
-        //        tasks.append(Task(Title: "Task1", Description: "Testing Task 1", Category: .Relationship,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 18000, UserID: 0))
-        //        tasks.append(Task(Title: "Task8", Description: "Testing Task 8", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 21600, UserID: 0))
-        //        tasks.append(Task(Title: "Task7", Description: "Testing Task 7", Category: .Chore,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 25200, UserID: 0))
-        //        tasks.append(Task(Title: "Task3", Description: "Testing Task 3", Category: .Study_Work,  Deadline: current + 36000, Duration: 1800, Schedule_start: current + 28800, UserID: 0))
-        
-        
-        //        for task in tasks {
-        //            let DAO = TaskDAO(task)
-        //            if !DAO.saveTaskInfoToLocalDB() {
-        //                print("Saving ", task.getTitle(), " failed!")
-        //            }
-        //        }
-        
     }
-    
-    // This function I haven't figure out any significant usage yet.         --Qihao
+	
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

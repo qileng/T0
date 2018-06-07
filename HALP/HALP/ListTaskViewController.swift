@@ -8,13 +8,11 @@
 
 import UIKit
 
-//let taskColorTheme = UIColor.HalpColors.fuzzyWuzzy
 class ListTaskViewController: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     let dateFormatter = DateFormatter()
-//    var tap: UITapGestureRecognizer?
 	var tasks = [Task]()
     override func viewDidLoad() {
         super.viewDidLoad()

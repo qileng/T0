@@ -93,19 +93,6 @@ class TaskManager {
     func addTask(_ form: TaskForm) {
         let newTask = Task(form as Task)
         newTask.calculatePriority()
-        print("Adding new task with title: ", newTask.getTitle())
-        print("With deadline: ", Date(timeIntervalSince1970: TimeInterval(newTask.getDeadline())).description(with: .current))
-        /*
-        if newTask < tasks.last! {
-            // TODO: save new task to db
-            // TODO: also filter fixed tasks too late in the future.
-            print("Proceed to save added task!")
-            return
-        }
-        let oldTask = tasks.popLast()
-        // TODO: save old task to db
-        print("Proceed to update old task with lowest priority!")
-        */
         tasks.append(newTask)
         // Save task to DB
         let DAO = TaskDAO(newTask)
@@ -306,9 +293,6 @@ class TaskManager {
 		task.setScheduleStart(0)
 		self.tasks.append(task)
         pastTasks.remove(at: 0)
-//		if type(of: self.viewController) == ListTaskViewController.self {
-//			(self.viewController! as! ListTaskViewController).tableViewOutlet.reloadData()
-//		}
 		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AlertDoneReload"), object: nil, userInfo: nil)
 		print(type(of: self.viewController!))
         promptNextAlert(self.viewController!)

@@ -26,18 +26,6 @@ class UITaskDetail: UIView {
 	var task: Task?
 	var originFrame: CGRect?
 	let setting = UIButton()
-
-	// Deprecated
-	/*
-	init(frame: CGRect, task t: UITask) {
-		self.task = t.task
-		originFrame = frame
-		super.init(frame: t.frame)
-		self.layer.cornerRadius = 20
-		self.clipsToBounds = true
-		self.setUp()
-	}
-	*/
 	
 	init(origin: CGRect, target: CGRect, task t: Task) {
 		self.task = t

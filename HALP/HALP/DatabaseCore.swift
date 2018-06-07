@@ -290,25 +290,6 @@ func loadSavedUser(completion: @escaping (Bool) -> Void) {
 				let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: id)
 				let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
 				loadSetting(user: user)
-				/*
-                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: id)
-                let settingId = settingArray[0] as! Int64
-                let notification = settingArray[1] as! Int32 == 1 ? true : false
-                let theme = settingArray[3] as! Int32 == 1 ? Theme.dark : Theme.regular
-                let summary = settingArray[2] as! String
-                let sort = settingArray[4] as! Int32 == 0 ? SortingType.time : SortingType.priority
-                let avaliableDays = settingArray[5] as! Int32
-                let start = settingArray[6] as! Int32
-                let end = settingArray[7] as! Int32
-                
-                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                                          summary: summary, defaultSort: sort, availableDays: avaliableDays, startTime: start,
-                                          endTime: end, user: settingId)
-                
-                let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: id)
-                let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
-                TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
-				*/
             } catch {
                 completion(false)
             }

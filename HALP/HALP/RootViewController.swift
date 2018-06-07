@@ -43,16 +43,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-//    func showLoginVC()
-//    {
-//        DispatchQueue.main.async {
-//            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "StartupViewController") as! StartupViewController
-//            let loginSignUpNC: UINavigationController = UINavigationController(rootViewController: loginVC)
-//            self.present(loginSignUpNC, animated: true, completion: nil)
-//        }
-//    }
-
+	
 	var modelController: ModelController {
 		// Return the model controller object, creating it if necessary.
 		// In more complex implementations, the model controller may be passed to the view controller.
@@ -100,7 +91,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		//TaskManager.sharedTaskManager.refreshTaskManager()
 		let navigationBarAppearance = UINavigationBar.appearance()
 		navigationBarAppearance.barTintColor = TaskManager.sharedTaskManager.getTheme().background
 	}

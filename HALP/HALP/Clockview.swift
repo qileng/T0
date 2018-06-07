@@ -185,9 +185,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		self.view.addSubview(myClockBackground)
 		self.view.addSubview(gradientView)
 		changeTheme()
-        //Sets background color based on theme from settings
-        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-        //myClock.drawOuterFrame()
 
         let startAngle = .pi / 12.0
         let angle = .pi / 6.0
@@ -226,10 +223,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
 		self.view.addSubview(gradientView)
 		
         changeTheme()
-		//self.myClockBackground.setNeedsDisplay()
-        //Sets background color based on theme from settings
-        //self.view.backgroundColor = TaskManager.sharedTaskManager.getTheme().background
-        //myClock.drawOuterFrame()
         
         TaskManager.sharedTaskManager.refreshTaskManager()
 

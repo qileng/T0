@@ -39,82 +39,6 @@ class ClockFaceView: UIView {
         path.fill()
     }
 	
-	/*
-	func drawInnerFrame() {
-		let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
-		let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 10
-		//let radius: CGFloat = (bounds.width/2 * 0.6) - 5
-		let arcWidth: CGFloat = 0
-		let startAngle: CGFloat = 0
-		let partition: Int = 10
-		let endAngle: CGFloat = π/6 / CGFloat(partition)
-		// Calculate current hour
-		let current = Calendar.current.component(.hour, from: Date()) % 12
-		print("Current Hour: ", current)
-		let offset = current - 3 	// Seems like 0 degree is pointing EAST
-		
-		//Draws sectors behind clock
-		for index in 0...11 {
-			for i in 0...(Int(partition-1)) {
-				let path = UIBezierPath()
-				path.move(to: center)
-				let indexPath = (index+offset) * partition + i
-				path.addArc(withCenter: center, radius: radius-(bounds.height * 0.083), startAngle: (startAngle+(CGFloat(indexPath)*endAngle)), endAngle: (endAngle+(CGFloat(indexPath)*endAngle)), clockwise: true)
-				path.close()
-			
-				let hex = TaskManager.sharedTaskManager.getTheme().tableBackground.getHex()
-				// Calculate darkened color. Need to preserve RGB ratio.
-				// Darken to at most 50%. So divide the color space into 24 instead of 12.
-				var r = (hex & 0xff0000) >> 16
-				var g = (hex & 0x00ff00) >> 8
-				var b = (hex & 0x0000ff)
-				print("rgb: ", String(r, radix:16),String(g, radix:16),String(b, radix:16))
-				let colorPartition = partition * 24
-				r = r * (colorPartition - index*partition - i) / colorPartition
-				g = g * (colorPartition - index*partition - i) / colorPartition
-				b = b * (colorPartition - index*partition - i) / colorPartition
-				print("Darkened to: ", String(r, radix: 16), String(g, radix: 16), String(b, radix: 16))
-				let result = r << 16 + g << 8 + b
-				print("which is: ", String(result, radix: 16))
-				let darkenedColor = UIColor(hex: result)
-				path.lineWidth = arcWidth
-				darkenedColor.setStroke()
-				path.lineWidth = (bounds.height * 0.01)
-				path.stroke()
-				darkenedColor.setFill()
-				path.fill()
-			}
-		}
-	}
-*/
-    
-//    func drawOuterFrame() {
-//        let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
-//        let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 5
-//        let arcWidth: CGFloat = 0
-//        let startAngle: CGFloat = 0
-//        let endAngle: CGFloat = π/6
-//
-//        //Draws sectors behind clock
-//        for index in 0...11 {
-//            let path = UIBezierPath()
-//            path.move(to: center)
-//            path.addArc(withCenter: center, radius: radius, startAngle: (startAngle+(CGFloat(index)*endAngle)), endAngle: (endAngle+(CGFloat(index)*endAngle)), clockwise: true)
-//            path.close()
-//
-//            let strokeColor: UIColor = UIColor.white
-//            path.lineWidth = arcWidth
-//            strokeColor.setStroke()
-//            path.lineWidth = (bounds.height * 0.01)
-//            path.stroke()
-//
-//            let fillColor: UIColor
-//            fillColor = TaskManager.sharedTaskManager.getTheme().clockBackground
-//            fillColor.setFill()
-//            path.fill()
-//        }
-//    }
-	
     func removeOuterCircle() {
         let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
         let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 5
@@ -194,7 +118,6 @@ class ClockFaceView: UIView {
             numLabel.append(UILabel(frame: CGRect(x: bounds.width/2, y: bounds.height/2, width: 75, height: 75)))
             numLabel[i].textAlignment = NSTextAlignment.center
             numLabel[i].font = UIFont(name: "Avenir-Medium", size: bounds.width/2 * 0.13)
-            //numLabel[i].font = UIFont(name: numLabel[i].font.fontName, size: bounds.width/2 * 0.13)
             numLabel[i].text = String(i+1)
             
             let angle = CGFloat((Double(i-2) * .pi) / 6)
@@ -204,9 +127,7 @@ class ClockFaceView: UIView {
         }
     }
     override func draw(_ rect: CGRect) {
-        //drawOuterFrame()
         drawFrame()
-		//drawInnerFrame()
         drawTicks()
         drawHourLabels()
 		

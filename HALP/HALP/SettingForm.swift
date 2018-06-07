@@ -14,11 +14,4 @@ final class SettingForm: Setting {
 	func verificateTime() -> Bool {
 		return self.getStartTime() < self.getEndTime()
 	}
-	
-	func setAvailableDays(_ a: [Bool]) {
-		
-		for bool in a {
-			//
-		}
-	}
 }

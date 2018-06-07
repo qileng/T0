@@ -298,7 +298,6 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
             cell.textLabel?.text = "Alarm"
             
             guard let alarmInt32 = task?.getAlarm() else {return cell}
-//            print("alarmInt32: ", alarmInt32)
             self.alarmStr = self.alarmStr(from: alarmInt32)
             let attributedStr = NSMutableAttributedString(string: alarmStr, attributes: [ NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15, weight: .light), NSAttributedStringKey.foregroundColor : TaskManager.sharedTaskManager.getTheme().background ])
             cell.detailTextLabel?.attributedText = attributedStr
