@@ -32,28 +32,22 @@ class LaunchViewController: UIViewController {
                 let alert = UIAlertController(title: "No internet connection!", message: "Please connect to internet and restart the app or procced as guest", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Proceed as guest", style: .cancel, handler: { (action) in
                     loadSetting(user: UserData(username: "GUEST", password: "GUEST", email: "GUEST@GUEST.com", id: 0))
-                    DispatchQueue.global().async {
-                        DispatchQueue.main.sync {
-                            self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
-                        }
-                    }
+					DispatchQueueMainSync ({()->(Void) in
+						self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: true, completion: nil)
+					})
                 }))
                 self.present(alert, animated: true)
                 
             } else {
                 loadSavedUser(completion: { (flag) in
                     if flag {
-                        DispatchQueue.global().async {
-                            DispatchQueue.main.sync {
-                                self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: false, completion: nil)
-                            }
-                        }
+						DispatchQueueMainSync({()->(Void) in
+							self.present((self.storyboard?.instantiateViewController(withIdentifier: "RootViewController"))!, animated: false, completion: nil)
+						})
                     } else {
-                        DispatchQueue.global().async {
-                            DispatchQueue.main.sync {
+                        DispatchQueueMainSync({()->(Void) in
                                 self.present((self.storyboard?.instantiateViewController(withIdentifier: "Startup"))!, animated: false, completion: nil)
-                            }
-                        }
+                        })
                     }
                 })
             }
