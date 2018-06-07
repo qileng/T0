@@ -95,7 +95,7 @@ final class TaskDAO: Task {
             
             return true
         } else {
-            _ = String(cString: sqlite3_errmsg(dbpointer)!)
+            _ = sqlite3_errmsg(dbpointer)
             sqlite3_close(dbpointer)
             return false
         }
@@ -408,7 +408,7 @@ final class TaskDAO: Task {
             return true
         }
         else {
-			_ = String: sqlite3_errmsg(dbpointer)!)
+			_ = sqlite3_errmsg(dbpointer)!
             sqlite3_close(dbpointer)
             return false
         }
