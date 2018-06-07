@@ -161,8 +161,6 @@ class HALPTests: XCTestCase {
         do {
            let dict = try testDAO.fetchTaskInfoFromLocalDB(taskId: 1234)
             for (key,values) in dict {
-				print(key + " : " ,values)
-                print("\n")
             }
         }
         catch {
