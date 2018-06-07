@@ -55,7 +55,7 @@ final class SettingDAO: Setting {
             sqlite3_close(dbpointer)
             return true
         } else {
-            let _ = String(cString: sqlite3_errmsg(dbpointer)!)
+			_ = String(cString: sqlite3_errmsg(dbpointer)!)
             sqlite3_close(dbpointer)
             return false
         }
