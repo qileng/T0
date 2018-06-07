@@ -95,7 +95,7 @@ final class TaskDAO: Task {
             
             return true
         } else {
-            _ = sqlite3_errmsg(dbpointer)
+			_ = sqlite3_errmsg(dbpointer)
             sqlite3_close(dbpointer)
             return false
         }
