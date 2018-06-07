@@ -458,7 +458,9 @@ func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
             print("Invalid setting id", userId, "at ", dbPath)
             return false
         }
-        
+
+        // Update summary string
+        // Split the string into 8 substrings
         var summaryString = updateSummary[2] as! String
         var summaryValueList = summaryString.split(separator: ",")
         
@@ -505,7 +507,9 @@ func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
             summaryString = summaryString + subString + ","
         }
         summaryString = String(summaryString.dropLast())
-        
+
+
+        // Update setting info in task manager
         let settingArray = updateSummary
         let settingId = settingArray[0] as! Int64
         let notification = settingArray[1] as! Int32 == 1 ? true : false
@@ -521,11 +525,9 @@ func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
                                   endTime: end, user: settingId)
     
 
-        print("new summary string: ", userSetting.getSummary())
        TaskManager.sharedTaskManager.updateSetting(setting: userSetting)
     
     } catch {
-        print("update summary fails")
         sqlite3_close(dbpointer)
         return false
     }

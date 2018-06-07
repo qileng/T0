@@ -23,7 +23,6 @@ class UIClockBackground: UIView {
 	
 	func drawOuterFrame() {
 		let center = CGPoint(x:bounds.width/2, y: bounds.height/2)
-		print("RightCenter: ", center)
 		let radius: CGFloat = (max(bounds.width, bounds.height) / 2) - 5
 		let arcWidth: CGFloat = 0
 		let startAngle: CGFloat = 0

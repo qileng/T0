@@ -233,7 +233,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
         // check databse for duplicate email address
         
         _DAO.validateUserEmail(email: form.getUserEmail(), flag: { (uniqueEmail) in
-            print("unique email", uniqueEmail)
             if uniqueEmail {
                 if(!_DAO.saveUserInfoToLocalDB()) {
                     let alert = UIAlertController(title: "Unexpected Error :(", message: "Cannnot establish database connection", preferredStyle: .alert)
@@ -252,7 +251,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate{
                     
                     syncDatabase(userId: form.getUserID(), completion: {(flag) in
                         if flag {
-                            print("Done","\n","\n","\n","\n")
                         }
                     })
                     

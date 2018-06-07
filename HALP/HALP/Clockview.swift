@@ -120,7 +120,6 @@ class ClockViewController: UIViewController, CAAnimationDelegate {
                 count+=1
             }
         }
-        print("Number of elements is " + String(count))
         
     }
     

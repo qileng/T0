@@ -63,14 +63,15 @@ class ListTaskViewController: UIViewController {
     }
 	@objc func reloadTableView()
 	{
-		print("hello")
-		DispatchQueueMainSync { ()->(Void) in
-			TaskManager.sharedTaskManager.refreshTaskManager()
-			self.tasks = TaskManager.sharedTaskManager.getTasks()
-			self.tableViewOutlet.reloadData()
-			self.tableViewOutlet.setNeedsLayout()
-			self.tableViewOutlet.layoutIfNeeded()
-			self.tableViewOutlet.setNeedsDisplay()
+		DispatchQueue.global().async {
+			DispatchQueue.main.sync {
+				TaskManager.sharedTaskManager.refreshTaskManager()
+				self.tasks = TaskManager.sharedTaskManager.getTasks()
+				self.tableViewOutlet.reloadData()
+				self.tableViewOutlet.setNeedsLayout()
+				self.tableViewOutlet.layoutIfNeeded()
+				self.tableViewOutlet.setNeedsDisplay()
+			}
 		}
 	}
     
@@ -105,7 +106,6 @@ class ListTaskViewController: UIViewController {
 extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("task count:" ,tasks.count)
         return self.tasks.count
     }
     

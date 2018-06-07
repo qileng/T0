@@ -217,7 +217,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                                  user: settingForm.getUserID())
         
         TaskManager.sharedTaskManager.updateSetting(setting: newSetting)
-        print(settingForm.getAvailableDays())
         
     }
     
@@ -386,17 +385,7 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 			//Create a settingForm object
 			self.settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
 			//initialize databse settings
-			
-			/*
-			print(self.settingForm.getSettingID())
-			print(self.settingForm.getDefaultView())
-			print(self.settingForm.getDefaultSort())
-			print(self.settingForm.getAvailableDays())
-			print(self.settingForm.isNotificationOn())
-			print(self.settingForm.getTheme())
-			print(self.settingForm.getStartTime())
-			print(self.settingForm.getEndTime())
-			*/
+
 			self.notificationSwitch.setOn(((self.settingForm.isNotificationOn())), animated: true)
 			
 			if (self.settingForm.getDefaultSort().rawValue == 1){
@@ -484,7 +473,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     
     @objc func sync() {
         if TaskManager.sharedTaskManager.getUser().getUserID() == 0 {
-            print("cannot sync guest user")
             createTimeWarning(title: "Warning", message: "Cannot sync guest user")
         } else {
             syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
@@ -524,7 +512,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
 				let url = URL(string: Database.database().reference().description())
 				
 				let task = URLSession.shared.dataTask(with: url!) {(data, response, error) in
-					print( "Request: ", error == nil )
 					if error != nil {
 					} else {
 						syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in

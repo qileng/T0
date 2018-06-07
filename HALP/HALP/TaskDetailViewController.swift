@@ -216,7 +216,6 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
             mainDetailCell?.eventTimeLabel2.adjustsFontSizeToFitWidth = true
 			
 			// Display "from.. to.." if task is fixed
-			print(task!.getSchedule())
 			if task!.getSchedule() != 0 {
             	if Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .month) == .orderedSame && Calendar.current.compare(startDate, to: deadlineDate, toGranularity: .day) == .orderedSame
             	{
