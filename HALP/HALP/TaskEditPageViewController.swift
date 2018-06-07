@@ -70,7 +70,6 @@ class TaskEditPageViewController: UIViewController, UITableViewDelegate, UITable
         
         let categoryStr = fieldData[2][0].detail
         let alarmStr = fieldData[2][1].detail
-        print("alaram String: ", alarmStr)
 		let result = alarmStr?.split(separator: " ")
 		var alarm: Int32
 
