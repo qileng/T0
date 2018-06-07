@@ -168,6 +168,8 @@
 		EDC769DC20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
 		EDC769DD20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
 		EDD519B220C8D1C40092D1D2 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD519B120C8D1C40092D1D2 /* DispatchQueue.swift */; };
+		EDD519B320C8DED30092D1D2 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD519B120C8D1C40092D1D2 /* DispatchQueue.swift */; };
+		EDD519B420C8DED30092D1D2 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD519B120C8D1C40092D1D2 /* DispatchQueue.swift */; };
 		EDDEE2492097B3B50078827A /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
 		EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
 		EDDEE2512097CA730078827A /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2502097CA730078827A /* Startup.swift */; };
@@ -731,6 +733,7 @@
 				EDC769D420C3497D00D9B5BA /* UIClockBackground.swift in Sources */,
 				EDB498B020BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */,
 				4185636720A5621900AA7493 /* TaskDAO.swift in Sources */,
+				EDD519B320C8DED30092D1D2 /* DispatchQueue.swift in Sources */,
 				ED5B5AAD20AA703800E3C5F8 /* RootViewController.swift in Sources */,
 				ED432361209E870B00F11140 /* Task.swift in Sources */,
 				ED5B5A9220AA701A00E3C5F8 /* AutolayoutExtension.swift in Sources */,
@@ -781,6 +784,7 @@
 				EDC769D520C3497D00D9B5BA /* UIClockBackground.swift in Sources */,
 				EDB498B120BD3B7D00A52839 /* TextFieldTableViewCell.swift in Sources */,
 				ED6C2A6F209302660063B4AC /* HALPUITests.swift in Sources */,
+				EDD519B420C8DED30092D1D2 /* DispatchQueue.swift in Sources */,
 				ED5B5AC120AA712A00E3C5F8 /* SettingForm.swift in Sources */,
 				ED5B5AB620AA703800E3C5F8 /* RootViewController.swift in Sources */,
 				ED5B5ABB20AA712A00E3C5F8 /* UserData.swift in Sources */,
