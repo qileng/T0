@@ -136,16 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // sync
-//        syncDatabase(userId: TaskManager.sharedTaskManager.getUser().getUserID(), completion: { (flag) in
-//            if(flag){
-//                print("saving data when terminating")}
-//            else{
-//                print("unabe to save data when terminating")
-//            }
-//        })
-//
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:
     }
 
 	@available(iOS 10.0, *)

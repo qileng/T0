@@ -129,28 +129,9 @@ extension TaskDetailViewController : UITableViewDelegate, UITableViewDataSource,
                                   Notification: (self.task?.getNotification())!, TaskID: (self.task?.getTaskId())!,
                                   UserID: TaskManager.sharedTaskManager.getUser().getUserID())
         TaskManager.sharedTaskManager.updateTask(form: updateForm)
-//        self.alarmStr = label
     }
     
-//    func getCategoryStr(from category:Category) -> String
-//    {
-//        var categoryStr:String = ""
-//        switch category
-//        {
-//        case Category.Study_Work:
-//            categoryStr = "Study"
-//        case Category.Entertainment:
-//            categoryStr = "Entertainment"
-//        case Category.Chore:
-//            categoryStr = "Chore"
-//        case Category.Relationship:
-//            categoryStr = "Social"
-//        }
-//        return categoryStr
-//    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //        var rowHeight = tableView.rowHeight
         var rowHeight = UITableViewAutomaticDimension
         if indexPath.row == 0
         {

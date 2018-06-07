@@ -349,8 +349,6 @@ class TaskManager {
 		content.title = NSString.localizedUserNotificationString(forKey: titleStr, arguments: nil)
 		var notificationString = "Starts "
 		task.getDescriptionString(of: .alarm, descriptionString: &notificationString)
-//		notificationString += "with duration "
-//		task.getDescriptionString(of: .duration, descriptionString: &notificationString)
 		content.body = NSString.localizedUserNotificationString(forKey: notificationString , arguments: nil)
 		
 		let notificationTime = Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart() - task.getAlarm()))
