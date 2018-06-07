@@ -20,6 +20,8 @@ Password: unX-DQ2-mA4-buZ </br>
 
 ### Running Instruction:
 
+#### It is suggested to run the App on actual iPhone if you have `iPhone 8`, `iPhone 7`, or `iPhone 6s` for smoother experience. 
+
 #### 1. Run the App on simulator<br/>
 1. From top-left corner of the Xcode window, You will see `HALP>Some Device` right next to `Run` and `Stop`.
 2. Click the device button, from the drop-down menu, choose `iPhone 8`.
