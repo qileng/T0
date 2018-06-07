@@ -167,6 +167,7 @@
 		EDC769DB20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
 		EDC769DC20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
 		EDC769DD20C355D600D9B5BA /* UICircularGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */; };
+		EDD519B220C8D1C40092D1D2 /* DispatchQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD519B120C8D1C40092D1D2 /* DispatchQueue.swift */; };
 		EDDEE2492097B3B50078827A /* Clockview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2482097B3B50078827A /* Clockview.swift */; };
 		EDDEE24D2097C36D0078827A /* SettingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE24C2097C36D0078827A /* SettingPage.swift */; };
 		EDDEE2512097CA730078827A /* Startup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE2502097CA730078827A /* Startup.swift */; };
@@ -255,6 +256,7 @@
 		EDC769D220C3497D00D9B5BA /* UIClockBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIClockBackground.swift; sourceTree = "<group>"; };
 		EDC769D620C349B300D9B5BA /* UICircularGradientSector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularGradientSector.swift; sourceTree = "<group>"; };
 		EDC769DA20C355D600D9B5BA /* UICircularGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICircularGradientView.swift; sourceTree = "<group>"; };
+		EDD519B120C8D1C40092D1D2 /* DispatchQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueue.swift; sourceTree = "<group>"; };
 		EDDEE2482097B3B50078827A /* Clockview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clockview.swift; sourceTree = "<group>"; };
 		EDDEE24A2097B77E0078827A /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		EDDEE24C2097C36D0078827A /* SettingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPage.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				8379928320A7B797005784AE /* AutolayoutExtension.swift */,
 				ED5B5AC620AA86B400E3C5F8 /* ColorExtension.swift */,
 				4A6BDC18DA95777B3555B32E /* AnimationExtension.swift */,
+				EDD519B120C8D1C40092D1D2 /* DispatchQueue.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				8318018F20C27CAC0041C0E1 /* ImageTableViewCell.swift in Sources */,
 				ED9FE996209AB14B00F0DB56 /* UserData.swift in Sources */,
 				ED5B5A8E20AA6AE000E3C5F8 /* QuickSort.swift in Sources */,
+				EDD519B220C8D1C40092D1D2 /* DispatchQueue.swift in Sources */,
 				EDC769D720C349B300D9B5BA /* UICircularGradientSector.swift in Sources */,
 				EDC769DB20C355D600D9B5BA /* UICircularGradientView.swift in Sources */,
 				EDDEE2512097CA730078827A /* Startup.swift in Sources */,

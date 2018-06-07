@@ -64,15 +64,13 @@ class ListTaskViewController: UIViewController {
 	@objc func reloadTableView()
 	{
 		print("hello")
-		DispatchQueue.global().async {
-			DispatchQueue.main.sync {
-				TaskManager.sharedTaskManager.refreshTaskManager()
-				self.tasks = TaskManager.sharedTaskManager.getTasks()
-				self.tableViewOutlet.reloadData()
-				self.tableViewOutlet.setNeedsLayout()
-				self.tableViewOutlet.layoutIfNeeded()
-				self.tableViewOutlet.setNeedsDisplay()
-			}
+		DispatchQueueMainSync { ()->(Void) in
+			TaskManager.sharedTaskManager.refreshTaskManager()
+			self.tasks = TaskManager.sharedTaskManager.getTasks()
+			self.tableViewOutlet.reloadData()
+			self.tableViewOutlet.setNeedsLayout()
+			self.tableViewOutlet.layoutIfNeeded()
+			self.tableViewOutlet.setNeedsDisplay()
 		}
 	}
     
