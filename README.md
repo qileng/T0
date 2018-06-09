@@ -59,21 +59,21 @@ Password: unX-DQ2-mA4-buZ </br>
 
 #### 4. Test Accounts.
 Test Account #1 (To be created in TUC#1):</br>
-Username: user1@test.com
-Password: 12345678
+Username: user1@test.com</br>
+Password: 12345678</br>
 
-Test Account #2:
-Username: user2@test.com 
-Password: 12345678 
+Test Account #2:</br>
+Username: user2@test.com</br>
+Password: 12345678</br>
 
-Test Account #3:
-Username: user3@test.com
-Password: 12345678
+Test Account #3:</br>
+Username: user3@test.com</br>
+Password: 12345678</br>
 
-Test Account #4:
-Username: user4@test.com
-Password: 12345678
+Test Account #4:</br>
+Username: user4@test.com</br>
+Password: 12345678</br>
 
-Test Account #5:
-Username: user5@test.com
-Password: 12345678
+Test Account #5:</br>
+Username: user5@test.com</br>
+Password: 12345678</br>
