@@ -80,11 +80,11 @@ Password: 12345678</br>
 
 #### 5. Technical Points of Contact.
 Person 1: </br>
-Name: Haozhi "Flik" Hu</br>
+Name: Haozhi "Flik" Hu (Software Development Lead)</br> 
 Phone: +1 (858) 666-5270 </br>
 E-mail: hah045@ucsd.edu </br>
 
 Person 2: </br>
-Name: Tianyi Wu</br>
+Name: Tianyi Wu (Database Specialist)</br>
 Phone: +1 (858) 265-7002 </br>
 E-mail: tiw206@ucsd.edu </br>
