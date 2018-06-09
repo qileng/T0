@@ -21,7 +21,7 @@ Password: unX-DQ2-mA4-buZ </br>
 ### Running Instruction:
 
 #### It is suggested to run the App on actual iPhone if you have `iPhone 8`, `iPhone 7`, or `iPhone 6s` for smoother experience. 
-
+#### All testcases should be run sequentially, and all workflows should be executed before the alternative workflows.
 
 #### 1. Run the App on simulator<br/>
 1. From top-left corner of the Xcode window, You will see `HALP>Some Device` right next to `Run` and `Stop`.
@@ -80,11 +80,11 @@ Password: 12345678</br>
 
 #### 5. Technical Points of Contact.
 Person 1: </br>
-Name: Haozhi "Flik" Hu</br>
+Name: Haozhi "Flik" Hu (Software Development Lead)</br> 
 Phone: +1 (858) 666-5270 </br>
 E-mail: hah045@ucsd.edu </br>
 
 Person 2: </br>
-Name: Tianyi Wu</br>
+Name: Tianyi Wu (Database Specialist)</br>
 Phone: +1 (858) 265-7002 </br>
 E-mail: tiw206@ucsd.edu </br>
