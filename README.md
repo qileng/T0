@@ -46,6 +46,8 @@ Password: unX-DQ2-mA4-buZ </br>
 ### Known Bugs:
 1. Animation on certain pages will mess up if swiping between pages stops before it completes. This is caused by a iOS bug which certain system functions will not be called properly. This is commonly caused by gesture lag on simulator but is very rare on actual iPhone.
 2. The circular gradient background of clock face in clock view does not go away when task detail page pops up. This bug only happens on rare occasions. The cause of this bug is unknown.
+3. Database saving method sometimes add extra whitespace in the end of Task Description field, which causes the system to treat blank description as something and display blank message in List View.
+4. When a dynamic task is rescheduled, it will appear as a fixed task in system.
 
 #### 4. Test Accounts.
 ### TODO
