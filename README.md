@@ -22,6 +22,7 @@ Password: unX-DQ2-mA4-buZ </br>
 
 #### It is suggested to run the App on actual iPhone if you have `iPhone 8`, `iPhone 7`, or `iPhone 6s` for smoother experience. 
 
+
 #### 1. Run the App on simulator<br/>
 1. From top-left corner of the Xcode window, You will see `HALP>Some Device` right next to `Run` and `Stop`.
 2. Click the device button, from the drop-down menu, choose `iPhone 8`.
@@ -41,13 +42,38 @@ Password: unX-DQ2-mA4-buZ </br>
 9. After Xcode installs the app, a warning will prompt. Proceed and go to `Setting`->`General`->`Device Management`->`Some Apple ID` and `Trust` it.
 10. Hit run again, app will automatically launch.
 
+
 #### 3. In case the App crashes, click `Run` again to restart the App.
 
 ### Known Bugs:
-1. Animation on certain pages will mess up if swiping between pages stops before it completes. This is caused by a iOS bug which certain system functions will not be called properly. This is commonly caused by gesture lag on simulator but is very rare on actual iPhone.
-2. The circular gradient background of clock face in clock view does not go away when task detail page pops up. This bug only happens on rare occasions. The cause of this bug is unknown.
-3. Database saving method sometimes add extra whitespace in the end of Task Description field, which causes the system to treat blank description as something and display blank message in List View.
-4. When a dynamic task is rescheduled, it will appear as a fixed task in system.
+1. If you swipe too fast into and out of Clock View, the application tends to crash.
+2. Animation on certain pages will mess up if swiping between pages stops before it completes. This is caused by a iOS bug which certain system functions will not be called properly. This is commonly caused by gesture lag on simulator but is very rare on actual iPhone.
+3. The circular gradient background of clock face in Clock View does not go away when task detail page pops up. This bug only happens on rare occasions. The cause of this bug is unknown.
+4. Database saving method sometimes adds extra whitespace at the end of the Task Description field, which causes the system to treat blank description as valid input and a display blank message in List View.
+5. When a dynamic task is rescheduled, it will appear as a fixed task in system.
+6. When the user creates a new task with the Start Time toggle off, and then later edits the same task with the Start Time toggle on, the application does not set this new start time correctly across all pages. It sets the Start Time to a default 12AM and does not change. 
+7. When using an iPhone with a size other than iPhone 8, the clock background in ClockView is not centralized when the application first starts up. It then resizes itself later while using the application. This is due to a constraint error.
+8. When using an iPhone with a size other than iPhone 8, the bubble icons in Clock View do not align correctly. Once again, this is due to a constraint error.
+9. Currently, the user can swipe out of the Task Edit Page on List View onto Clock View/Setting Page. This is more of an inconvenience than a bug.
+
 
 #### 4. Test Accounts.
-### TODO
+Test Account #1 (To be created in TUC#1):
+Username: user1@test.com
+Password: 12345678
+
+Test Account #2:
+Username: user2@test.com 
+Password: 12345678 
+
+Test Account #3:
+Username: user3@test.com
+Password: 12345678
+
+Test Account #4:
+Username: user4@test.com
+Password: 12345678
+
+Test Account #5:
+Username: user5@test.com
+Password: 12345678
