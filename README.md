@@ -4,7 +4,7 @@
 
 ### Team Account Info:
 
-Apple Account: teamzeroT0@gmail.com </br>
+Apple Account: halptest0@gmail.com </br>
 Password: unX-DQ2-mA4-buZ </br>
 
 ### Installation Requirement:
@@ -38,9 +38,11 @@ Password: unX-DQ2-mA4-buZ </br>
 5. Enter passcode on your iPhone.
 6. You will see a yellow warning ways "Preparing debugger support for XXX". Patiently wait for around 10 minutes until the warning goes away.
 7. From the top-left corner of Xcode window, use the dropdown list to select your device. It should be right next to the run and stop button.
-8. Hit run.
-9. After Xcode installs the app, a warning will prompt. Proceed and go to `Setting`->`General`->`Device Management`->`Some Apple ID` and `Trust` it.
-10. Hit run again, app will automatically launch.
+8. Click the blue `HALP` project file on the very top of file explorer.
+9. In `General`->`Signing`->`Team`, use drop down menu to select `Team Zero(Personal Team)`.
+10. Hit run.
+11. After Xcode installs the app, a warning will prompt. Proceed and go to `Setting`->`General`->`Device Management`->`Some Apple ID` and `Trust` it.
+12. Hit run again, app will automatically launch.
 
 
 #### 3. In case the App crashes, click `Run` again to restart the App.
