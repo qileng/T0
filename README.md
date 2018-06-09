@@ -27,7 +27,7 @@ Password: unX-DQ2-mA4-buZ </br>
 1. From top-left corner of the Xcode window, You will see `HALP>Some Device` right next to `Run` and `Stop`.
 2. Click the device button, from the drop-down menu, choose `iPhone 8`.
 3. Click run.
-4. Wait for simulator to boot and app will automatically launch after the simulator boots.
+4. Wait for simulator to boot and app will automatically launch after the simulator boots. Click `Allow` when asked for approval of notifications.
 
 
 #### 2. Run the App on your device (iPhone 8 or same size device including iPhone 7&6s)<br/>
@@ -42,7 +42,7 @@ Password: unX-DQ2-mA4-buZ </br>
 9. In `General`->`Signing`->`Team`, use drop down menu to select `Team Zero(Personal Team)`.
 10. Hit run.
 11. After Xcode installs the app, a warning will prompt. Proceed and go to `Setting`->`General`->`Device Management`->`Some Apple ID` and `Trust` it.
-12. Hit run again, app will automatically launch.
+12. Hit run again, app will automatically launch. Click `Allow` when asked for approval of notifications.
 
 
 #### 3. In case the App crashes, click `Run` again to restart the App.
