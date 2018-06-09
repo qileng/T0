@@ -77,3 +77,14 @@ Password: 12345678</br>
 Test Account #5:</br>
 Username: user5@test.com</br>
 Password: 12345678</br>
+
+#### 5. Technical Points of Contact.
+Person 1: </br>
+Name: Haozhi "Flik" Hu</br>
+Phone: +1 (858) 666-5270 </br>
+E-mail: hah045@ucsd.edu </br>
+
+Person 2: </br>
+Name: Tianyi Wu</br>
+Phone: +1 (858) 265-7002 </br>
+E-mail: tiw206@ucsd.edu </br>
