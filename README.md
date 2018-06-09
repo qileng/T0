@@ -22,6 +22,7 @@ Password: unX-DQ2-mA4-buZ </br>
 
 #### It is suggested to run the App on actual iPhone if you have `iPhone 8`, `iPhone 7`, or `iPhone 6s` for smoother experience. 
 
+#### Note: All test cases should be run in sequence, and for each test case, the workflows should be performed before the alternative workflows.
 
 #### 1. Run the App on simulator<br/>
 1. From top-left corner of the Xcode window, You will see `HALP>Some Device` right next to `Run` and `Stop`.
