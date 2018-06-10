@@ -22,7 +22,8 @@ final class SettingDAO: Setting {
             sqlite3_close(dbpointer)
             return false
         }
-        
+
+        // Initialize all the database access object
         let settingId = self.getSettingID()
         let notification = self.isNotificationOn() == true ? 1 : 0
         let summary = self.getSummary() as NSString
@@ -35,7 +36,8 @@ final class SettingDAO: Setting {
         
         
         let saveQueryString = "INSERT INTO SettingData (setting_id, notification, default_view, default_sort, theme, avaliable_days, start_time, end_time, last_update) " + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        
+
+        // Prepare SQL statement
         var stmt: OpaquePointer? = nil
         sqlite3_prepare(dbpointer, saveQueryString, -1, &stmt, nil)
         sqlite3_bind_int64(stmt, 1, settingId)
@@ -53,14 +55,14 @@ final class SettingDAO: Setting {
             sqlite3_close(dbpointer)
             return true
         } else {
-            let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
-            print(errmsg)
-            print(sqlite3_close(dbpointer))
+			_ = String(cString: sqlite3_errmsg(dbpointer)!)
+            sqlite3_close(dbpointer)
             return false
         }
     }
     
-    // Update
+    // Update function for user setting
+    // All arguments are optional
     func updateSettingInLocalDB(settingId: Int64, notification: Bool? = nil, Summary: String? = nil, defaultSort: SortingType? = nil,
                                 theme: Theme? = nil, availableDays: Int32? = nil, startTime: Int32? = nil, endTime: Int32? = nil) -> Bool {
         // Default local database path
@@ -72,7 +74,8 @@ final class SettingDAO: Setting {
             sqlite3_close(dbpointer)
             return false
         }
-        
+
+        // Remember input arguments
         var argumentManager = [String]()
         
         var notificationStartQueryString = ""
@@ -164,7 +167,7 @@ final class SettingDAO: Setting {
         return true
     }
     
-    // Read
+    // Read function for user setting
     func fetchSettingFromLocalDB(settingId: Int64) throws -> [Any] {
         // Default local database path
         let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
@@ -193,7 +196,6 @@ final class SettingDAO: Setting {
             queryResult.append(sqlite3_column_int(stmt, 6))
             queryResult.append(sqlite3_column_int(stmt, 7))
             queryResult.append(sqlite3_column_int(stmt, 8))
-            print("fetch setting: ", queryResult)
         }
         sqlite3_finalize(stmt)
         sqlite3_close(dbpointer)

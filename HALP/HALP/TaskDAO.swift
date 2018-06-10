@@ -73,21 +73,17 @@ final class TaskDAO: Task {
                 let DAO = TaskDAO()
                 let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
                 if userInfo["user_id"] == nil {
-                    print("Fake task id is no longer supported")
                     return false
                 }
                 let userId = userInfo["user_id"] as! Int64
                 let userDAO = UserDAO()
                 let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
                 if updateuser.count != 5 {
-                    print("Invalid user id")
-                    print("Fake user id is no longer supported")
                     return false
                 }
                 _ = userDAO.updateUserInfoInLocalDB(userId: userId, username: (updateuser[1] as! String),
                                                     password: (updateuser[2] as! String), email: (updateuser[3] as! String))
             } catch {
-                print("update_user fail")
                 return false
             }
             
@@ -99,9 +95,8 @@ final class TaskDAO: Task {
             
             return true
         } else {
-            let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
-            print(errmsg)
-            print(sqlite3_close(dbpointer))
+			_ = sqlite3_errmsg(dbpointer)
+            sqlite3_close(dbpointer)
             return false
         }
     }
@@ -346,7 +341,6 @@ final class TaskDAO: Task {
             
             let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
             if userInfo["user_id"] == nil {
-                print("Fake task id is no longer supported")
                 return false
             }
             let userId = userInfo["user_id"] as! Int64
@@ -354,14 +348,11 @@ final class TaskDAO: Task {
             let userDAO = UserDAO()
             let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
             if updateuser.count != 5 {
-                print("Invalid user id")
-                print("Fake user id is no longer supported")
                 return false
             }
             _ = userDAO.updateUserInfoInLocalDB(userId: userId, username: (updateuser[1] as! String),
                                                 password: (updateuser[2] as! String), email: (updateuser[3] as! String))
         } catch {
-            print("update_user fail")
             return false
         }
         
@@ -387,7 +378,6 @@ final class TaskDAO: Task {
             let DAO = TaskDAO()
             let userInfo = try DAO.fetchTaskInfoFromLocalDB(taskId: taskId)
             if userInfo["user_id"] == nil {
-                print("Fake task id is no longer supported")
                 return false
             }
 //
@@ -399,8 +389,6 @@ final class TaskDAO: Task {
             let userDAO = UserDAO()
             let updateuser = try userDAO.fetchUserInfoFromLocalDB(userId: userId)
             if updateuser.count != 5 {
-                print("Invalid user id")
-                print("Fake user id is no longer supported")
                 return false
             }
             _ = userDAO.updateUserInfoInLocalDB(userId: userId, username: (updateuser[1] as! String),
@@ -420,9 +408,8 @@ final class TaskDAO: Task {
             return true
         }
         else {
-            let errmsg = String(cString: sqlite3_errmsg(dbpointer)!)
-            print(errmsg)
-            print(sqlite3_close(dbpointer))
+			_ = sqlite3_errmsg(dbpointer)!
+            sqlite3_close(dbpointer)
             return false
         }
     }
@@ -455,10 +442,11 @@ func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
         let settingDAO = SettingDAO()
         let updateSummary = try settingDAO.fetchSettingFromLocalDB(settingId: userId)
         if updateSummary.count != 9 {
-            print("Invalid setting id", userId, "at ", dbPath)
             return false
         }
-        
+
+        // Update summary string
+        // Split the string into 8 substrings
         var summaryString = updateSummary[2] as! String
         var summaryValueList = summaryString.split(separator: ",")
         
@@ -505,7 +493,9 @@ func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
             summaryString = summaryString + subString + ","
         }
         summaryString = String(summaryString.dropLast())
-        
+
+
+        // Update setting info in task manager
         let settingArray = updateSummary
         let settingId = settingArray[0] as! Int64
         let notification = settingArray[1] as! Int32 == 1 ? true : false
@@ -521,11 +511,9 @@ func updateSummaryRecord(taskId: Int64, isCreate: Bool) -> Bool {
                                   endTime: end, user: settingId)
     
 
-        print("new summary string: ", userSetting.getSummary())
        TaskManager.sharedTaskManager.updateSetting(setting: userSetting)
     
     } catch {
-        print("update summary fails")
         sqlite3_close(dbpointer)
         return false
     }

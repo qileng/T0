@@ -78,7 +78,12 @@ class TaskManager {
         default:
             self.theme = ColorTheme.regular
         }
-        
+		
+		for task in tasks {
+			if task.getPriority() < 2 {
+				task.setScheduleStart(0)
+			}
+		}
 		
 		let navigationBarAppearace = UINavigationBar.appearance()
 		navigationBarAppearace.barTintColor = self.getTheme().background
@@ -88,19 +93,6 @@ class TaskManager {
     func addTask(_ form: TaskForm) {
         let newTask = Task(form as Task)
         newTask.calculatePriority()
-        print("Adding new task with title: ", newTask.getTitle())
-        print("With deadline: ", Date(timeIntervalSince1970: TimeInterval(newTask.getDeadline())).description(with: .current))
-        /*
-        if newTask < tasks.last! {
-            // TODO: save new task to db
-            // TODO: also filter fixed tasks too late in the future.
-            print("Proceed to save added task!")
-            return
-        }
-        let oldTask = tasks.popLast()
-        // TODO: save old task to db
-        print("Proceed to update old task with lowest priority!")
-        */
         tasks.append(newTask)
         // Save task to DB
         let DAO = TaskDAO(newTask)
@@ -143,7 +135,6 @@ class TaskManager {
         // TODO: Maintain a min-heap.
         // TODO: Filter fixed time task which happens not whithin 24 hours.
         // TODO: Filter past due tasks.
-        print("Loading tasks!")
         for taskID in primary_key {
             // load task by primary_key.
             let loadedTask = try Task(true, TaskID: taskID, UserID: foreign_key!)
@@ -201,7 +192,6 @@ class TaskManager {
     func updateTask(form: TaskForm) {
         //TODO
         let taskDAO = TaskDAO()
-        print(form.getTaskId())
         _ = taskDAO.updateTaskInfoInLocalDB(taskId: form.getTaskId(), taskTitle: form.getTitle(),
                                         taskDesc: form.getDescription(), category: form.getCategory().rawValue,
                                         alarm: Int(form.getAlarm()), deadline: Int(form.getDeadline()),
@@ -220,7 +210,6 @@ class TaskManager {
     func refreshTaskManager() {
         var indexs = [Int]()
         for (index,task) in self.tasks.enumerated() {
-            print(index)
 			if (task.getScheduleStart() != 0 && task.getScheduleStart() + task.getDuration() <= Int32(Date().timeIntervalSince1970)) || (task.getDeadline() <= Int32(Date().timeIntervalSince1970)) {
                 indexs.append(index)
                 pastTasks.append(task)
@@ -232,10 +221,9 @@ class TaskManager {
         indexs = indexs.reversed()
         
         for index in indexs {
-            print(index)
             self.tasks.remove(at: index)
         }
-        
+        self.clearTimeSpan()
         self.refresh()
         self.sortTasks(by: .priority)
         self.schedule()
@@ -297,15 +285,10 @@ class TaskManager {
         let task = pastTasks[0]
         // TODO: Just put task in tasks. Leave schedule to another function so that we don't
         // perform a scheduling process for each task.
-        print("Rescheduling ", task.getTitle())
 		task.setScheduleStart(0)
 		self.tasks.append(task)
         pastTasks.remove(at: 0)
-//		if type(of: self.viewController) == ListTaskViewController.self {
-//			(self.viewController! as! ListTaskViewController).tableViewOutlet.reloadData()
-//		}
 		NotificationCenter.default.post(name: NSNotification.Name(rawValue: "AlertDoneReload"), object: nil, userInfo: nil)
-		print(type(of: self.viewController!))
         promptNextAlert(self.viewController!)
     }
     
@@ -360,8 +343,6 @@ class TaskManager {
 		content.title = NSString.localizedUserNotificationString(forKey: titleStr, arguments: nil)
 		var notificationString = "Starts "
 		task.getDescriptionString(of: .alarm, descriptionString: &notificationString)
-//		notificationString += "with duration "
-//		task.getDescriptionString(of: .duration, descriptionString: &notificationString)
 		content.body = NSString.localizedUserNotificationString(forKey: notificationString , arguments: nil)
 		
 		let notificationTime = Date(timeIntervalSince1970: TimeInterval(task.getScheduleStart() - task.getAlarm()))

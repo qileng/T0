@@ -8,13 +8,11 @@
 
 import UIKit
 
-//let taskColorTheme = UIColor.HalpColors.fuzzyWuzzy
 class ListTaskViewController: UIViewController {
     
     @IBOutlet weak var tableViewOutlet: UITableView!
     
     let dateFormatter = DateFormatter()
-//    var tap: UITapGestureRecognizer?
 	var tasks = [Task]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,14 +63,15 @@ class ListTaskViewController: UIViewController {
     }
 	@objc func reloadTableView()
 	{
-		self.tasks = TaskManager.sharedTaskManager.getTasks()
-		print("hello")
-		DispatchQueue.main.async {
-			
-			self.tableViewOutlet.reloadData()
-			self.tableViewOutlet.setNeedsLayout()
-			self.tableViewOutlet.layoutIfNeeded()
-			self.tableViewOutlet.setNeedsDisplay()
+		DispatchQueue.global().async {
+			DispatchQueue.main.sync {
+				TaskManager.sharedTaskManager.refreshTaskManager()
+				self.tasks = TaskManager.sharedTaskManager.getTasks()
+				self.tableViewOutlet.reloadData()
+				self.tableViewOutlet.setNeedsLayout()
+				self.tableViewOutlet.layoutIfNeeded()
+				self.tableViewOutlet.setNeedsDisplay()
+			}
 		}
 	}
     
@@ -107,7 +106,6 @@ class ListTaskViewController: UIViewController {
 extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("task count:" ,tasks.count)
         return self.tasks.count
     }
     
@@ -115,7 +113,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         let task = tasks[indexPath.row]
         let category = task.getCategory()
         let title = task.getTitle()
-        let description = task.getDescription()
+        var description = task.getDescription()
         let eventStartTime = task.getScheduleStart()
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskListCell", for: indexPath) as! ListTaskTableViewCell
         
@@ -136,7 +134,10 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
 		cell.titleLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
 		cell.taskImageView.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
         
-        
+		while description.hasSuffix(" ") {
+			description = String(description.dropLast())
+		}
+		
 		if description.isEmpty
 		{
 			let startDate = Date(timeIntervalSince1970: TimeInterval(eventStartTime))

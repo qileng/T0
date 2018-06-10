@@ -12,7 +12,7 @@ import FirebaseCore
 
 // New sync function
 // Take an user id as argument
-
+// We don't want all online database entries sync into local database
 func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
     let firebaseRef = Database.database().reference()
     // Establish connection to both local and online database
@@ -56,7 +56,6 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
             firebaseRef.child("SettingData").child(String(userId)).observeSingleEvent(of: .value, with: {(data) in
                 print("settin online to local")
                 let dict = data.value as! [String : Any]
-                print(dict)
                 let notification = dict["notification"] as! Int32 == 1 ? true : false
                 let theme = dict["theme"] as! Int32 == 1 ? Theme.dark : Theme.regular
                 let summary = dict["default_view"] as! String
@@ -193,7 +192,6 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
                                                                          scheduleStart: (dict["scheduled_start"] as! Int),
                                                                          notification: (dict["notification"] as! Int) == 1 ? true : false)
                             }
-//                            print("local counter", counter, taskCount)
                             counter = counter + 1
                             if counter == taskCount {
                                 completion(true)
@@ -207,6 +205,9 @@ func syncDatabase(userId: Int64, completion: @escaping (Bool) -> Void) {
     })
 }
 
+
+// The following functions are for remembering the user
+// Cache a user into the active user table in the local database
 // Call after sign in
 func saveUser() -> Bool {
     // Default local database path
@@ -224,24 +225,6 @@ func saveUser() -> Bool {
     
     return true
 }
-
-func saveTasks() -> Bool {
-    // Default local database path
-    let dbPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + db
-    var dbpointer: OpaquePointer?
-    
-    if sqlite3_open(dbPath, &dbpointer) != SQLITE_OK {
-        print("fail to establish databse connection")
-        sqlite3_close(dbpointer)
-        return false
-    }
-    
-    let insertQueryString = "INSERT INTO ActiveUser (user_id) VALUES ( " + String(TaskManager.sharedTaskManager.getUser().getUserID()) + " )"
-    sqlite3_exec(dbpointer, insertQueryString, nil, nil, nil)
-    
-    return true
-}
-
 
 // Call if user clicks log out
 func clearSavedUser() -> Bool {
@@ -281,7 +264,8 @@ func loadSavedUser(completion: @escaping (Bool) -> Void) {
     }
     sqlite3_finalize(stmt)
     sqlite3_close(dbpointer)
-    
+
+    // Sync online and local database
     syncDatabase(userId: id, completion: { (flag) in
         if flag {
             do {
@@ -290,25 +274,6 @@ func loadSavedUser(completion: @escaping (Bool) -> Void) {
 				let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: id)
 				let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
 				loadSetting(user: user)
-				/*
-                let settingArray = try settingDAO.fetchSettingFromLocalDB(settingId: id)
-                let settingId = settingArray[0] as! Int64
-                let notification = settingArray[1] as! Int32 == 1 ? true : false
-                let theme = settingArray[3] as! Int32 == 1 ? Theme.dark : Theme.regular
-                let summary = settingArray[2] as! String
-                let sort = settingArray[4] as! Int32 == 0 ? SortingType.time : SortingType.priority
-                let avaliableDays = settingArray[5] as! Int32
-                let start = settingArray[6] as! Int32
-                let end = settingArray[7] as! Int32
-                
-                let userSetting = Setting(setting: settingId, notification: notification, theme: theme,
-                                          summary: summary, defaultSort: sort, availableDays: avaliableDays, startTime: start,
-                                          endTime: end, user: settingId)
-                
-                let userInfo = try userDAO.fetchUserInfoFromLocalDB(userId: id)
-                let user = UserData(username: userInfo[1] as! String, password: userInfo[2] as! String, email: userInfo[3] as! String, id: userInfo[0] as! Int64)
-                TaskManager.sharedTaskManager.setUp(new: user, setting: userSetting)
-				*/
             } catch {
                 completion(false)
             }
