@@ -164,7 +164,6 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         
         //Create a settingForm object
         settingForm = SettingForm(TaskManager.sharedTaskManager.getSetting())
-        
         //initialize databse settings
         if (!(settingForm.isNotificationOn())){
             notificationSwitch.setOn(false, animated: false)
@@ -215,6 +214,16 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     // Everytime the user swipe out of the setting page, we save current setting into task manager
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+	    if settingForm.getAvailableDays() == 0 {
+                sunSwitch.setOn(true, animated: false)
+                monSwitch.setOn(true, animated: false)
+                tueSwitch.setOn(true, animated: false)
+                wedSwitch.setOn(true, animated: false)
+                thuSwitch.setOn(true, animated: false)
+                friSwitch.setOn(true, animated: false)
+                satSwitch.setOn(true, animated: false)
+                settingForm.setAvailableDays(127)
+        }
         
         let newSetting = Setting(setting: settingForm.getSettingID(), notification: settingForm.isNotificationOn(),
                                  theme: settingForm.getTheme(), summary: settingForm.getSummary(),
@@ -536,4 +545,3 @@ class SettingViewController: UIViewController, UIPickerViewDataSource, UIPickerV
        
     }
 }
-

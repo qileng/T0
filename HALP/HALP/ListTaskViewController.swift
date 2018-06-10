@@ -113,7 +113,7 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
         let task = tasks[indexPath.row]
         let category = task.getCategory()
         let title = task.getTitle()
-        let description = task.getDescription()
+        var description = task.getDescription()
         let eventStartTime = task.getScheduleStart()
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskListCell", for: indexPath) as! ListTaskTableViewCell
         
@@ -134,7 +134,10 @@ extension ListTaskViewController: UITableViewDataSource, UITableViewDelegate {
 		cell.titleLabel.textColor = TaskManager.sharedTaskManager.getTheme().background
 		cell.taskImageView.tintColor = TaskManager.sharedTaskManager.getTheme().imgTint
         
-        
+		while description.hasSuffix(" ") {
+			description = String(description.dropLast())
+		}
+		
 		if description.isEmpty
 		{
 			let startDate = Date(timeIntervalSince1970: TimeInterval(eventStartTime))
