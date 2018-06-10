@@ -61,7 +61,7 @@ Password: unX-DQ2-mA4-buZ </br>
 9. Currently, the user can swipe out of the Task Edit Page on List View onto Clock View/Setting Page. This is more of an inconvenience than a bug.
 
 
-### Test Accounts.
+### Test Accounts:
 Test Account #1 (To be created in TUC#1):</br>
 Username: user1@test.com</br>
 Password: 12345678</br>
@@ -82,7 +82,7 @@ Test Account #5:</br>
 Username: user5@test.com</br>
 Password: 12345678</br>
 
-### Technical Points of Contact.
+### Technical Points of Contact:
 Person 1: </br>
 Name: Haozhi "Flik" Hu (Software Development Lead)</br> 
 Phone: +1 (858) 666-5270 </br>
